@@ -1,0 +1,25 @@
+{
+  "name": "radmed-usmle",
+  "version": "1.0.0",
+  "description": "High-Yield USMLE & Radiology Board Review Platform with AI Rad Bot and Admin Monitoring",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "keywords": [
+    "usmle",
+    "radiology",
+    "qbank",
+    "radbot",
+    "medical-education"
+  ],
+  "author": "RadMed Platform",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
