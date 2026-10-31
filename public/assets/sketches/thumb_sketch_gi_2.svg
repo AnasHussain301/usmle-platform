@@ -1,42 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+<svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#92400e"/>
-      <stop offset="100%" style="stop-color:#713f12"/>
+    <linearGradient id="skyGrad_sketch_gi_2_t" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#713f12"/>
+      <stop offset="100%" stop-color="#a16207"/>
     </linearGradient>
-    <filter id="blur">
-      <feGaussianBlur stdDeviation="2"/>
-    </filter>
   </defs>
-  
-  <!-- Background -->
-  <rect width="300" height="200" fill="url(#bg)"/>
-  
-  <!-- Decorative circles (scene atmosphere) -->
-  <circle cx="45" cy="40" r="80" fill="#fde68a22" filter="url(#blur)"/>
-  <circle cx="240" cy="140" r="70" fill="#fde68a18" filter="url(#blur)"/>
-  <circle cx="150" cy="100" r="110.00000000000001" fill="#92400e33" filter="url(#blur)"/>
-  
-  <!-- Grid texture overlay -->
-  <line x1="0" y1="0" x2="300" y2="0" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="25" x2="300" y2="25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="50" x2="300" y2="50" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="75" x2="300" y2="75" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="100" x2="300" y2="100" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="125" x2="300" y2="125" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="150" x2="300" y2="150" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="175" x2="300" y2="175" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
-  <line x1="0" y1="0" x2="0" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="25" y1="0" x2="25" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="50" y1="0" x2="50" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="75" y1="0" x2="75" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="100" y1="0" x2="100" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="125" y1="0" x2="125" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="150" y1="0" x2="150" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="175" y1="0" x2="175" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="200" y1="0" x2="200" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="225" y1="0" x2="225" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="250" y1="0" x2="250" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="275" y1="0" x2="275" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
-
-  <!-- Scene label badge -->
-  <rect x="10" y="10" width="120" height="18" rx="9" fill="black" fill-opacity="0.5"/>
-  <text x="60" y="22" text-anchor="middle" fill="#fde68a" font-size="8" font-weight="bold" font-family="Arial">ULCER CAVE MINE</text>
-
-  <!-- Number badge -->
-  <rect x="250" y="10" width="40" height="18" rx="9" fill="#fde68a44" stroke="#fde68a" stroke-width="1"/>
-  <text x="270" y="22" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">4.2</text>
 
   
+    <!-- Sky Gradient -->
+    <rect width="320" height="180" fill="url(#skyGrad_sketch_gi_2_t)"/>
+
+    <!-- Distant Mountains / Citadel Silhouette -->
+    <path d="M0,117 Q48,54 96,90 T208,72 T288,99.00000000000001 L320,108 L320,180 L0,180 Z" fill="rgba(66,32,6,0.45)"/>
+    <path d="M0,129.6 Q64,90 144,117 T256,104.39999999999999 L320,125.99999999999999 L320,180 L0,180 Z" fill="rgba(66,32,6,0.75)"/>
+
+    <!-- Midground Ground Terrain -->
+    <rect y="122.4" width="320" height="57.6" fill="#422006"/>
+
+    <!-- Architectural Structures & Thematic Silhouettes -->
+    <!-- Tower / Castle structure on the left -->
+    <rect x="19.2" y="62.99999999999999" width="44.800000000000004" height="62.99999999999999" fill="rgba(0,0,0,0.35)" rx="1.6"/>
+    <polygon points="12.8,62.99999999999999 41.6,39.6 70.4,62.99999999999999" fill="#fef08a" fill-opacity="0.85"/>
+    <rect x="28.799999999999997" y="86.39999999999999" width="19.2" height="21.599999999999998" rx="1.2000000000000002" fill="#713f12"/>
+
+    <!-- Central Pavilion / Archway -->
+    <rect x="102.4" y="75.6" width="115.19999999999999" height="57.6" fill="rgba(0,0,0,0.28)" rx="2.4000000000000004"/>
+    <path d="M134.4,133.2 L134.4,93.60000000000001 Q160,79.2 185.6,93.60000000000001 L185.6,133.2 Z" fill="#a16207" fill-opacity="0.8"/>
+    <polygon points="96,75.6 160,54 224,75.6" fill="#fef08a" fill-opacity="0.75"/>
+
+    <!-- Right-side Outpost / Mill -->
+    <rect x="249.60000000000002" y="68.4" width="51.2" height="61.2" fill="rgba(0,0,0,0.4)" rx="1.6"/>
+    <polygon points="243.2,68.4 275.2,46.800000000000004 307.2,68.4" fill="#fef08a" fill-opacity="0.85"/>
+    <circle cx="275.2" cy="93.60000000000001" r="7.2" fill="none" stroke="#fef08a" stroke-width="1.2000000000000002" stroke-dasharray="2.4000000000000004,1.6"/>
+
+    <!-- Winding River / Pathway -->
+    <path d="M160,133.2 Q166.4,147.6 144,162 T112,180 L208,180 Q192,158.4 176,133.2 Z" fill="#713f12" fill-opacity="0.6"/>
+
+    <!-- Ambient atmosphere lights & glow -->
+    <circle cx="160" cy="54" r="16" fill="#fef08a" fill-opacity="0.25"/>
+    <circle cx="41.6" cy="39.6" r="8" fill="#fef08a" fill-opacity="0.3"/>
   
-  <!-- Title background -->
-  <rect x="0" y="150" width="300" height="50" fill="black" fill-opacity="0.65"/>
-  
-  <!-- Title text -->
-  <text x="150" y="172" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">Peptic Ulcer Disease</text>
-  <text x="150" y="188" text-anchor="middle" fill="#fde68a" font-size="8" font-family="Arial">H. pylori miners · Acid geysers · NSAIDs bombs</text>
-  
+
+  <!-- Top Left Scene Pill -->
+  <rect x="3.2" y="3.2" width="130" height="18" rx="9" fill="rgba(0,0,0,0.65)"/>
+  <text x="73" y="20" text-anchor="middle" fill="#fef08a" font-size="8.5" font-weight="bold" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    THE MUCOSAL CRATER CAVERN
+  </text>
+
+  <!-- Top Right Number Badge -->
+  <rect x="276" y="3.2" width="36" height="18" rx="9" fill="rgba(0,0,0,0.65)" stroke="#fef08a" stroke-width="1"/>
+  <text x="294" y="20" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    4.2
+  </text>
+
+  <!-- Bottom Details Bar -->
+  <rect x="0" y="134" width="320" height="46" fill="rgba(10, 6, 18, 0.88)"/>
+  <line x1="0" y1="134" x2="320" y2="134" stroke="#fef08a" stroke-opacity="0.3" stroke-width="1"/>
+
+  <text x="160" y="152" text-anchor="middle" fill="#ffffff" font-size="10.5" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    Peptic Ulcer Disease & Gastritis
+  </text>
+  <text x="160" y="166" text-anchor="middle" fill="#fef08a" font-size="8" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    H. pylori Flagella Drillers · Bicarbonate Shields · Bleeding Artery Sump
+  </text>
 </svg>

@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#7c1d1d"/>
-      <stop offset="100%" style="stop-color:#3b0000"/>
+    <linearGradient id="skyGrad_micro_hiv_f" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7f1d1d"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
     </linearGradient>
-    <filter id="blur">
-      <feGaussianBlur stdDeviation="2"/>
-    </filter>
   </defs>
-  
-  <!-- Background -->
-  <rect width="800" height="450" fill="url(#bg)"/>
-  
-  <!-- Decorative circles (scene atmosphere) -->
-  <circle cx="120" cy="90" r="180" fill="#fca5a522" filter="url(#blur)"/>
-  <circle cx="640" cy="315" r="157.5" fill="#fca5a518" filter="url(#blur)"/>
-  <circle cx="400" cy="225" r="247.50000000000003" fill="#7c1d1d33" filter="url(#blur)"/>
-  
-  <!-- Grid texture overlay -->
-  <line x1="0" y1="0" x2="800" y2="0" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="56.25" x2="800" y2="56.25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="112.5" x2="800" y2="112.5" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="168.75" x2="800" y2="168.75" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="225" x2="800" y2="225" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="281.25" x2="800" y2="281.25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="337.5" x2="800" y2="337.5" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="393.75" x2="800" y2="393.75" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
-  <line x1="0" y1="0" x2="0" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="66.66666666666667" y1="0" x2="66.66666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="133.33333333333334" y1="0" x2="133.33333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="200" y1="0" x2="200" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="266.6666666666667" y1="0" x2="266.6666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="333.3333333333333" y1="0" x2="333.3333333333333" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="400" y1="0" x2="400" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="466.6666666666667" y1="0" x2="466.6666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="533.3333333333334" y1="0" x2="533.3333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="600" y1="0" x2="600" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="666.6666666666666" y1="0" x2="666.6666666666666" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="733.3333333333334" y1="0" x2="733.3333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
 
-  <!-- Scene label badge -->
-  <rect x="10" y="10" width="180" height="22" rx="9" fill="black" fill-opacity="0.5"/>
-  <text x="90" y="25" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold" font-family="Arial">CD4 CASTLE SIEGE</text>
-
-  <!-- Number badge -->
-  <rect x="750" y="10" width="40" height="22" rx="11" fill="#fca5a544" stroke="#fca5a5" stroke-width="1"/>
-  <text x="770" y="26" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">M6</text>
-
-  <circle cx="205.5" cy="220.5" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
-<text x="205.5" y="224.5" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">1</text><circle cx="167.9" cy="237.8" r="11" fill="#22c55e" stroke="white" stroke-width="1.5"/>
-<text x="167.9" y="241.8" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">2</text><circle cx="291.1" cy="45.2" r="11" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
-<text x="291.1" y="49.2" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">3</text><circle cx="544.3" cy="212.4" r="11" fill="#8b5cf6" stroke="white" stroke-width="1.5"/>
-<text x="544.3" y="216.4" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">4</text><circle cx="308.5" cy="269.1" r="11" fill="#ec4899" stroke="white" stroke-width="1.5"/>
-<text x="308.5" y="273.1" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">5</text><circle cx="721.5" cy="218.7" r="11" fill="#06b6d4" stroke="white" stroke-width="1.5"/>
-<text x="721.5" y="222.7" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">6</text><circle cx="411.7" cy="297.8" r="11" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-<text x="411.7" y="301.8" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">7</text><circle cx="575.3" cy="352.2" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
-<text x="575.3" y="356.2" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">8</text><circle cx="495.2" cy="202.4" r="11" fill="#22c55e" stroke="white" stroke-width="1.5"/>
-<text x="495.2" y="206.4" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">9</text><circle cx="560.6" cy="338.8" r="11" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
-<text x="560.6" y="342.8" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">10</text><circle cx="277.0" cy="150.5" r="11" fill="#8b5cf6" stroke="white" stroke-width="1.5"/>
-<text x="277.0" y="154.5" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">11</text><circle cx="542.3" cy="399.2" r="11" fill="#ec4899" stroke="white" stroke-width="1.5"/>
-<text x="542.3" y="403.2" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">12</text><circle cx="326.9" cy="129.3" r="11" fill="#06b6d4" stroke="white" stroke-width="1.5"/>
-<text x="326.9" y="133.3" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">13</text><circle cx="354.7" cy="200.0" r="11" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-<text x="354.7" y="204.0" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">14</text><circle cx="141.2" cy="256.6" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
-<text x="141.2" y="260.6" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">15</text><circle cx="649.0" cy="379.9" r="11" fill="#22c55e" stroke="white" stroke-width="1.5"/>
-<text x="649.0" y="383.9" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">16</text><circle cx="713.3" cy="249.4" r="11" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
-<text x="713.3" y="253.4" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">17</text>
   
-  <!-- Title background -->
-  <rect x="0" y="380" width="800" height="70" fill="black" fill-opacity="0.65"/>
+    <!-- Sky Gradient -->
+    <rect width="800" height="450" fill="url(#skyGrad_micro_hiv_f)"/>
+
+    <!-- Distant Mountains / Citadel Silhouette -->
+    <path d="M0,292.5 Q120,135 240,225 T520,180 T720,247.50000000000003 L800,270 L800,450 L0,450 Z" fill="rgba(69,10,10,0.45)"/>
+    <path d="M0,324 Q160,225 360,292.5 T640,261 L800,315 L800,450 L0,450 Z" fill="rgba(69,10,10,0.75)"/>
+
+    <!-- Midground Ground Terrain -->
+    <rect y="306" width="800" height="144" fill="#450a0a"/>
+
+    <!-- Architectural Structures & Thematic Silhouettes -->
+    <!-- Tower / Castle structure on the left -->
+    <rect x="48" y="157.5" width="112.00000000000001" height="157.5" fill="rgba(0,0,0,0.35)" rx="4"/>
+    <polygon points="32,157.5 104,99 176,157.5" fill="#fecaca" fill-opacity="0.85"/>
+    <rect x="72" y="216" width="48" height="54" rx="3" fill="#7f1d1d"/>
+
+    <!-- Central Pavilion / Archway -->
+    <rect x="256" y="189" width="288" height="144" fill="rgba(0,0,0,0.28)" rx="6"/>
+    <path d="M336,333 L336,234 Q400,198 463.99999999999994,234 L463.99999999999994,333 Z" fill="#b91c1c" fill-opacity="0.8"/>
+    <polygon points="240,189 400,135 560,189" fill="#fecaca" fill-opacity="0.75"/>
+
+    <!-- Right-side Outpost / Mill -->
+    <rect x="624" y="171" width="128" height="153" fill="rgba(0,0,0,0.4)" rx="4"/>
+    <polygon points="608,171 688,117 768,171" fill="#fecaca" fill-opacity="0.85"/>
+    <circle cx="688" cy="234" r="18" fill="none" stroke="#fecaca" stroke-width="3" stroke-dasharray="6,4"/>
+
+    <!-- Winding River / Pathway -->
+    <path d="M400,333 Q416,369 360,405 T280,450 L520,450 Q480,396 440.00000000000006,333 Z" fill="#7f1d1d" fill-opacity="0.6"/>
+
+    <!-- Ambient atmosphere lights & glow -->
+    <circle cx="400" cy="135" r="40" fill="#fecaca" fill-opacity="0.25"/>
+    <circle cx="104" cy="99" r="20" fill="#fecaca" fill-opacity="0.3"/>
   
-  <!-- Title text -->
-  <text x="400" y="408" text-anchor="middle" fill="white" font-size="15" font-weight="bold" font-family="Arial">HIV & AIDS</text>
-  <text x="400" y="428" text-anchor="middle" fill="#fca5a5" font-size="10" font-family="Arial">gp120 battering ram · Reverse transcriptase scribes · Protease chefs</text>
-  <text x="400" y="444" text-anchor="middle" fill="white" fill-opacity="0.5" font-size="8" font-family="Arial">Zetchy • Interactive Memory Palace Canvas</text>
+
+  <!-- Top Left Scene Pill -->
+  <rect x="8" y="8" width="200" height="26" rx="13" fill="rgba(0,0,0,0.65)"/>
+  <text x="108" y="25" text-anchor="middle" fill="#fecaca" font-size="11" font-weight="bold" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    THE HELPER T-CELL CITADEL SIEGE
+  </text>
+
+  <!-- Top Right Number Badge -->
+  <rect x="744" y="8" width="48" height="26" rx="13" fill="rgba(0,0,0,0.65)" stroke="#fecaca" stroke-width="1"/>
+  <text x="768" y="25" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    M4.1
+  </text>
+
+  <!-- Bottom Details Bar -->
+  <rect x="0" y="386" width="800" height="64" fill="rgba(10, 6, 18, 0.88)"/>
+  <line x1="0" y1="386" x2="800" y2="386" stroke="#fecaca" stroke-opacity="0.3" stroke-width="1"/>
+
+  <text x="400" y="412" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    HIV & Retroviruses (The CD4 Castle Siege)
+  </text>
+  <text x="400" y="432" text-anchor="middle" fill="#fecaca" font-size="10.5" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+    gp120 Battering Ram · Reverse Transcriptase Scribes · Protease Cleavers
+  </text>
 </svg>

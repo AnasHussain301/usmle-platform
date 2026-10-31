@@ -470,10 +470,19 @@ function renderSketchDetail(sketch) {
 
   // Update canvas image
   const canvasImg = document.getElementById('sketch-canvas-img');
-  const canvasImgSrc = sketch.canvasImage || `/assets/sketches/canvas_${sketch.id}.svg`;
+  let canvasImgSrc = sketch.canvasImage;
+  if (!canvasImgSrc) {
+    if (sketch.id === 'sketch_1_1') canvasImgSrc = '/assets/sketches/thalassemia_canvas.png';
+    else if (sketch.id === 'sketch_1_2') canvasImgSrc = '/assets/sketches/iron_deficiency_canvas.png';
+    else canvasImgSrc = `/assets/sketches/canvas_${sketch.id}.svg`;
+  }
   if (canvasImg) {
+    canvasImg.onerror = function() {
+      if (this.src.indexOf('iron_deficiency_canvas.png') === -1) {
+        this.src = '/assets/sketches/iron_deficiency_canvas.png';
+      }
+    };
     canvasImg.src = canvasImgSrc;
-    canvasImg.onerror = function() { this.src = `/assets/sketches/canvas_${sketch.id}.svg`; };
   }
 
   // Build pins overlay
