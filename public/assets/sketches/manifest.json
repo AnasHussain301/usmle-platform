@@ -1,0 +1,2866 @@
+[
+  {
+    "slug": "autopharm-1-1-cholinomimetics",
+    "prefix": "autopharm",
+    "code": "1.1",
+    "title": "Cholinomimetics",
+    "thumb": "/assets/sketches/thumb_autopharm-1-1-cholinomimetics.webp",
+    "scene": "/assets/sketches/scene_autopharm-1-1-cholinomimetics.jpg"
+  },
+  {
+    "slug": "autopharm-1-2-ache-inhibitors",
+    "prefix": "autopharm",
+    "code": "1.2",
+    "title": "Ache inhibitors",
+    "thumb": "/assets/sketches/thumb_autopharm-1-2-ache-inhibitors.webp",
+    "scene": "/assets/sketches/scene_autopharm-1-2-ache-inhibitors.jpg"
+  },
+  {
+    "slug": "autopharm-1-3-muscarinic-antagonists",
+    "prefix": "autopharm",
+    "code": "1.3",
+    "title": "Muscarinic antagonists",
+    "thumb": "/assets/sketches/thumb_autopharm-1-3-muscarinic-antagonists.webp",
+    "scene": "/assets/sketches/scene_autopharm-1-3-muscarinic-antagonists.jpg"
+  },
+  {
+    "slug": "autopharm-2-1-sympathomimetics",
+    "prefix": "autopharm",
+    "code": "2.1",
+    "title": "Sympathomimetics",
+    "thumb": "/assets/sketches/thumb_autopharm-2-1-sympathomimetics.webp",
+    "scene": "/assets/sketches/scene_autopharm-2-1-sympathomimetics.jpg"
+  },
+  {
+    "slug": "autopharm-2-2-indirect-sympathomimetics",
+    "prefix": "autopharm",
+    "code": "2.2",
+    "title": "Indirect sympathomimetics",
+    "thumb": "/assets/sketches/thumb_autopharm-2-2-indirect-sympathomimetics.webp",
+    "scene": "/assets/sketches/scene_autopharm-2-2-indirect-sympathomimetics.jpg"
+  },
+  {
+    "slug": "autopharm-2-3-alpha-drugs",
+    "prefix": "autopharm",
+    "code": "2.3",
+    "title": "Alpha drugs",
+    "thumb": "/assets/sketches/thumb_autopharm-2-3-alpha-drugs.webp",
+    "scene": "/assets/sketches/scene_autopharm-2-3-alpha-drugs.jpg"
+  },
+  {
+    "slug": "autopharm-2-4-beta-drugs",
+    "prefix": "autopharm",
+    "code": "2.4",
+    "title": "Beta drugs",
+    "thumb": "/assets/sketches/thumb_autopharm-2-4-beta-drugs.webp",
+    "scene": "/assets/sketches/scene_autopharm-2-4-beta-drugs.jpg"
+  },
+  {
+    "slug": "cardio-1-1-myocardial-ischemia",
+    "prefix": "cardio",
+    "code": "1.1",
+    "title": "Myocardial ischemia",
+    "thumb": "/assets/sketches/thumb_cardio-1-1-myocardial-ischemia.webp",
+    "scene": "/assets/sketches/scene_cardio-1-1-myocardial-ischemia.jpg"
+  },
+  {
+    "slug": "cardio-1-2-angina-acs",
+    "prefix": "cardio",
+    "code": "1.2",
+    "title": "Angina acs",
+    "thumb": "/assets/sketches/thumb_cardio-1-2-angina-acs.webp",
+    "scene": "/assets/sketches/scene_cardio-1-2-angina-acs.jpg"
+  },
+  {
+    "slug": "cardio-1-3-mi-post-mi-timeline",
+    "prefix": "cardio",
+    "code": "1.3",
+    "title": "Mi post mi timeline",
+    "thumb": "/assets/sketches/thumb_cardio-1-3-mi-post-mi-timeline.webp",
+    "scene": "/assets/sketches/scene_cardio-1-3-mi-post-mi-timeline.jpg"
+  },
+  {
+    "slug": "cardio-2-1-chf-pathophysiology",
+    "prefix": "cardio",
+    "code": "2.1",
+    "title": "Chf pathophysiology",
+    "thumb": "/assets/sketches/thumb_cardio-2-1-chf-pathophysiology.webp",
+    "scene": "/assets/sketches/scene_cardio-2-1-chf-pathophysiology.jpg"
+  },
+  {
+    "slug": "cardio-2-2-chf-clinical",
+    "prefix": "cardio",
+    "code": "2.2",
+    "title": "Chf clinical",
+    "thumb": "/assets/sketches/thumb_cardio-2-2-chf-clinical.webp",
+    "scene": "/assets/sketches/scene_cardio-2-2-chf-clinical.jpg"
+  },
+  {
+    "slug": "cardio-3-1-dilated-restrictive-cmp",
+    "prefix": "cardio",
+    "code": "3.1",
+    "title": "Dilated restrictive cmp",
+    "thumb": "/assets/sketches/thumb_cardio-3-1-dilated-restrictive-cmp.webp",
+    "scene": "/assets/sketches/scene_cardio-3-1-dilated-restrictive-cmp.jpg"
+  },
+  {
+    "slug": "cardio-3-2-hypertrophic-cmp",
+    "prefix": "cardio",
+    "code": "3.2",
+    "title": "Hypertrophic cmp",
+    "thumb": "/assets/sketches/thumb_cardio-3-2-hypertrophic-cmp.webp",
+    "scene": "/assets/sketches/scene_cardio-3-2-hypertrophic-cmp.jpg"
+  },
+  {
+    "slug": "cardio-3-3-myocarditis",
+    "prefix": "cardio",
+    "code": "3.3",
+    "title": "Myocarditis",
+    "thumb": "/assets/sketches/thumb_cardio-3-3-myocarditis.webp",
+    "scene": "/assets/sketches/scene_cardio-3-3-myocarditis.jpg"
+  },
+  {
+    "slug": "cardio-3-4-pericarditis",
+    "prefix": "cardio",
+    "code": "3.4",
+    "title": "Pericarditis",
+    "thumb": "/assets/sketches/thumb_cardio-3-4-pericarditis.webp",
+    "scene": "/assets/sketches/scene_cardio-3-4-pericarditis.jpg"
+  },
+  {
+    "slug": "cardio-4-1-rheumatic-fever-mitral-stenosis",
+    "prefix": "cardio",
+    "code": "4.1",
+    "title": "Rheumatic fever mitral stenosis",
+    "thumb": "/assets/sketches/thumb_cardio-4-1-rheumatic-fever-mitral-stenosis.webp",
+    "scene": "/assets/sketches/scene_cardio-4-1-rheumatic-fever-mitral-stenosis.jpg"
+  },
+  {
+    "slug": "cardio-4-2-mitral-regurgitation-prolapse",
+    "prefix": "cardio",
+    "code": "4.2",
+    "title": "Mitral regurgitation prolapse",
+    "thumb": "/assets/sketches/thumb_cardio-4-2-mitral-regurgitation-prolapse.webp",
+    "scene": "/assets/sketches/scene_cardio-4-2-mitral-regurgitation-prolapse.jpg"
+  },
+  {
+    "slug": "cardio-4-3-aortic-stenosis-regurgitation",
+    "prefix": "cardio",
+    "code": "4.3",
+    "title": "Aortic stenosis regurgitation",
+    "thumb": "/assets/sketches/thumb_cardio-4-3-aortic-stenosis-regurgitation.webp",
+    "scene": "/assets/sketches/scene_cardio-4-3-aortic-stenosis-regurgitation.jpg"
+  },
+  {
+    "slug": "cardio-5-1-left-to-right-shunts",
+    "prefix": "cardio",
+    "code": "5.1",
+    "title": "Left to right shunts",
+    "thumb": "/assets/sketches/thumb_cardio-5-1-left-to-right-shunts.webp",
+    "scene": "/assets/sketches/scene_cardio-5-1-left-to-right-shunts.jpg"
+  },
+  {
+    "slug": "cardio-5-2-right-to-left-shunts",
+    "prefix": "cardio",
+    "code": "5.2",
+    "title": "Right to left shunts",
+    "thumb": "/assets/sketches/thumb_cardio-5-2-right-to-left-shunts.webp",
+    "scene": "/assets/sketches/scene_cardio-5-2-right-to-left-shunts.jpg"
+  },
+  {
+    "slug": "cvpharm-1-1-digoxin-milrinone",
+    "prefix": "cvpharm",
+    "code": "1.1",
+    "title": "Digoxin milrinone",
+    "thumb": "/assets/sketches/thumb_cvpharm-1-1-digoxin-milrinone.webp",
+    "scene": "/assets/sketches/scene_cvpharm-1-1-digoxin-milrinone.jpg"
+  },
+  {
+    "slug": "cvpharm-1-2-ace-inhibitors-arbs",
+    "prefix": "cvpharm",
+    "code": "1.2",
+    "title": "Ace inhibitors arbs",
+    "thumb": "/assets/sketches/thumb_cvpharm-1-2-ace-inhibitors-arbs.webp",
+    "scene": "/assets/sketches/scene_cvpharm-1-2-ace-inhibitors-arbs.jpg"
+  },
+  {
+    "slug": "cvpharm-3-1-calcium-channel-blockers",
+    "prefix": "cvpharm",
+    "code": "3.1",
+    "title": "Calcium channel blockers",
+    "thumb": "/assets/sketches/thumb_cvpharm-3-1-calcium-channel-blockers.webp",
+    "scene": "/assets/sketches/scene_cvpharm-3-1-calcium-channel-blockers.jpg"
+  },
+  {
+    "slug": "cvpharm-3-2-hypertension-emergency",
+    "prefix": "cvpharm",
+    "code": "3.2",
+    "title": "Hypertension emergency",
+    "thumb": "/assets/sketches/thumb_cvpharm-3-2-hypertension-emergency.webp",
+    "scene": "/assets/sketches/scene_cvpharm-3-2-hypertension-emergency.jpg"
+  },
+  {
+    "slug": "cvpharm-4-1-class-i-antiarrhythmics",
+    "prefix": "cvpharm",
+    "code": "4.1",
+    "title": "Class i antiarrhythmics",
+    "thumb": "/assets/sketches/thumb_cvpharm-4-1-class-i-antiarrhythmics.webp",
+    "scene": "/assets/sketches/scene_cvpharm-4-1-class-i-antiarrhythmics.jpg"
+  },
+  {
+    "slug": "cvpharm-4-2-class-ii-antiarrhythmics",
+    "prefix": "cvpharm",
+    "code": "4.2",
+    "title": "Class ii antiarrhythmics",
+    "thumb": "/assets/sketches/thumb_cvpharm-4-2-class-ii-antiarrhythmics.webp",
+    "scene": "/assets/sketches/scene_cvpharm-4-2-class-ii-antiarrhythmics.jpg"
+  },
+  {
+    "slug": "cvpharm-4-3-class-iii-antiarrhythmics",
+    "prefix": "cvpharm",
+    "code": "4.3",
+    "title": "Class iii antiarrhythmics",
+    "thumb": "/assets/sketches/thumb_cvpharm-4-3-class-iii-antiarrhythmics.webp",
+    "scene": "/assets/sketches/scene_cvpharm-4-3-class-iii-antiarrhythmics.jpg"
+  },
+  {
+    "slug": "cvpharm-4-4-class-iv-antiarrhythmics",
+    "prefix": "cvpharm",
+    "code": "4.4",
+    "title": "Class iv antiarrhythmics",
+    "thumb": "/assets/sketches/thumb_cvpharm-4-4-class-iv-antiarrhythmics.webp",
+    "scene": "/assets/sketches/scene_cvpharm-4-4-class-iv-antiarrhythmics.jpg"
+  },
+  {
+    "slug": "cvpharm-4-5-class-v-antiarrhythmics",
+    "prefix": "cvpharm",
+    "code": "4.5",
+    "title": "Class v antiarrhythmics",
+    "thumb": "/assets/sketches/thumb_cvpharm-4-5-class-v-antiarrhythmics.webp",
+    "scene": "/assets/sketches/scene_cvpharm-4-5-class-v-antiarrhythmics.jpg"
+  },
+  {
+    "slug": "endo-1-1-hypopituitarism-etiologies",
+    "prefix": "endo",
+    "code": "1.1",
+    "title": "Hypopituitarism etiologies",
+    "thumb": "/assets/sketches/thumb_endo-1-1-hypopituitarism-etiologies.webp",
+    "scene": "/assets/sketches/scene_endo-1-1-hypopituitarism-etiologies.jpg"
+  },
+  {
+    "slug": "endo-1-2-hypopituitarism-clinical",
+    "prefix": "endo",
+    "code": "1.2",
+    "title": "Hypopituitarism clinical",
+    "thumb": "/assets/sketches/thumb_endo-1-2-hypopituitarism-clinical.webp",
+    "scene": "/assets/sketches/scene_endo-1-2-hypopituitarism-clinical.jpg"
+  },
+  {
+    "slug": "endo-1-3-hyperpituitarism",
+    "prefix": "endo",
+    "code": "1.3",
+    "title": "Hyperpituitarism",
+    "thumb": "/assets/sketches/thumb_endo-1-3-hyperpituitarism.webp",
+    "scene": "/assets/sketches/scene_endo-1-3-hyperpituitarism.jpg"
+  },
+  {
+    "slug": "endo-1-4-di-siadh",
+    "prefix": "endo",
+    "code": "1.4",
+    "title": "Di siadh",
+    "thumb": "/assets/sketches/thumb_endo-1-4-di-siadh.webp",
+    "scene": "/assets/sketches/scene_endo-1-4-di-siadh.jpg"
+  },
+  {
+    "slug": "endo-2-1-adrenal-insufficiency",
+    "prefix": "endo",
+    "code": "2.1",
+    "title": "Adrenal insufficiency",
+    "thumb": "/assets/sketches/thumb_endo-2-1-adrenal-insufficiency.webp",
+    "scene": "/assets/sketches/scene_endo-2-1-adrenal-insufficiency.jpg"
+  },
+  {
+    "slug": "endo-2-2-cah",
+    "prefix": "endo",
+    "code": "2.2",
+    "title": "Cah",
+    "thumb": "/assets/sketches/thumb_endo-2-2-cah.webp",
+    "scene": "/assets/sketches/scene_endo-2-2-cah.jpg"
+  },
+  {
+    "slug": "endo-2-3-hyperaldosteronism-hypercortisolism",
+    "prefix": "endo",
+    "code": "2.3",
+    "title": "Hyperaldosteronism hypercortisolism",
+    "thumb": "/assets/sketches/thumb_endo-2-3-hyperaldosteronism-hypercortisolism.webp",
+    "scene": "/assets/sketches/scene_endo-2-3-hyperaldosteronism-hypercortisolism.jpg"
+  },
+  {
+    "slug": "endo-2-4-cushing",
+    "prefix": "endo",
+    "code": "2.4",
+    "title": "Cushing",
+    "thumb": "/assets/sketches/thumb_endo-2-4-cushing.webp",
+    "scene": "/assets/sketches/scene_endo-2-4-cushing.jpg"
+  },
+  {
+    "slug": "endo-2-5-pheo-neuroblastoma",
+    "prefix": "endo",
+    "code": "2.5",
+    "title": "Pheo neuroblastoma",
+    "thumb": "/assets/sketches/thumb_endo-2-5-pheo-neuroblastoma.webp",
+    "scene": "/assets/sketches/scene_endo-2-5-pheo-neuroblastoma.jpg"
+  },
+  {
+    "slug": "endo-3-1-dm-pathogenesis",
+    "prefix": "endo",
+    "code": "3.1",
+    "title": "Dm pathogenesis",
+    "thumb": "/assets/sketches/thumb_endo-3-1-dm-pathogenesis.webp",
+    "scene": "/assets/sketches/scene_endo-3-1-dm-pathogenesis.jpg"
+  },
+  {
+    "slug": "endo-3-2-dka-hhs",
+    "prefix": "endo",
+    "code": "3.2",
+    "title": "Dka hhs",
+    "thumb": "/assets/sketches/thumb_endo-3-2-dka-hhs.webp",
+    "scene": "/assets/sketches/scene_endo-3-2-dka-hhs.jpg"
+  },
+  {
+    "slug": "endo-3-3-diabetes-complications",
+    "prefix": "endo",
+    "code": "3.3",
+    "title": "Diabetes complications",
+    "thumb": "/assets/sketches/thumb_endo-3-3-diabetes-complications.webp",
+    "scene": "/assets/sketches/scene_endo-3-3-diabetes-complications.jpg"
+  },
+  {
+    "slug": "endo-4-1-hypothyroidism-hashimoto",
+    "prefix": "endo",
+    "code": "4.1",
+    "title": "Hypothyroidism hashimoto",
+    "thumb": "/assets/sketches/thumb_endo-4-1-hypothyroidism-hashimoto.webp",
+    "scene": "/assets/sketches/scene_endo-4-1-hypothyroidism-hashimoto.jpg"
+  },
+  {
+    "slug": "endo-4-2-hypothyroidism-other",
+    "prefix": "endo",
+    "code": "4.2",
+    "title": "Hypothyroidism other",
+    "thumb": "/assets/sketches/thumb_endo-4-2-hypothyroidism-other.webp",
+    "scene": "/assets/sketches/scene_endo-4-2-hypothyroidism-other.jpg"
+  },
+  {
+    "slug": "endo-4-3-hyperthyroidism-graves",
+    "prefix": "endo",
+    "code": "4.3",
+    "title": "Hyperthyroidism graves",
+    "thumb": "/assets/sketches/thumb_endo-4-3-hyperthyroidism-graves.webp",
+    "scene": "/assets/sketches/scene_endo-4-3-hyperthyroidism-graves.jpg"
+  },
+  {
+    "slug": "endo-4-4-thyroid-nodules-cancer",
+    "prefix": "endo",
+    "code": "4.4",
+    "title": "Thyroid nodules cancer",
+    "thumb": "/assets/sketches/thumb_endo-4-4-thyroid-nodules-cancer.webp",
+    "scene": "/assets/sketches/scene_endo-4-4-thyroid-nodules-cancer.jpg"
+  },
+  {
+    "slug": "endo-4-5-parathyroid",
+    "prefix": "endo",
+    "code": "4.5",
+    "title": "Parathyroid",
+    "thumb": "/assets/sketches/thumb_endo-4-5-parathyroid.webp",
+    "scene": "/assets/sketches/scene_endo-4-5-parathyroid.jpg"
+  },
+  {
+    "slug": "endo-4-6-men",
+    "prefix": "endo",
+    "code": "4.6",
+    "title": "Men",
+    "thumb": "/assets/sketches/thumb_endo-4-6-men.webp",
+    "scene": "/assets/sketches/scene_endo-4-6-men.jpg"
+  },
+  {
+    "slug": "endopharm-2-1-insulin-oral-agents",
+    "prefix": "endopharm",
+    "code": "2.1",
+    "title": "Insulin oral agents",
+    "thumb": "/assets/sketches/thumb_endopharm-2-1-insulin-oral-agents.webp",
+    "scene": "/assets/sketches/scene_endopharm-2-1-insulin-oral-agents.jpg"
+  },
+  {
+    "slug": "endopharm-2-2-metformin-glitazones",
+    "prefix": "endopharm",
+    "code": "2.2",
+    "title": "Metformin glitazones",
+    "thumb": "/assets/sketches/thumb_endopharm-2-2-metformin-glitazones.webp",
+    "scene": "/assets/sketches/scene_endopharm-2-2-metformin-glitazones.jpg"
+  },
+  {
+    "slug": "endopharm-3-1-antithyroid-levothyroxine",
+    "prefix": "endopharm",
+    "code": "3.1",
+    "title": "Antithyroid levothyroxine",
+    "thumb": "/assets/sketches/thumb_endopharm-3-1-antithyroid-levothyroxine.webp",
+    "scene": "/assets/sketches/scene_endopharm-3-1-antithyroid-levothyroxine.jpg"
+  },
+  {
+    "slug": "endopharm-3-2-bisphosphonates-denosumab",
+    "prefix": "endopharm",
+    "code": "3.2",
+    "title": "Bisphosphonates denosumab",
+    "thumb": "/assets/sketches/thumb_endopharm-3-2-bisphosphonates-denosumab.webp",
+    "scene": "/assets/sketches/scene_endopharm-3-2-bisphosphonates-denosumab.jpg"
+  },
+  {
+    "slug": "endopharm-3-3-pth-vitamin-d",
+    "prefix": "endopharm",
+    "code": "3.3",
+    "title": "Pth vitamin d",
+    "thumb": "/assets/sketches/thumb_endopharm-3-3-pth-vitamin-d.webp",
+    "scene": "/assets/sketches/scene_endopharm-3-3-pth-vitamin-d.jpg"
+  },
+  {
+    "slug": "endopharm-3-4-glucocorticoids",
+    "prefix": "endopharm",
+    "code": "3.4",
+    "title": "Glucocorticoids",
+    "thumb": "/assets/sketches/thumb_endopharm-3-4-glucocorticoids.webp",
+    "scene": "/assets/sketches/scene_endopharm-3-4-glucocorticoids.jpg"
+  },
+  {
+    "slug": "endopharm-4-1-adh-ddavp-vaptans",
+    "prefix": "endopharm",
+    "code": "4.1",
+    "title": "Adh ddavp vaptans",
+    "thumb": "/assets/sketches/thumb_endopharm-4-1-adh-ddavp-vaptans.webp",
+    "scene": "/assets/sketches/scene_endopharm-4-1-adh-ddavp-vaptans.jpg"
+  },
+  {
+    "slug": "endopharm-4-2-gh-octreotide",
+    "prefix": "endopharm",
+    "code": "4.2",
+    "title": "Gh octreotide",
+    "thumb": "/assets/sketches/thumb_endopharm-4-2-gh-octreotide.webp",
+    "scene": "/assets/sketches/scene_endopharm-4-2-gh-octreotide.jpg"
+  },
+  {
+    "slug": "endopharm-5-2-gnrh-analogs",
+    "prefix": "endopharm",
+    "code": "5.2",
+    "title": "Gnrh analogs",
+    "thumb": "/assets/sketches/thumb_endopharm-5-2-gnrh-analogs.webp",
+    "scene": "/assets/sketches/scene_endopharm-5-2-gnrh-analogs.jpg"
+  },
+  {
+    "slug": "endopharm-5-3-antiandrogens",
+    "prefix": "endopharm",
+    "code": "5.3",
+    "title": "Antiandrogens",
+    "thumb": "/assets/sketches/thumb_endopharm-5-3-antiandrogens.webp",
+    "scene": "/assets/sketches/scene_endopharm-5-3-antiandrogens.jpg"
+  },
+  {
+    "slug": "gi-1-1-structural-esophageal-gerd",
+    "prefix": "gi",
+    "code": "1.1",
+    "title": "Structural esophageal gerd",
+    "thumb": "/assets/sketches/thumb_gi-1-1-structural-esophageal-gerd.webp",
+    "scene": "/assets/sketches/scene_gi-1-1-structural-esophageal-gerd.jpg"
+  },
+  {
+    "slug": "gi-1-2-esophageal-dysmotility-cancer",
+    "prefix": "gi",
+    "code": "1.2",
+    "title": "Esophageal dysmotility cancer",
+    "thumb": "/assets/sketches/thumb_gi-1-2-esophageal-dysmotility-cancer.webp",
+    "scene": "/assets/sketches/scene_gi-1-2-esophageal-dysmotility-cancer.jpg"
+  },
+  {
+    "slug": "gi-1-3-gastritis-peptic-ulcer",
+    "prefix": "gi",
+    "code": "1.3",
+    "title": "Gastritis peptic ulcer",
+    "thumb": "/assets/sketches/thumb_gi-1-3-gastritis-peptic-ulcer.webp",
+    "scene": "/assets/sketches/scene_gi-1-3-gastritis-peptic-ulcer.jpg"
+  },
+  {
+    "slug": "gi-1-4-gastric-dysmotility-cancer",
+    "prefix": "gi",
+    "code": "1.4",
+    "title": "Gastric dysmotility cancer",
+    "thumb": "/assets/sketches/thumb_gi-1-4-gastric-dysmotility-cancer.webp",
+    "scene": "/assets/sketches/scene_gi-1-4-gastric-dysmotility-cancer.jpg"
+  },
+  {
+    "slug": "gi-2-1-sbo-ileus-hernias",
+    "prefix": "gi",
+    "code": "2.1",
+    "title": "Sbo ileus hernias",
+    "thumb": "/assets/sketches/thumb_gi-2-1-sbo-ileus-hernias.webp",
+    "scene": "/assets/sketches/scene_gi-2-1-sbo-ileus-hernias.jpg"
+  },
+  {
+    "slug": "gi-2-2-carcinoid-small-bowel-neoplasms",
+    "prefix": "gi",
+    "code": "2.2",
+    "title": "Carcinoid small bowel neoplasms",
+    "thumb": "/assets/sketches/thumb_gi-2-2-carcinoid-small-bowel-neoplasms.webp",
+    "scene": "/assets/sketches/scene_gi-2-2-carcinoid-small-bowel-neoplasms.jpg"
+  },
+  {
+    "slug": "gi-2-3-intestinal-ischemia-angiodysplasia",
+    "prefix": "gi",
+    "code": "2.3",
+    "title": "Intestinal ischemia angiodysplasia",
+    "thumb": "/assets/sketches/thumb_gi-2-3-intestinal-ischemia-angiodysplasia.webp",
+    "scene": "/assets/sketches/scene_gi-2-3-intestinal-ischemia-angiodysplasia.jpg"
+  },
+  {
+    "slug": "gi-2-4-congenital-gi-disorders",
+    "prefix": "gi",
+    "code": "2.4",
+    "title": "Congenital gi disorders",
+    "thumb": "/assets/sketches/thumb_gi-2-4-congenital-gi-disorders.webp",
+    "scene": "/assets/sketches/scene_gi-2-4-congenital-gi-disorders.jpg"
+  },
+  {
+    "slug": "gi-3-1-large-bowel-appendiceal",
+    "prefix": "gi",
+    "code": "3.1",
+    "title": "Large bowel appendiceal",
+    "thumb": "/assets/sketches/thumb_gi-3-1-large-bowel-appendiceal.webp",
+    "scene": "/assets/sketches/scene_gi-3-1-large-bowel-appendiceal.jpg"
+  },
+  {
+    "slug": "gi-3-2-crohn-ulcerative-colitis",
+    "prefix": "gi",
+    "code": "3.2",
+    "title": "Crohn ulcerative colitis",
+    "thumb": "/assets/sketches/thumb_gi-3-2-crohn-ulcerative-colitis.webp",
+    "scene": "/assets/sketches/scene_gi-3-2-crohn-ulcerative-colitis.jpg"
+  },
+  {
+    "slug": "gi-3-3-colorectal-polyps-cancer",
+    "prefix": "gi",
+    "code": "3.3",
+    "title": "Colorectal polyps cancer",
+    "thumb": "/assets/sketches/thumb_gi-3-3-colorectal-polyps-cancer.webp",
+    "scene": "/assets/sketches/scene_gi-3-3-colorectal-polyps-cancer.jpg"
+  },
+  {
+    "slug": "gi-3-4-anorectal-disorders",
+    "prefix": "gi",
+    "code": "3.4",
+    "title": "Anorectal disorders",
+    "thumb": "/assets/sketches/thumb_gi-3-4-anorectal-disorders.webp",
+    "scene": "/assets/sketches/scene_gi-3-4-anorectal-disorders.jpg"
+  },
+  {
+    "slug": "gipharm-1-1-antiemetics",
+    "prefix": "gipharm",
+    "code": "1.1",
+    "title": "Antiemetics",
+    "thumb": "/assets/sketches/thumb_gipharm-1-1-antiemetics.webp",
+    "scene": "/assets/sketches/scene_gipharm-1-1-antiemetics.jpg"
+  },
+  {
+    "slug": "gipharm-1-2-h2-blockers-ppis",
+    "prefix": "gipharm",
+    "code": "1.2",
+    "title": "H2 blockers ppis",
+    "thumb": "/assets/sketches/thumb_gipharm-1-2-h2-blockers-ppis.webp",
+    "scene": "/assets/sketches/scene_gipharm-1-2-h2-blockers-ppis.jpg"
+  },
+  {
+    "slug": "gipharm-1-3-laxatives",
+    "prefix": "gipharm",
+    "code": "1.3",
+    "title": "Laxatives",
+    "thumb": "/assets/sketches/thumb_gipharm-1-3-laxatives.webp",
+    "scene": "/assets/sketches/scene_gipharm-1-3-laxatives.jpg"
+  },
+  {
+    "slug": "gipharm-1-4-antidiarrheals",
+    "prefix": "gipharm",
+    "code": "1.4",
+    "title": "Antidiarrheals",
+    "thumb": "/assets/sketches/thumb_gipharm-1-4-antidiarrheals.webp",
+    "scene": "/assets/sketches/scene_gipharm-1-4-antidiarrheals.jpg"
+  },
+  {
+    "slug": "heme-1-1-thalassemias",
+    "prefix": "heme",
+    "code": "1.1",
+    "title": "Thalassemias",
+    "thumb": "/assets/sketches/thumb_heme-1-1-thalassemias.webp",
+    "scene": "/assets/sketches/scene_heme-1-1-thalassemias.jpg"
+  },
+  {
+    "slug": "heme-1-2-iron-deficiency-acd",
+    "prefix": "heme",
+    "code": "1.2",
+    "title": "Iron deficiency acd",
+    "thumb": "/assets/sketches/thumb_heme-1-2-iron-deficiency-acd.webp",
+    "scene": "/assets/sketches/scene_heme-1-2-iron-deficiency-acd.jpg"
+  },
+  {
+    "slug": "heme-2-1-extravascular-hemolysis",
+    "prefix": "heme",
+    "code": "2.1",
+    "title": "Extravascular hemolysis",
+    "thumb": "/assets/sketches/thumb_heme-2-1-extravascular-hemolysis.webp",
+    "scene": "/assets/sketches/scene_heme-2-1-extravascular-hemolysis.jpg"
+  },
+  {
+    "slug": "heme-2-2-intravascular-hemolysis-pnh",
+    "prefix": "heme",
+    "code": "2.2",
+    "title": "Intravascular hemolysis pnh",
+    "thumb": "/assets/sketches/thumb_heme-2-2-intravascular-hemolysis-pnh.webp",
+    "scene": "/assets/sketches/scene_heme-2-2-intravascular-hemolysis-pnh.jpg"
+  },
+  {
+    "slug": "heme-2-3-g6pd-aiha",
+    "prefix": "heme",
+    "code": "2.3",
+    "title": "G6pd aiha",
+    "thumb": "/assets/sketches/thumb_heme-2-3-g6pd-aiha.webp",
+    "scene": "/assets/sketches/scene_heme-2-3-g6pd-aiha.jpg"
+  },
+  {
+    "slug": "heme-2-4-sickle-cell",
+    "prefix": "heme",
+    "code": "2.4",
+    "title": "Sickle cell",
+    "thumb": "/assets/sketches/thumb_heme-2-4-sickle-cell.webp",
+    "scene": "/assets/sketches/scene_heme-2-4-sickle-cell.jpg"
+  },
+  {
+    "slug": "heme-2-5-megaloblastic-anemia",
+    "prefix": "heme",
+    "code": "2.5",
+    "title": "Megaloblastic anemia",
+    "thumb": "/assets/sketches/thumb_heme-2-5-megaloblastic-anemia.webp",
+    "scene": "/assets/sketches/scene_heme-2-5-megaloblastic-anemia.jpg"
+  },
+  {
+    "slug": "heme-3-1-quantitative-platelet",
+    "prefix": "heme",
+    "code": "3.1",
+    "title": "Quantitative platelet",
+    "thumb": "/assets/sketches/thumb_heme-3-1-quantitative-platelet.webp",
+    "scene": "/assets/sketches/scene_heme-3-1-quantitative-platelet.jpg"
+  },
+  {
+    "slug": "heme-3-2-qualitative-platelet",
+    "prefix": "heme",
+    "code": "3.2",
+    "title": "Qualitative platelet",
+    "thumb": "/assets/sketches/thumb_heme-3-2-qualitative-platelet.webp",
+    "scene": "/assets/sketches/scene_heme-3-2-qualitative-platelet.jpg"
+  },
+  {
+    "slug": "heme-3-3-inherited-coagulation",
+    "prefix": "heme",
+    "code": "3.3",
+    "title": "Inherited coagulation",
+    "thumb": "/assets/sketches/thumb_heme-3-3-inherited-coagulation.webp",
+    "scene": "/assets/sketches/scene_heme-3-3-inherited-coagulation.jpg"
+  },
+  {
+    "slug": "heme-3-4-acquired-coagulation",
+    "prefix": "heme",
+    "code": "3.4",
+    "title": "Acquired coagulation",
+    "thumb": "/assets/sketches/thumb_heme-3-4-acquired-coagulation.webp",
+    "scene": "/assets/sketches/scene_heme-3-4-acquired-coagulation.jpg"
+  },
+  {
+    "slug": "heme-3-5-thrombosis-syndromes",
+    "prefix": "heme",
+    "code": "3.5",
+    "title": "Thrombosis syndromes",
+    "thumb": "/assets/sketches/thumb_heme-3-5-thrombosis-syndromes.webp",
+    "scene": "/assets/sketches/scene_heme-3-5-thrombosis-syndromes.jpg"
+  },
+  {
+    "slug": "hemepharm-1-1-heparin-dtis",
+    "prefix": "hemepharm",
+    "code": "1.1",
+    "title": "Heparin dtis",
+    "thumb": "/assets/sketches/thumb_hemepharm-1-1-heparin-dtis.webp",
+    "scene": "/assets/sketches/scene_hemepharm-1-1-heparin-dtis.jpg"
+  },
+  {
+    "slug": "hemepharm-1-2-warfarin",
+    "prefix": "hemepharm",
+    "code": "1.2",
+    "title": "Warfarin",
+    "thumb": "/assets/sketches/thumb_hemepharm-1-2-warfarin.webp",
+    "scene": "/assets/sketches/scene_hemepharm-1-2-warfarin.jpg"
+  },
+  {
+    "slug": "hemepharm-1-3-antiplatelets",
+    "prefix": "hemepharm",
+    "code": "1.3",
+    "title": "Antiplatelets",
+    "thumb": "/assets/sketches/thumb_hemepharm-1-3-antiplatelets.webp",
+    "scene": "/assets/sketches/scene_hemepharm-1-3-antiplatelets.jpg"
+  },
+  {
+    "slug": "hemepharm-1-4-thrombolytics",
+    "prefix": "hemepharm",
+    "code": "1.4",
+    "title": "Thrombolytics",
+    "thumb": "/assets/sketches/thumb_hemepharm-1-4-thrombolytics.webp",
+    "scene": "/assets/sketches/scene_hemepharm-1-4-thrombolytics.jpg"
+  },
+  {
+    "slug": "hemepharm-2-1-statins",
+    "prefix": "hemepharm",
+    "code": "2.1",
+    "title": "Statins",
+    "thumb": "/assets/sketches/thumb_hemepharm-2-1-statins.webp",
+    "scene": "/assets/sketches/scene_hemepharm-2-1-statins.jpg"
+  },
+  {
+    "slug": "hemepharm-2-2-cholestyramine-ezetimibe",
+    "prefix": "hemepharm",
+    "code": "2.2",
+    "title": "Cholestyramine ezetimibe",
+    "thumb": "/assets/sketches/thumb_hemepharm-2-2-cholestyramine-ezetimibe.webp",
+    "scene": "/assets/sketches/scene_hemepharm-2-2-cholestyramine-ezetimibe.jpg"
+  },
+  {
+    "slug": "hemepharm-2-3-fibrates-niacin",
+    "prefix": "hemepharm",
+    "code": "2.3",
+    "title": "Fibrates niacin",
+    "thumb": "/assets/sketches/thumb_hemepharm-2-3-fibrates-niacin.webp",
+    "scene": "/assets/sketches/scene_hemepharm-2-3-fibrates-niacin.jpg"
+  },
+  {
+    "slug": "hemepharm-2-4-pcsk9-inhibitors",
+    "prefix": "hemepharm",
+    "code": "2.4",
+    "title": "Pcsk9 inhibitors",
+    "thumb": "/assets/sketches/thumb_hemepharm-2-4-pcsk9-inhibitors.webp",
+    "scene": "/assets/sketches/scene_hemepharm-2-4-pcsk9-inhibitors.jpg"
+  },
+  {
+    "slug": "hemepharm-3-1-nsaids",
+    "prefix": "hemepharm",
+    "code": "3.1",
+    "title": "Nsaids",
+    "thumb": "/assets/sketches/thumb_hemepharm-3-1-nsaids.webp",
+    "scene": "/assets/sketches/scene_hemepharm-3-1-nsaids.jpg"
+  },
+  {
+    "slug": "hemepharm-3-2-gout-drugs",
+    "prefix": "hemepharm",
+    "code": "3.2",
+    "title": "Gout drugs",
+    "thumb": "/assets/sketches/thumb_hemepharm-3-2-gout-drugs.webp",
+    "scene": "/assets/sketches/scene_hemepharm-3-2-gout-drugs.jpg"
+  },
+  {
+    "slug": "hemepharm-3-3-immunosuppressants",
+    "prefix": "hemepharm",
+    "code": "3.3",
+    "title": "Immunosuppressants",
+    "thumb": "/assets/sketches/thumb_hemepharm-3-3-immunosuppressants.webp",
+    "scene": "/assets/sketches/scene_hemepharm-3-3-immunosuppressants.jpg"
+  },
+  {
+    "slug": "hemepharm-3-4-tnf-inhibitors",
+    "prefix": "hemepharm",
+    "code": "3.4",
+    "title": "Tnf inhibitors",
+    "thumb": "/assets/sketches/thumb_hemepharm-3-4-tnf-inhibitors.webp",
+    "scene": "/assets/sketches/scene_hemepharm-3-4-tnf-inhibitors.jpg"
+  },
+  {
+    "slug": "hepato-1-1-liver-injury-hyperbilirubinemia",
+    "prefix": "hepato",
+    "code": "1.1",
+    "title": "Liver injury hyperbilirubinemia",
+    "thumb": "/assets/sketches/thumb_hepato-1-1-liver-injury-hyperbilirubinemia.webp",
+    "scene": "/assets/sketches/scene_hepato-1-1-liver-injury-hyperbilirubinemia.jpg"
+  },
+  {
+    "slug": "hepato-1-2-gallbladder-biliary-disease",
+    "prefix": "hepato",
+    "code": "1.2",
+    "title": "Gallbladder biliary disease",
+    "thumb": "/assets/sketches/thumb_hepato-1-2-gallbladder-biliary-disease.webp",
+    "scene": "/assets/sketches/scene_hepato-1-2-gallbladder-biliary-disease.jpg"
+  },
+  {
+    "slug": "hepato-1-3-autoimmune-biliary-cancer",
+    "prefix": "hepato",
+    "code": "1.3",
+    "title": "Autoimmune biliary cancer",
+    "thumb": "/assets/sketches/thumb_hepato-1-3-autoimmune-biliary-cancer.webp",
+    "scene": "/assets/sketches/scene_hepato-1-3-autoimmune-biliary-cancer.jpg"
+  },
+  {
+    "slug": "hepato-1-4-biliary-cysts-cholangiocarcinoma",
+    "prefix": "hepato",
+    "code": "1.4",
+    "title": "Biliary cysts cholangiocarcinoma",
+    "thumb": "/assets/sketches/thumb_hepato-1-4-biliary-cysts-cholangiocarcinoma.webp",
+    "scene": "/assets/sketches/scene_hepato-1-4-biliary-cysts-cholangiocarcinoma.jpg"
+  },
+  {
+    "slug": "hepato-2-1-cirrhosis",
+    "prefix": "hepato",
+    "code": "2.1",
+    "title": "Cirrhosis",
+    "thumb": "/assets/sketches/thumb_hepato-2-1-cirrhosis.webp",
+    "scene": "/assets/sketches/scene_hepato-2-1-cirrhosis.jpg"
+  },
+  {
+    "slug": "hepato-2-2-hemochromatosis-wilson",
+    "prefix": "hepato",
+    "code": "2.2",
+    "title": "Hemochromatosis wilson",
+    "thumb": "/assets/sketches/thumb_hepato-2-2-hemochromatosis-wilson.webp",
+    "scene": "/assets/sketches/scene_hepato-2-2-hemochromatosis-wilson.jpg"
+  },
+  {
+    "slug": "hepato-2-3-fatty-liver-disease",
+    "prefix": "hepato",
+    "code": "2.3",
+    "title": "Fatty liver disease",
+    "thumb": "/assets/sketches/thumb_hepato-2-3-fatty-liver-disease.webp",
+    "scene": "/assets/sketches/scene_hepato-2-3-fatty-liver-disease.jpg"
+  },
+  {
+    "slug": "hepato-2-4-liver-tumors-hcc",
+    "prefix": "hepato",
+    "code": "2.4",
+    "title": "Liver tumors hcc",
+    "thumb": "/assets/sketches/thumb_hepato-2-4-liver-tumors-hcc.webp",
+    "scene": "/assets/sketches/scene_hepato-2-4-liver-tumors-hcc.jpg"
+  },
+  {
+    "slug": "hepato-3-1-pancreatitis",
+    "prefix": "hepato",
+    "code": "3.1",
+    "title": "Pancreatitis",
+    "thumb": "/assets/sketches/thumb_hepato-3-1-pancreatitis.webp",
+    "scene": "/assets/sketches/scene_hepato-3-1-pancreatitis.jpg"
+  },
+  {
+    "slug": "hepato-3-2-pancreatic-cancer-islet-tumors",
+    "prefix": "hepato",
+    "code": "3.2",
+    "title": "Pancreatic cancer islet tumors",
+    "thumb": "/assets/sketches/thumb_hepato-3-2-pancreatic-cancer-islet-tumors.webp",
+    "scene": "/assets/sketches/scene_hepato-3-2-pancreatic-cancer-islet-tumors.jpg"
+  },
+  {
+    "slug": "hml-1-1-mpn-mds",
+    "prefix": "hml",
+    "code": "1.1",
+    "title": "Mpn mds",
+    "thumb": "/assets/sketches/thumb_hml-1-1-mpn-mds.webp",
+    "scene": "/assets/sketches/scene_hml-1-1-mpn-mds.jpg"
+  },
+  {
+    "slug": "hml-1-2-aml-cml",
+    "prefix": "hml",
+    "code": "1.2",
+    "title": "Aml cml",
+    "thumb": "/assets/sketches/thumb_hml-1-2-aml-cml.webp",
+    "scene": "/assets/sketches/scene_hml-1-2-aml-cml.jpg"
+  },
+  {
+    "slug": "hml-1-3-polycythemia",
+    "prefix": "hml",
+    "code": "1.3",
+    "title": "Polycythemia",
+    "thumb": "/assets/sketches/thumb_hml-1-3-polycythemia.webp",
+    "scene": "/assets/sketches/scene_hml-1-3-polycythemia.jpg"
+  },
+  {
+    "slug": "hml-2-1-all-cll-hairy-cell",
+    "prefix": "hml",
+    "code": "2.1",
+    "title": "All cll hairy cell",
+    "thumb": "/assets/sketches/thumb_hml-2-1-all-cll-hairy-cell.webp",
+    "scene": "/assets/sketches/scene_hml-2-1-all-cll-hairy-cell.jpg"
+  },
+  {
+    "slug": "hml-2-2-hodgkin",
+    "prefix": "hml",
+    "code": "2.2",
+    "title": "Hodgkin",
+    "thumb": "/assets/sketches/thumb_hml-2-2-hodgkin.webp",
+    "scene": "/assets/sketches/scene_hml-2-2-hodgkin.jpg"
+  },
+  {
+    "slug": "hml-2-3-non-hodgkin",
+    "prefix": "hml",
+    "code": "2.3",
+    "title": "Non hodgkin",
+    "thumb": "/assets/sketches/thumb_hml-2-3-non-hodgkin.webp",
+    "scene": "/assets/sketches/scene_hml-2-3-non-hodgkin.jpg"
+  },
+  {
+    "slug": "hml-2-4-plasma-cell-neoplasms",
+    "prefix": "hml",
+    "code": "2.4",
+    "title": "Plasma cell neoplasms",
+    "thumb": "/assets/sketches/thumb_hml-2-4-plasma-cell-neoplasms.webp",
+    "scene": "/assets/sketches/scene_hml-2-4-plasma-cell-neoplasms.jpg"
+  },
+  {
+    "slug": "immuno-1-1-sle",
+    "prefix": "immuno",
+    "code": "1.1",
+    "title": "Sle",
+    "thumb": "/assets/sketches/thumb_immuno-1-1-sle.webp",
+    "scene": "/assets/sketches/scene_immuno-1-1-sle.jpg"
+  },
+  {
+    "slug": "immuno-1-2-sjogren-sclerosis-mctd",
+    "prefix": "immuno",
+    "code": "1.2",
+    "title": "Sjogren sclerosis mctd",
+    "thumb": "/assets/sketches/thumb_immuno-1-2-sjogren-sclerosis-mctd.webp",
+    "scene": "/assets/sketches/scene_immuno-1-2-sjogren-sclerosis-mctd.jpg"
+  },
+  {
+    "slug": "immuno-1-3-myositis",
+    "prefix": "immuno",
+    "code": "1.3",
+    "title": "Myositis",
+    "thumb": "/assets/sketches/thumb_immuno-1-3-myositis.webp",
+    "scene": "/assets/sketches/scene_immuno-1-3-myositis.jpg"
+  },
+  {
+    "slug": "immuno-1-4-amyloidosis",
+    "prefix": "immuno",
+    "code": "1.4",
+    "title": "Amyloidosis",
+    "thumb": "/assets/sketches/thumb_immuno-1-4-amyloidosis.webp",
+    "scene": "/assets/sketches/scene_immuno-1-4-amyloidosis.jpg"
+  },
+  {
+    "slug": "immuno-2-1-b-cell-digeorge",
+    "prefix": "immuno",
+    "code": "2.1",
+    "title": "B cell digeorge",
+    "thumb": "/assets/sketches/thumb_immuno-2-1-b-cell-digeorge.webp",
+    "scene": "/assets/sketches/scene_immuno-2-1-b-cell-digeorge.jpg"
+  },
+  {
+    "slug": "immuno-2-2-combined-b-t",
+    "prefix": "immuno",
+    "code": "2.2",
+    "title": "Combined b t",
+    "thumb": "/assets/sketches/thumb_immuno-2-2-combined-b-t.webp",
+    "scene": "/assets/sketches/scene_immuno-2-2-combined-b-t.jpg"
+  },
+  {
+    "slug": "immuno-2-3-complement",
+    "prefix": "immuno",
+    "code": "2.3",
+    "title": "Complement",
+    "thumb": "/assets/sketches/thumb_immuno-2-3-complement.webp",
+    "scene": "/assets/sketches/scene_immuno-2-3-complement.jpg"
+  },
+  {
+    "slug": "immuno-2-4-phagocytic",
+    "prefix": "immuno",
+    "code": "2.4",
+    "title": "Phagocytic",
+    "thumb": "/assets/sketches/thumb_immuno-2-4-phagocytic.webp",
+    "scene": "/assets/sketches/scene_immuno-2-4-phagocytic.jpg"
+  },
+  {
+    "slug": "micro-1-1-staph-aureus",
+    "prefix": "micro",
+    "code": "1.1",
+    "title": "Staph aureus",
+    "thumb": "/assets/sketches/thumb_micro-1-1-staph-aureus.webp",
+    "scene": "/assets/sketches/scene_micro-1-1-staph-aureus.jpg"
+  },
+  {
+    "slug": "micro-1-10-clostridium-difficile",
+    "prefix": "micro",
+    "code": "1.10",
+    "title": "Clostridium difficile",
+    "thumb": "/assets/sketches/thumb_micro-1-10-clostridium-difficile.webp",
+    "scene": "/assets/sketches/scene_micro-1-10-clostridium-difficile.jpg"
+  },
+  {
+    "slug": "micro-1-11-clostridium-perfringens",
+    "prefix": "micro",
+    "code": "1.11",
+    "title": "Clostridium perfringens",
+    "thumb": "/assets/sketches/thumb_micro-1-11-clostridium-perfringens.webp",
+    "scene": "/assets/sketches/scene_micro-1-11-clostridium-perfringens.jpg"
+  },
+  {
+    "slug": "micro-1-12-corynebacterium",
+    "prefix": "micro",
+    "code": "1.12",
+    "title": "Corynebacterium",
+    "thumb": "/assets/sketches/thumb_micro-1-12-corynebacterium.webp",
+    "scene": "/assets/sketches/scene_micro-1-12-corynebacterium.jpg"
+  },
+  {
+    "slug": "micro-1-13-listeria",
+    "prefix": "micro",
+    "code": "1.13",
+    "title": "Listeria",
+    "thumb": "/assets/sketches/thumb_micro-1-13-listeria.webp",
+    "scene": "/assets/sketches/scene_micro-1-13-listeria.jpg"
+  },
+  {
+    "slug": "micro-1-14-actinomyces",
+    "prefix": "micro",
+    "code": "1.14",
+    "title": "Actinomyces",
+    "thumb": "/assets/sketches/thumb_micro-1-14-actinomyces.webp",
+    "scene": "/assets/sketches/scene_micro-1-14-actinomyces.jpg"
+  },
+  {
+    "slug": "micro-1-15-nocardia",
+    "prefix": "micro",
+    "code": "1.15",
+    "title": "Nocardia",
+    "thumb": "/assets/sketches/thumb_micro-1-15-nocardia.webp",
+    "scene": "/assets/sketches/scene_micro-1-15-nocardia.jpg"
+  },
+  {
+    "slug": "micro-1-16-neisseria-genus",
+    "prefix": "micro",
+    "code": "1.16",
+    "title": "Neisseria genus",
+    "thumb": "/assets/sketches/thumb_micro-1-16-neisseria-genus.webp",
+    "scene": "/assets/sketches/scene_micro-1-16-neisseria-genus.jpg"
+  },
+  {
+    "slug": "micro-1-17-neisseria-meningitidis",
+    "prefix": "micro",
+    "code": "1.17",
+    "title": "Neisseria meningitidis",
+    "thumb": "/assets/sketches/thumb_micro-1-17-neisseria-meningitidis.webp",
+    "scene": "/assets/sketches/scene_micro-1-17-neisseria-meningitidis.jpg"
+  },
+  {
+    "slug": "micro-1-18-neisseria-gonorrhoeae",
+    "prefix": "micro",
+    "code": "1.18",
+    "title": "Neisseria gonorrhoeae",
+    "thumb": "/assets/sketches/thumb_micro-1-18-neisseria-gonorrhoeae.webp",
+    "scene": "/assets/sketches/scene_micro-1-18-neisseria-gonorrhoeae.jpg"
+  },
+  {
+    "slug": "micro-1-19-klebsiella-enterobacter-serratia",
+    "prefix": "micro",
+    "code": "1.19",
+    "title": "Klebsiella enterobacter serratia",
+    "thumb": "/assets/sketches/thumb_micro-1-19-klebsiella-enterobacter-serratia.webp",
+    "scene": "/assets/sketches/scene_micro-1-19-klebsiella-enterobacter-serratia.jpg"
+  },
+  {
+    "slug": "micro-1-2-staph-epi-sapro",
+    "prefix": "micro",
+    "code": "1.2",
+    "title": "Staph epi sapro",
+    "thumb": "/assets/sketches/thumb_micro-1-2-staph-epi-sapro.webp",
+    "scene": "/assets/sketches/scene_micro-1-2-staph-epi-sapro.jpg"
+  },
+  {
+    "slug": "micro-1-20-salmonella",
+    "prefix": "micro",
+    "code": "1.20",
+    "title": "Salmonella",
+    "thumb": "/assets/sketches/thumb_micro-1-20-salmonella.webp",
+    "scene": "/assets/sketches/scene_micro-1-20-salmonella.jpg"
+  },
+  {
+    "slug": "micro-1-21-shigella",
+    "prefix": "micro",
+    "code": "1.21",
+    "title": "Shigella",
+    "thumb": "/assets/sketches/thumb_micro-1-21-shigella.webp",
+    "scene": "/assets/sketches/scene_micro-1-21-shigella.jpg"
+  },
+  {
+    "slug": "micro-1-22-escherichia-coli",
+    "prefix": "micro",
+    "code": "1.22",
+    "title": "Escherichia coli",
+    "thumb": "/assets/sketches/thumb_micro-1-22-escherichia-coli.webp",
+    "scene": "/assets/sketches/scene_micro-1-22-escherichia-coli.jpg"
+  },
+  {
+    "slug": "micro-1-23-yersinia",
+    "prefix": "micro",
+    "code": "1.23",
+    "title": "Yersinia",
+    "thumb": "/assets/sketches/thumb_micro-1-23-yersinia.webp",
+    "scene": "/assets/sketches/scene_micro-1-23-yersinia.jpg"
+  },
+  {
+    "slug": "micro-1-24-campylobacter",
+    "prefix": "micro",
+    "code": "1.24",
+    "title": "Campylobacter",
+    "thumb": "/assets/sketches/thumb_micro-1-24-campylobacter.webp",
+    "scene": "/assets/sketches/scene_micro-1-24-campylobacter.jpg"
+  },
+  {
+    "slug": "micro-1-25-vibrio",
+    "prefix": "micro",
+    "code": "1.25",
+    "title": "Vibrio",
+    "thumb": "/assets/sketches/thumb_micro-1-25-vibrio.webp",
+    "scene": "/assets/sketches/scene_micro-1-25-vibrio.jpg"
+  },
+  {
+    "slug": "micro-1-26-helicobacter-pylori",
+    "prefix": "micro",
+    "code": "1.26",
+    "title": "Helicobacter pylori",
+    "thumb": "/assets/sketches/thumb_micro-1-26-helicobacter-pylori.webp",
+    "scene": "/assets/sketches/scene_micro-1-26-helicobacter-pylori.jpg"
+  },
+  {
+    "slug": "micro-1-27-pseudomonas",
+    "prefix": "micro",
+    "code": "1.27",
+    "title": "Pseudomonas",
+    "thumb": "/assets/sketches/thumb_micro-1-27-pseudomonas.webp",
+    "scene": "/assets/sketches/scene_micro-1-27-pseudomonas.jpg"
+  },
+  {
+    "slug": "micro-1-28-proteus",
+    "prefix": "micro",
+    "code": "1.28",
+    "title": "Proteus",
+    "thumb": "/assets/sketches/thumb_micro-1-28-proteus.webp",
+    "scene": "/assets/sketches/scene_micro-1-28-proteus.jpg"
+  },
+  {
+    "slug": "micro-1-29-bordetella",
+    "prefix": "micro",
+    "code": "1.29",
+    "title": "Bordetella",
+    "thumb": "/assets/sketches/thumb_micro-1-29-bordetella.webp",
+    "scene": "/assets/sketches/scene_micro-1-29-bordetella.jpg"
+  },
+  {
+    "slug": "micro-1-3-strep-pyogenes",
+    "prefix": "micro",
+    "code": "1.3",
+    "title": "Strep pyogenes",
+    "thumb": "/assets/sketches/thumb_micro-1-3-strep-pyogenes.webp",
+    "scene": "/assets/sketches/scene_micro-1-3-strep-pyogenes.jpg"
+  },
+  {
+    "slug": "micro-1-30-haemophilus",
+    "prefix": "micro",
+    "code": "1.30",
+    "title": "Haemophilus",
+    "thumb": "/assets/sketches/thumb_micro-1-30-haemophilus.webp",
+    "scene": "/assets/sketches/scene_micro-1-30-haemophilus.jpg"
+  },
+  {
+    "slug": "micro-1-31-legionella",
+    "prefix": "micro",
+    "code": "1.31",
+    "title": "Legionella",
+    "thumb": "/assets/sketches/thumb_micro-1-31-legionella.webp",
+    "scene": "/assets/sketches/scene_micro-1-31-legionella.jpg"
+  },
+  {
+    "slug": "micro-1-32-bartonella",
+    "prefix": "micro",
+    "code": "1.32",
+    "title": "Bartonella",
+    "thumb": "/assets/sketches/thumb_micro-1-32-bartonella.webp",
+    "scene": "/assets/sketches/scene_micro-1-32-bartonella.jpg"
+  },
+  {
+    "slug": "micro-1-33-brucella",
+    "prefix": "micro",
+    "code": "1.33",
+    "title": "Brucella",
+    "thumb": "/assets/sketches/thumb_micro-1-33-brucella.webp",
+    "scene": "/assets/sketches/scene_micro-1-33-brucella.jpg"
+  },
+  {
+    "slug": "micro-1-34-francisella",
+    "prefix": "micro",
+    "code": "1.34",
+    "title": "Francisella",
+    "thumb": "/assets/sketches/thumb_micro-1-34-francisella.webp",
+    "scene": "/assets/sketches/scene_micro-1-34-francisella.jpg"
+  },
+  {
+    "slug": "micro-1-35-pasteurella",
+    "prefix": "micro",
+    "code": "1.35",
+    "title": "Pasteurella",
+    "thumb": "/assets/sketches/thumb_micro-1-35-pasteurella.webp",
+    "scene": "/assets/sketches/scene_micro-1-35-pasteurella.jpg"
+  },
+  {
+    "slug": "micro-1-36-mycobacterium-tuberculosis",
+    "prefix": "micro",
+    "code": "1.36",
+    "title": "Mycobacterium tuberculosis",
+    "thumb": "/assets/sketches/thumb_micro-1-36-mycobacterium-tuberculosis.webp",
+    "scene": "/assets/sketches/scene_micro-1-36-mycobacterium-tuberculosis.jpg"
+  },
+  {
+    "slug": "micro-1-37-mycobacterium-leprae",
+    "prefix": "micro",
+    "code": "1.37",
+    "title": "Mycobacterium leprae",
+    "thumb": "/assets/sketches/thumb_micro-1-37-mycobacterium-leprae.webp",
+    "scene": "/assets/sketches/scene_micro-1-37-mycobacterium-leprae.jpg"
+  },
+  {
+    "slug": "micro-1-38-borrelia",
+    "prefix": "micro",
+    "code": "1.38",
+    "title": "Borrelia",
+    "thumb": "/assets/sketches/thumb_micro-1-38-borrelia.webp",
+    "scene": "/assets/sketches/scene_micro-1-38-borrelia.jpg"
+  },
+  {
+    "slug": "micro-1-39-leptospira",
+    "prefix": "micro",
+    "code": "1.39",
+    "title": "Leptospira",
+    "thumb": "/assets/sketches/thumb_micro-1-39-leptospira.webp",
+    "scene": "/assets/sketches/scene_micro-1-39-leptospira.jpg"
+  },
+  {
+    "slug": "micro-1-4-strep-agalactiae",
+    "prefix": "micro",
+    "code": "1.4",
+    "title": "Strep agalactiae",
+    "thumb": "/assets/sketches/thumb_micro-1-4-strep-agalactiae.webp",
+    "scene": "/assets/sketches/scene_micro-1-4-strep-agalactiae.jpg"
+  },
+  {
+    "slug": "micro-1-40-treponema",
+    "prefix": "micro",
+    "code": "1.40",
+    "title": "Treponema",
+    "thumb": "/assets/sketches/thumb_micro-1-40-treponema.webp",
+    "scene": "/assets/sketches/scene_micro-1-40-treponema.jpg"
+  },
+  {
+    "slug": "micro-1-41-chlamydia",
+    "prefix": "micro",
+    "code": "1.41",
+    "title": "Chlamydia",
+    "thumb": "/assets/sketches/thumb_micro-1-41-chlamydia.webp",
+    "scene": "/assets/sketches/scene_micro-1-41-chlamydia.jpg"
+  },
+  {
+    "slug": "micro-1-42-coxiella",
+    "prefix": "micro",
+    "code": "1.42",
+    "title": "Coxiella",
+    "thumb": "/assets/sketches/thumb_micro-1-42-coxiella.webp",
+    "scene": "/assets/sketches/scene_micro-1-42-coxiella.jpg"
+  },
+  {
+    "slug": "micro-1-43-gardnerella",
+    "prefix": "micro",
+    "code": "1.43",
+    "title": "Gardnerella",
+    "thumb": "/assets/sketches/thumb_micro-1-43-gardnerella.webp",
+    "scene": "/assets/sketches/scene_micro-1-43-gardnerella.jpg"
+  },
+  {
+    "slug": "micro-1-44-mycoplasma",
+    "prefix": "micro",
+    "code": "1.44",
+    "title": "Mycoplasma",
+    "thumb": "/assets/sketches/thumb_micro-1-44-mycoplasma.webp",
+    "scene": "/assets/sketches/scene_micro-1-44-mycoplasma.jpg"
+  },
+  {
+    "slug": "micro-1-45-rickettsia-genus",
+    "prefix": "micro",
+    "code": "1.45",
+    "title": "Rickettsia genus",
+    "thumb": "/assets/sketches/thumb_micro-1-45-rickettsia-genus.webp",
+    "scene": "/assets/sketches/scene_micro-1-45-rickettsia-genus.jpg"
+  },
+  {
+    "slug": "micro-1-46-rickettsia-prowazekii",
+    "prefix": "micro",
+    "code": "1.46",
+    "title": "Rickettsia prowazekii",
+    "thumb": "/assets/sketches/thumb_micro-1-46-rickettsia-prowazekii.webp",
+    "scene": "/assets/sketches/scene_micro-1-46-rickettsia-prowazekii.jpg"
+  },
+  {
+    "slug": "micro-1-47-rickettsia-rickettsii",
+    "prefix": "micro",
+    "code": "1.47",
+    "title": "Rickettsia rickettsii",
+    "thumb": "/assets/sketches/thumb_micro-1-47-rickettsia-rickettsii.webp",
+    "scene": "/assets/sketches/scene_micro-1-47-rickettsia-rickettsii.jpg"
+  },
+  {
+    "slug": "micro-1-48-strep-gallolyticus",
+    "prefix": "micro",
+    "code": "1.48",
+    "title": "Strep gallolyticus",
+    "thumb": "/assets/sketches/thumb_micro-1-48-strep-gallolyticus.webp",
+    "scene": "/assets/sketches/scene_micro-1-48-strep-gallolyticus.jpg"
+  },
+  {
+    "slug": "micro-1-49-moraxella",
+    "prefix": "micro",
+    "code": "1.49",
+    "title": "Moraxella",
+    "thumb": "/assets/sketches/thumb_micro-1-49-moraxella.webp",
+    "scene": "/assets/sketches/scene_micro-1-49-moraxella.jpg"
+  },
+  {
+    "slug": "micro-1-5-strep-pneumo-viridans",
+    "prefix": "micro",
+    "code": "1.5",
+    "title": "Strep pneumo viridans",
+    "thumb": "/assets/sketches/thumb_micro-1-5-strep-pneumo-viridans.webp",
+    "scene": "/assets/sketches/scene_micro-1-5-strep-pneumo-viridans.jpg"
+  },
+  {
+    "slug": "micro-1-50-atypical-mycobacteria",
+    "prefix": "micro",
+    "code": "1.50",
+    "title": "Atypical mycobacteria",
+    "thumb": "/assets/sketches/thumb_micro-1-50-atypical-mycobacteria.webp",
+    "scene": "/assets/sketches/scene_micro-1-50-atypical-mycobacteria.jpg"
+  },
+  {
+    "slug": "micro-1-51-borrelia-recurrentis",
+    "prefix": "micro",
+    "code": "1.51",
+    "title": "Borrelia recurrentis",
+    "thumb": "/assets/sketches/thumb_micro-1-51-borrelia-recurrentis.webp",
+    "scene": "/assets/sketches/scene_micro-1-51-borrelia-recurrentis.jpg"
+  },
+  {
+    "slug": "micro-1-52-burkholderia",
+    "prefix": "micro",
+    "code": "1.52",
+    "title": "Burkholderia",
+    "thumb": "/assets/sketches/thumb_micro-1-52-burkholderia.webp",
+    "scene": "/assets/sketches/scene_micro-1-52-burkholderia.jpg"
+  },
+  {
+    "slug": "micro-1-53-anaplasma-ehrlichia",
+    "prefix": "micro",
+    "code": "1.53",
+    "title": "Anaplasma ehrlichia",
+    "thumb": "/assets/sketches/thumb_micro-1-53-anaplasma-ehrlichia.webp",
+    "scene": "/assets/sketches/scene_micro-1-53-anaplasma-ehrlichia.jpg"
+  },
+  {
+    "slug": "micro-1-6-enterococcus",
+    "prefix": "micro",
+    "code": "1.6",
+    "title": "Enterococcus",
+    "thumb": "/assets/sketches/thumb_micro-1-6-enterococcus.webp",
+    "scene": "/assets/sketches/scene_micro-1-6-enterococcus.jpg"
+  },
+  {
+    "slug": "micro-1-7-bacillus",
+    "prefix": "micro",
+    "code": "1.7",
+    "title": "Bacillus",
+    "thumb": "/assets/sketches/thumb_micro-1-7-bacillus.webp",
+    "scene": "/assets/sketches/scene_micro-1-7-bacillus.jpg"
+  },
+  {
+    "slug": "micro-1-8-clostridium-tetani",
+    "prefix": "micro",
+    "code": "1.8",
+    "title": "Clostridium tetani",
+    "thumb": "/assets/sketches/thumb_micro-1-8-clostridium-tetani.webp",
+    "scene": "/assets/sketches/scene_micro-1-8-clostridium-tetani.jpg"
+  },
+  {
+    "slug": "micro-1-9-clostridium-botulinum",
+    "prefix": "micro",
+    "code": "1.9",
+    "title": "Clostridium botulinum",
+    "thumb": "/assets/sketches/thumb_micro-1-9-clostridium-botulinum.webp",
+    "scene": "/assets/sketches/scene_micro-1-9-clostridium-botulinum.jpg"
+  },
+  {
+    "slug": "micro-2-1-picornaviridae",
+    "prefix": "micro",
+    "code": "2.1",
+    "title": "Picornaviridae",
+    "thumb": "/assets/sketches/thumb_micro-2-1-picornaviridae.webp",
+    "scene": "/assets/sketches/scene_micro-2-1-picornaviridae.jpg"
+  },
+  {
+    "slug": "micro-2-10-coronavirus",
+    "prefix": "micro",
+    "code": "2.10",
+    "title": "Coronavirus",
+    "thumb": "/assets/sketches/thumb_micro-2-10-coronavirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-10-coronavirus.jpg"
+  },
+  {
+    "slug": "micro-2-11-hiv",
+    "prefix": "micro",
+    "code": "2.11",
+    "title": "Hiv",
+    "thumb": "/assets/sketches/thumb_micro-2-11-hiv.webp",
+    "scene": "/assets/sketches/scene_micro-2-11-hiv.jpg"
+  },
+  {
+    "slug": "micro-2-12-orthomyxovirus",
+    "prefix": "micro",
+    "code": "2.12",
+    "title": "Orthomyxovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-12-orthomyxovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-12-orthomyxovirus.jpg"
+  },
+  {
+    "slug": "micro-2-13-paramyxovirus",
+    "prefix": "micro",
+    "code": "2.13",
+    "title": "Paramyxovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-13-paramyxovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-13-paramyxovirus.jpg"
+  },
+  {
+    "slug": "micro-2-14-rhabdovirus",
+    "prefix": "micro",
+    "code": "2.14",
+    "title": "Rhabdovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-14-rhabdovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-14-rhabdovirus.jpg"
+  },
+  {
+    "slug": "micro-2-15-filovirus",
+    "prefix": "micro",
+    "code": "2.15",
+    "title": "Filovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-15-filovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-15-filovirus.jpg"
+  },
+  {
+    "slug": "micro-2-16-bunyavirus",
+    "prefix": "micro",
+    "code": "2.16",
+    "title": "Bunyavirus",
+    "thumb": "/assets/sketches/thumb_micro-2-16-bunyavirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-16-bunyavirus.jpg"
+  },
+  {
+    "slug": "micro-2-17-arenavirus",
+    "prefix": "micro",
+    "code": "2.17",
+    "title": "Arenavirus",
+    "thumb": "/assets/sketches/thumb_micro-2-17-arenavirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-17-arenavirus.jpg"
+  },
+  {
+    "slug": "micro-2-18-reoviridae",
+    "prefix": "micro",
+    "code": "2.18",
+    "title": "Reoviridae",
+    "thumb": "/assets/sketches/thumb_micro-2-18-reoviridae.webp",
+    "scene": "/assets/sketches/scene_micro-2-18-reoviridae.jpg"
+  },
+  {
+    "slug": "micro-2-19-hsv",
+    "prefix": "micro",
+    "code": "2.19",
+    "title": "Hsv",
+    "thumb": "/assets/sketches/thumb_micro-2-19-hsv.webp",
+    "scene": "/assets/sketches/scene_micro-2-19-hsv.jpg"
+  },
+  {
+    "slug": "micro-2-2-poliovirus",
+    "prefix": "micro",
+    "code": "2.2",
+    "title": "Poliovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-2-poliovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-2-poliovirus.jpg"
+  },
+  {
+    "slug": "micro-2-20-ebv",
+    "prefix": "micro",
+    "code": "2.20",
+    "title": "Ebv",
+    "thumb": "/assets/sketches/thumb_micro-2-20-ebv.webp",
+    "scene": "/assets/sketches/scene_micro-2-20-ebv.jpg"
+  },
+  {
+    "slug": "micro-2-21-cmv",
+    "prefix": "micro",
+    "code": "2.21",
+    "title": "Cmv",
+    "thumb": "/assets/sketches/thumb_micro-2-21-cmv.webp",
+    "scene": "/assets/sketches/scene_micro-2-21-cmv.jpg"
+  },
+  {
+    "slug": "micro-2-22-vzv",
+    "prefix": "micro",
+    "code": "2.22",
+    "title": "Vzv",
+    "thumb": "/assets/sketches/thumb_micro-2-22-vzv.webp",
+    "scene": "/assets/sketches/scene_micro-2-22-vzv.jpg"
+  },
+  {
+    "slug": "micro-2-23-hhv6",
+    "prefix": "micro",
+    "code": "2.23",
+    "title": "Hhv6",
+    "thumb": "/assets/sketches/thumb_micro-2-23-hhv6.webp",
+    "scene": "/assets/sketches/scene_micro-2-23-hhv6.jpg"
+  },
+  {
+    "slug": "micro-2-24-hhv8",
+    "prefix": "micro",
+    "code": "2.24",
+    "title": "Hhv8",
+    "thumb": "/assets/sketches/thumb_micro-2-24-hhv8.webp",
+    "scene": "/assets/sketches/scene_micro-2-24-hhv8.jpg"
+  },
+  {
+    "slug": "micro-2-25-polyomavirus",
+    "prefix": "micro",
+    "code": "2.25",
+    "title": "Polyomavirus",
+    "thumb": "/assets/sketches/thumb_micro-2-25-polyomavirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-25-polyomavirus.jpg"
+  },
+  {
+    "slug": "micro-2-26-hpv",
+    "prefix": "micro",
+    "code": "2.26",
+    "title": "Hpv",
+    "thumb": "/assets/sketches/thumb_micro-2-26-hpv.webp",
+    "scene": "/assets/sketches/scene_micro-2-26-hpv.jpg"
+  },
+  {
+    "slug": "micro-2-27-parvovirus",
+    "prefix": "micro",
+    "code": "2.27",
+    "title": "Parvovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-27-parvovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-27-parvovirus.jpg"
+  },
+  {
+    "slug": "micro-2-28-adenovirus",
+    "prefix": "micro",
+    "code": "2.28",
+    "title": "Adenovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-28-adenovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-28-adenovirus.jpg"
+  },
+  {
+    "slug": "micro-2-29-poxvirus",
+    "prefix": "micro",
+    "code": "2.29",
+    "title": "Poxvirus",
+    "thumb": "/assets/sketches/thumb_micro-2-29-poxvirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-29-poxvirus.jpg"
+  },
+  {
+    "slug": "micro-2-3-coxsackie",
+    "prefix": "micro",
+    "code": "2.3",
+    "title": "Coxsackie",
+    "thumb": "/assets/sketches/thumb_micro-2-3-coxsackie.webp",
+    "scene": "/assets/sketches/scene_micro-2-3-coxsackie.jpg"
+  },
+  {
+    "slug": "micro-2-30-hepatitis-b",
+    "prefix": "micro",
+    "code": "2.30",
+    "title": "Hepatitis b",
+    "thumb": "/assets/sketches/thumb_micro-2-30-hepatitis-b.webp",
+    "scene": "/assets/sketches/scene_micro-2-30-hepatitis-b.jpg"
+  },
+  {
+    "slug": "micro-2-4-rhinovirus",
+    "prefix": "micro",
+    "code": "2.4",
+    "title": "Rhinovirus",
+    "thumb": "/assets/sketches/thumb_micro-2-4-rhinovirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-4-rhinovirus.jpg"
+  },
+  {
+    "slug": "micro-2-5-hepatitis-a",
+    "prefix": "micro",
+    "code": "2.5",
+    "title": "Hepatitis a",
+    "thumb": "/assets/sketches/thumb_micro-2-5-hepatitis-a.webp",
+    "scene": "/assets/sketches/scene_micro-2-5-hepatitis-a.jpg"
+  },
+  {
+    "slug": "micro-2-6-caliciviridae",
+    "prefix": "micro",
+    "code": "2.6",
+    "title": "Caliciviridae",
+    "thumb": "/assets/sketches/thumb_micro-2-6-caliciviridae.webp",
+    "scene": "/assets/sketches/scene_micro-2-6-caliciviridae.jpg"
+  },
+  {
+    "slug": "micro-2-7-flavivirus",
+    "prefix": "micro",
+    "code": "2.7",
+    "title": "Flavivirus",
+    "thumb": "/assets/sketches/thumb_micro-2-7-flavivirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-7-flavivirus.jpg"
+  },
+  {
+    "slug": "micro-2-8-hepatitis-c",
+    "prefix": "micro",
+    "code": "2.8",
+    "title": "Hepatitis c",
+    "thumb": "/assets/sketches/thumb_micro-2-8-hepatitis-c.webp",
+    "scene": "/assets/sketches/scene_micro-2-8-hepatitis-c.jpg"
+  },
+  {
+    "slug": "micro-2-9-togavirus",
+    "prefix": "micro",
+    "code": "2.9",
+    "title": "Togavirus",
+    "thumb": "/assets/sketches/thumb_micro-2-9-togavirus.webp",
+    "scene": "/assets/sketches/scene_micro-2-9-togavirus.jpg"
+  },
+  {
+    "slug": "micro-3-1-giardia",
+    "prefix": "micro",
+    "code": "3.1",
+    "title": "Giardia",
+    "thumb": "/assets/sketches/thumb_micro-3-1-giardia.webp",
+    "scene": "/assets/sketches/scene_micro-3-1-giardia.jpg"
+  },
+  {
+    "slug": "micro-3-10-plasmodium",
+    "prefix": "micro",
+    "code": "3.10",
+    "title": "Plasmodium",
+    "thumb": "/assets/sketches/thumb_micro-3-10-plasmodium.webp",
+    "scene": "/assets/sketches/scene_micro-3-10-plasmodium.jpg"
+  },
+  {
+    "slug": "micro-3-11-trichomonas",
+    "prefix": "micro",
+    "code": "3.11",
+    "title": "Trichomonas",
+    "thumb": "/assets/sketches/thumb_micro-3-11-trichomonas.webp",
+    "scene": "/assets/sketches/scene_micro-3-11-trichomonas.jpg"
+  },
+  {
+    "slug": "micro-3-12-intestinal-nematodes",
+    "prefix": "micro",
+    "code": "3.12",
+    "title": "Intestinal nematodes",
+    "thumb": "/assets/sketches/thumb_micro-3-12-intestinal-nematodes.webp",
+    "scene": "/assets/sketches/scene_micro-3-12-intestinal-nematodes.jpg"
+  },
+  {
+    "slug": "micro-3-13-tissue-nematodes",
+    "prefix": "micro",
+    "code": "3.13",
+    "title": "Tissue nematodes",
+    "thumb": "/assets/sketches/thumb_micro-3-13-tissue-nematodes.webp",
+    "scene": "/assets/sketches/scene_micro-3-13-tissue-nematodes.jpg"
+  },
+  {
+    "slug": "micro-3-14-cestodes",
+    "prefix": "micro",
+    "code": "3.14",
+    "title": "Cestodes",
+    "thumb": "/assets/sketches/thumb_micro-3-14-cestodes.webp",
+    "scene": "/assets/sketches/scene_micro-3-14-cestodes.jpg"
+  },
+  {
+    "slug": "micro-3-15-trematodes",
+    "prefix": "micro",
+    "code": "3.15",
+    "title": "Trematodes",
+    "thumb": "/assets/sketches/thumb_micro-3-15-trematodes.webp",
+    "scene": "/assets/sketches/scene_micro-3-15-trematodes.jpg"
+  },
+  {
+    "slug": "micro-3-2-entamoeba",
+    "prefix": "micro",
+    "code": "3.2",
+    "title": "Entamoeba",
+    "thumb": "/assets/sketches/thumb_micro-3-2-entamoeba.webp",
+    "scene": "/assets/sketches/scene_micro-3-2-entamoeba.jpg"
+  },
+  {
+    "slug": "micro-3-3-cryptosporidium",
+    "prefix": "micro",
+    "code": "3.3",
+    "title": "Cryptosporidium",
+    "thumb": "/assets/sketches/thumb_micro-3-3-cryptosporidium.webp",
+    "scene": "/assets/sketches/scene_micro-3-3-cryptosporidium.jpg"
+  },
+  {
+    "slug": "micro-3-4-toxoplasma",
+    "prefix": "micro",
+    "code": "3.4",
+    "title": "Toxoplasma",
+    "thumb": "/assets/sketches/thumb_micro-3-4-toxoplasma.webp",
+    "scene": "/assets/sketches/scene_micro-3-4-toxoplasma.jpg"
+  },
+  {
+    "slug": "micro-3-5-trypanosoma-brucei",
+    "prefix": "micro",
+    "code": "3.5",
+    "title": "Trypanosoma brucei",
+    "thumb": "/assets/sketches/thumb_micro-3-5-trypanosoma-brucei.webp",
+    "scene": "/assets/sketches/scene_micro-3-5-trypanosoma-brucei.jpg"
+  },
+  {
+    "slug": "micro-3-6-naegleria",
+    "prefix": "micro",
+    "code": "3.6",
+    "title": "Naegleria",
+    "thumb": "/assets/sketches/thumb_micro-3-6-naegleria.webp",
+    "scene": "/assets/sketches/scene_micro-3-6-naegleria.jpg"
+  },
+  {
+    "slug": "micro-3-7-trypanosoma-cruzi",
+    "prefix": "micro",
+    "code": "3.7",
+    "title": "Trypanosoma cruzi",
+    "thumb": "/assets/sketches/thumb_micro-3-7-trypanosoma-cruzi.webp",
+    "scene": "/assets/sketches/scene_micro-3-7-trypanosoma-cruzi.jpg"
+  },
+  {
+    "slug": "micro-3-8-babesia",
+    "prefix": "micro",
+    "code": "3.8",
+    "title": "Babesia",
+    "thumb": "/assets/sketches/thumb_micro-3-8-babesia.webp",
+    "scene": "/assets/sketches/scene_micro-3-8-babesia.jpg"
+  },
+  {
+    "slug": "micro-3-9-leishmania",
+    "prefix": "micro",
+    "code": "3.9",
+    "title": "Leishmania",
+    "thumb": "/assets/sketches/thumb_micro-3-9-leishmania.webp",
+    "scene": "/assets/sketches/scene_micro-3-9-leishmania.jpg"
+  },
+  {
+    "slug": "micro-4-1-histoplasma",
+    "prefix": "micro",
+    "code": "4.1",
+    "title": "Histoplasma",
+    "thumb": "/assets/sketches/thumb_micro-4-1-histoplasma.webp",
+    "scene": "/assets/sketches/scene_micro-4-1-histoplasma.jpg"
+  },
+  {
+    "slug": "micro-4-10-cryptococcus",
+    "prefix": "micro",
+    "code": "4.10",
+    "title": "Cryptococcus",
+    "thumb": "/assets/sketches/thumb_micro-4-10-cryptococcus.webp",
+    "scene": "/assets/sketches/scene_micro-4-10-cryptococcus.jpg"
+  },
+  {
+    "slug": "micro-4-11-mucormycosis",
+    "prefix": "micro",
+    "code": "4.11",
+    "title": "Mucormycosis",
+    "thumb": "/assets/sketches/thumb_micro-4-11-mucormycosis.webp",
+    "scene": "/assets/sketches/scene_micro-4-11-mucormycosis.jpg"
+  },
+  {
+    "slug": "micro-4-12-pneumocystis",
+    "prefix": "micro",
+    "code": "4.12",
+    "title": "Pneumocystis",
+    "thumb": "/assets/sketches/thumb_micro-4-12-pneumocystis.webp",
+    "scene": "/assets/sketches/scene_micro-4-12-pneumocystis.jpg"
+  },
+  {
+    "slug": "micro-4-2-blastomyces",
+    "prefix": "micro",
+    "code": "4.2",
+    "title": "Blastomyces",
+    "thumb": "/assets/sketches/thumb_micro-4-2-blastomyces.webp",
+    "scene": "/assets/sketches/scene_micro-4-2-blastomyces.jpg"
+  },
+  {
+    "slug": "micro-4-3-coccidioides",
+    "prefix": "micro",
+    "code": "4.3",
+    "title": "Coccidioides",
+    "thumb": "/assets/sketches/thumb_micro-4-3-coccidioides.webp",
+    "scene": "/assets/sketches/scene_micro-4-3-coccidioides.jpg"
+  },
+  {
+    "slug": "micro-4-4-paracoccidioides",
+    "prefix": "micro",
+    "code": "4.4",
+    "title": "Paracoccidioides",
+    "thumb": "/assets/sketches/thumb_micro-4-4-paracoccidioides.webp",
+    "scene": "/assets/sketches/scene_micro-4-4-paracoccidioides.jpg"
+  },
+  {
+    "slug": "micro-4-5-malassezia",
+    "prefix": "micro",
+    "code": "4.5",
+    "title": "Malassezia",
+    "thumb": "/assets/sketches/thumb_micro-4-5-malassezia.webp",
+    "scene": "/assets/sketches/scene_micro-4-5-malassezia.jpg"
+  },
+  {
+    "slug": "micro-4-6-dermatophytes",
+    "prefix": "micro",
+    "code": "4.6",
+    "title": "Dermatophytes",
+    "thumb": "/assets/sketches/thumb_micro-4-6-dermatophytes.webp",
+    "scene": "/assets/sketches/scene_micro-4-6-dermatophytes.jpg"
+  },
+  {
+    "slug": "micro-4-7-sporothrix",
+    "prefix": "micro",
+    "code": "4.7",
+    "title": "Sporothrix",
+    "thumb": "/assets/sketches/thumb_micro-4-7-sporothrix.webp",
+    "scene": "/assets/sketches/scene_micro-4-7-sporothrix.jpg"
+  },
+  {
+    "slug": "micro-4-8-candida",
+    "prefix": "micro",
+    "code": "4.8",
+    "title": "Candida",
+    "thumb": "/assets/sketches/thumb_micro-4-8-candida.webp",
+    "scene": "/assets/sketches/scene_micro-4-8-candida.jpg"
+  },
+  {
+    "slug": "micro-4-9-aspergillus",
+    "prefix": "micro",
+    "code": "4.9",
+    "title": "Aspergillus",
+    "thumb": "/assets/sketches/thumb_micro-4-9-aspergillus.webp",
+    "scene": "/assets/sketches/scene_micro-4-9-aspergillus.jpg"
+  },
+  {
+    "slug": "micropharm-1-1-penicillin",
+    "prefix": "micropharm",
+    "code": "1.1",
+    "title": "Penicillin",
+    "thumb": "/assets/sketches/thumb_micropharm-1-1-penicillin.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-1-penicillin.jpg"
+  },
+  {
+    "slug": "micropharm-1-2-nafcillin-oxacillin",
+    "prefix": "micropharm",
+    "code": "1.2",
+    "title": "Nafcillin oxacillin",
+    "thumb": "/assets/sketches/thumb_micropharm-1-2-nafcillin-oxacillin.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-2-nafcillin-oxacillin.jpg"
+  },
+  {
+    "slug": "micropharm-1-3-ampicillin-amoxicillin",
+    "prefix": "micropharm",
+    "code": "1.3",
+    "title": "Ampicillin amoxicillin",
+    "thumb": "/assets/sketches/thumb_micropharm-1-3-ampicillin-amoxicillin.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-3-ampicillin-amoxicillin.jpg"
+  },
+  {
+    "slug": "micropharm-1-4-cephalosporins",
+    "prefix": "micropharm",
+    "code": "1.4",
+    "title": "Cephalosporins",
+    "thumb": "/assets/sketches/thumb_micropharm-1-4-cephalosporins.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-4-cephalosporins.jpg"
+  },
+  {
+    "slug": "micropharm-1-5-monobactams-carbapenems",
+    "prefix": "micropharm",
+    "code": "1.5",
+    "title": "Monobactams carbapenems",
+    "thumb": "/assets/sketches/thumb_micropharm-1-5-monobactams-carbapenems.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-5-monobactams-carbapenems.jpg"
+  },
+  {
+    "slug": "micropharm-1-6-vancomycin",
+    "prefix": "micropharm",
+    "code": "1.6",
+    "title": "Vancomycin",
+    "thumb": "/assets/sketches/thumb_micropharm-1-6-vancomycin.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-6-vancomycin.jpg"
+  },
+  {
+    "slug": "micropharm-1-7-daptomycin",
+    "prefix": "micropharm",
+    "code": "1.7",
+    "title": "Daptomycin",
+    "thumb": "/assets/sketches/thumb_micropharm-1-7-daptomycin.webp",
+    "scene": "/assets/sketches/scene_micropharm-1-7-daptomycin.jpg"
+  },
+  {
+    "slug": "micropharm-2-1-tetracyclines",
+    "prefix": "micropharm",
+    "code": "2.1",
+    "title": "Tetracyclines",
+    "thumb": "/assets/sketches/thumb_micropharm-2-1-tetracyclines.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-1-tetracyclines.jpg"
+  },
+  {
+    "slug": "micropharm-2-2-macrolides",
+    "prefix": "micropharm",
+    "code": "2.2",
+    "title": "Macrolides",
+    "thumb": "/assets/sketches/thumb_micropharm-2-2-macrolides.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-2-macrolides.jpg"
+  },
+  {
+    "slug": "micropharm-2-3-clindamycin",
+    "prefix": "micropharm",
+    "code": "2.3",
+    "title": "Clindamycin",
+    "thumb": "/assets/sketches/thumb_micropharm-2-3-clindamycin.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-3-clindamycin.jpg"
+  },
+  {
+    "slug": "micropharm-2-4-chloramphenicol",
+    "prefix": "micropharm",
+    "code": "2.4",
+    "title": "Chloramphenicol",
+    "thumb": "/assets/sketches/thumb_micropharm-2-4-chloramphenicol.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-4-chloramphenicol.jpg"
+  },
+  {
+    "slug": "micropharm-2-5-linezolid",
+    "prefix": "micropharm",
+    "code": "2.5",
+    "title": "Linezolid",
+    "thumb": "/assets/sketches/thumb_micropharm-2-5-linezolid.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-5-linezolid.jpg"
+  },
+  {
+    "slug": "micropharm-2-6-aminoglycosides",
+    "prefix": "micropharm",
+    "code": "2.6",
+    "title": "Aminoglycosides",
+    "thumb": "/assets/sketches/thumb_micropharm-2-6-aminoglycosides.webp",
+    "scene": "/assets/sketches/scene_micropharm-2-6-aminoglycosides.jpg"
+  },
+  {
+    "slug": "micropharm-3-1-tuberculosis-drugs",
+    "prefix": "micropharm",
+    "code": "3.1",
+    "title": "Tuberculosis drugs",
+    "thumb": "/assets/sketches/thumb_micropharm-3-1-tuberculosis-drugs.webp",
+    "scene": "/assets/sketches/scene_micropharm-3-1-tuberculosis-drugs.jpg"
+  },
+  {
+    "slug": "micropharm-3-2-leprosy-drugs",
+    "prefix": "micropharm",
+    "code": "3.2",
+    "title": "Leprosy drugs",
+    "thumb": "/assets/sketches/thumb_micropharm-3-2-leprosy-drugs.webp",
+    "scene": "/assets/sketches/scene_micropharm-3-2-leprosy-drugs.jpg"
+  },
+  {
+    "slug": "micropharm-4-1-trimethoprim-sulfamethoxazole",
+    "prefix": "micropharm",
+    "code": "4.1",
+    "title": "Trimethoprim sulfamethoxazole",
+    "thumb": "/assets/sketches/thumb_micropharm-4-1-trimethoprim-sulfamethoxazole.webp",
+    "scene": "/assets/sketches/scene_micropharm-4-1-trimethoprim-sulfamethoxazole.jpg"
+  },
+  {
+    "slug": "micropharm-4-2-fluoroquinolones",
+    "prefix": "micropharm",
+    "code": "4.2",
+    "title": "Fluoroquinolones",
+    "thumb": "/assets/sketches/thumb_micropharm-4-2-fluoroquinolones.webp",
+    "scene": "/assets/sketches/scene_micropharm-4-2-fluoroquinolones.jpg"
+  },
+  {
+    "slug": "micropharm-4-3-metronidazole",
+    "prefix": "micropharm",
+    "code": "4.3",
+    "title": "Metronidazole",
+    "thumb": "/assets/sketches/thumb_micropharm-4-3-metronidazole.webp",
+    "scene": "/assets/sketches/scene_micropharm-4-3-metronidazole.jpg"
+  },
+  {
+    "slug": "micropharm-5-1-amphotericin-flucytosine-nystatin",
+    "prefix": "micropharm",
+    "code": "5.1",
+    "title": "Amphotericin flucytosine nystatin",
+    "thumb": "/assets/sketches/thumb_micropharm-5-1-amphotericin-flucytosine-nystatin.webp",
+    "scene": "/assets/sketches/scene_micropharm-5-1-amphotericin-flucytosine-nystatin.jpg"
+  },
+  {
+    "slug": "micropharm-5-2-azoles",
+    "prefix": "micropharm",
+    "code": "5.2",
+    "title": "Azoles",
+    "thumb": "/assets/sketches/thumb_micropharm-5-2-azoles.webp",
+    "scene": "/assets/sketches/scene_micropharm-5-2-azoles.jpg"
+  },
+  {
+    "slug": "micropharm-5-3-griseofulvin-terbinafine-echinocandins",
+    "prefix": "micropharm",
+    "code": "5.3",
+    "title": "Griseofulvin terbinafine echinocandins",
+    "thumb": "/assets/sketches/thumb_micropharm-5-3-griseofulvin-terbinafine-echinocandins.webp",
+    "scene": "/assets/sketches/scene_micropharm-5-3-griseofulvin-terbinafine-echinocandins.jpg"
+  },
+  {
+    "slug": "micropharm-6-1-nrtis",
+    "prefix": "micropharm",
+    "code": "6.1",
+    "title": "Nrtis",
+    "thumb": "/assets/sketches/thumb_micropharm-6-1-nrtis.webp",
+    "scene": "/assets/sketches/scene_micropharm-6-1-nrtis.jpg"
+  },
+  {
+    "slug": "micropharm-6-2-nnrtis",
+    "prefix": "micropharm",
+    "code": "6.2",
+    "title": "Nnrtis",
+    "thumb": "/assets/sketches/thumb_micropharm-6-2-nnrtis.webp",
+    "scene": "/assets/sketches/scene_micropharm-6-2-nnrtis.jpg"
+  },
+  {
+    "slug": "micropharm-6-3-protease-inhibitors",
+    "prefix": "micropharm",
+    "code": "6.3",
+    "title": "Protease inhibitors",
+    "thumb": "/assets/sketches/thumb_micropharm-6-3-protease-inhibitors.webp",
+    "scene": "/assets/sketches/scene_micropharm-6-3-protease-inhibitors.jpg"
+  },
+  {
+    "slug": "micropharm-6-4-maraviroc-fusion-integrase",
+    "prefix": "micropharm",
+    "code": "6.4",
+    "title": "Maraviroc fusion integrase",
+    "thumb": "/assets/sketches/thumb_micropharm-6-4-maraviroc-fusion-integrase.webp",
+    "scene": "/assets/sketches/scene_micropharm-6-4-maraviroc-fusion-integrase.jpg"
+  },
+  {
+    "slug": "micropharm-7-1-interferon",
+    "prefix": "micropharm",
+    "code": "7.1",
+    "title": "Interferon",
+    "thumb": "/assets/sketches/thumb_micropharm-7-1-interferon.webp",
+    "scene": "/assets/sketches/scene_micropharm-7-1-interferon.jpg"
+  },
+  {
+    "slug": "micropharm-7-2-ribavirin-sofosbuvir-simeprevir",
+    "prefix": "micropharm",
+    "code": "7.2",
+    "title": "Ribavirin sofosbuvir simeprevir",
+    "thumb": "/assets/sketches/thumb_micropharm-7-2-ribavirin-sofosbuvir-simeprevir.webp",
+    "scene": "/assets/sketches/scene_micropharm-7-2-ribavirin-sofosbuvir-simeprevir.jpg"
+  },
+  {
+    "slug": "micropharm-8-1-acyclovir-valacyclovir-famciclovir",
+    "prefix": "micropharm",
+    "code": "8.1",
+    "title": "Acyclovir valacyclovir famciclovir",
+    "thumb": "/assets/sketches/thumb_micropharm-8-1-acyclovir-valacyclovir-famciclovir.webp",
+    "scene": "/assets/sketches/scene_micropharm-8-1-acyclovir-valacyclovir-famciclovir.jpg"
+  },
+  {
+    "slug": "micropharm-8-2-ganciclovir-foscarnet-cidofovir",
+    "prefix": "micropharm",
+    "code": "8.2",
+    "title": "Ganciclovir foscarnet cidofovir",
+    "thumb": "/assets/sketches/thumb_micropharm-8-2-ganciclovir-foscarnet-cidofovir.webp",
+    "scene": "/assets/sketches/scene_micropharm-8-2-ganciclovir-foscarnet-cidofovir.jpg"
+  },
+  {
+    "slug": "msk-1-1-osteoporosis-paget",
+    "prefix": "msk",
+    "code": "1.1",
+    "title": "Osteoporosis paget",
+    "thumb": "/assets/sketches/thumb_msk-1-1-osteoporosis-paget.webp",
+    "scene": "/assets/sketches/scene_msk-1-1-osteoporosis-paget.jpg"
+  },
+  {
+    "slug": "msk-1-2-osteomalacia-rickets",
+    "prefix": "msk",
+    "code": "1.2",
+    "title": "Osteomalacia rickets",
+    "thumb": "/assets/sketches/thumb_msk-1-2-osteomalacia-rickets.webp",
+    "scene": "/assets/sketches/scene_msk-1-2-osteomalacia-rickets.jpg"
+  },
+  {
+    "slug": "msk-1-3-benign-bone-tumors",
+    "prefix": "msk",
+    "code": "1.3",
+    "title": "Benign bone tumors",
+    "thumb": "/assets/sketches/thumb_msk-1-3-benign-bone-tumors.webp",
+    "scene": "/assets/sketches/scene_msk-1-3-benign-bone-tumors.jpg"
+  },
+  {
+    "slug": "msk-1-4-malignant-bone-tumors",
+    "prefix": "msk",
+    "code": "1.4",
+    "title": "Malignant bone tumors",
+    "thumb": "/assets/sketches/thumb_msk-1-4-malignant-bone-tumors.webp",
+    "scene": "/assets/sketches/scene_msk-1-4-malignant-bone-tumors.jpg"
+  },
+  {
+    "slug": "msk-1-5-congenital-bone-disorders",
+    "prefix": "msk",
+    "code": "1.5",
+    "title": "Congenital bone disorders",
+    "thumb": "/assets/sketches/thumb_msk-1-5-congenital-bone-disorders.webp",
+    "scene": "/assets/sketches/scene_msk-1-5-congenital-bone-disorders.jpg"
+  },
+  {
+    "slug": "msk-2-1-osteoarthritis",
+    "prefix": "msk",
+    "code": "2.1",
+    "title": "Osteoarthritis",
+    "thumb": "/assets/sketches/thumb_msk-2-1-osteoarthritis.webp",
+    "scene": "/assets/sketches/scene_msk-2-1-osteoarthritis.jpg"
+  },
+  {
+    "slug": "msk-2-2-rheumatoid-arthritis",
+    "prefix": "msk",
+    "code": "2.2",
+    "title": "Rheumatoid arthritis",
+    "thumb": "/assets/sketches/thumb_msk-2-2-rheumatoid-arthritis.webp",
+    "scene": "/assets/sketches/scene_msk-2-2-rheumatoid-arthritis.jpg"
+  },
+  {
+    "slug": "msk-2-3-gout-pseudogout",
+    "prefix": "msk",
+    "code": "2.3",
+    "title": "Gout pseudogout",
+    "thumb": "/assets/sketches/thumb_msk-2-3-gout-pseudogout.webp",
+    "scene": "/assets/sketches/scene_msk-2-3-gout-pseudogout.jpg"
+  },
+  {
+    "slug": "msk-3-1-muscular-dystrophies",
+    "prefix": "msk",
+    "code": "3.1",
+    "title": "Muscular dystrophies",
+    "thumb": "/assets/sketches/thumb_msk-3-1-muscular-dystrophies.webp",
+    "scene": "/assets/sketches/scene_msk-3-1-muscular-dystrophies.jpg"
+  },
+  {
+    "slug": "msk-3-2-myasthenia-lems",
+    "prefix": "msk",
+    "code": "3.2",
+    "title": "Myasthenia lems",
+    "thumb": "/assets/sketches/thumb_msk-3-2-myasthenia-lems.webp",
+    "scene": "/assets/sketches/scene_msk-3-2-myasthenia-lems.jpg"
+  },
+  {
+    "slug": "msk-4-1-ak-scc-bcc",
+    "prefix": "msk",
+    "code": "4.1",
+    "title": "Ak scc bcc",
+    "thumb": "/assets/sketches/thumb_msk-4-1-ak-scc-bcc.webp",
+    "scene": "/assets/sketches/scene_msk-4-1-ak-scc-bcc.jpg"
+  },
+  {
+    "slug": "msk-4-2-melanoma",
+    "prefix": "msk",
+    "code": "4.2",
+    "title": "Melanoma",
+    "thumb": "/assets/sketches/thumb_msk-4-2-melanoma.webp",
+    "scene": "/assets/sketches/scene_msk-4-2-melanoma.jpg"
+  },
+  {
+    "slug": "neuropharm-1-1-propofol-etomidate-ketamine",
+    "prefix": "neuropharm",
+    "code": "1.1",
+    "title": "Propofol etomidate ketamine",
+    "thumb": "/assets/sketches/thumb_neuropharm-1-1-propofol-etomidate-ketamine.webp",
+    "scene": "/assets/sketches/scene_neuropharm-1-1-propofol-etomidate-ketamine.jpg"
+  },
+  {
+    "slug": "neuropharm-1-2-inhaled-anesthetics-dantrolene",
+    "prefix": "neuropharm",
+    "code": "1.2",
+    "title": "Inhaled anesthetics dantrolene",
+    "thumb": "/assets/sketches/thumb_neuropharm-1-2-inhaled-anesthetics-dantrolene.webp",
+    "scene": "/assets/sketches/scene_neuropharm-1-2-inhaled-anesthetics-dantrolene.jpg"
+  },
+  {
+    "slug": "neuropharm-1-3-opiates-naloxone-naltrexone",
+    "prefix": "neuropharm",
+    "code": "1.3",
+    "title": "Opiates naloxone naltrexone",
+    "thumb": "/assets/sketches/thumb_neuropharm-1-3-opiates-naloxone-naltrexone.webp",
+    "scene": "/assets/sketches/scene_neuropharm-1-3-opiates-naloxone-naltrexone.jpg"
+  },
+  {
+    "slug": "neuropharm-2-1-ssris-snris-cyproheptadine",
+    "prefix": "neuropharm",
+    "code": "2.1",
+    "title": "Ssris snris cyproheptadine",
+    "thumb": "/assets/sketches/thumb_neuropharm-2-1-ssris-snris-cyproheptadine.webp",
+    "scene": "/assets/sketches/scene_neuropharm-2-1-ssris-snris-cyproheptadine.jpg"
+  },
+  {
+    "slug": "neuropharm-2-2-tcas",
+    "prefix": "neuropharm",
+    "code": "2.2",
+    "title": "Tcas",
+    "thumb": "/assets/sketches/thumb_neuropharm-2-2-tcas.webp",
+    "scene": "/assets/sketches/scene_neuropharm-2-2-tcas.jpg"
+  },
+  {
+    "slug": "neuropharm-2-3-mao-inhibitors",
+    "prefix": "neuropharm",
+    "code": "2.3",
+    "title": "Mao inhibitors",
+    "thumb": "/assets/sketches/thumb_neuropharm-2-3-mao-inhibitors.webp",
+    "scene": "/assets/sketches/scene_neuropharm-2-3-mao-inhibitors.jpg"
+  },
+  {
+    "slug": "neuropharm-2-4-atypical-antidepressants",
+    "prefix": "neuropharm",
+    "code": "2.4",
+    "title": "Atypical antidepressants",
+    "thumb": "/assets/sketches/thumb_neuropharm-2-4-atypical-antidepressants.webp",
+    "scene": "/assets/sketches/scene_neuropharm-2-4-atypical-antidepressants.jpg"
+  },
+  {
+    "slug": "neuropharm-2-5-buspirone",
+    "prefix": "neuropharm",
+    "code": "2.5",
+    "title": "Buspirone",
+    "thumb": "/assets/sketches/thumb_neuropharm-2-5-buspirone.webp",
+    "scene": "/assets/sketches/scene_neuropharm-2-5-buspirone.jpg"
+  },
+  {
+    "slug": "neuropharm-3-1-lithium",
+    "prefix": "neuropharm",
+    "code": "3.1",
+    "title": "Lithium",
+    "thumb": "/assets/sketches/thumb_neuropharm-3-1-lithium.webp",
+    "scene": "/assets/sketches/scene_neuropharm-3-1-lithium.jpg"
+  },
+  {
+    "slug": "neuropharm-3-2-valproate-topiramate-lamotrigine-levetiracetam",
+    "prefix": "neuropharm",
+    "code": "3.2",
+    "title": "Valproate topiramate lamotrigine levetiracetam",
+    "thumb": "/assets/sketches/thumb_neuropharm-3-2-valproate-topiramate-lamotrigine-levetiracetam.webp",
+    "scene": "/assets/sketches/scene_neuropharm-3-2-valproate-topiramate-lamotrigine-levetiracetam.jpg"
+  },
+  {
+    "slug": "neuropharm-3-3-carbamazepine-phenytoin-gabapentin",
+    "prefix": "neuropharm",
+    "code": "3.3",
+    "title": "Carbamazepine phenytoin gabapentin",
+    "thumb": "/assets/sketches/thumb_neuropharm-3-3-carbamazepine-phenytoin-gabapentin.webp",
+    "scene": "/assets/sketches/scene_neuropharm-3-3-carbamazepine-phenytoin-gabapentin.jpg"
+  },
+  {
+    "slug": "neuropharm-3-4-ethosuximide",
+    "prefix": "neuropharm",
+    "code": "3.4",
+    "title": "Ethosuximide",
+    "thumb": "/assets/sketches/thumb_neuropharm-3-4-ethosuximide.webp",
+    "scene": "/assets/sketches/scene_neuropharm-3-4-ethosuximide.jpg"
+  },
+  {
+    "slug": "neuropharm-4-1-first-generation-antipsychotics",
+    "prefix": "neuropharm",
+    "code": "4.1",
+    "title": "First generation antipsychotics",
+    "thumb": "/assets/sketches/thumb_neuropharm-4-1-first-generation-antipsychotics.webp",
+    "scene": "/assets/sketches/scene_neuropharm-4-1-first-generation-antipsychotics.jpg"
+  },
+  {
+    "slug": "neuropharm-4-2-second-generation-antipsychotics",
+    "prefix": "neuropharm",
+    "code": "4.2",
+    "title": "Second generation antipsychotics",
+    "thumb": "/assets/sketches/thumb_neuropharm-4-2-second-generation-antipsychotics.webp",
+    "scene": "/assets/sketches/scene_neuropharm-4-2-second-generation-antipsychotics.jpg"
+  },
+  {
+    "slug": "neuropharm-4-3-parkinsons-drugs",
+    "prefix": "neuropharm",
+    "code": "4.3",
+    "title": "Parkinsons drugs",
+    "thumb": "/assets/sketches/thumb_neuropharm-4-3-parkinsons-drugs.webp",
+    "scene": "/assets/sketches/scene_neuropharm-4-3-parkinsons-drugs.jpg"
+  },
+  {
+    "slug": "neuropharm-5-1-narcolepsy-drugs",
+    "prefix": "neuropharm",
+    "code": "5.1",
+    "title": "Narcolepsy drugs",
+    "thumb": "/assets/sketches/thumb_neuropharm-5-1-narcolepsy-drugs.webp",
+    "scene": "/assets/sketches/scene_neuropharm-5-1-narcolepsy-drugs.jpg"
+  },
+  {
+    "slug": "neuropharm-6-1-benzodiazepines-flumazenil",
+    "prefix": "neuropharm",
+    "code": "6.1",
+    "title": "Benzodiazepines flumazenil",
+    "thumb": "/assets/sketches/thumb_neuropharm-6-1-benzodiazepines-flumazenil.webp",
+    "scene": "/assets/sketches/scene_neuropharm-6-1-benzodiazepines-flumazenil.jpg"
+  },
+  {
+    "slug": "neuropharm-6-2-nonbenzodiazepine-hypnotics-melatonin-ramelteon",
+    "prefix": "neuropharm",
+    "code": "6.2",
+    "title": "Nonbenzodiazepine hypnotics melatonin ramelteon",
+    "thumb": "/assets/sketches/thumb_neuropharm-6-2-nonbenzodiazepine-hypnotics-melatonin-ramelteon.webp",
+    "scene": "/assets/sketches/scene_neuropharm-6-2-nonbenzodiazepine-hypnotics-melatonin-ramelteon.jpg"
+  },
+  {
+    "slug": "neuropharm-6-3-barbiturates",
+    "prefix": "neuropharm",
+    "code": "6.3",
+    "title": "Barbiturates",
+    "thumb": "/assets/sketches/thumb_neuropharm-6-3-barbiturates.webp",
+    "scene": "/assets/sketches/scene_neuropharm-6-3-barbiturates.jpg"
+  },
+  {
+    "slug": "neuropharm-7-1-varenicline",
+    "prefix": "neuropharm",
+    "code": "7.1",
+    "title": "Varenicline",
+    "thumb": "/assets/sketches/thumb_neuropharm-7-1-varenicline.webp",
+    "scene": "/assets/sketches/scene_neuropharm-7-1-varenicline.jpg"
+  },
+  {
+    "slug": "neuropharm-8-1-skeletal-muscle-relaxants",
+    "prefix": "neuropharm",
+    "code": "8.1",
+    "title": "Skeletal muscle relaxants",
+    "thumb": "/assets/sketches/thumb_neuropharm-8-1-skeletal-muscle-relaxants.webp",
+    "scene": "/assets/sketches/scene_neuropharm-8-1-skeletal-muscle-relaxants.jpg"
+  },
+  {
+    "slug": "neuropharm-9-1-alzheimers-disease-medications",
+    "prefix": "neuropharm",
+    "code": "9.1",
+    "title": "Alzheimers disease medications",
+    "thumb": "/assets/sketches/thumb_neuropharm-9-1-alzheimers-disease-medications.webp",
+    "scene": "/assets/sketches/scene_neuropharm-9-1-alzheimers-disease-medications.jpg"
+  },
+  {
+    "slug": "oncpharm-1-1-methotrexate-5fu-hydroxyurea",
+    "prefix": "oncpharm",
+    "code": "1.1",
+    "title": "Methotrexate 5fu hydroxyurea",
+    "thumb": "/assets/sketches/thumb_oncpharm-1-1-methotrexate-5fu-hydroxyurea.webp",
+    "scene": "/assets/sketches/scene_oncpharm-1-1-methotrexate-5fu-hydroxyurea.jpg"
+  },
+  {
+    "slug": "oncpharm-1-2-azathioprine-6mp-mycophenolate",
+    "prefix": "oncpharm",
+    "code": "1.2",
+    "title": "Azathioprine 6mp mycophenolate",
+    "thumb": "/assets/sketches/thumb_oncpharm-1-2-azathioprine-6mp-mycophenolate.webp",
+    "scene": "/assets/sketches/scene_oncpharm-1-2-azathioprine-6mp-mycophenolate.jpg"
+  },
+  {
+    "slug": "oncpharm-1-3-cladribine-cytarabine-gemcitabine",
+    "prefix": "oncpharm",
+    "code": "1.3",
+    "title": "Cladribine cytarabine gemcitabine",
+    "thumb": "/assets/sketches/thumb_oncpharm-1-3-cladribine-cytarabine-gemcitabine.webp",
+    "scene": "/assets/sketches/scene_oncpharm-1-3-cladribine-cytarabine-gemcitabine.jpg"
+  },
+  {
+    "slug": "oncpharm-2-1-alkylating-agents",
+    "prefix": "oncpharm",
+    "code": "2.1",
+    "title": "Alkylating agents",
+    "thumb": "/assets/sketches/thumb_oncpharm-2-1-alkylating-agents.webp",
+    "scene": "/assets/sketches/scene_oncpharm-2-1-alkylating-agents.jpg"
+  },
+  {
+    "slug": "oncpharm-2-2-platins-amifostine",
+    "prefix": "oncpharm",
+    "code": "2.2",
+    "title": "Platins amifostine",
+    "thumb": "/assets/sketches/thumb_oncpharm-2-2-platins-amifostine.webp",
+    "scene": "/assets/sketches/scene_oncpharm-2-2-platins-amifostine.jpg"
+  },
+  {
+    "slug": "oncpharm-2-3-cytotoxic-antibiotics",
+    "prefix": "oncpharm",
+    "code": "2.3",
+    "title": "Cytotoxic antibiotics",
+    "thumb": "/assets/sketches/thumb_oncpharm-2-3-cytotoxic-antibiotics.webp",
+    "scene": "/assets/sketches/scene_oncpharm-2-3-cytotoxic-antibiotics.jpg"
+  },
+  {
+    "slug": "oncpharm-2-4-topoisomerase-inhibitors",
+    "prefix": "oncpharm",
+    "code": "2.4",
+    "title": "Topoisomerase inhibitors",
+    "thumb": "/assets/sketches/thumb_oncpharm-2-4-topoisomerase-inhibitors.webp",
+    "scene": "/assets/sketches/scene_oncpharm-2-4-topoisomerase-inhibitors.jpg"
+  },
+  {
+    "slug": "oncpharm-2-5-mitotic-inhibitors",
+    "prefix": "oncpharm",
+    "code": "2.5",
+    "title": "Mitotic inhibitors",
+    "thumb": "/assets/sketches/thumb_oncpharm-2-5-mitotic-inhibitors.webp",
+    "scene": "/assets/sketches/scene_oncpharm-2-5-mitotic-inhibitors.jpg"
+  },
+  {
+    "slug": "oncpharm-3-1-kinase-inhibitors",
+    "prefix": "oncpharm",
+    "code": "3.1",
+    "title": "Kinase inhibitors",
+    "thumb": "/assets/sketches/thumb_oncpharm-3-1-kinase-inhibitors.webp",
+    "scene": "/assets/sketches/scene_oncpharm-3-1-kinase-inhibitors.jpg"
+  },
+  {
+    "slug": "oncpharm-3-2-monoclonal-antibodies",
+    "prefix": "oncpharm",
+    "code": "3.2",
+    "title": "Monoclonal antibodies",
+    "thumb": "/assets/sketches/thumb_oncpharm-3-2-monoclonal-antibodies.webp",
+    "scene": "/assets/sketches/scene_oncpharm-3-2-monoclonal-antibodies.jpg"
+  },
+  {
+    "slug": "renal-1-1-function-tests-aki",
+    "prefix": "renal",
+    "code": "1.1",
+    "title": "Function tests aki",
+    "thumb": "/assets/sketches/thumb_renal-1-1-function-tests-aki.webp",
+    "scene": "/assets/sketches/scene_renal-1-1-function-tests-aki.jpg"
+  },
+  {
+    "slug": "renal-1-2-atn",
+    "prefix": "renal",
+    "code": "1.2",
+    "title": "Atn",
+    "thumb": "/assets/sketches/thumb_renal-1-2-atn.webp",
+    "scene": "/assets/sketches/scene_renal-1-2-atn.jpg"
+  },
+  {
+    "slug": "renal-1-3-tin",
+    "prefix": "renal",
+    "code": "1.3",
+    "title": "Tin",
+    "thumb": "/assets/sketches/thumb_renal-1-3-tin.webp",
+    "scene": "/assets/sketches/scene_renal-1-3-tin.jpg"
+  },
+  {
+    "slug": "renal-2-1-nephrotic",
+    "prefix": "renal",
+    "code": "2.1",
+    "title": "Nephrotic",
+    "thumb": "/assets/sketches/thumb_renal-2-1-nephrotic.webp",
+    "scene": "/assets/sketches/scene_renal-2-1-nephrotic.jpg"
+  },
+  {
+    "slug": "renal-2-2-nephritic",
+    "prefix": "renal",
+    "code": "2.2",
+    "title": "Nephritic",
+    "thumb": "/assets/sketches/thumb_renal-2-2-nephritic.webp",
+    "scene": "/assets/sketches/scene_renal-2-2-nephritic.jpg"
+  },
+  {
+    "slug": "renal-3-1-congenital-cystic",
+    "prefix": "renal",
+    "code": "3.1",
+    "title": "Congenital cystic",
+    "thumb": "/assets/sketches/thumb_renal-3-1-congenital-cystic.webp",
+    "scene": "/assets/sketches/scene_renal-3-1-congenital-cystic.jpg"
+  },
+  {
+    "slug": "renal-3-2-ckd",
+    "prefix": "renal",
+    "code": "3.2",
+    "title": "Ckd",
+    "thumb": "/assets/sketches/thumb_renal-3-2-ckd.webp",
+    "scene": "/assets/sketches/scene_renal-3-2-ckd.jpg"
+  },
+  {
+    "slug": "renal-4-1-hydronephrosis",
+    "prefix": "renal",
+    "code": "4.1",
+    "title": "Hydronephrosis",
+    "thumb": "/assets/sketches/thumb_renal-4-1-hydronephrosis.webp",
+    "scene": "/assets/sketches/scene_renal-4-1-hydronephrosis.jpg"
+  },
+  {
+    "slug": "renal-4-2-calcium-stones",
+    "prefix": "renal",
+    "code": "4.2",
+    "title": "Calcium stones",
+    "thumb": "/assets/sketches/thumb_renal-4-2-calcium-stones.webp",
+    "scene": "/assets/sketches/scene_renal-4-2-calcium-stones.jpg"
+  },
+  {
+    "slug": "renal-4-3-map-uric-cystine-stones",
+    "prefix": "renal",
+    "code": "4.3",
+    "title": "Map uric cystine stones",
+    "thumb": "/assets/sketches/thumb_renal-4-3-map-uric-cystine-stones.webp",
+    "scene": "/assets/sketches/scene_renal-4-3-map-uric-cystine-stones.jpg"
+  },
+  {
+    "slug": "renal-5-1-rcc-wilms",
+    "prefix": "renal",
+    "code": "5.1",
+    "title": "Rcc wilms",
+    "thumb": "/assets/sketches/thumb_renal-5-1-rcc-wilms.webp",
+    "scene": "/assets/sketches/scene_renal-5-1-rcc-wilms.jpg"
+  },
+  {
+    "slug": "renal-6-1-sodium",
+    "prefix": "renal",
+    "code": "6.1",
+    "title": "Sodium",
+    "thumb": "/assets/sketches/thumb_renal-6-1-sodium.webp",
+    "scene": "/assets/sketches/scene_renal-6-1-sodium.jpg"
+  },
+  {
+    "slug": "renal-6-2-potassium",
+    "prefix": "renal",
+    "code": "6.2",
+    "title": "Potassium",
+    "thumb": "/assets/sketches/thumb_renal-6-2-potassium.webp",
+    "scene": "/assets/sketches/scene_renal-6-2-potassium.jpg"
+  },
+  {
+    "slug": "renal-6-3-calcium",
+    "prefix": "renal",
+    "code": "6.3",
+    "title": "Calcium",
+    "thumb": "/assets/sketches/thumb_renal-6-3-calcium.webp",
+    "scene": "/assets/sketches/scene_renal-6-3-calcium.jpg"
+  },
+  {
+    "slug": "renal-6-4-acid-base",
+    "prefix": "renal",
+    "code": "6.4",
+    "title": "Acid base",
+    "thumb": "/assets/sketches/thumb_renal-6-4-acid-base.webp",
+    "scene": "/assets/sketches/scene_renal-6-4-acid-base.jpg"
+  },
+  {
+    "slug": "renal-6-5-rta",
+    "prefix": "renal",
+    "code": "6.5",
+    "title": "Rta",
+    "thumb": "/assets/sketches/thumb_renal-6-5-rta.webp",
+    "scene": "/assets/sketches/scene_renal-6-5-rta.jpg"
+  },
+  {
+    "slug": "renpharm-2-1-acetazolamide-mannitol",
+    "prefix": "renpharm",
+    "code": "2.1",
+    "title": "Acetazolamide mannitol",
+    "thumb": "/assets/sketches/thumb_renpharm-2-1-acetazolamide-mannitol.webp",
+    "scene": "/assets/sketches/scene_renpharm-2-1-acetazolamide-mannitol.jpg"
+  },
+  {
+    "slug": "renpharm-2-2-loop-diuretics",
+    "prefix": "renpharm",
+    "code": "2.2",
+    "title": "Loop diuretics",
+    "thumb": "/assets/sketches/thumb_renpharm-2-2-loop-diuretics.webp",
+    "scene": "/assets/sketches/scene_renpharm-2-2-loop-diuretics.jpg"
+  },
+  {
+    "slug": "renpharm-2-3-thiazides",
+    "prefix": "renpharm",
+    "code": "2.3",
+    "title": "Thiazides",
+    "thumb": "/assets/sketches/thumb_renpharm-2-3-thiazides.webp",
+    "scene": "/assets/sketches/scene_renpharm-2-3-thiazides.jpg"
+  },
+  {
+    "slug": "renpharm-2-4-k-sparing-diuretics",
+    "prefix": "renpharm",
+    "code": "2.4",
+    "title": "K sparing diuretics",
+    "thumb": "/assets/sketches/thumb_renpharm-2-4-k-sparing-diuretics.webp",
+    "scene": "/assets/sketches/scene_renpharm-2-4-k-sparing-diuretics.jpg"
+  },
+  {
+    "slug": "repro-1-1-aub-endometriosis",
+    "prefix": "repro",
+    "code": "1.1",
+    "title": "Aub endometriosis",
+    "thumb": "/assets/sketches/thumb_repro-1-1-aub-endometriosis.webp",
+    "scene": "/assets/sketches/scene_repro-1-1-aub-endometriosis.jpg"
+  },
+  {
+    "slug": "repro-1-2-cervical-neoplasia",
+    "prefix": "repro",
+    "code": "1.2",
+    "title": "Cervical neoplasia",
+    "thumb": "/assets/sketches/thumb_repro-1-2-cervical-neoplasia.webp",
+    "scene": "/assets/sketches/scene_repro-1-2-cervical-neoplasia.jpg"
+  },
+  {
+    "slug": "repro-1-3-vulvar-vaginal-lesions",
+    "prefix": "repro",
+    "code": "1.3",
+    "title": "Vulvar vaginal lesions",
+    "thumb": "/assets/sketches/thumb_repro-1-3-vulvar-vaginal-lesions.webp",
+    "scene": "/assets/sketches/scene_repro-1-3-vulvar-vaginal-lesions.jpg"
+  },
+  {
+    "slug": "repro-2-1-hormones-pcos",
+    "prefix": "repro",
+    "code": "2.1",
+    "title": "Hormones pcos",
+    "thumb": "/assets/sketches/thumb_repro-2-1-hormones-pcos.webp",
+    "scene": "/assets/sketches/scene_repro-2-1-hormones-pcos.jpg"
+  },
+  {
+    "slug": "repro-2-2-amenorrhea",
+    "prefix": "repro",
+    "code": "2.2",
+    "title": "Amenorrhea",
+    "thumb": "/assets/sketches/thumb_repro-2-2-amenorrhea.webp",
+    "scene": "/assets/sketches/scene_repro-2-2-amenorrhea.jpg"
+  },
+  {
+    "slug": "repro-2-3-ovarian-cysts-epithelial-cancer",
+    "prefix": "repro",
+    "code": "2.3",
+    "title": "Ovarian cysts epithelial cancer",
+    "thumb": "/assets/sketches/thumb_repro-2-3-ovarian-cysts-epithelial-cancer.webp",
+    "scene": "/assets/sketches/scene_repro-2-3-ovarian-cysts-epithelial-cancer.jpg"
+  },
+  {
+    "slug": "repro-2-4-ovarian-neoplasms",
+    "prefix": "repro",
+    "code": "2.4",
+    "title": "Ovarian neoplasms",
+    "thumb": "/assets/sketches/thumb_repro-2-4-ovarian-neoplasms.webp",
+    "scene": "/assets/sketches/scene_repro-2-4-ovarian-neoplasms.jpg"
+  },
+  {
+    "slug": "repro-3-1-mole-choriocarcinoma",
+    "prefix": "repro",
+    "code": "3.1",
+    "title": "Mole choriocarcinoma",
+    "thumb": "/assets/sketches/thumb_repro-3-1-mole-choriocarcinoma.webp",
+    "scene": "/assets/sketches/scene_repro-3-1-mole-choriocarcinoma.jpg"
+  },
+  {
+    "slug": "repro-3-2-gestational-disorders",
+    "prefix": "repro",
+    "code": "3.2",
+    "title": "Gestational disorders",
+    "thumb": "/assets/sketches/thumb_repro-3-2-gestational-disorders.webp",
+    "scene": "/assets/sketches/scene_repro-3-2-gestational-disorders.jpg"
+  },
+  {
+    "slug": "repro-3-3-amniotic-fluid",
+    "prefix": "repro",
+    "code": "3.3",
+    "title": "Amniotic fluid",
+    "thumb": "/assets/sketches/thumb_repro-3-3-amniotic-fluid.webp",
+    "scene": "/assets/sketches/scene_repro-3-3-amniotic-fluid.jpg"
+  },
+  {
+    "slug": "repro-4-1-benign-breast",
+    "prefix": "repro",
+    "code": "4.1",
+    "title": "Benign breast",
+    "thumb": "/assets/sketches/thumb_repro-4-1-benign-breast.webp",
+    "scene": "/assets/sketches/scene_repro-4-1-benign-breast.jpg"
+  },
+  {
+    "slug": "repro-4-2-breast-cancer",
+    "prefix": "repro",
+    "code": "4.2",
+    "title": "Breast cancer",
+    "thumb": "/assets/sketches/thumb_repro-4-2-breast-cancer.webp",
+    "scene": "/assets/sketches/scene_repro-4-2-breast-cancer.jpg"
+  },
+  {
+    "slug": "repro-5-1-testicular",
+    "prefix": "repro",
+    "code": "5.1",
+    "title": "Testicular",
+    "thumb": "/assets/sketches/thumb_repro-5-1-testicular.webp",
+    "scene": "/assets/sketches/scene_repro-5-1-testicular.jpg"
+  },
+  {
+    "slug": "repro-5-2-bph-prostate-cancer",
+    "prefix": "repro",
+    "code": "5.2",
+    "title": "Bph prostate cancer",
+    "thumb": "/assets/sketches/thumb_repro-5-2-bph-prostate-cancer.webp",
+    "scene": "/assets/sketches/scene_repro-5-2-bph-prostate-cancer.jpg"
+  },
+  {
+    "slug": "repro-5-3-bladder-penile",
+    "prefix": "repro",
+    "code": "5.3",
+    "title": "Bladder penile",
+    "thumb": "/assets/sketches/thumb_repro-5-3-bladder-penile.webp",
+    "scene": "/assets/sketches/scene_repro-5-3-bladder-penile.jpg"
+  },
+  {
+    "slug": "resp-1-1-copd-emphysema",
+    "prefix": "resp",
+    "code": "1.1",
+    "title": "Copd emphysema",
+    "thumb": "/assets/sketches/thumb_resp-1-1-copd-emphysema.webp",
+    "scene": "/assets/sketches/scene_resp-1-1-copd-emphysema.jpg"
+  },
+  {
+    "slug": "resp-1-2-asthma-bronchiectasis",
+    "prefix": "resp",
+    "code": "1.2",
+    "title": "Asthma bronchiectasis",
+    "thumb": "/assets/sketches/thumb_resp-1-2-asthma-bronchiectasis.webp",
+    "scene": "/assets/sketches/scene_resp-1-2-asthma-bronchiectasis.jpg"
+  },
+  {
+    "slug": "resp-2-1-restrictive-overview",
+    "prefix": "resp",
+    "code": "2.1",
+    "title": "Restrictive overview",
+    "thumb": "/assets/sketches/thumb_resp-2-1-restrictive-overview.webp",
+    "scene": "/assets/sketches/scene_resp-2-1-restrictive-overview.jpg"
+  },
+  {
+    "slug": "resp-2-2-ipf",
+    "prefix": "resp",
+    "code": "2.2",
+    "title": "Ipf",
+    "thumb": "/assets/sketches/thumb_resp-2-2-ipf.webp",
+    "scene": "/assets/sketches/scene_resp-2-2-ipf.jpg"
+  },
+  {
+    "slug": "resp-2-3-pneumoconioses",
+    "prefix": "resp",
+    "code": "2.3",
+    "title": "Pneumoconioses",
+    "thumb": "/assets/sketches/thumb_resp-2-3-pneumoconioses.webp",
+    "scene": "/assets/sketches/scene_resp-2-3-pneumoconioses.jpg"
+  },
+  {
+    "slug": "resp-2-4-sarcoidosis-berylliosis",
+    "prefix": "resp",
+    "code": "2.4",
+    "title": "Sarcoidosis berylliosis",
+    "thumb": "/assets/sketches/thumb_resp-2-4-sarcoidosis-berylliosis.webp",
+    "scene": "/assets/sketches/scene_resp-2-4-sarcoidosis-berylliosis.jpg"
+  },
+  {
+    "slug": "resp-3-1-pneumothorax",
+    "prefix": "resp",
+    "code": "3.1",
+    "title": "Pneumothorax",
+    "thumb": "/assets/sketches/thumb_resp-3-1-pneumothorax.webp",
+    "scene": "/assets/sketches/scene_resp-3-1-pneumothorax.jpg"
+  },
+  {
+    "slug": "resp-3-2-ards",
+    "prefix": "resp",
+    "code": "3.2",
+    "title": "Ards",
+    "thumb": "/assets/sketches/thumb_resp-3-2-ards.webp",
+    "scene": "/assets/sketches/scene_resp-3-2-ards.jpg"
+  },
+  {
+    "slug": "resp-3-3-dvt-pe",
+    "prefix": "resp",
+    "code": "3.3",
+    "title": "Dvt pe",
+    "thumb": "/assets/sketches/thumb_resp-3-3-dvt-pe.webp",
+    "scene": "/assets/sketches/scene_resp-3-3-dvt-pe.jpg"
+  },
+  {
+    "slug": "resp-4-1-lung-carcinoma",
+    "prefix": "resp",
+    "code": "4.1",
+    "title": "Lung carcinoma",
+    "thumb": "/assets/sketches/thumb_resp-4-1-lung-carcinoma.webp",
+    "scene": "/assets/sketches/scene_resp-4-1-lung-carcinoma.jpg"
+  },
+  {
+    "slug": "vasc-1-1-atherosclerosis",
+    "prefix": "vasc",
+    "code": "1.1",
+    "title": "Atherosclerosis",
+    "thumb": "/assets/sketches/thumb_vasc-1-1-atherosclerosis.webp",
+    "scene": "/assets/sketches/scene_vasc-1-1-atherosclerosis.jpg"
+  },
+  {
+    "slug": "vasc-1-2-peripheral-artery-disease",
+    "prefix": "vasc",
+    "code": "1.2",
+    "title": "Peripheral artery disease",
+    "thumb": "/assets/sketches/thumb_vasc-1-2-peripheral-artery-disease.webp",
+    "scene": "/assets/sketches/scene_vasc-1-2-peripheral-artery-disease.jpg"
+  },
+  {
+    "slug": "vasc-2-1-hypertension",
+    "prefix": "vasc",
+    "code": "2.1",
+    "title": "Hypertension",
+    "thumb": "/assets/sketches/thumb_vasc-2-1-hypertension.webp",
+    "scene": "/assets/sketches/scene_vasc-2-1-hypertension.jpg"
+  },
+  {
+    "slug": "vasc-2-2-aortic-aneurysm",
+    "prefix": "vasc",
+    "code": "2.2",
+    "title": "Aortic aneurysm",
+    "thumb": "/assets/sketches/thumb_vasc-2-2-aortic-aneurysm.webp",
+    "scene": "/assets/sketches/scene_vasc-2-2-aortic-aneurysm.jpg"
+  },
+  {
+    "slug": "vasc-2-3-aortic-dissection",
+    "prefix": "vasc",
+    "code": "2.3",
+    "title": "Aortic dissection",
+    "thumb": "/assets/sketches/thumb_vasc-2-3-aortic-dissection.webp",
+    "scene": "/assets/sketches/scene_vasc-2-3-aortic-dissection.jpg"
+  },
+  {
+    "slug": "vasc-3-1-large-medium-vasculitides",
+    "prefix": "vasc",
+    "code": "3.1",
+    "title": "Large medium vasculitides",
+    "thumb": "/assets/sketches/thumb_vasc-3-1-large-medium-vasculitides.webp",
+    "scene": "/assets/sketches/scene_vasc-3-1-large-medium-vasculitides.jpg"
+  },
+  {
+    "slug": "vasc-3-2-small-vessel-vasculitides",
+    "prefix": "vasc",
+    "code": "3.2",
+    "title": "Small vessel vasculitides",
+    "thumb": "/assets/sketches/thumb_vasc-3-2-small-vessel-vasculitides.webp",
+    "scene": "/assets/sketches/scene_vasc-3-2-small-vessel-vasculitides.jpg"
+  }
+]

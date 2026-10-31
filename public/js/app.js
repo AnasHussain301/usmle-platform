@@ -470,16 +470,12 @@ function renderSketchDetail(sketch) {
 
   // Update canvas image
   const canvasImg = document.getElementById('sketch-canvas-img');
-  let canvasImgSrc = sketch.canvasImage;
-  if (!canvasImgSrc) {
-    if (sketch.id === 'sketch_1_1') canvasImgSrc = '/assets/sketches/thalassemia_canvas.png';
-    else if (sketch.id === 'sketch_1_2') canvasImgSrc = '/assets/sketches/iron_deficiency_canvas.png';
-    else canvasImgSrc = `/assets/sketches/canvas_${sketch.id}.svg`;
-  }
+  let canvasImgSrc = sketch.canvasImage || sketch.image;
   if (canvasImg) {
     canvasImg.onerror = function() {
-      if (this.src.indexOf('iron_deficiency_canvas.png') === -1) {
-        this.src = '/assets/sketches/iron_deficiency_canvas.png';
+      if (this.src.indexOf('scene_') !== -1) {
+        // Fallback to webp thumbnail if scene jpg fails
+        this.src = this.src.replace('scene_', 'thumb_').replace('.jpg', '.webp');
       }
     };
     canvasImg.src = canvasImgSrc;

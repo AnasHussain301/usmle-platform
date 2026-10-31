@@ -520,6 +520,32 @@ app.put('/api/admin/settings', requireAdmin, (req, res) => {
   res.json({ settings: updated });
 });
 
+// Endpoint to receive extracted sketches from browser session
+app.post('/api/save-sketch', express.json({ limit: '50mb' }), (req, res) => {
+  const { slug, dataUrl, type } = req.body;
+  if (!slug || !dataUrl) {
+    return res.status(400).json({ error: 'Missing slug or dataUrl' });
+  }
+
+  const base64Data = dataUrl.replace(/^data:image\/\w+;base64,/, '');
+  const buffer = Buffer.from(base64Data, 'base64');
+  const ext = dataUrl.includes('image/webp') ? 'webp' : 'jpg';
+  const prefix = type === 'scene' ? 'scene_' : 'thumb_';
+  const filename = `${prefix}${slug}.${ext}`;
+  const targetPath = path.join(__dirname, '..', 'public', 'assets', 'sketches', filename);
+
+  const fs = require('fs');
+  fs.writeFileSync(targetPath, buffer);
+  
+  // Also save standard thumb and canvas fallbacks
+  if (type === 'scene') {
+    fs.writeFileSync(path.join(__dirname, '..', 'public', 'assets', 'sketches', `canvas_${slug}.${ext}`), buffer);
+  }
+
+  console.log(`[Sketch Asset Saved] ${filename} (${buffer.length} bytes)`);
+  res.json({ success: true, filename, size: buffer.length });
+});
+
 // SPA fallback
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
