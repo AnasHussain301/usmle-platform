@@ -200,8 +200,63 @@ async function seed() {
             progress: 0,
             sketches: [
               {
+                id: 'sketch_2_1',
+                number: '2.1',
+                title: 'Extravascular Hemolysis: Overview & RBC Membrane Defects',
+                image: '/assets/sketches/thumb_sketch_2_1.png',
+                canvasImage: '/assets/sketches/canvas_sketch_2_1.png',
+                progress: 0,
+                questionsCount: 16,
+                totalSymbols: 38,
+                symbols: [
+                  { pin: 1, x: 20, y: 70, title: 'Splenic Macrophage Cords of Billroth', meaning: 'Extravascular hemolysis occurs primarily in the red pulp splenic cords where defective RBCs are engulfed.', fact: 'Presents with splenomegaly, unconjugated hyperbilirubinemia, jaundice, and pigment gallstones.' },
+                  { pin: 2, x: 45, y: 75, title: 'Hereditary Spherocytosis Spectrin Anchor', meaning: 'Autosomal dominant defect in RBC membrane-cytoskeleton tethering proteins (ankyrin, band 3, spectrin).', fact: 'Confirmed by positive eosin-5-maleimide (EMA) binding test and acidified glycerol lysis.' }
+                ]
+              },
+              {
+                id: 'sketch_2_2',
+                number: '2.2',
+                title: 'Intravascular Hemolysis: Overview & Paroxysmal Nocturnal Hemoglobinuria (PNH)',
+                image: '/assets/sketches/thumb_sketch_2_2.png',
+                canvasImage: '/assets/sketches/canvas_sketch_2_2.png',
+                progress: 0,
+                questionsCount: 15,
+                totalSymbols: 35,
+                symbols: [
+                  { pin: 1, x: 25, y: 75, title: 'Dark Morning Hemoglobinuria Urn', meaning: 'Complement-mediated intravascular RBC lysis releases free hemoglobin, causing dark tea-colored morning urine.', fact: 'Triad: Hemolytic anemia, pancytopenia, and atypical venous thrombosis (Budd-Chiari syndrome).' },
+                  { pin: 2, x: 60, y: 80, title: 'PIGA Gene & CD55/CD59 Deficient Moat', meaning: 'Acquired somatic mutation in PIGA gene prevents GPI anchor synthesis, leaving cells vulnerable to MAC (C5b-C9).', fact: 'Diagnosed by flow cytometry showing absence of CD55 (DAF) and CD59 (MIRL).' }
+                ]
+              },
+              {
+                id: 'sketch_2_3',
+                number: '2.3',
+                title: 'G6PD Deficiency & Autoimmune Hemolytic Anemia (AIHA)',
+                image: '/assets/sketches/thumb_sketch_2_3.png',
+                canvasImage: '/assets/sketches/canvas_sketch_2_3.png',
+                progress: 0,
+                questionsCount: 18,
+                totalSymbols: 42,
+                symbols: [
+                  { pin: 1, x: 20, y: 75, title: 'Heinz Body Inclusions & Degmacyte Bite Cells', meaning: 'G6PD deficiency impairs NADPH production; oxidant stress oxidizes hemoglobin into Heinz bodies removed by spleen.', fact: 'Triggered by fava beans, dapsone, primaquine, sulfonamides, and infections.' },
+                  { pin: 2, x: 55, y: 70, title: 'Warm vs Cold Agglutinin Antibodies', meaning: 'Warm AIHA is mediated by IgG (splenic extravascular hemolysis); Cold AIHA is mediated by IgM (intravascular).', fact: 'Warm associated with SLE and CLL; Cold with Mycoplasma and EBV.' }
+                ]
+              },
+              {
+                id: 'sketch_2_4',
+                number: '2.4',
+                title: 'Sickle Cell Disease',
+                image: '/assets/sketches/thumb_sketch_2_4.png',
+                canvasImage: '/assets/sketches/canvas_sketch_2_4.png',
+                progress: 0,
+                questionsCount: 22,
+                totalSymbols: 45,
+                symbols: [
+                  { pin: 1, x: 25, y: 75, title: 'Valine Swordsman Point Mutation', meaning: 'Glu6Val mutation on beta-globin causes hydrophobic polymerization of deoxygenated HbS.', fact: 'Vaso-occlusive crises, acute chest syndrome, dactylitis, and autosplenectomy.' }
+                ]
+              },
+              {
                 id: 'sketch_1_3',
-                number: '1.3',
+                number: '2.5',
                 title: 'Vitamin B12 & Folate Deficiency (Megaloblastic Anemia)',
                 image: '/assets/sketches/thumb_sketch_1_3.svg',
                 canvasImage: '/assets/sketches/canvas_sketch_1_3.svg',
@@ -209,36 +264,7 @@ async function seed() {
                 questionsCount: 14,
                 totalSymbols: 38,
                 symbols: [
-                  { pin: 1, x: 15, y: 75, title: 'Cobalt Shield & Liver Vault', meaning: 'B12 (cobalamin) hepatic stores last 3-5 years; folate stores deplete within months.', fact: 'Terminal ileum resection impairs B12 absorption; jejunum absorbs folate.' },
-                  { pin: 2, x: 35, y: 80, title: 'Hypersegmented Knight Helmet', meaning: 'Hypersegmented neutrophils (>= 5-6 lobes) are pathognomonic on peripheral smear.', fact: 'Impaired thymidylate synthesis leads to nuclear-cytoplasmic dyssynchrony.' },
-                  { pin: 3, x: 60, y: 70, title: 'Methylmalonic Acid Spine Cable', meaning: 'Elevated methylmalonic acid and homocysteine in B12; ONLY homocysteine elevated in folate.', fact: 'Subacute combined degeneration (dorsal & lateral columns) occurs only in B12 deficiency.' }
-                ]
-              },
-              {
-                id: 'sketch_1_4',
-                number: '1.4',
-                title: 'Sickle Cell Disease & Hemoglobinopathies',
-                image: '/assets/sketches/thumb_sketch_1_4.svg',
-                canvasImage: '/assets/sketches/canvas_sketch_1_4.svg',
-                progress: 0,
-                questionsCount: 16,
-                totalSymbols: 42,
-                symbols: [
-                  { pin: 1, x: 20, y: 75, title: 'Valine Swordsman (6th Codon Mutation)', meaning: 'Point mutation in 6th codon of beta-globin: hydrophilic glutamate replaced by hydrophobic valine.', fact: 'Deoxygenation, dehydration, and acidosis trigger hydrophobic polymerization into rigid sickle polymers.' },
-                  { pin: 2, x: 50, y: 80, title: 'Autoinfarcted Spleen Shield', meaning: 'Repeated splenic microinfarctions lead to autosplenectomy by age 5-6.', fact: 'Patients require vaccination against encapsulated organisms (S. pneumoniae, N. meningitidis, H. influenzae).' }
-                ]
-              },
-              {
-                id: 'sketch_1_5',
-                number: '1.5',
-                title: 'Immune Thrombocytopenia (ITP) & TTP / HUS',
-                image: '/assets/sketches/thumb_sketch_1_5.svg',
-                canvasImage: '/assets/sketches/canvas_sketch_1_5.svg',
-                progress: 0,
-                questionsCount: 15,
-                totalSymbols: 36,
-                symbols: [
-                  { pin: 1, x: 25, y: 70, title: 'ADAMTS13 Broken Rapier', meaning: 'TTP is caused by deficient ADAMTS13 metalloprotease, leaving ultra-large vWF multimers uncleaved.', fact: 'Classic pentad: Thrombocytopenia, Microangiopathic hemolytic anemia (schistocytes), Neurologic symptoms, Fever, Renal failure.' }
+                  { pin: 1, x: 20, y: 75, title: 'Hypersegmented Neutrophils & Methylmalonic Acid', meaning: 'Impaired DNA synthesis causes nuclear-cytoplasmic dyssynchrony. B12 deficiency shows elevated MMA.', fact: 'Neurologic symptoms (subacute combined degeneration) occur only in B12 deficiency.' }
                 ]
               }
             ]
@@ -247,7 +273,34 @@ async function seed() {
             name: 'Hemostasis & platelet disorders',
             count: 5,
             progress: 0,
-            sketches: []
+            sketches: [
+              {
+                id: 'sketch_3_1',
+                number: '3.1',
+                title: 'Platelet Plug Formation & Platelet Disorders',
+                image: '/assets/sketches/thumb_sketch_1_5.svg',
+                canvasImage: '/assets/sketches/canvas_sketch_1_5.svg',
+                progress: 0,
+                questionsCount: 18,
+                totalSymbols: 36,
+                symbols: [
+                  { pin: 1, x: 25, y: 70, title: 'vWF & GpIb Adhesion Anchor', meaning: 'Endothelial injury exposes subendothelial collagen; vWF binds GpIb on platelets.', fact: 'Bernard-Soulier syndrome is deficiency of GpIb (giant platelets, thrombocytopenia).' }
+                ]
+              },
+              {
+                id: 'sketch_3_2',
+                number: '3.2',
+                title: 'Coagulation Cascade & Secondary Hemostasis',
+                image: '/assets/sketches/thumb_pharm_heparin.svg',
+                canvasImage: '/assets/sketches/canvas_pharm_heparin.svg',
+                progress: 0,
+                questionsCount: 20,
+                totalSymbols: 40,
+                symbols: [
+                  { pin: 1, x: 25, y: 75, title: 'Factor VIII & IX Hemophilia Standard', meaning: 'Intrinsic pathway factors. Hemophilia A (factor VIII deficiency) and Hemophilia B (factor IX deficiency).', fact: 'X-linked recessive disorders; elevated PTT with normal PT and bleeding time.' }
+                ]
+              }
+            ]
           }
         ]
       },

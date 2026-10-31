@@ -358,11 +358,11 @@ function renderSketchyPathBrowser() {
 }
 
 function buildSketchCard(sk) {
-  const imgSrc = sk.image || `/assets/sketches/thumb_${sk.id}.svg`;
+  const imgSrc = sk.image || `/assets/sketches/thumb_iron_deficiency.png`;
   return `
     <div onclick="openInteractiveSketch('${sk.id}')" class="cursor-pointer bg-[#140c1e] hover:bg-[#1f132e] border border-[#3b2752] rounded-2xl overflow-hidden shadow-md transition-all group">
       <div class="aspect-video bg-black overflow-hidden relative">
-        <img src="${imgSrc}" onerror="this.src='/assets/sketches/thumb_${sk.id}.svg'" alt="${escapeHtml(sk.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+        <img src="${imgSrc}" onerror="this.onerror=null; this.src='/assets/sketches/thumb_iron_deficiency.png'" alt="${escapeHtml(sk.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
       </div>
       <div class="p-3 space-y-2">
         <h4 class="text-xs font-bold text-white line-clamp-2">
