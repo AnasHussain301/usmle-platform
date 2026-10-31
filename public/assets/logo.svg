@@ -1,33 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="100%" height="100%">
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0284c7;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0369a1;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#818cf8;stop-opacity:1" />
+    <linearGradient id="zGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f43f5e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
     </linearGradient>
   </defs>
-
-  <!-- Medical Cross & Radiology Waves Icon -->
-  <g transform="translate(10, 10)">
-    <rect x="0" y="0" width="80" height="80" rx="20" fill="url(#grad1)" />
-    <!-- Pulse Line / ECG overlay -->
-    <path d="M 12 40 L 26 40 L 32 20 L 40 60 L 48 30 L 54 45 L 68 45" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
-    <!-- Radiology focal ring -->
-    <circle cx="40" cy="40" r="28" fill="none" stroke="url(#accentGrad)" stroke-width="2.5" stroke-dasharray="6,4" />
-  </g>
-
-  <!-- Typography -->
-  <text x="105" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">
-    Rad<tspan fill="#0284c7">Med</tspan>
-  </text>
-  <rect x="235" y="24" width="70" height="24" rx="12" fill="#0284c7" />
-  <text x="270" y="41" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
-    USMLE
-  </text>
-  <text x="106" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#64748b" letter-spacing="1.5">
-    AI RADIOLOGY &amp; BOARD REVIEW
-  </text>
+  <!-- Stylized Z Icon -->
+  <path d="M 10 10 L 30 10 C 32 10 33 12 31.5 13.5 L 14.5 28 L 30 28 C 32 28 33 30 31.5 31.5 C 30 33 10 33 10 33 C 8 33 7 31 8.5 29.5 L 25.5 15 L 10 15 C 8 15 7 13 8.5 11.5 Z" fill="url(#zGrad)" />
 </svg>

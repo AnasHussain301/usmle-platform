@@ -158,6 +158,47 @@ app.post('/api/auth/upgrade', requireAuth, (req, res) => {
   res.json({ user: safeUser, message: 'Successfully upgraded to Premium VIP Tier!' });
 });
 
+// Complete Tour
+app.post('/api/auth/complete-tour', requireAuth, (req, res) => {
+  const updated = db.updateUser(req.user.id, { hasCompletedTour: true });
+  const { passwordHash: _, ...safeUser } = updated;
+  res.json({ user: safeUser });
+});
+
+// ==========================================
+// 1.5 ZETCHY SECTIONS (FA, SKETCHY, DDX, CARDS)
+// ==========================================
+
+app.get('/api/fa/systems', (req, res) => {
+  res.json({ systems: db.getFirstAidSystems() });
+});
+
+app.get('/api/sketchy/decks', (req, res) => {
+  res.json({ decks: db.getSketchyDecks() });
+});
+
+app.get('/api/ddx/categories', (req, res) => {
+  res.json({ categories: db.getDDxCategories() });
+});
+
+app.get('/api/review/stats', (req, res) => {
+  const userId = req.user ? req.user.id : null;
+  const cards = db.getFlashcards(userId);
+  res.json({
+    dueToday: 0,
+    newCards: cards.filter(c => c.state === 'new').length,
+    learning: cards.filter(c => c.state === 'learning').length,
+    mature: cards.filter(c => c.state === 'mature').length,
+    dayStreak: 0,
+    settings: {
+      newCardsPerDay: 20,
+      maxReviewsPerDay: 200,
+      targetRetention: 0.90
+    }
+  });
+});
+
+
 // ==========================================
 // 2. QUESTION BANK (QBANK) ROUTES
 // ==========================================

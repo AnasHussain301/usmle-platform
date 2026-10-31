@@ -2,231 +2,393 @@ const bcrypt = require('bcryptjs');
 const db = require('./db');
 
 async function seed() {
-  console.log('Seeding RadMed database...');
+  console.log('Seeding Zetchy application database...');
 
-  // Reset or initialize if empty
+  // 1. Users
   const users = db.getUsers();
   if (users.length === 0) {
     const adminPasswordHash = bcrypt.hashSync('Admin123!', 10);
     const userPasswordHash = bcrypt.hashSync('Student123!', 10);
 
-    const admin = db.createUser({
-      name: 'System Administrator',
+    db.createUser({
+      name: 'Dr. System Admin',
       email: 'admin@radmed.local',
       passwordHash: adminPasswordHash,
       role: 'admin',
       tier: 'premium',
-      specialty: 'Diagnostic Radiology & Medical Education',
-      institution: 'RadMed Academic Medical Center'
+      hasCompletedTour: true,
+      trialDaysRemaining: 365
     });
 
-    const sarah = db.createUser({
+    db.createUser({
       name: 'Dr. Sarah Jenkins',
       email: 'sarah.jenkins@usmle.com',
       passwordHash: userPasswordHash,
       role: 'user',
       tier: 'premium',
-      specialty: 'MS4 / Radiology Applicant',
-      institution: 'Johns Hopkins SOM'
+      hasCompletedTour: true,
+      trialDaysRemaining: 30
     });
 
-    const michael = db.createUser({
+    db.createUser({
       name: 'Dr. Michael Chen',
       email: 'michael.chen@usmle.com',
       passwordHash: userPasswordHash,
       role: 'user',
       tier: 'free',
-      specialty: 'MS3 / Internal Medicine Bound',
-      institution: 'Baylor College of Medicine'
+      hasCompletedTour: false,
+      trialDaysRemaining: 2
     });
 
-    console.log('Created default users: admin@radmed.local, sarah.jenkins@usmle.com, michael.chen@usmle.com');
+    console.log('Created default accounts: admin@radmed.local, sarah.jenkins@usmle.com, michael.chen@usmle.com');
   }
 
-  // Seed Questions if empty
-  const questions = db.getQuestions();
-  if (questions.length === 0) {
-    const sampleQuestions = [
+  // 2. First Aid Organ Systems
+  if (!db.data.firstAidSystems || db.data.firstAidSystems.length === 0) {
+    db.data.firstAidSystems = [
       {
-        title: "Acute Trauma Following Sporting Injury",
-        system: "Neurology / Neurosurgery",
-        discipline: "Radiology",
-        difficulty: "Medium",
-        isPremium: false,
-        vignette: "A 22-year-old male is brought to the emergency department after getting hit on the temporal region with a baseball bat. Initially, he experienced a brief 2-minute loss of consciousness, but subsequently regained full alertness and conversational ability. Three hours later in the observation unit, he becomes acutely somnolent with an ipsilateral dilated, non-reactive right pupil and contralateral hemiparesis. An emergent non-contrast head CT demonstrates a lenticular, biconvex hyperdense extra-axial collection along the right temporoparietal convexity that does not cross the cranial sutures.",
-        imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Lenticular biconvex hyperdensity constrained by cranial suture lines in the temporoparietal region.",
-        options: [
-          "Rupture of bridging cortical veins",
-          "Laceration of the middle meningeal artery",
-          "Rupture of an anterior communicating artery berry aneurysm",
-          "Thrombosis of the superior sagittal sinus",
-          "Diffuse axonal injury with petechial shear hemorrhages"
-        ],
-        correctIndex: 1,
-        explanation: "The clinical presentation (lucid interval following temporal bone trauma followed by acute neurological decline and uncal herniation with 'blown' pupil) combined with the classic biconvex (lens-shaped) hyperdensity on non-contrast CT is pathognomonic for an Epidural Hematoma (EDH). EDH typically occurs following fracture of the pterion, leading to laceration of the middle meningeal artery (a branch of the maxillary artery). Because the dura mater is tightly bound to the inner calvarium at cranial sutures, the hematoma cannot cross suture lines.",
-        highYieldPearl: "Middle meningeal artery laceration = Pterion fracture = Biconvex lens-shaped collection on CT = Does NOT cross suture lines. Requires emergent surgical craniotomy decompression."
+        id: 'fa_cvs',
+        name: 'Cardiovascular',
+        color: '#9a3412', // Rust / Terra Cotta
+        icon: 'heart',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Cardiac Cycle & Wiggers Diagram', page: 'FA 290', highYield: 'Aortic stenosis shows late-peaking systolic ejection murmur with slow carotid upstroke (pulsus parvus et tardus).' },
+          { title: 'Congenital Heart Diseases', page: 'FA 302', highYield: 'Tetralogy of Fallot: PROVe (Pulmonary infundibular stenosis, RVH, Overriding aorta, VSD). Squatting increases SVR to reduce R->L shunt.' },
+          { title: 'Ischemic Heart Disease & ECG Localization', page: 'FA 310', highYield: 'LAD occlusion leads to V1-V4 anterior wall STEMI. RCA leads to II, III, aVF inferior STEMI (check for RV infarction).' },
+          { title: 'Heart Failure & Cardiomyopathies', page: 'FA 316', highYield: 'Dilated = eccentric hypertrophy, systolic dysfxn. Hypertrophic = asymmetric septal hypertrophy, sudden death in young athletes.' }
+        ]
       },
       {
-        title: "Sudden Dyspnea and Sharp Chest Pain in a Tall Smoker",
-        system: "Pulmonology / Thoracic Surgery",
-        discipline: "Radiology",
-        difficulty: "Easy",
-        isPremium: false,
-        vignette: "A 21-year-old tall, slender male with a 4 pack-year smoking history presents to the emergency department with sudden-onset right-sided pleuritic chest pain and shortness of breath that began while resting at home. Vital signs: BP 122/78 mmHg, HR 104/min, RR 24/min, SpO2 93% on room air. Physical exam reveals hyperresonance to percussion and severely diminished vesicular breath sounds over the right hemithorax. Trachea is strictly midline. An erect chest radiograph shows a thin, sharp white line representing the visceral pleura with complete absence of peripheral pulmonary vascular markings beyond this margin.",
-        imageUrl: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Right visceral pleural line with absent peripheral lung markings; lung partially collapsed toward hilum.",
-        options: [
-          "Rupture of apical subpleural blebs",
-          "Infection with Mycobacterium tuberculosis",
-          "Deep venous thrombosis embolization to pulmonary trunk",
-          "Bacterial consolidation with air bronchograms",
-          "Idiopathic pulmonary arterial hypertension"
-        ],
-        correctIndex: 0,
-        explanation: "Primary spontaneous pneumothorax typically occurs in tall, thin young males in their 20s due to the rupture of subpleural apical blebs or bullae. Chest radiography demonstrates a visible visceral pleural line with absent lung markings lateral to it. Because the trachea is midline and the patient is hemodynamically stable without hypotension or JVD, this is a non-tension pneumothorax.",
-        highYieldPearl: "Primary spontaneous pneumothorax: tall, thin young males, rupture of apical subpleural blebs. Absence of peripheral vascular markings. If tension develops (trachea shifts opposite side, hypotension), perform immediate needle decompression before imaging."
+        id: 'fa_endo',
+        name: 'Endocrine',
+        color: '#a16207', // Mustard / Ochre
+        icon: 'butterfly',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Thyroid Pathology (Hashimoto vs Graves)', page: 'FA 344', highYield: 'Graves: TSH-receptor autoantibodies (stimulatory), exophthalmos, pretibial myxedema. Hashimoto: Anti-TPO, hurthle cells, lymphoma risk.' },
+          { title: 'Adrenal Disorders & Cushing Syndrome', page: 'FA 352', highYield: 'High-dose dexamethasone suppresses Cushing Disease (pituitary ACTH adenoma) but fails to suppress ectopic ACTH (Small cell lung cancer).' },
+          { title: 'Diabetes Mellitus & DKA vs HHS', page: 'FA 358', highYield: 'DKA: Type 1, anion gap metabolic acidosis, Kussmaul respirations, potassium shifted extracellularly (total body K is depleted).' }
+        ]
       },
       {
-        title: "Severe Abdominal Distension in a Nursing Home Resident",
-        system: "Gastroenterology / General Surgery",
-        discipline: "Radiology",
-        difficulty: "Medium",
-        isPremium: true,
-        vignette: "A 78-year-old male with chronic Parkinson's disease and chronic constipation residing in a nursing facility presents with progressive abdominal distension, obstipation, and cramping abdominal pain over the past 48 hours. Abdominal examination reveals a massively distended, tympanitic abdomen with high-pitched tinkling bowel sounds. Digital rectal examination shows an empty rectal vault. An abdominal plain radiograph reveals a hugely dilated, inverted U-shaped loop of bowel without haustra originating from the pelvis and extending toward the right upper quadrant, forming a classic 'coffee bean' appearance.",
-        imageUrl: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Massive coffee-bean shaped loop of distended large bowel apex pointing to right upper quadrant.",
-        options: [
-          "Emergency exploratory laparotomy with total colectomy",
-          "Sigmoidoscopy with rectal tube insertion for decompression",
-          "High-dose intravenous polyethylene glycol",
-          "Immediate percutaneous transhepatic drainage",
-          "Oral barium swallow study"
-        ],
-        correctIndex: 1,
-        explanation: "The clinical presentation and radiograph showing the 'coffee bean sign' or 'bent inner tube sign' (distended sigmoid colon originating in pelvis with apex pointed toward RUQ) are classic for Sigmoid Volvulus. In a stable patient without peritoneal signs, bowel ischemia, or perforation, the first-line treatment is flexible sigmoidoscopy to untwist the volvulus and place a rectal decompression tube, followed by elective resection during the same admission due to high recurrence rates.",
-        highYieldPearl: "Sigmoid volvulus: Coffee bean sign pointing to RUQ, common in elderly/neuropsychiatric/constipated patients. Initial management = endoscopic detorsion/decompression. In contrast, Cecal volvulus points to LUQ."
+        id: 'fa_gi',
+        name: 'Gastrointestinal',
+        color: '#4d7c0f', // Olive Green
+        icon: 'bowl',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Esophageal Pathology & Dysphagia', page: 'FA 380', highYield: 'Achalasia: loss of Auerbach (myenteric) plexus, birds beak on barium swallow, failure of LES relaxation.' },
+          { title: 'Inflammatory Bowel Disease (Crohn vs UC)', page: 'FA 390', highYield: 'Crohns: transmural, skip lesions, cobblestone, noncaseating granulomas, fistulas. UC: continuous mucosal, lead pipe, pseudopolyps, PSC.' },
+          { title: 'Cirrhosis, Portal Hypertension & Jaundice', page: 'FA 400', highYield: 'SAAG >= 1.1 g/dL indicates portal hypertension (cirrhosis, Budd-Chiari, CHF).' }
+        ]
       },
       {
-        title: "Stridor, High Fever, and Drooling in an Unvaccinated Child",
-        system: "Pediatrics / Otolaryngology",
-        discipline: "Radiology",
-        difficulty: "Medium",
-        isPremium: false,
-        vignette: "A 4-year-old boy whose parents declined routine childhood vaccinations is brought to the emergency department with high fever (39.8°C / 103.6°F), severe sore throat, difficulty breathing, and refusal to swallow secretions. The child is sitting upright, leaning forward with his neck extended and mouth open, actively drooling. An anxious physician orders a portable lateral soft tissue neck radiograph under careful monitoring, which reveals a rounded, swollen, thumb-like soft tissue mass projecting into the supraglottic airway.",
-        imageUrl: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Swollen epiglottis producing the classic Thumbprint sign in the hypopharynx.",
-        options: [
-          "Viral laryngotracheobronchitis (Croup)",
-          "Acute bacterial epiglottitis",
-          "Retropharyngeal abscess with widened prevertebral space",
-          "Foreign body aspiration into right main bronchus",
-          "Peritonsillar abscess with uvular deviation"
-        ],
-        correctIndex: 1,
-        explanation: "Acute epiglottitis is characterized by the 3 D's: Dysphagia, Drooling, and Distress with the 'tripod position' and high fever. The lateral neck radiograph demonstrates the pathognomonic 'Thumbprint sign' representing marked edema of the aryepiglottic folds and epiglottis. Most classically caused by Haemophilus influenzae type b (Hib) in unvaccinated children. The priority is securing the airway in an operating room environment; never agitate the child or perform forceful tongue blade examination.",
-        highYieldPearl: "Thumbprint sign on lateral neck X-ray = Acute Epiglottitis. Tripod position, drooling, high fever. Keep child calm, prepare surgical airway, treat with IV 3rd gen cephalosporin (Ceftriaxone) + Vancomycin."
+        id: 'fa_heme',
+        name: 'Hematology & Oncology',
+        color: '#831843', // Deep Crimson
+        icon: 'drop',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Microcytic & Macrocytic Anemias', page: 'FA 420', highYield: 'Iron deficiency: low ferritin, high TIBC. Lead poisoning: basophilic stippling. B12 deficiency: hypersegmented PMNs, high methylmalonic acid.' },
+          { title: 'Leukemias & Translocations', page: 'FA 436', highYield: 't(9;22) BCR-ABL in CML (imatinib). t(15;17) PML-RARA in APL (all-trans retinoic acid). t(8;14) c-myc in Burkitt lymphoma.' }
+        ]
       },
       {
-        title: "Barking Cough and Inspiratory Stridor in a 14-Month-Old",
-        system: "Pediatrics / Infectious Disease",
-        discipline: "Radiology",
-        difficulty: "Easy",
-        isPremium: false,
-        vignette: "A 14-month-old female is brought to urgent care at 2:00 AM due to a sudden harsh, 'seal-like' barking cough, hoarseness, and inspiratory stridor that woke her from sleep. She has had a low-grade fever and clear rhinorrhea for the past 2 days. An anteroposterior (AP) neck radiograph shows symmetric tapering and subglottic tracheal narrowing.",
-        imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Subglottic tracheal narrowing creating the classic 'Steeple Sign' (wine bottle sign).",
-        options: [
-          "Steeple sign caused by Parainfluenza virus",
-          "Thumbprint sign caused by Haemophilus influenzae",
-          "Membranous tracheal casts caused by Corynebacterium diphtheriae",
-          "Carotid sheath displacement caused by Streptococcus pyogenes",
-          "Deep sulcus sign caused by respiratory syncytial virus"
-        ],
-        correctIndex: 0,
-        explanation: "Laryngotracheobronchitis (Croup) most commonly affects children aged 6 months to 3 years and is caused by Parainfluenza virus (paramyxovirus family, enveloped -ssRNA). The subglottic tracheal mucosal edema causes narrowing on AP neck radiograph known as the 'Steeple sign' (or pencil-point / wine-bottle sign). Treatment includes a single dose of oral or IM dexamethasone, with nebulized racemic epinephrine for moderate-to-severe stridor at rest.",
-        highYieldPearl: "Steeple sign on AP neck film = Croup (Parainfluenza virus). Seal-like barking cough, inspiratory stridor. Treat with Dexamethasone ± Nebulized Racemic Epinephrine."
+        id: 'fa_msk',
+        name: 'Musculoskeletal & Skin',
+        color: '#c2410c', // Amber / Orange
+        icon: 'bone',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Bone Tumors & Radiology Signs', page: 'FA 464', highYield: 'Osteosarcoma: sunburst pattern, Codman triangle. Ewing sarcoma: t(11;22), onion skin periosteal reaction.' },
+          { title: 'Autoimmune Joint Diseases (RA vs OA vs Gout)', page: 'FA 472', highYield: 'Gout: negatively birefringent needle-shaped crystals under polarized light (yellow when parallel). Pseudogout: rhomboid, positively birefringent.' }
+        ]
       },
       {
-        title: "Intermittent Colicky Pain and 'Currant Jelly' Stools in an Infant",
-        system: "Pediatrics / Pediatric Surgery",
-        discipline: "Radiology",
-        difficulty: "Hard",
-        isPremium: true,
-        vignette: "An 8-month-old infant boy is brought to the clinic for severe episodes of inconsolable crying during which he draws his knees up to his chest. Between these episodic spasms, he appears lethargic and calm. His mother notes that his last diaper change contained dark red, mucus-laden stool ('currant jelly' appearance). Physical exam reveals a palpable sausage-shaped mass in the right upper abdomen. An abdominal ultrasound demonstrates concentric alternating hypoechoic and hyperechoic rings in transverse section resembling a donut or target.",
-        imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Target sign / Donut sign representing intussusceptum invaginating into intussuscipiens.",
-        options: [
-          "Diagnostic and therapeutic air or water-soluble contrast enema",
-          "Immediate open appendectomy and bowel resection",
-          "Intravenous high-dose methylprednisolone pulse therapy",
-          "Upper gastrointestinal series with barium follow-through",
-          "Oral erythromycin for gastrointestinal motility enhancement"
-        ],
-        correctIndex: 0,
-        explanation: "This infant presents with the classic triad of Intussusception: intermittent abdominal pain with knee flexion, sausage-shaped RUQ mass, and 'currant jelly' (blood and mucus) stools. The pathognomonic ultrasound finding is the 'Target sign' (or 'Donut sign' / 'Pseudokidney sign') showing telescoping of bowel. The initial step is air (pneumatic) or contrast hydrostatic enema, which is both diagnostic and curative in >85% of uncomplicated cases.",
-        highYieldPearl: "Target/donut sign on ultrasound = Intussusception. Most common lead point in infants is hypertrophied Peyer patches (post-viral gastroenteritis or rotavirus). Air enema is both diagnostic & therapeutic."
+        id: 'fa_neuro',
+        name: 'Neurology',
+        color: '#581c87', // Purple
+        icon: 'brain',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Intracranial Hemorrhages', page: 'FA 508', highYield: 'Epidural = middle meningeal artery, lucid interval, biconvex lens, sutures stop. Subdural = bridging veins, crescentic.' },
+          { title: 'Stroke Syndromes & Cerebral Circulation', page: 'FA 514', highYield: 'MCA = contralateral face/arm > leg, aphasia (dominant) or hemineglect (non-dominant). ACA = contralateral leg > arm.' }
+        ]
       },
       {
-        title: "Microcytic Anemia and Narrowing of Bowel Caliber",
-        system: "Gastroenterology / Oncology",
-        discipline: "Radiology",
-        difficulty: "Hard",
-        isPremium: true,
-        vignette: "A 67-year-old male presents with worsening constipation, fatigue, and an unintentional 15-pound weight loss over 4 months. He notes that his stools have become remarkably thin ('pencil-caliber'). Laboratory evaluation demonstrates hemoglobin of 9.1 g/dL with MCV of 72 fL (microcytic hypochromic anemia) and positive fecal occult blood. A fluoroscopic barium enema examination demonstrates a short, sharply demarcated, circumferential constricting lesion in the sigmoid colon with shelf-like overhanging margins.",
-        imageUrl: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Annular constriction with shouldered borders known as the classic Apple Core sign.",
-        options: [
-          "Apple-core lesion representing Colorectal Adenocarcinoma",
-          "Lead pipe colon representing Ulcerative Colitis",
-          "String sign representing terminal ileal Crohn's disease",
-          "Bird's beak sign representing primary Achalasia",
-          "Paucity of gas representing Hirschsprung disease"
-        ],
-        correctIndex: 0,
-        explanation: "The 'Apple Core lesion' (napkin-ring lesion) on barium enema or CT colonography is classic for annular, constricting Colorectal Adenocarcinoma, most commonly in the descending/sigmoid colon. Left-sided colon cancers tend to grow circumferentially, presenting with altered bowel habits, 'pencil-thin' stools, and partial colonic obstruction. Right-sided lesions present with occult bleeding and iron deficiency anemia.",
-        highYieldPearl: "Apple-core sign = Left-sided Colorectal Adenocarcinoma (annular napkin-ring constriction, pencil-thin stools). Right-sided cancers bleed (iron deficiency anemia); left-sided cancers obstruct."
+        id: 'fa_psych',
+        name: 'Psychiatry',
+        color: '#312e81', // Indigo
+        icon: 'smile',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Mood Disorders (MDD & Bipolar)', page: 'FA 560', highYield: 'SIGECAPS for MDD (>= 2 weeks). Bipolar I requires only 1 manic episode (DIG FAST).' },
+          { title: 'Antipsychotics & Neuroleptic Malignant Syndrome', page: 'FA 572', highYield: 'NMS: lead-pipe rigidity, hyperthermia, high CK. Treat with dantrolene or bromocriptine.' }
+        ]
       },
       {
-        title: "Bilateral Hilar Prominence and Erythema Nodosum in a Young Female",
-        system: "Pulmonology / Rheumatology",
-        discipline: "Radiology",
-        difficulty: "Medium",
-        isPremium: true,
-        vignette: "A 32-year-old African American female presents with painful, tender erythematous nodules over her bilateral pretibial shins, bilateral ankle arthralgias, and a mild dry cough. A routine posteroposterior chest radiograph demonstrates symmetric, well-defined enlargement of the right paratracheal, right hilar, and left hilar lymph nodes with clear lung parenchyma. Serum calcium is 11.2 mg/dL (elevated).",
-        imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
-        imageAnnotation: "Symmetric bilateral hilar and right paratracheal lymphadenopathy (Garland triad / 1-2-3 sign).",
-        options: [
-          "Systemic Sarcoidosis (Löfgren Syndrome)",
-          "Small cell lung carcinoma with oat cell histology",
-          "Primary Mycobacterium avium complex infection",
-          "Goodpasture disease with anti-GBM antibodies",
-          "Idiopathic pulmonary fibrosis (Usual Interstitial Pneumonia)"
-        ],
-        correctIndex: 0,
-        explanation: "Löfgren syndrome is an acute, self-limiting form of Sarcoidosis characterized by the classic triad of: 1) Bilateral hilar lymphadenopathy (BHL), 2) Erythema nodosum, and 3) Migratory polyarthralgias (typically ankles). Radiographically, this is the Garland triad ('1-2-3 sign': right paratracheal, right hilar, and left hilar nodes). Hypercalcemia occurs because activated epithelioid macrophages in non-caseating granulomas express 1-alpha-hydroxylase, synthesizing active 1,25-(OH)2-vitamin D3 independently of PTH control.",
-        highYieldPearl: "Bilateral hilar lymphadenopathy + erythema nodosum = Löfgren syndrome (Sarcoidosis). Non-caseating granulomas, elevated ACE, hypercalcemia from 1-alpha-hydroxylase in macrophages."
+        id: 'fa_renal',
+        name: 'Renal',
+        color: '#0e7490', // Teal
+        icon: 'funnel',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Nephritic vs Nephrotic Syndromes', page: 'FA 602', highYield: 'Minimal change: effacement of podocyte foot processes on EM. Post-strep: subepithelial humps on EM, starry sky IF.' },
+          { title: 'Acid-Base Disorders & Winter Formula', page: 'FA 594', highYield: 'Winters formula for respiratory compensation in metabolic acidosis: Expected PaCO2 = 1.5 * [HCO3-] + 8 ± 2.' }
+        ]
+      },
+      {
+        id: 'fa_repro',
+        name: 'Reproductive',
+        color: '#be185d', // Magenta
+        icon: 'baby',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Ovarian & Uterine Neoplasms', page: 'FA 640', highYield: 'Serous cystadenocarcinoma: Psammoma bodies. Granulosa cell tumor: Call-Exner bodies, produces estrogen.' }
+        ]
+      },
+      {
+        id: 'fa_resp',
+        name: 'Respiratory',
+        color: '#0284c7', // Steel Blue
+        icon: 'lungs',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Obstructive vs Restrictive Lung Disease', page: 'FA 670', highYield: 'Obstructive: FEV1/FVC < 0.70. Restrictive: FEV1/FVC normal or increased (>0.70), reduced TLC and FVC.' },
+          { title: 'Pulmonary Embolism & Diagnostic Workup', page: 'FA 678', highYield: 'CT Pulmonary Angiography is gold standard. S1Q3T3 on ECG, respiratory alkalosis with PaO2 drop.' }
+        ]
+      },
+      {
+        id: 'fa_immuno',
+        name: 'Immunology',
+        color: '#1e40af', // Navy Blue
+        icon: 'shield',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Hypersensitivity Reactions (Types I-IV)', page: 'FA 112', highYield: 'Type I: IgE, anaphylaxis. Type II: cytotoxic antibodies (Goodpasture, Rh). Type III: immune complexes (SLE, serum sickness). Type IV: T-cell mediated (PPD, poison ivy).' }
+        ]
+      },
+      {
+        id: 'fa_gen',
+        name: 'General Principles',
+        color: '#475569', // Charcoal
+        icon: 'dna',
+        subtitle: 'Headings by subject and page',
+        easy: 0,
+        forgetting: 0,
+        topics: [
+          { title: 'Pharmacokinetics & Enzyme Inhibitors', page: 'FA 230', highYield: 'CYP450 inducers (Ken rides his green Corvette): Phenytoin, Carbamazepine, Rifampin, St. Johns wort, Barbiturates.' }
+        ]
       }
     ];
-
-    sampleQuestions.forEach(q => db.createQuestion(q));
-    console.log(`Seeded ${sampleQuestions.length} comprehensive USMLE questions.`);
+    console.log('Seeded First Aid organ systems.');
   }
 
-  // Seed sample activity logs for admin dashboard
-  const logs = db.getActivityLogs();
-  if (logs.length === 0) {
-    db.logActivity('usr_demo1', 'Dr. Sarah Jenkins', 'login', { device: 'MacBook Pro 16', browser: 'Chrome 122' }, '192.168.1.45', 'Mozilla/5.0 Mac OS X');
-    db.logActivity('usr_demo1', 'Dr. Sarah Jenkins', 'test_started', { mode: 'Timed Exam', questionsCount: 40, system: 'Radiology / Neuro' }, '192.168.1.45');
-    db.logActivity('usr_demo1', 'Dr. Sarah Jenkins', 'question_answered', { questionId: 'q_1', result: 'correct', timeSpentSeconds: 48 }, '192.168.1.45');
-    db.logActivity('usr_demo1', 'Dr. Sarah Jenkins', 'radbot_query', { query: 'Compare epidural vs subdural hematoma on CT' }, '192.168.1.45');
-    db.logActivity('usr_demo2', 'Dr. Michael Chen', 'login', { device: 'iPad Air 5th Gen', browser: 'Safari Mobile' }, '10.0.0.12', 'Mozilla/5.0 iPad');
-    db.logActivity('usr_demo2', 'Dr. Michael Chen', 'test_started', { mode: 'Tutor Mode', questionsCount: 15, system: 'Pulmonology' }, '10.0.0.12');
-    db.logActivity('usr_demo2', 'Dr. Michael Chen', 'radbot_query', { query: 'Systematic approach to Chest X-Ray (ABCDE)' }, '10.0.0.12');
-    console.log('Seeded sample activity logs.');
+  // 3. Sketchy Decks (Screenshot 3)
+  if (!db.data.sketchyDecks || db.data.sketchyDecks.length === 0) {
+    db.data.sketchyDecks = [
+      {
+        id: 'sketchy_path',
+        title: 'Sketchy Path',
+        subtitle: '141 sketches · 9 systems',
+        color: '#db2777', // Rose / Pink
+        icon: 'microscope',
+        progress: 0,
+        sketches: [
+          { title: 'Atherosclerosis & Coronary Artery Disease', system: 'Cardiac', symbols: ['Golden plaque', 'Foam cells (macrophages engulfing oxidized LDL)', 'Fibrous cap rupture'] },
+          { title: 'Glomerulonephritis & Nephrotic Spectrum', system: 'Renal', symbols: ['Lumpy bumpy fence', 'Spike and dome baseball player', 'Tram-track railroad'] },
+          { title: 'Pneumonias (Lobar vs Interstitial vs Atypical)', system: 'Pulmonary', symbols: ['Rust colored sputum', 'Legionnaire soldier with water tank', 'Walking mycoplasma stick figure'] }
+        ]
+      },
+      {
+        id: 'sketchy_micro',
+        title: 'Sketchy Micro',
+        subtitle: '139 sketches',
+        color: '#15803d', // Forest Green
+        icon: 'virus',
+        progress: 0,
+        sketches: [
+          { title: 'Staphylococcus aureus (The Golden Staff of Moses)', system: 'Gram Positive Cocci', symbols: ['Golden color = carotenoid pigment', 'Beta hemolytic light bulb', 'Catalase cat', 'Coagulase coagulating liquid'] },
+          { title: 'Streptococcus pneumoniae (The Alpha Knight Tournament)', system: 'Gram Positive Cocci', symbols: ['Lancet shaped diplococci', 'Alpha hemolytic green armor', 'Optochin sensitive chin mask', 'Bile soluble'] },
+          { title: 'Pseudomonas aeruginosa (The Suited Mona Lisa)', system: 'Gram Negative Bacilli', symbols: ['Grape fruity odor candy', 'Blue-green pyocyanin paint', 'Oxidase blue ring', 'CF pulmonary infections', 'Ecthyma gangrenosum'] }
+        ]
+      },
+      {
+        id: 'sketchy_pharm',
+        title: 'Sketchy Pharm',
+        subtitle: '107 sketches · 12 systems',
+        color: '#7e22ce', // Violet
+        icon: 'pill',
+        progress: 0,
+        sketches: [
+          { title: 'Beta-Lactams & Penicillins (Princess Penicillins Castle)', system: 'Antimicrobials', symbols: ['Transpeptidase wall builders inhibited', 'Allergic rash suit', 'Interference with peptidoglycan crosslinking'] },
+          { title: 'ACE Inhibitors & ARBs (The Casino Dealership)', system: 'Cardiovascular', symbols: ['Angiotensin I to II converter blocked', 'Bradykinin coughing lungs', 'Hyperkalemic bananas', 'Angioedema big lips'] },
+          { title: 'Loop & Thiazide Diuretics (The Loop-de-Loop Rollercoaster)', system: 'Renal', symbols: ['Na+/K+/2Cl- cotransporter blocked in thick ascending limb', 'Hypokalemia', 'Ototoxicity gong', 'Sulfa allergy egg'] }
+        ]
+      }
+    ];
+    console.log('Seeded Sketchy decks.');
   }
 
-  console.log('Database seeding complete!');
+  // 4. DDx Categories (Screenshot 5)
+  if (!db.data.ddxCategories || db.data.ddxCategories.length === 0) {
+    db.data.ddxCategories = [
+      {
+        id: 'ddx_heart',
+        name: 'Heart',
+        color: '#c2410c', // Orange / Rust
+        count: 3,
+        complaints: [
+          {
+            name: 'Chest pain',
+            completed: 0,
+            total: 13,
+            differentials: [
+              { name: 'Acute Coronary Syndrome (STEMI / NSTEMI)', highYield: 'Substernal pressure radiating to left arm/jaw, diaphoresis. Elevated troponin I/T, ECG ST-elevations or depressions. Immediate chewable aspirin 325 mg + heparin + cath lab.' },
+              { name: 'Aortic Dissection (Stanford Type A / B)', highYield: 'Sudden tearing chest pain radiating to back between scapulae. Asymmetric blood pressure in arms (>20 mmHg difference). Mediastinal widening on CXR. CTA gold standard. Beta-blocker first (esmolol).' },
+              { name: 'Pulmonary Embolism with Infarction', highYield: 'Sudden pleuritic pain, dyspnea, tachycardia, hypoxemia. Wells score, D-dimer vs CT Pulmonary Angiogram.' },
+              { name: 'Acute Pericarditis', highYield: 'Sharp pain improved by leaning forward, worsened by recumbency. Friction rub. Diffuse PR depression & ST elevations. NSAIDs + Colchicine.' },
+              { name: 'Tension Pneumothorax', highYield: 'Sudden sharp unilateral pain, absent breath sounds, tracheal deviation opposite side, hypotension. Emergent needle thoracostomy.' },
+              { name: 'Gastroesophageal Reflux Disease (GERD)', highYield: 'Burning retrosternal discomfort postprandial or reclining, relieved by antacids. Trial of PPI.' }
+            ]
+          },
+          {
+            name: 'Palpitations',
+            completed: 0,
+            total: 11,
+            differentials: [
+              { name: 'Atrial Fibrillation / Flutter', highYield: 'Irregularly irregular rhythm, absent P waves. Rate control with Beta-blocker or Diltiazem. Anticoagulate based on CHA2DS2-VASc.' },
+              { name: 'Supraventricular Tachycardia (AVNRT)', highYield: 'Sudden onset regular rapid HR (150-250 bpm). Vagal maneuvers first line, then IV Adenosine rapid push.' },
+              { name: 'Premature Ventricular Contractions (PVCs)', highYield: 'Skipped beat sensation. Wide bizarre QRS complexes. Reassurance and avoid caffeine/nicotine.' }
+            ]
+          },
+          {
+            name: 'Syncope',
+            completed: 0,
+            total: 12,
+            differentials: [
+              { name: 'Vasovagal Syncope (Neurocardiogenic)', highYield: 'Emotional stress, prolonged standing, warm room with prodrome of nausea/pallor/diaphoresis.' },
+              { name: 'Aortic Stenosis', highYield: 'Exertional syncope, angina, dyspnea (SAD triad). Harsh systolic cresc-decresc murmur radiating to carotids.' },
+              { name: 'Hypertrophic Cardiomyopathy (HOCM)', highYield: 'Young athlete syncope during exercise. Murmur increases with Valsalva and standing (decreased preload).' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ddx_lungs',
+        name: 'Lungs',
+        color: '#0284c7', // Steel Blue
+        count: 3,
+        complaints: [
+          {
+            name: 'Shortness of breath',
+            completed: 0,
+            total: 14,
+            differentials: [
+              { name: 'Acute Heart Failure / Pulmonary Edema', highYield: 'Dyspnea, orthopnea, PND, crackles, elevated BNP, cephalization and Kerley B lines on CXR. IV Furosemide + oxygen.' },
+              { name: 'Asthma Exacerbation', highYield: 'Expiratory wheezing, prolonged expiratory phase. Albuterol + Ipratropium + systemic steroids.' },
+              { name: 'Community-Acquired Pneumonia', highYield: 'Fever, productive cough, focal consolidation on CXR with air bronchograms. Ceftriaxone + Azithromycin.' }
+            ]
+          },
+          {
+            name: 'Cough',
+            completed: 0,
+            total: 12,
+            differentials: [
+              { name: 'Upper Airway Cough Syndrome (Post-nasal drip)', highYield: 'Cobblestoning of posterior oropharynx, throat clearing. First-gen antihistamine-decongestant.' },
+              { name: 'Gastroesophageal Reflux (GERD)', highYield: 'Nocturnal dry cough, water brash, hoarseness. Trial of omeprazole.' },
+              { name: 'ACE Inhibitor Cough', highYield: 'Dry hacking cough due to bradykinin accumulation. Switch to ARB (Losartan).' }
+            ]
+          },
+          {
+            name: 'Hemoptysis',
+            completed: 0,
+            total: 11,
+            differentials: [
+              { name: 'Bronchitis / Bronchiectasis', highYield: 'Bronchiectasis: chronic copious purulent sputum with blood, signet ring sign on high-res chest CT.' },
+              { name: 'Bronchogenic Carcinoma', highYield: 'Smoker > 50 yo, weight loss, hemoptysis, solitary pulmonary nodule or hilar mass.' },
+              { name: 'Mycobacterium tuberculosis', highYield: 'Apical cavitary lesions on CXR, fever, night sweats, acid-fast bacillus stain. RIPE therapy.' },
+              { name: 'Pulmonary Embolism with Infarction', highYield: 'Wedge-shaped pleural opacity (Hampton hump) on CXR with hemoptysis and pleuritic pain.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ddx_brain',
+        name: 'Brain and nerves',
+        color: '#581c87', // Purple
+        count: 4,
+        complaints: [
+          {
+            name: 'Altered consciousness',
+            completed: 0,
+            total: 17,
+            differentials: [
+              { name: 'Hypoglycemia', highYield: 'Diaphoresis, tremors, confusion. Check fingerstick glucose immediately! IV Dextrose 50% or IM Glucagon.' },
+              { name: 'Opioid Toxicity', highYield: 'Triad: CNS depression, miosis (pinpoint pupils), respiratory depression. Naloxone IV titration.' },
+              { name: 'Sepsis / Septic Encephalopathy', highYield: 'Fever or hypothermia, leukocytosis, elevated lactate, hypotension. Blood cultures + broad spectrum IV antibiotics within 1 hr.' },
+              { name: 'Acute Ischemic / Hemorrhagic Stroke', highYield: 'Focal neurological deficits, gaze deviation. Non-contrast head CT immediately.' }
+            ]
+          },
+          {
+            name: 'CVA',
+            completed: 0,
+            total: 10,
+            differentials: [
+              { name: 'Ischemic Stroke (MCA / ACA / PCA)', highYield: 'Thrombolysis with IV tPA/TNK within 4.5 hrs if no contraindications; mechanical thrombectomy within 24 hrs for large vessel occlusion.' },
+              { name: 'Intracerebral Hemorrhage', highYield: 'Hypertension in basal ganglia / Charcot-Bouchard. Lower BP gently, neurosurgical consult.' }
+            ]
+          },
+          {
+            name: 'Headache',
+            completed: 0,
+            total: 13,
+            differentials: [
+              { name: 'Subarachnoid Hemorrhage', highYield: 'Worst headache of life (thunderclap), nuchal rigidity. Non-contrast CT (hyperdensity in cisterns); if negative, lumbar puncture for xanthochromia.' },
+              { name: 'Temporal (Giant Cell) Arteritis', highYield: 'Elderly patient, unilateral temporal headache, jaw claudication, elevated ESR/CRP. Start high-dose steroids immediately to prevent blindness.' },
+              { name: 'Migraine without Aura', highYield: 'Unilateral, pulsating, photophobia, phonophobia, nausea. Triptans for acute abortion.' }
+            ]
+          },
+          {
+            name: 'Weakness',
+            completed: 0,
+            total: 12,
+            differentials: [
+              { name: 'Myasthenia Gravis', highYield: 'Fluctuating fatigable weakness worsening with repetition. Ptosis, diplopia. Anti-AChR antibodies. Edrophonium or pyridostigmine.' },
+              { name: 'Guillain-Barré Syndrome', highYield: 'Ascending symmetric paralysis post-Campylobacter or viral infection. Areflexia. Albuminocytologic dissociation on LP.' }
+            ]
+          }
+        ]
+      }
+    ];
+    console.log('Seeded DDx Categories.');
+  }
+
+  db.save();
+  console.log('Zetchy Database seeding complete!');
 }
 
 module.exports = seed;

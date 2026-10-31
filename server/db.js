@@ -4,7 +4,6 @@ const path = require('path');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
-// Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
@@ -16,15 +15,16 @@ const defaultState = {
   tests: [],
   radbot_chats: [],
   flashcards: [],
+  firstAidSystems: [],
+  sketchyDecks: [],
+  ddxCategories: [],
   settings: {
-    platformName: 'RadMed USMLE',
-    tagline: 'High-Yield Medical & Radiology Board Preparation',
+    platformName: 'Zetchy',
+    tagline: 'All-in-One USMLE, First Aid, Sketchy, Flashcards & AI DDx Station',
     logoUrl: '/assets/logo.svg',
-    primaryColor: '#0284c7',
+    primaryColor: '#e11d48',
     allowSignups: true,
-    enableRadBot: true,
-    aiModel: 'RadBot Clinical Engine v3.5',
-    apiKey: ''
+    enableRadBot: true
   }
 };
 
@@ -40,7 +40,7 @@ class Database {
         return { ...defaultState, ...JSON.parse(raw) };
       }
     } catch (err) {
-      console.error('Error loading db.json, initializing fresh db:', err.message);
+      console.error('Error loading db.json:', err.message);
     }
     this.save(defaultState);
     return defaultState;
@@ -53,8 +53,6 @@ class Database {
       console.error('Error saving db.json:', err.message);
     }
   }
-
-  // --- Collection Helpers ---
 
   // Users
   getUsers() {
@@ -77,6 +75,8 @@ class Database {
       status: 'active',
       tier: 'free',
       role: 'user',
+      hasCompletedTour: false,
+      trialDaysRemaining: 2,
       ...userData
     };
     this.data.users.push(newUser);
@@ -100,7 +100,7 @@ class Database {
     return true;
   }
 
-  // Activity Logs (Admin Audit Trail)
+  // Activity Logs
   logActivity(userId, userName, action, details = {}, ip = '127.0.0.1', userAgent = 'Unknown') {
     const log = {
       id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
@@ -114,7 +114,6 @@ class Database {
     };
     if (!this.data.activity_logs) this.data.activity_logs = [];
     this.data.activity_logs.unshift(log);
-    // Keep last 1,000 logs for performance
     if (this.data.activity_logs.length > 1000) {
       this.data.activity_logs = this.data.activity_logs.slice(0, 1000);
     }
@@ -146,20 +145,47 @@ class Database {
     return newQ;
   }
 
-  updateQuestion(id, updates) {
-    const idx = this.data.questions.findIndex(q => q.id === id);
-    if (idx === -1) return null;
-    this.data.questions[idx] = { ...this.data.questions[idx], ...updates, updatedAt: new Date().toISOString() };
-    this.save();
-    return this.data.questions[idx];
-  }
-
   deleteQuestion(id) {
     const idx = this.data.questions.findIndex(q => q.id === id);
     if (idx === -1) return false;
     this.data.questions.splice(idx, 1);
     this.save();
     return true;
+  }
+
+  // First Aid Systems
+  getFirstAidSystems() {
+    return this.data.firstAidSystems || [];
+  }
+
+  // Sketchy Decks
+  getSketchyDecks() {
+    return this.data.sketchyDecks || [];
+  }
+
+  // DDx Categories
+  getDDxCategories() {
+    return this.data.ddxCategories || [];
+  }
+
+  // Flashcards (FSRS Spaced Repetition)
+  getFlashcards(userId) {
+    return (this.data.flashcards || []).filter(c => !userId || c.userId === userId);
+  }
+
+  saveFlashcard(card) {
+    if (!this.data.flashcards) this.data.flashcards = [];
+    const newCard = {
+      id: 'card_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+      state: 'new', // new, learning, review
+      dueDate: new Date().toISOString(),
+      interval: 1,
+      ease: 2.5,
+      ...card
+    };
+    this.data.flashcards.push(newCard);
+    this.save();
+    return newCard;
   }
 
   // RadBot Chats
@@ -186,24 +212,6 @@ class Database {
     return (this.data.radbot_chats || []).slice(0, limit);
   }
 
-  // Tests
-  saveTestResult(testData) {
-    const test = {
-      id: 'test_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-      createdAt: new Date().toISOString(),
-      ...testData
-    };
-    if (!this.data.tests) this.data.tests = [];
-    this.data.tests.unshift(test);
-    this.save();
-    return test;
-  }
-
-  getUserTests(userId) {
-    return (this.data.tests || []).filter(t => t.userId === userId);
-  }
-
-  // Settings
   getSettings() {
     return this.data.settings || defaultState.settings;
   }
