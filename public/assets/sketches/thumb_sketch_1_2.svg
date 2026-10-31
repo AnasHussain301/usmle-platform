@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#15803d"/>
+      <stop offset="100%" style="stop-color:#166534"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#bg)"/>
+  
+  <!-- Decorative circles (scene atmosphere) -->
+  <circle cx="45" cy="40" r="80" fill="#6ee7b722" filter="url(#blur)"/>
+  <circle cx="240" cy="140" r="70" fill="#6ee7b718" filter="url(#blur)"/>
+  <circle cx="150" cy="100" r="110.00000000000001" fill="#15803d33" filter="url(#blur)"/>
+  
+  <!-- Grid texture overlay -->
+  <line x1="0" y1="0" x2="300" y2="0" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="25" x2="300" y2="25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="50" x2="300" y2="50" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="75" x2="300" y2="75" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="100" x2="300" y2="100" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="125" x2="300" y2="125" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="150" x2="300" y2="150" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="175" x2="300" y2="175" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="0" y1="0" x2="0" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="25" y1="0" x2="25" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="50" y1="0" x2="50" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="75" y1="0" x2="75" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="100" y1="0" x2="100" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="125" y1="0" x2="125" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="150" y1="0" x2="150" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="175" y1="0" x2="175" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="200" y1="0" x2="200" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="225" y1="0" x2="225" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="250" y1="0" x2="250" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="275" y1="0" x2="275" y2="200" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
+
+  <!-- Scene label badge -->
+  <rect x="10" y="10" width="120" height="18" rx="9" fill="black" fill-opacity="0.5"/>
+  <text x="60" y="22" text-anchor="middle" fill="#6ee7b7" font-size="8" font-weight="bold" font-family="Arial">DWARF'S FOREST DEN</text>
+
+  <!-- Number badge -->
+  <rect x="250" y="10" width="40" height="18" rx="9" fill="#6ee7b744" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="270" y="22" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">1.2</text>
+
+  
+  
+  <!-- Title background -->
+  <rect x="0" y="150" width="300" height="50" fill="black" fill-opacity="0.65"/>
+  
+  <!-- Title text -->
+  <text x="150" y="172" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">Iron Deficiency Anemia & ACD</text>
+  <text x="150" y="188" text-anchor="middle" fill="#6ee7b7" font-size="8" font-family="Arial">Iron forge · Flowing river · Wooden cabin</text>
+  
+</svg>

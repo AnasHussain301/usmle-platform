@@ -178,7 +178,8 @@ app.get('/api/sketchy/decks', (req, res) => {
 });
 
 app.get('/api/sketchy/path', (req, res) => {
-  res.json({ pathData: db.getSketchyPathData() });
+  const pathData = db.getSketchyPathData() || {};
+  res.json({ ...pathData, pathData });
 });
 
 app.get('/api/ddx/categories', (req, res) => {

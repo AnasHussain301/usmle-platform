@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4d7c0f"/>
+      <stop offset="100%" style="stop-color:#365314"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg)"/>
+  
+  <!-- Decorative circles (scene atmosphere) -->
+  <circle cx="120" cy="90" r="180" fill="#bef26422" filter="url(#blur)"/>
+  <circle cx="640" cy="315" r="157.5" fill="#bef26418" filter="url(#blur)"/>
+  <circle cx="400" cy="225" r="247.50000000000003" fill="#4d7c0f33" filter="url(#blur)"/>
+  
+  <!-- Grid texture overlay -->
+  <line x1="0" y1="0" x2="800" y2="0" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="56.25" x2="800" y2="56.25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="112.5" x2="800" y2="112.5" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="168.75" x2="800" y2="168.75" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="225" x2="800" y2="225" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="281.25" x2="800" y2="281.25" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="337.5" x2="800" y2="337.5" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="0" y1="393.75" x2="800" y2="393.75" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="0" y1="0" x2="0" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="66.66666666666667" y1="0" x2="66.66666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="133.33333333333334" y1="0" x2="133.33333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="200" y1="0" x2="200" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="266.6666666666667" y1="0" x2="266.6666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="333.3333333333333" y1="0" x2="333.3333333333333" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="400" y1="0" x2="400" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="466.6666666666667" y1="0" x2="466.6666666666667" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="533.3333333333334" y1="0" x2="533.3333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="600" y1="0" x2="600" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="666.6666666666666" y1="0" x2="666.6666666666666" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/><line x1="733.3333333333334" y1="0" x2="733.3333333333334" y2="450" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
+
+  <!-- Scene label badge -->
+  <rect x="10" y="10" width="180" height="22" rx="9" fill="black" fill-opacity="0.5"/>
+  <text x="90" y="25" text-anchor="middle" fill="#bef264" font-size="10" font-weight="bold" font-family="Arial">ACID RIVER FACTORY</text>
+
+  <!-- Number badge -->
+  <rect x="750" y="10" width="40" height="22" rx="11" fill="#bef26444" stroke="#bef264" stroke-width="1"/>
+  <text x="770" y="26" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">4.1</text>
+
+  <circle cx="731.6" cy="233.1" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+<text x="731.6" y="237.1" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">1</text><circle cx="248.6" cy="346.7" r="11" fill="#22c55e" stroke="white" stroke-width="1.5"/>
+<text x="248.6" y="350.7" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">2</text><circle cx="680.1" cy="346.4" r="11" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+<text x="680.1" y="350.4" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">3</text><circle cx="218.8" cy="165.4" r="11" fill="#8b5cf6" stroke="white" stroke-width="1.5"/>
+<text x="218.8" y="169.4" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">4</text><circle cx="147.9" cy="266.9" r="11" fill="#ec4899" stroke="white" stroke-width="1.5"/>
+<text x="147.9" y="270.9" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">5</text><circle cx="443.7" cy="198.2" r="11" fill="#06b6d4" stroke="white" stroke-width="1.5"/>
+<text x="443.7" y="202.2" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">6</text><circle cx="739.9" cy="74.2" r="11" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+<text x="739.9" y="78.2" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">7</text><circle cx="117.0" cy="85.1" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+<text x="117.0" y="89.1" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">8</text><circle cx="693.7" cy="142.7" r="11" fill="#22c55e" stroke="white" stroke-width="1.5"/>
+<text x="693.7" y="146.7" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">9</text><circle cx="631.3" cy="198.6" r="11" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+<text x="631.3" y="202.6" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">10</text><circle cx="448.8" cy="288.3" r="11" fill="#8b5cf6" stroke="white" stroke-width="1.5"/>
+<text x="448.8" y="292.3" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">11</text><circle cx="687.1" cy="87.8" r="11" fill="#ec4899" stroke="white" stroke-width="1.5"/>
+<text x="687.1" y="91.8" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">12</text><circle cx="120.0" cy="67.1" r="11" fill="#06b6d4" stroke="white" stroke-width="1.5"/>
+<text x="120.0" y="71.1" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">13</text><circle cx="607.7" cy="207.8" r="11" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+<text x="607.7" y="211.8" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">14</text><circle cx="626.2" cy="67.3" r="11" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+<text x="626.2" y="71.3" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Arial">15</text>
+  
+  <!-- Title background -->
+  <rect x="0" y="380" width="800" height="70" fill="black" fill-opacity="0.65"/>
+  
+  <!-- Title text -->
+  <text x="400" y="408" text-anchor="middle" fill="white" font-size="15" font-weight="bold" font-family="Arial">GERD, Barrett & Adenocarcinoma</text>
+  <text x="400" y="428" text-anchor="middle" fill="#bef264" font-size="10" font-family="Arial">Acid waterfall · Metaplasia garden · Barrett bridge</text>
+  <text x="400" y="444" text-anchor="middle" fill="white" fill-opacity="0.5" font-size="8" font-family="Arial">Zetchy • Interactive Memory Palace Canvas</text>
+</svg>
