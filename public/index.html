@@ -298,11 +298,321 @@
         </button>
       </div>
 
-      <!-- 3 Big Cards: Sketchy Path, Sketchy Micro, Sketchy Pharm (Screenshot 3) -->
+      <!-- 3 Big Cards: Sketchy Path, Sketchy Micro, Sketchy Pharm -->
       <div id="sketchy-decks-container" class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Rendered by JS -->
       </div>
     </div>
+
+    <!-- VIEW 3.1: SKETCHY PATH BROWSER (NEW SCREENSHOT 1) -->
+    <div id="view-sketchy-path" class="hidden max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-5">
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between">
+        <button onclick="navigate('sketchy')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#241732] hover:bg-[#2e1d40] text-slate-300 border border-[#3b2752] transition-colors">
+          &larr; Sketchy
+        </button>
+      </div>
+
+      <!-- Title Header (Microscope Icon) -->
+      <div class="flex items-center gap-3 pt-1">
+        <div class="w-12 h-12 rounded-full bg-white text-rose-600 flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <h1 class="text-3xl font-black text-white">Sketchy Path</h1>
+      </div>
+
+      <!-- Search & Controls Bar -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-1">
+          <input type="text" placeholder="Search Sketchy Path" class="w-full pl-11 pr-4 py-2.5 bg-[#191024] border border-[#2e1d40] rounded-2xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
+          <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <button class="px-4 py-2 bg-[#22162f] hover:bg-[#2e1d40] border border-[#3b2752] rounded-2xl text-xs font-bold text-slate-200">
+          All text
+        </button>
+        <button onclick="toggleAllAccordions()" class="px-4 py-2 bg-[#22162f] hover:bg-[#2e1d40] border border-[#3b2752] rounded-2xl text-xs font-bold text-slate-200 flex items-center gap-1.5">
+          <span>▾</span> Open all
+        </button>
+      </div>
+
+      <!-- Segment Bar (All 141 and 9 colored system segments) -->
+      <div class="flex items-center gap-3 pt-1">
+        <div class="px-3 py-1 rounded-full text-xs font-bold bg-[#261533] text-pink-400 border border-pink-500/40 shrink-0">
+          All 141 ▾
+        </div>
+        <div class="flex-1 flex gap-1 h-2 rounded-full overflow-hidden bg-black/30">
+          <div class="flex-1 bg-[#831843]"></div>
+          <div class="flex-1 bg-[#9a3412]"></div>
+          <div class="flex-1 bg-[#0284c7]"></div>
+          <div class="flex-1 bg-[#4d7c0f]"></div>
+          <div class="flex-1 bg-[#0e7490]"></div>
+          <div class="flex-1 bg-[#581c87]"></div>
+          <div class="flex-1 bg-[#c2410c]"></div>
+          <div class="flex-1 bg-[#a16207]"></div>
+          <div class="flex-1 bg-[#be185d]"></div>
+        </div>
+      </div>
+
+      <!-- Accordion 1: Blood & Coagulation (Screenshot 1) -->
+      <div class="space-y-3 pt-2">
+        <div onclick="toggleAccordion('acc-blood')" class="cursor-pointer bg-[#831843] text-white p-3.5 rounded-2xl flex items-center justify-between font-bold text-sm shadow-md">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs">💧</span>
+            <span>Blood &amp; Coagulation</span>
+          </div>
+          <span class="text-xs opacity-90">12 sketches · 0% ▾</span>
+        </div>
+
+        <div id="acc-blood" class="space-y-3 pl-2 sm:pl-4">
+          <!-- Sub-Accordion: Microcytic anemias (Screenshot 1) -->
+          <div class="bg-[#1c1228] border border-[#331f47] rounded-2xl overflow-hidden">
+            <div class="p-3 bg-[#241733] flex items-center justify-between text-xs font-bold text-white border-b border-[#331f47]">
+              <span>Microcytic anemias</span>
+              <span class="text-slate-400">2 · 0% ▾</span>
+            </div>
+            
+            <!-- Sketch Cards Grid (Screenshot 1) -->
+            <div class="p-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Card 1.1 -->
+              <div onclick="openInteractiveSketch('sketch_1_1')" class="cursor-pointer bg-[#140c1e] hover:bg-[#1f132e] border border-[#3b2752] rounded-2xl overflow-hidden shadow-md transition-all group">
+                <div class="aspect-video bg-black overflow-hidden relative">
+                  <img src="/assets/sketches/thumb_thalassemia.png" alt="Microcytic Anemia" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                </div>
+                <div class="p-3 space-y-2">
+                  <h4 class="text-xs font-bold text-white line-clamp-2">
+                    <span class="text-pink-400">1.1</span> Microcytic Anemia: Overview &amp; Thalassemias
+                  </h4>
+                  <div class="flex items-center justify-between text-[10px] text-slate-400">
+                    <div class="w-full bg-[#261738] h-1 rounded-full overflow-hidden mr-2">
+                      <div class="bg-pink-500 h-full w-0"></div>
+                    </div>
+                    <span>0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 1.2 (Exact match to Screenshot 1 & 2) -->
+              <div onclick="openInteractiveSketch('sketch_1_2')" class="cursor-pointer bg-[#140c1e] hover:bg-[#1f132e] border border-pink-500/50 rounded-2xl overflow-hidden shadow-lg transition-all group ring-1 ring-pink-500/30">
+                <div class="aspect-video bg-black overflow-hidden relative">
+                  <img src="/assets/sketches/thumb_iron_deficiency.png" alt="Iron Deficiency Anemia" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                </div>
+                <div class="p-3 space-y-2">
+                  <h4 class="text-xs font-bold text-white line-clamp-2">
+                    <span class="text-pink-400">1.2</span> Iron Deficiency Anemia &amp; Anemia of Chronic Disease
+                  </h4>
+                  <div class="flex items-center justify-between text-[10px] text-slate-400">
+                    <div class="w-full bg-[#261738] h-1 rounded-full overflow-hidden mr-2">
+                      <div class="bg-pink-500 h-full w-0"></div>
+                    </div>
+                    <span>0%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Accordion: Normocytic & macrocytic anemias -->
+          <div class="bg-[#1c1228] border border-[#331f47] rounded-2xl overflow-hidden">
+            <div class="p-3 bg-[#241733] flex items-center justify-between text-xs font-bold text-white">
+              <span>Normocytic &amp; macrocytic anemias</span>
+              <span class="text-slate-400">5 · 0% ▾</span>
+            </div>
+          </div>
+
+          <!-- Sub-Accordion: Hemostasis & platelet disorders -->
+          <div class="bg-[#1c1228] border border-[#331f47] rounded-2xl overflow-hidden">
+            <div class="p-3 bg-[#241733] flex items-center justify-between text-xs font-bold text-white">
+              <span>Hemostasis &amp; bleeding disorders</span>
+              <span class="text-slate-400">5 · 0% ▾</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- System 2: Cardiovascular -->
+        <div class="bg-[#9a3412] text-white p-3.5 rounded-2xl flex items-center justify-between font-bold text-sm shadow-md">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs">❤️</span>
+            <span>Cardiovascular System</span>
+          </div>
+          <span class="text-xs opacity-90">16 sketches · 0% ▾</span>
+        </div>
+
+        <!-- System 3: Respiratory -->
+        <div class="bg-[#0284c7] text-white p-3.5 rounded-2xl flex items-center justify-between font-bold text-sm shadow-md">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs">🫁</span>
+            <span>Respiratory System</span>
+          </div>
+          <span class="text-xs opacity-90">14 sketches · 0% ▾</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3.2: INTERACTIVE SKETCH WORKSPACE (NEW SCREENSHOT 2) -->
+    <div id="view-sketch-detail" class="hidden max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-4">
+      <!-- Top Title & Action Bar (Screenshot 2) -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <button onclick="navigate('sketchy-path')" class="w-8 h-8 rounded-full bg-[#241732] hover:bg-[#2e1d40] border border-[#3b2752] flex items-center justify-center text-slate-300">
+            &larr;
+          </button>
+          <div>
+            <span class="text-sm font-bold text-pink-500 font-mono">1.2</span>
+            <h1 class="text-xl sm:text-2xl font-black text-white inline-block ml-2">
+              Iron Deficiency Anemia &amp; Anemia of Chronic Disease
+            </h1>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="openQuestionInExam('q_1')" class="px-3 py-1.5 rounded-full text-xs font-bold bg-[#291738] hover:bg-[#381f4d] border border-pink-900/60 text-pink-300 flex items-center gap-1.5">
+            <span>?</span> 15 questions
+          </button>
+          <button onclick="alert('Video player streaming high-yield lecture...')" class="px-3 py-1.5 rounded-full text-xs font-bold bg-[#291738] hover:bg-[#381f4d] border border-pink-900/60 text-pink-300 flex items-center gap-1.5">
+            <span>▶</span> See video
+          </button>
+          <button class="w-8 h-8 rounded-full bg-[#241732] border border-[#3b2752] flex items-center justify-center text-slate-300">
+            🔍
+          </button>
+          <button class="w-8 h-8 rounded-full bg-[#241732] border border-[#3b2752] flex items-center justify-center text-slate-300">
+            ⋮
+          </button>
+        </div>
+      </div>
+
+      <!-- Segment Indicator Bar (All 49) -->
+      <div class="flex items-center gap-2">
+        <button class="w-7 h-7 rounded-lg bg-[#241732] text-slate-300 flex items-center justify-center text-xs">
+          ≡
+        </button>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#261533] text-pink-400 border border-pink-500/40 shrink-0">
+          All 49
+        </span>
+        <div class="flex-1 flex gap-1 h-1.5 rounded-full overflow-hidden bg-black/40">
+          <div class="flex-1 bg-cyan-500"></div>
+          <div class="flex-1 bg-blue-500"></div>
+          <div class="flex-1 bg-emerald-500"></div>
+          <div class="flex-1 bg-purple-500"></div>
+          <div class="flex-1 bg-amber-500"></div>
+          <div class="flex-1 bg-rose-500"></div>
+        </div>
+      </div>
+
+      <!-- Interactive Canvas & Review Split Layout (Screenshot 2) -->
+      <div class="grid lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- Left: Interactive Illustrated Sketch with Clickable Hotspots/Pins -->
+        <div class="lg:col-span-8 bg-black rounded-3xl border-2 border-emerald-950 overflow-hidden relative shadow-2xl">
+          <div class="relative w-full overflow-hidden" id="sketch-canvas-container">
+            <img src="/assets/sketches/iron_deficiency_canvas.png" alt="Iron Deficiency Sketch" class="w-full h-auto block select-none">
+            
+            <!-- Numbered Clickable Hotspot Pins (exact coordinates matching Screenshot 2) -->
+            <div id="sketch-pins-overlay" class="absolute inset-0">
+              <!-- Pin 1 -->
+              <div onclick="selectPin(1)" id="pin-btn-1" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 7%; top: 78%;">1</div>
+              <!-- Pin 2 -->
+              <div onclick="selectPin(2)" id="pin-btn-2" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 20%; top: 83%;">2</div>
+              <!-- Pin 3 -->
+              <div onclick="selectPin(3)" id="pin-btn-3" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 26%; top: 75%;">3</div>
+              <!-- Pin 4 -->
+              <div onclick="selectPin(4)" id="pin-btn-4" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 36%; top: 80%;">4</div>
+              <!-- Pin 5 -->
+              <div onclick="selectPin(5)" id="pin-btn-5" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 61%; top: 87%;">5</div>
+              <!-- Pin 6 -->
+              <div onclick="selectPin(6)" id="pin-btn-6" class="absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 51%; top: 81%;">6</div>
+              <!-- Pin 7 -->
+              <div onclick="selectPin(7)" id="pin-btn-7" class="absolute w-6 h-6 rounded-full bg-rose-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 54%; top: 76%;">7</div>
+              <!-- Pin 8 -->
+              <div onclick="selectPin(8)" id="pin-btn-8" class="absolute w-6 h-6 rounded-full bg-rose-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 37%; top: 73%;">8</div>
+              <!-- Pin 9 -->
+              <div onclick="selectPin(9)" id="pin-btn-9" class="absolute w-6 h-6 rounded-full bg-rose-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 60%; top: 78%;">9</div>
+              <!-- Pin 10 -->
+              <div onclick="selectPin(10)" id="pin-btn-10" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 53%; top: 62%;">10</div>
+              <!-- Pin 11 -->
+              <div onclick="selectPin(11)" id="pin-btn-11" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 62%; top: 43%;">11</div>
+              <!-- Pin 12 -->
+              <div onclick="selectPin(12)" id="pin-btn-12" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 69%; top: 68%;">12</div>
+              <!-- Pin 13 -->
+              <div onclick="selectPin(13)" id="pin-btn-13" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 56%; top: 37%;">13</div>
+              <!-- Pin 14 -->
+              <div onclick="selectPin(14)" id="pin-btn-14" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 49%; top: 41%;">14</div>
+              <!-- Pin 15 -->
+              <div onclick="selectPin(15)" id="pin-btn-15" class="absolute w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform" style="left: 84%; top: 88%;">15</div>
+            </div>
+
+            <!-- Fullscreen & Zoom Buttons (Screenshot 2) -->
+            <button class="absolute top-3 right-3 p-1.5 rounded-lg bg-black/60 text-white hover:bg-black/90 text-sm">⛶</button>
+            <div class="absolute bottom-3 right-3 flex items-center bg-black/60 rounded-lg text-white text-xs border border-white/20">
+              <button class="px-2 py-1 hover:bg-white/20">—</button>
+              <button class="px-2 py-1 hover:bg-white/20">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Review & Action Panel (Screenshot 2) -->
+        <div class="lg:col-span-4 bg-[#1a1224] border border-[#2e1d40] rounded-3xl p-6 space-y-5">
+          <!-- Start Here Subtitle (Screenshot 2) -->
+          <div class="text-center space-y-1">
+            <span class="text-xs font-black uppercase text-pink-400">Start here</span>
+            <p class="text-xs text-slate-300">Tap a number on the picture to see what its symbol stands for.</p>
+          </div>
+
+          <!-- Navigation & Rating Bar (Screenshot 2) -->
+          <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-[#2e1d40]">
+            <button onclick="prevPin()" class="p-2 hover:text-white">&lt;</button>
+            
+            <button onclick="ratePin('dont_know')" class="flex flex-col items-center gap-1 hover:text-white">
+              <span class="text-sm">✕</span>
+              <span class="text-[10px]">Don't know</span>
+            </button>
+            
+            <button onclick="ratePin('star')" class="flex flex-col items-center gap-1 hover:text-amber-400">
+              <span class="text-sm">☆</span>
+              <span class="text-[10px]">Star</span>
+            </button>
+            
+            <button onclick="ratePin('skip')" class="flex flex-col items-center gap-1 hover:text-white">
+              <span class="text-sm">⊘</span>
+              <span class="text-[10px]">Skip</span>
+            </button>
+            
+            <button onclick="ratePin('know_it')" class="flex flex-col items-center gap-1 hover:text-emerald-400">
+              <span class="text-sm text-emerald-400">✓</span>
+              <span class="text-[10px] text-emerald-400 font-bold">Know it</span>
+            </button>
+            
+            <button onclick="nextPin()" class="p-2 hover:text-white">&gt;</button>
+          </div>
+
+          <!-- Active Symbol Details Box -->
+          <div id="active-symbol-box" class="bg-[#241736] border border-[#3b2554] rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span id="active-symbol-pin" class="px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-blue-600 text-white">#1. Dwarf's Den</span>
+              <button onclick="addCurrentPinToDeck()" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-pink-600 hover:bg-pink-700 text-white flex items-center gap-1">
+                + Deck
+              </button>
+            </div>
+            
+            <div>
+              <h4 id="active-symbol-title" class="text-sm font-bold text-white">Microcytic Anemia (MCV &lt; 80 fL)</h4>
+              <p id="active-symbol-meaning" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Small RBCs characterized by impaired hemoglobin synthesis.
+              </p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-[#170e22] border border-[#3b2554] space-y-1">
+              <span class="text-[10px] font-bold uppercase text-amber-400">High-Yield Board Pearl</span>
+              <p id="active-symbol-fact" class="text-xs text-amber-200/90 leading-relaxed">
+                Iron deficiency is the #1 most common nutritional deficiency worldwide. Always calculate the Mentzer index.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- VIEW 4: REVIEW / CARDS (#review - SCREENSHOT 4) -->
     <div id="view-review" class="hidden max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-5">

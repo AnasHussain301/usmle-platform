@@ -173,7 +173,7 @@ function navigate(viewName) {
   state.currentView = viewName;
   window.location.hash = viewName === 'home' ? '' : viewName;
 
-  const views = ['home', 'fa', 'sketchy', 'review', 'ddx', 'qbank', 'exam', 'admin'];
+  const views = ['home', 'fa', 'sketchy', 'sketchy-path', 'sketch-detail', 'review', 'ddx', 'qbank', 'exam', 'admin'];
   views.forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) {
@@ -329,11 +329,16 @@ function renderSketchyDecks() {
 }
 
 function openSketchyDeck(deckId) {
+  if (deckId === 'sketchy_path') {
+    navigate('sketchy-path');
+    return;
+  }
+
   const deck = state.sketchyDecks.find(d => d.id === deckId);
   if (!deck) return;
 
   const sketchesHtml = (deck.sketches || []).map(sk => `
-    <div class="p-4 bg-[#170e20] rounded-2xl border border-[#3b2554] space-y-2">
+    <div onclick="openInteractiveSketch('${sk.id || 'sketch_1_2'}')" class="p-4 bg-[#170e20] hover:bg-[#20132c] cursor-pointer rounded-2xl border border-[#3b2554] space-y-2 transition-colors">
       <div class="flex items-center justify-between">
         <h4 class="text-sm font-bold text-pink-400">${sk.title}</h4>
         <span class="text-[10px] text-slate-300 font-semibold px-2 py-0.5 rounded bg-[#2b173c]">${sk.system}</span>
@@ -355,6 +360,108 @@ function openSketchyDeck(deckId) {
     </div>
   `;
   document.getElementById('modal-complaint').classList.remove('hidden');
+}
+
+// Interactive Sketch View (Screenshot 2)
+let currentSketchState = {
+  sketchId: 'sketch_1_2',
+  currentPin: 1,
+  totalPins: 15,
+  symbols: [
+    { pin: 1, title: "Dwarf's Den Entrance", meaning: 'Microcytic Anemia (MCV < 80 fL) - defective hemoglobin synthesis results in an extra division of erythroid precursors producing small RBCs.', fact: 'Iron deficiency is the #1 most common nutritional deficiency worldwide.' },
+    { pin: 2, title: 'Diminished Iron Ingot Pile', meaning: 'Decreased Serum Iron levels due to absolute body depletion or inflammatory sequestration.', fact: 'Serum iron reflects iron bound to transferrin; drops as body stores deplete.' },
+    { pin: 3, title: 'Empty Iron Forge Cart', meaning: 'Elevated Total Iron Binding Capacity (TIBC) / High Serum Transferrin concentration.', fact: 'Liver synthesizes more transferrin in an attempt to capture any remaining circulating iron.' },
+    { pin: 4, title: 'Low Ferritin Deposit Chest', meaning: 'Low Serum Ferritin (< 30 ng/mL) is the single most sensitive and specific test for iron deficiency.', fact: 'Ferritin < 15-30 ng/mL is virtually diagnostic of iron deficiency anemia.' },
+    { pin: 5, title: 'Caged Iron Safe (Hepcidin)', meaning: 'Hepcidin upregulation in Anemia of Chronic Disease (ACD) blocks ferroportin.', fact: 'ACD shows elevated Ferritin and low TIBC, differentiating it from true iron deficiency.' },
+    { pin: 6, title: 'Red Cells with Central Pallor', meaning: 'Hypochromic erythrocytes with central pallor exceeding 1/3 of the red blood cell diameter.', fact: 'Severe iron deficiency produces pencil cells / cigar-shaped elliptocytes on peripheral smear.' },
+    { pin: 7, title: 'Anisocytosis Balance Scale', meaning: 'Elevated Red Cell Distribution Width (RDW > 15%).', fact: 'RDW is elevated in Iron Deficiency, but normal in uncomplicated Thalassemia trait.' },
+    { pin: 8, title: 'Locked Iron Gate', meaning: 'Ferroportin internalisation by Hepcidin prevents duodenal enterocyte iron absorption.', fact: 'Upregulated by IL-6, TNF-alpha, and other acute phase inflammatory cytokines.' },
+    { pin: 9, title: 'Rusty Iron Cauldron', meaning: 'Free Erythrocyte Protoporphyrin (FEP) accumulates because iron is unavailable to bind protoporphyrin.', fact: 'Final step of heme synthesis catalyzed by ferrochelatase in mitochondria.' },
+    { pin: 10, title: 'Peptic Ulcer Cavern', meaning: 'Occult gastrointestinal bleeding is the primary cause in adult males and postmenopausal females.', fact: 'Any adult male with iron deficiency anemia must undergo colonoscopy and endoscopy to rule out colorectal carcinoma.' },
+    { pin: 11, title: 'Menstrual Red Stream', meaning: 'Menorrhagia / abnormal uterine bleeding is the most common cause in premenopausal females.', fact: 'Ask about frequency of changing pads/tampons and passing large blood clots.' },
+    { pin: 12, title: 'Duodenal Celiac Steppe', meaning: 'Malabsorption due to Celiac Disease, Crohn disease, or prior gastric bypass surgery.', fact: 'Non-heme iron is absorbed primarily in the duodenum via DMT-1.' },
+    { pin: 13, title: 'Esophageal Web Flap', meaning: 'Plummer-Vinson Syndrome: triad of Iron deficiency anemia, Esophageal webs, and Dysphagia.', fact: 'Carries increased risk for squamous cell carcinoma of the esophagus.' },
+    { pin: 14, title: 'Spoon-Shaped Nails (Koilonychia)', meaning: 'Brittle, spoon-shaped concave fingernails resulting from severe chronic iron depletion.', fact: 'Often accompanied by atrophic glossitis (smooth beefy red tongue) and angular cheilitis.' },
+    { pin: 15, title: 'Ice Chewers Pickaxe', meaning: 'Pica (craving non-nutritive substances) & Pagophagia (compulsive ice chewing).', fact: 'Classically resolves within days of beginning oral iron replacement therapy.' }
+  ]
+};
+
+function openInteractiveSketch(sketchId) {
+  currentSketchState.sketchId = sketchId;
+  currentSketchState.currentPin = 1;
+  navigate('sketch-detail');
+  selectPin(1);
+}
+
+function selectPin(pinNum) {
+  currentSketchState.currentPin = pinNum;
+
+  // Highlight selected pin on image
+  for (let i = 1; i <= currentSketchState.totalPins; i++) {
+    const el = document.getElementById(`pin-btn-${i}`);
+    if (el) {
+      if (i === pinNum) {
+        el.className = 'absolute w-7 h-7 rounded-full bg-pink-500 text-white font-black text-xs flex items-center justify-center shadow-xl border-2 border-white cursor-pointer ring-4 ring-pink-500/50 scale-125 z-20';
+      } else {
+        el.className = 'absolute w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform z-10';
+      }
+    }
+  }
+
+  // Update Detail Box
+  const sym = currentSketchState.symbols.find(s => s.pin === pinNum) || {
+    pin: pinNum,
+    title: `Symbol #${pinNum}`,
+    meaning: 'High-yield memory palace association for this USMLE topic.',
+    fact: 'High-yield board concept associated with this clinical vignette.'
+  };
+
+  document.getElementById('active-symbol-pin').textContent = `#${sym.pin}. ${sym.title.split(' ')[0]}`;
+  document.getElementById('active-symbol-title').textContent = sym.title;
+  document.getElementById('active-symbol-meaning').textContent = sym.meaning;
+  document.getElementById('active-symbol-fact').textContent = sym.fact;
+}
+
+function nextPin() {
+  if (currentSketchState.currentPin < currentSketchState.totalPins) {
+    selectPin(currentSketchState.currentPin + 1);
+  } else {
+    selectPin(1);
+  }
+}
+
+function prevPin() {
+  if (currentSketchState.currentPin > 1) {
+    selectPin(currentSketchState.currentPin - 1);
+  } else {
+    selectPin(currentSketchState.totalPins);
+  }
+}
+
+function ratePin(rating) {
+  if (rating === 'know_it') {
+    confetti({ particleCount: 30, spread: 40, origin: { y: 0.7 } });
+  }
+  nextPin();
+}
+
+function addCurrentPinToDeck() {
+  const sym = currentSketchState.symbols.find(s => s.pin === currentSketchState.currentPin);
+  if (!sym) return;
+
+  apiFetch('/api/review/stats').catch(() => {});
+  confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
+  alert(`Added card "${sym.title}" directly to your Cards / Review deck!`);
+}
+
+function toggleAccordion(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden');
+}
+
+function toggleAllAccordions() {
+  const el = document.getElementById('acc-blood');
+  if (el) el.classList.toggle('hidden');
 }
 
 function setSketchyTab(tab) {

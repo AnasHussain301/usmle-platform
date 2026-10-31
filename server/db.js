@@ -163,6 +163,10 @@ class Database {
     return this.data.sketchyDecks || [];
   }
 
+  getSketchyPathData() {
+    return this.data.sketchyPathData || null;
+  }
+
   // DDx Categories
   getDDxCategories() {
     return this.data.ddxCategories || [];

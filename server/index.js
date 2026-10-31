@@ -177,6 +177,10 @@ app.get('/api/sketchy/decks', (req, res) => {
   res.json({ decks: db.getSketchyDecks() });
 });
 
+app.get('/api/sketchy/path', (req, res) => {
+  res.json({ pathData: db.getSketchyPathData() });
+});
+
 app.get('/api/ddx/categories', (req, res) => {
   res.json({ categories: db.getDDxCategories() });
 });
