@@ -2,10 +2,10 @@
 // FIRST AID RIGHT PANEL: Images, Notes, Tables
 // ==========================================
 
-// State for carousel
 if (!state.currentFaImagesList) state.currentFaImagesList = [];
 if (!state.currentFaImageIndex) state.currentFaImageIndex = 0;
 if (!state.currentFaPanelTopic) state.currentFaPanelTopic = null;
+if (!state.expandedTopics) state.expandedTopics = {};
 
 // Cache of page topics for callout lookups
 window._faPageTopics = [];
@@ -16,7 +16,7 @@ function openFaTopicActions(topicIdx) {
   if (topic) openFaRightPanel(topic);
 }
 
-// Open the right-hand split panel with data for a specific topic
+// Open the right-hand split panel with data for a specific topic or subtopic
 function openFaRightPanel(topic) {
   if (!topic) return;
   state.currentFaPanelTopic = topic;
@@ -29,8 +29,12 @@ function openFaRightPanel(topic) {
   const titleEl = document.getElementById('fa-right-panel-heading-title');
   if (titleEl) titleEl.textContent = topic.title || 'Topic';
 
-  // Set up images list
-  state.currentFaImagesList = (topic.images || []);
+  // Set up images list - prefer direct or rolled up
+  let images = topic.images || [];
+  if (images.length === 0 && topic.allImages && topic.allImages.length > 0) {
+    images = topic.allImages;
+  }
+  state.currentFaImagesList = images;
   state.currentFaImageIndex = 0;
 
   // Set carousel title
@@ -66,28 +70,26 @@ function switchFaPanelTab(tab) {
   // Hide all views
   [imgView, notesView, tablesView].forEach(v => { if (v) v.classList.add('hidden'); });
 
-  // Reset all tab styles
-  const activeStyles = ['text-pink-400', 'bg-pink-950/60', 'border-pink-900/60'];
-  const inactiveStyles = ['text-slate-400'];
+  // Reset tab button styles
+  const activeClass = 'text-pink-400 bg-pink-950/60 border border-pink-900/60';
   [tabImg, tabNotes, tabTables].forEach(t => {
-    if (!t) return;
-    activeStyles.forEach(cls => t.classList.remove(cls));
-    inactiveStyles.forEach(cls => t.classList.add(cls));
+    if (t) {
+      t.className = 'p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold transition-all';
+    }
   });
 
   // Activate selected tab
-  let activeTab, activeView;
-  if (tab === 'img') { activeTab = tabImg; activeView = imgView; }
-  else if (tab === 'notes') { activeTab = tabNotes; activeView = notesView; }
-  else if (tab === 'tables') { activeTab = tabTables; activeView = tablesView; }
-
-  if (activeView) activeView.classList.remove('hidden');
-  if (activeTab) {
-    inactiveStyles.forEach(cls => activeTab.classList.remove(cls));
-    activeStyles.forEach(cls => activeTab.classList.add(cls));
+  if (tab === 'img') {
+    if (imgView) imgView.classList.remove('hidden');
+    if (tabImg) tabImg.className = 'p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold transition-all';
+    renderFaImageCarousel();
+  } else if (tab === 'notes') {
+    if (notesView) notesView.classList.remove('hidden');
+    if (tabNotes) tabNotes.className = 'p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold transition-all';
+  } else if (tab === 'tables') {
+    if (tablesView) tablesView.classList.remove('hidden');
+    if (tabTables) tabTables.className = 'p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold transition-all';
   }
-
-  if (tab === 'img') renderFaImageCarousel();
 }
 
 // Render the current image in the carousel
@@ -100,21 +102,26 @@ function renderFaImageCarousel() {
 
   if (imgs.length === 0) {
     if (countEl) countEl.textContent = '0 / 0';
-    if (mainImg) mainImg.src = '';
-    if (captionEl) captionEl.textContent = 'No images available for this topic.';
+    if (mainImg) {
+      mainImg.src = '';
+      mainImg.classList.add('hidden');
+    }
+    if (captionEl) captionEl.innerHTML = '<span class="text-slate-400 italic">No UWorld medical diagrams linked to this heading.</span>';
     return;
   }
 
   const item = imgs[idx];
-  const imgId = item[0]; // e.g., "L46131"
+  const imgId = item[0];
   const caption = item[1] || '';
 
   if (countEl) countEl.textContent = (idx + 1) + ' / ' + imgs.length;
   if (mainImg) {
+    mainImg.classList.remove('hidden');
     mainImg.src = '/uw-img/' + imgId + '.webp';
     mainImg.onerror = function() {
       this.onerror = null;
-      this.src = 'https://zetchy.net/uw-img/' + imgId + '.webp';
+      // Fallback SVG placeholder when file is not yet unzipped locally
+      this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="220" viewBox="0 0 400 220"><rect width="400" height="220" fill="%231b1026" rx="12" stroke="%2338234f" stroke-width="2"/><text x="50%" y="38%" text-anchor="middle" fill="%23f43f5e" font-family="sans-serif" font-weight="bold" font-size="13">UWorld Medical Diagram [' + imgId + ']</text><text x="50%" y="54%" text-anchor="middle" fill="%23cbd5e1" font-family="sans-serif" font-size="11">' + encodeURIComponent(caption.slice(0, 45)) + '</text><text x="50%" y="74%" text-anchor="middle" fill="%23a855f7" font-family="sans-serif" font-size="10">Download images with extraction script</text></svg>';
     };
   }
   if (captionEl) captionEl.textContent = caption;
@@ -142,14 +149,14 @@ function renderFaPanelTables(topic) {
 
   const tables = (topic && topic.tables) || [];
   if (tables.length === 0) {
-    container.innerHTML = '<div class="text-xs text-slate-400 p-4 text-center">No UWorld tables for this heading.</div>';
+    container.innerHTML = '<div class="text-xs text-slate-400 p-4 text-center italic">No UWorld tables for this heading.</div>';
     return;
   }
 
   container.innerHTML = tables.map(function(tb) {
-    return '<div class="bg-[#1a0f26] border border-[#38234f] rounded-xl p-4 overflow-x-auto">' +
+    return '<div class="bg-[#1a0f26] border border-[#38234f] rounded-xl p-4 overflow-x-auto shadow-lg">' +
       '<h4 class="text-xs font-bold text-sky-400 mb-2 flex items-center gap-1.5">' +
-        '<span>\uD83D\uDCCA</span> ' + (tb[1] || 'UWorld Table') +
+        '<span>📊</span> ' + (tb[1] || 'UWorld Table') +
       '</h4>' +
       '<div class="fa-uworld-table text-xs text-slate-200">' + (tb[2] || '') + '</div>' +
     '</div>';
@@ -165,7 +172,6 @@ function saveFaCurrentHeadingNote() {
   if (!textarea) return;
   localStorage.setItem(key, textarea.value);
 
-  // Show saved indicator briefly
   var status = document.getElementById('fa-note-save-status');
   if (status) {
     status.classList.remove('hidden');
@@ -195,7 +201,7 @@ function renderFaPageCallouts() {
 
   var pageNum = state.currentFaPage || 284;
 
-  // Find all topics that match this page number
+  // Find all topics and subheadings that appear on this page
   var matchingTopics = [];
   (sys.topics || []).forEach(function(t) {
     if (t.page === pageNum) {
@@ -203,7 +209,6 @@ function renderFaPageCallouts() {
     }
   });
 
-  // Store for lookup by index
   window._faPageTopics = matchingTopics;
 
   if (matchingTopics.length === 0) {
@@ -211,10 +216,10 @@ function renderFaPageCallouts() {
     return;
   }
 
-  // Render callout buttons - positioned along left side of the page
+  // Render callout buttons positioned along left side of the page
   var html = '';
   matchingTopics.forEach(function(topic, idx) {
-    var topPx = 80 + idx * 120; // Stagger vertically
+    var topPx = 70 + idx * 130;
     var imgCount = (topic.images || []).length;
     var tblCount = (topic.tables || []).length;
     var calloutId = 'callout-' + idx;
@@ -267,6 +272,41 @@ function renderFaPageCallouts() {
   layer.innerHTML = html;
 }
 
+// Select a topic from the TOC
+function selectFaTopic(topicId, pageNum) {
+  var sys = state.currentFaSystem;
+  if (!sys) return;
+  var topic = (sys.topics || []).find(function(t) { return t.id === topicId; });
+  if (!topic) return;
+
+  state.currentFaSubtopic = null;
+  if (!state.expandedTopics) state.expandedTopics = {};
+  // Toggle expansion
+  state.expandedTopics[topicId] = !state.expandedTopics[topicId];
+
+  openFaBookPage(pageNum || topic.page, topic);
+  openFaRightPanel(topic);
+}
+
+// Select a subheading from the TOC
+function selectFaSubtopic(topicId, subId, pageNum) {
+  var sys = state.currentFaSystem;
+  if (!sys) return;
+  var topic = (sys.topics || []).find(function(t) { return t.id === topicId; });
+  if (!topic) return;
+  var sub = (topic.subs || []).find(function(s) { return s.id === subId; }) || {
+    id: subId,
+    title: subId,
+    page: pageNum,
+    images: topic.images,
+    tables: topic.tables
+  };
+
+  state.currentFaSubtopic = sub;
+  openFaBookPage(pageNum || sub.page || topic.page, topic);
+  openFaRightPanel(sub);
+}
+
 // HTML escaping helpers
 function escHtml(str) {
   if (!str) return '';
@@ -282,7 +322,6 @@ function toggleCalloutMenu(id) {
   var menu = document.getElementById(id);
   if (!menu) return;
 
-  // Close all other open callout menus first
   document.querySelectorAll('[id^="callout-"]').forEach(function(el) {
     if (el.id !== id) el.classList.add('hidden');
   });
@@ -315,31 +354,18 @@ function markFaHeadingLearned(headingId, btn) {
 // Helper: try opening associated sketchy sketch from FA topic
 function openSketchFromFA(topicIdx) {
   var topic = window._faPageTopics[topicIdx];
-  if (!topic || !topic.sketch) {
-    // Try to find by title match
-    if (topic) {
-      fetch('/api/sketches').then(function(r){ return r.json(); }).then(function(sketches) {
-        var match = sketches.find(function(sk) {
-          return sk.title.toLowerCase().includes((topic.title || '').toLowerCase().split(' ')[0]);
-        });
-        if (match) {
-          openSketchDetail(match.id);
-        } else {
-          alert('No matching sketch found for: ' + topic.title);
-        }
-      });
-    }
-    return;
-  }
+  if (!topic) return;
+
+  var searchTerm = (topic.sketch || topic.title || '').toLowerCase().split(' ')[0];
   fetch('/api/sketches').then(function(r){ return r.json(); }).then(function(sketches) {
     var match = sketches.find(function(sk) {
-      return sk.slug === topic.sketch ||
-        sk.title.toLowerCase().includes((topic.title || '').toLowerCase().split(' ')[0]);
+      return (topic.sketch && sk.slug === topic.sketch) ||
+             sk.title.toLowerCase().includes(searchTerm);
     });
     if (match) {
       openSketchDetail(match.id);
     } else {
-      alert('No matching sketch found for: ' + topic.title);
+      alert('No matching sketch mnemonic found for: ' + topic.title);
     }
   });
 }
@@ -351,4 +377,4 @@ document.addEventListener('click', function(e) {
   }
 });
 
-console.log('\u2705 FA Right Panel (Images/Notes/Tables) + Callout Overlays loaded');
+console.log('✅ FA Right Panel (Images/Notes/Tables) + Callout Overlays loaded');
