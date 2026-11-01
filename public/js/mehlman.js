@@ -1,19 +1,22 @@
 // ==========================================
-// MEHLMAN HIGH-YIELD PDFS & READER MODULE
+// MEHLMAN HIGH-YIELD PDFS & NATIVE IN-APP READER
 // ==========================================
+
+// Configure PDF.js worker
+if (typeof pdfjsLib !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '/js/pdf.worker.min.js';
+}
 
 const DEFAULT_MEHLMAN_SYSTEMS = [
   {
     id: 'cvs',
     name: 'Cardiovascular',
-    title: 'HY Cardiovascular PDF',
-    subtitle: 'HY Cardiovascular PDF · continue at p. 74',
+    title: 'HY Cardiovascular',
     description: 'High-yield cardiac murmurs, heart failure, pharmacology, congenital anomalies, and hemodynamic loops.',
     totalPages: 74,
     lastPage: 74,
     color: '#a33a20',
     icon: 'heart',
-    pdfUrl: '/pdf/cvs.pdf',
     topics: [
       { page: 1, title: 'Cardiovascular Examination & S1/S2 Sounds' },
       { page: 12, title: 'Systolic vs Diastolic Murmurs Distinctions' },
@@ -27,14 +30,12 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
   {
     id: 'endo',
     name: 'Endocrine',
-    title: 'HY Endocrine PDF',
-    subtitle: 'HY Endocrine PDF · continue at p. 63',
+    title: 'HY Endocrine',
     description: 'Thyroid, adrenal, pituitary, MEN syndromes, calcium homeostasis, and diabetes mellitus.',
     totalPages: 63,
     lastPage: 63,
     color: '#b58500',
     icon: 'sparkles',
-    pdfUrl: '/pdf/endo.pdf',
     topics: [
       { page: 1, title: 'Pituitary Hormones & Adenomas' },
       { page: 15, title: 'Thyroid Disorders, Lab Panels & Nodules' },
@@ -47,368 +48,266 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
   {
     id: 'gi',
     name: 'Gastrointestinal',
-    title: 'HY Gastrointestinal PDF',
-    subtitle: 'HY Gastrointestinal PDF · continue at p. 95',
-    description: 'Esophagus, stomach, liver, biliary tract, pancreas, bowel ischemia, and malabsorption.',
+    title: 'HY Gastrointestinal',
+    description: 'Esophageal motility, ulcers, malabsorption, inflammatory bowel, biliary cirrhosis, and hepatic failure.',
     totalPages: 95,
     lastPage: 95,
-    color: '#4d6b1f',
+    color: '#3e6b21',
     icon: 'utensils',
-    pdfUrl: '/pdf/gi.pdf',
     topics: [
-      { page: 1, title: 'Esophageal Motility & Neoplasms' },
-      { page: 18, title: 'Gastritis, PUD & Gastric Tumors' },
-      { page: 34, title: 'Malabsorption, Celiac & IBD' },
-      { page: 52, title: 'Colorectal Polyps, Lynch & FAP' },
-      { page: 70, title: 'Liver Pathology, Cirrhosis & Jaundice' },
-      { page: 85, title: 'Biliary Disease & Acute Pancreatitis' },
-      { page: 95, title: 'High-Yield GI Pharmacology' }
+      { page: 1, title: 'Esophageal Pathology & Achalasia' },
+      { page: 18, title: 'Gastric Disorders & PUD' },
+      { page: 36, title: 'Malabsorption & Celiac vs Tropical' },
+      { page: 54, title: 'IBD: Crohn vs Ulcerative Colitis' },
+      { page: 72, title: 'Liver, Bilirubin Metabolism & Jaundice' },
+      { page: 95, title: 'Pancreatitis, Gallbladder & Bile Ducts' }
     ]
   },
   {
     id: 'heme',
     name: 'Hematology & Oncology',
-    title: 'HY Hematology & Oncology PDF',
-    subtitle: 'HY Hematology & Oncology PDF',
-    description: 'Microcytic/macrocytic anemias, coagulopathies, leukemias, lymphomas, and bleeding disorders.',
+    title: 'HY Hematology & Oncology',
+    description: 'Micro/macro/normocytic anemias, bleeding disorders, coagulopathies, leukemias, and lymphomas.',
     totalPages: 60,
-    lastPage: 1,
-    color: '#6d183f',
+    lastPage: 60,
+    color: '#6e1e3b',
     icon: 'droplet',
-    pdfUrl: '/pdf/heme.pdf',
     topics: [
-      { page: 1, title: 'Anemia Approach & Iron Metabolism' },
-      { page: 14, title: 'Hemolytic Anemias & Blood Smears' },
-      { page: 26, title: 'Platelet Disorders & Coagulation Cascade' },
-      { page: 38, title: 'Acute & Chronic Leukemias' },
-      { page: 50, title: 'Hodgkin vs Non-Hodgkin Lymphomas' },
-      { page: 60, title: 'Plasma Cell Dyscrasias & Transfusions' }
+      { page: 1, title: 'Microcytic Anemias (Iron, Thal, Lead, Sidero)' },
+      { page: 16, title: 'Normocytic & Hemolytic Anemias' },
+      { page: 30, title: 'Platelet Disorders vs Coagulation Factor Deficiencies' },
+      { page: 44, title: 'Acute & Chronic Leukemias' },
+      { page: 60, title: 'Hodgkin & Non-Hodgkin Lymphomas' }
     ]
   },
   {
     id: 'msk',
     name: 'Musculoskeletal & Skin',
-    title: 'HY Musculoskeletal & Skin PDF',
-    subtitle: 'HY Musculoskeletal & Skin PDF',
-    description: 'Brachial plexus, upper/lower extremity nerves, rheumatology, vasculitides, and dermatopathology.',
-    totalPages: 68,
-    lastPage: 1,
-    color: '#c26217',
+    title: 'HY Musculoskeletal & Skin',
+    description: 'Upper/lower extremity nerve lesions, brachial plexus, rheumatology, vasculitis, and derm pathology.',
+    totalPages: 88,
+    lastPage: 88,
+    color: '#8c4b1b',
     icon: 'bone',
-    pdfUrl: '/pdf/msk.pdf',
     topics: [
-      { page: 1, title: 'Upper Extremity Nerve Lesions' },
-      { page: 16, title: 'Lower Extremity Nerves & Radiculopathies' },
-      { page: 28, title: 'Bone Tumors, Osteoporosis & Paget' },
+      { page: 1, title: 'Upper Extremity Nerves & Brachial Plexus' },
+      { page: 22, title: 'Lower Extremity Nerves & Gait Lesions' },
       { page: 40, title: 'Rheumatoid Arthritis, SLE & Scleroderma' },
-      { page: 54, title: 'Vasculitides & Crystal Arthropathies' },
-      { page: 68, title: 'Blistering Skin Diseases & Melanoma' }
+      { page: 58, title: 'Vasculitides (Large, Medium, Small Vessel)' },
+      { page: 74, title: 'Bone Tumors & Osteomalacia/Rickets' },
+      { page: 88, title: 'Dermatology: Blistering Diseases & Skin Cancers' }
     ]
   },
   {
     id: 'neuro',
     name: 'Neurology',
-    title: 'HY Neurology PDF',
-    subtitle: 'HY Neurology PDF',
-    description: 'Brainstem strokes, cranial nerve nuclei, visual field defects, dementias, and intracranial bleeds.',
-    totalPages: 92,
-    lastPage: 1,
-    color: '#431980',
+    title: 'HY Neurology',
+    description: 'Cranial nerves, stroke syndromes, visual field defects, spinal tracts, and neurodegenerative disorders.',
+    totalPages: 84,
+    lastPage: 84,
+    color: '#461a6b',
     icon: 'brain',
-    pdfUrl: '/pdf/neuro.pdf',
     topics: [
-      { page: 1, title: 'Circle of Willis & Stroke Syndromes' },
-      { page: 18, title: 'Brainstem Cross Sections & Rule of 4s' },
-      { page: 36, title: 'Cranial Nerve Reflexes & Palsies' },
-      { page: 52, title: 'Intracranial Hemorrhage & Herniation' },
-      { page: 70, title: 'Spinal Cord Syndromes & Syringomyelia' },
-      { page: 82, title: 'Dementias & Movement Disorders' },
-      { page: 92, title: 'Neuropharmacology & Antiepileptics' }
+      { page: 1, title: 'Cranial Nerves & Brainstem Rule of 4s' },
+      { page: 20, title: 'Cerebral Circulation & Stroke Syndromes' },
+      { page: 38, title: 'Visual Field Pathway Lesions' },
+      { page: 55, title: 'Spinal Cord Syndromes (Brown-Séquard, Syringo)' },
+      { page: 70, title: 'Parkinson, Huntington & Dementias' },
+      { page: 84, title: 'Intracranial Hemorrhages & Herniation' }
     ]
   },
   {
     id: 'psych',
     name: 'Psychiatry',
-    title: 'HY Psychiatry PDF',
-    subtitle: 'HY Psychiatry PDF',
-    description: 'Mood disorders, psychotic disorders, personality disorders, substance abuse, and psychopharmacology.',
-    totalPages: 45,
-    lastPage: 1,
-    color: '#2d45a8',
+    title: 'HY Psychiatry',
+    description: 'Mood disorders, psychotic disorders, personality disorders, substance abuse, and psychopharm.',
+    totalPages: 48,
+    lastPage: 48,
+    color: '#2b3a8c',
     icon: 'smile',
-    pdfUrl: '/pdf/psych.pdf',
     topics: [
-      { page: 1, title: 'Major Depression, Bipolar & Dysthymia' },
-      { page: 12, title: 'Schizophrenia & Psychotic Disorders' },
-      { page: 22, title: 'Anxiety, OCD & PTSD Criteria' },
-      { page: 30, title: 'Personality Disorders Clusters A, B, C' },
-      { page: 38, title: 'Substance Intoxication & Withdrawal' },
-      { page: 45, title: 'Antidepressants, Antipsychotics & Lithium' }
+      { page: 1, title: 'Psychotic Disorders & Schizophrenia Timelines' },
+      { page: 12, title: 'Depressive & Bipolar Disorders' },
+      { page: 24, title: 'Personality Disorders (Clusters A, B, C)' },
+      { page: 36, title: 'Somatic Symptom & Factitious Disorders' },
+      { page: 48, title: 'Antipsychotics, Antidepressants & Lithium Toxicity' }
     ]
   },
   {
     id: 'renal',
     name: 'Renal',
-    title: 'HY Renal PDF',
-    subtitle: 'HY Renal PDF · continue at p. 9',
-    description: 'Nephritic vs nephrotic syndromes, acid-base nomograms, electrolytes, and renal tubular acidosis.',
-    totalPages: 58,
-    lastPage: 9,
-    color: '#166970',
+    title: 'HY Renal',
+    description: 'Nephritic vs nephrotic syndromes, tubular acidoses, electrolyte disorders, and acid-base disturbances.',
+    totalPages: 76,
+    lastPage: 76,
+    color: '#1a545e',
     icon: 'filter',
-    pdfUrl: '/pdf/renal.pdf',
     topics: [
-      { page: 1, title: 'Glomerular Anatomy & Filtration Dynamics' },
-      { page: 9, title: 'Nephrotic Syndromes & Light Microscopy' },
-      { page: 22, title: 'Nephritic Syndromes & RPGN' },
-      { page: 34, title: 'Acid-Base Disorders, Winter Formula & Anion Gap' },
-      { page: 46, title: 'Electrolyte Derangements & ECG Signs' },
-      { page: 58, title: 'Diuretics & High-Yield Renal Pharmacology' }
+      { page: 1, title: 'Nephritic vs Nephrotic Syndromes' },
+      { page: 19, title: 'Glomerulonephritis Biopsy Findings' },
+      { page: 35, title: 'Acid-Base Disturbances & Winter Formula' },
+      { page: 50, title: 'Renal Tubular Acidoses (Types 1, 2, 4)' },
+      { page: 62, title: 'Electrolyte Abnormalities (Na+, K+, Ca2+)' },
+      { page: 76, title: 'Diuretics Mechanism & Toxicities' }
     ]
   },
   {
     id: 'resp',
-    name: 'Respiratory',
-    title: 'HY Respiratory PDF',
-    subtitle: 'HY Respiratory PDF',
-    description: 'Obstructive vs restrictive disease, spirometry, lung cancers, pneumonias, and pulmonary embolus.',
-    totalPages: 65,
-    lastPage: 1,
-    color: '#0369a1',
+    name: 'Pulmonary',
+    title: 'HY Pulmonary',
+    description: 'Obstructive vs restrictive PFTs, ARDS, pneumoconioses, lung cancers, and pulmonary emboli.',
+    totalPages: 58,
+    lastPage: 58,
+    color: '#1a5873',
     icon: 'wind',
-    pdfUrl: '/pdf/resp.pdf',
     topics: [
-      { page: 1, title: 'Pulmonary Function Tests & Flow-Volume Loops' },
-      { page: 15, title: 'COPD, Asthma & Bronchiectasis' },
-      { page: 30, title: 'Interstitial Lung Diseases & Pneumoconioses' },
-      { page: 42, title: 'Lung Carcinomas & Paraneoplastic Syndromes' },
-      { page: 54, title: 'Pulmonary Embolism & V/Q Mismatch' },
-      { page: 65, title: 'Respiratory Pharmacology & Inhalers' }
+      { page: 1, title: 'PFT Interpretation (Obstructive vs Restrictive)' },
+      { page: 15, title: 'Pneumonia & Atypical Pathogens' },
+      { page: 30, title: 'Pneumoconioses (Asbestos, Silica, Berylliosis)' },
+      { page: 44, title: 'Lung Carcinomas & Paraneoplastic Syndromes' },
+      { page: 58, title: 'Pulmonary Embolism, V/Q Mismatch & A-a Gradient' }
     ]
   },
   {
     id: 'repro',
     name: 'Reproductive',
-    title: 'HY Reproductive PDF',
-    subtitle: 'HY Reproductive PDF',
-    description: 'Pregnancy pathology, preeclampsia, ovarian/testicular tumors, breast pathology, and embryology.',
-    totalPages: 72,
-    lastPage: 1,
-    color: '#9d174d',
+    title: 'HY Reproductive',
+    description: 'Menstrual cycle, pregnancy complications, ovarian tumors, testicular masses, and teratogens.',
+    totalPages: 68,
+    lastPage: 68,
+    color: '#8c1a4e',
     icon: 'flower',
-    pdfUrl: '/pdf/repro.pdf',
     topics: [
-      { page: 1, title: 'Embryology of Genital Ducts & Ambiguous Genitalia' },
-      { page: 18, title: 'Menstrual Cycle Physiology & Amenorrhea' },
-      { page: 32, title: 'Gestational Pathology, Preeclampsia & Moles' },
-      { page: 46, title: 'Ovarian & Cervical Neoplasms' },
-      { page: 60, title: 'Testicular Tumors & Scrotal Masses' },
-      { page: 72, title: 'Breast Pathology & Carcinomas' }
+      { page: 1, title: 'Embryology of Male & Female Genitalia' },
+      { page: 18, title: 'Ovarian & Uterine Tumors' },
+      { page: 34, title: 'PCOS, Endometriosis & Adenomyosis' },
+      { page: 50, title: 'Testicular Tumors & Scrotal Masses' },
+      { page: 68, title: 'Pregnancy Complications & Teratogens' }
     ]
   },
   {
     id: 'immuno',
     name: 'Immunology',
-    title: 'HY Immunology PDF',
-    subtitle: 'HY Immunology PDF',
-    description: 'Hypersensitivity types I-IV, severe combined immunodeficiency, transplant rejections, and cytokines.',
-    totalPages: 48,
-    lastPage: 1,
-    color: '#047857',
+    title: 'HY Immunology',
+    description: 'Hypersensitivities (Types I-IV), immunodeficiencies, transplant rejection, and HLA associations.',
+    totalPages: 42,
+    lastPage: 42,
+    color: '#1a546e',
     icon: 'shield',
-    pdfUrl: '/pdf/immuno.pdf',
     topics: [
-      { page: 1, title: 'T-Cell & B-Cell Development & V(D)J' },
-      { page: 14, title: 'Complement Cascade & Deficiencies' },
-      { page: 24, title: 'Primary Immunodeficiency Syndromes' },
-      { page: 36, title: 'Hypersensitivity Reactions Types I-IV' },
-      { page: 48, title: 'Transplant Rejection & Immunosuppressants' }
+      { page: 1, title: 'T-Cell & B-Cell Activation & Complement Cascade' },
+      { page: 14, title: 'Hypersensitivity Reactions (Types I, II, III, IV)' },
+      { page: 28, title: 'Primary Immunodeficiencies (SCID, CGD, CVID, XLA)' },
+      { page: 42, title: 'Transplant Rejection & Immunosuppressants' }
     ]
   },
   {
     id: 'micro',
     name: 'Microbiology',
-    title: 'HY Microbiology PDF',
-    subtitle: 'HY Microbiology PDF',
-    description: 'Gram positives/negatives, systemic mycoses, DNA/RNA viruses, parasites, and empiric antibiotic choices.',
-    totalPages: 55,
-    lastPage: 1,
-    color: '#15803d',
+    title: 'HY Microbiology',
+    description: 'Gram positive/negative bacteria, viral taxonomy, mycology, and parasitology high-yield points.',
+    totalPages: 52,
+    lastPage: 52,
+    color: '#215c2d',
     icon: 'bug',
-    pdfUrl: '/pdf/micro.pdf',
     topics: [
-      { page: 1, title: 'Gram-Positive Bacilli & Cocci Identifiers' },
-      { page: 16, title: 'Gram-Negative Rods, Lactose Fermenters' },
-      { page: 28, title: 'Systemic & Opportunistic Mycoses' },
-      { page: 40, title: 'Enveloped vs Naked Viruses & Viral Hepatitis' },
-      { page: 55, title: 'Antimicrobials, Mechanisms & Resistances' }
+      { page: 1, title: 'Gram-Positive Bacilli & Cocci' },
+      { page: 15, title: 'Gram-Negative Rods & Enterics' },
+      { page: 30, title: 'RNA & DNA Viruses High-Yield Points' },
+      { page: 42, title: 'Dimorphic Fungi & Opportunists' },
+      { page: 52, title: 'Parasites & Helminths' }
     ]
   },
   {
     id: 'biochem',
     name: 'Biochemistry',
-    title: 'HY Biochemistry PDF',
-    subtitle: 'HY Biochemistry PDF',
-    description: 'Glycolysis, Krebs cycle, glycogen storage diseases, lysosomal storage diseases, and vitamins.',
-    totalPages: 70,
-    lastPage: 1,
-    color: '#7c3aed',
-    icon: 'atom',
-    pdfUrl: '/pdf/biochem.pdf',
+    title: 'HY Biochemistry',
+    description: 'Glycogen storage diseases, lysosomal storage diseases, inborn errors of metabolism, and vitamins.',
+    totalPages: 56,
+    lastPage: 56,
+    color: '#73571a',
+    icon: 'flask',
     topics: [
-      { page: 1, title: 'Carbohydrate Metabolism & Rate-Limiting Enzymes' },
-      { page: 18, title: 'Glycogen Storage Diseases Types I-V' },
-      { page: 32, title: 'Lysosomal Storage Diseases & Sphingolipids' },
-      { page: 48, title: 'Amino Acid Disorders & Urea Cycle Defects' },
-      { page: 70, title: 'Vitamin Deficiencies & Toxicities' }
+      { page: 1, title: 'Glycolysis, Gluconeogenesis & Rate-Limiting Enzymes' },
+      { page: 16, title: 'Glycogen Storage Diseases (Von Gierke, Pompe, McArdle)' },
+      { page: 30, title: 'Lysosomal Storage Diseases (Gaucher, Tay-Sachs, Niemann)' },
+      { page: 44, title: 'Amino Acid Metabolism & Organic Acidemias' },
+      { page: 56, title: 'Water- & Fat-Soluble Vitamin Deficiencies' }
     ]
   },
   {
-    id: 'pharm',
-    name: 'Pharmacology',
-    title: 'HY Pharmacology PDF',
-    subtitle: 'HY Pharmacology PDF',
-    description: 'Autonomic nervous system, pharmacokinetics, P450 inducers/inhibitors, toxidromes, and antidotes.',
-    totalPages: 80,
-    lastPage: 1,
-    color: '#b91c1c',
-    icon: 'pill',
-    pdfUrl: '/pdf/pharm.pdf',
+    id: 'path',
+    name: 'Pathology',
+    title: 'HY Pathology',
+    description: 'Cell injury, necrosis types, inflammation, amyloidosis, and neoplasia characteristics.',
+    totalPages: 60,
+    lastPage: 60,
+    color: '#6b1a29',
+    icon: 'microscope',
     topics: [
-      { page: 1, title: 'Pharmacokinetics: Volume of Distribution & Clearance' },
-      { page: 18, title: 'Autonomic Pharmacology: Sympathomimetics & Blockers' },
-      { page: 38, title: 'Cytochrome P450 Substrates, Inducers & Inhibitors' },
-      { page: 58, title: 'Toxicology, Drug Overdoses & Specific Antidotes' },
-      { page: 80, title: 'Chemotherapeutics & Adverse Effects' }
-    ]
-  },
-  {
-    id: 'arrows',
-    name: 'Arrows',
-    title: 'HY Arrows PDF',
-    subtitle: 'HY Arrows PDF · All Systems',
-    description: 'The legendary Mehlman arrow questions: hemodynamic parameters, hormonal shifts, and lab directions.',
-    totalPages: 110,
-    lastPage: 1,
-    color: '#be123c',
-    icon: 'arrows',
-    pdfUrl: '/pdf/arrows.pdf',
-    topics: [
-      { page: 1, title: 'Hemodynamics: Preload, Afterload, Contractility Shifts' },
-      { page: 28, title: 'Endocrine Feedback: TSH, Free T4, Cortisol, ACTH' },
-      { page: 55, title: 'Renal Clearance, GFR, RPF & Filtration Fraction' },
-      { page: 82, title: 'Acid-Base Parameters: pH, PaCO2, HCO3- Shifts' },
-      { page: 110, title: 'Respiratory V/Q, PaO2, PAO2 & A-a Gradient' }
-    ]
-  },
-  {
-    id: 'risk',
-    name: 'Risk Factors',
-    title: 'HY Risk Factors PDF',
-    subtitle: 'HY Risk Factors PDF',
-    description: 'The most common risk factor for every major USMLE Step 1 disease and presentation.',
-    totalPages: 50,
-    lastPage: 1,
-    color: '#c2410c',
-    icon: 'alert',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Risk-Factors.pdf',
-    topics: [
-      { page: 1, title: 'Cardiovascular Disease Leading Risk Factors' },
-      { page: 14, title: 'Oncology: Most Common Risk Factor per Cancer' },
-      { page: 28, title: 'Pulmonary & GI Disease Associations' },
-      { page: 40, title: 'Renal & Endocrine Risk Modifiers' },
-      { page: 50, title: 'Infectious Disease Predispositions' }
+      { page: 1, title: 'Cell Injury, Apoptosis & Necrosis Types' },
+      { page: 20, title: 'Acute vs Chronic Inflammation & Mediators' },
+      { page: 42, title: 'Tissue Repair, Granulation & Scar Formation' },
+      { page: 60, title: 'Neoplasia Hallmarks, Oncogenes & Tumor Suppressors' }
     ]
   },
   {
     id: 'ethics',
-    name: 'Ethics',
-    title: 'HY Ethics & Communication PDF',
-    subtitle: 'HY Ethics & Communication PDF',
-    description: 'Patient autonomy, informed consent, surrogate decision makers, confidentiality, and challenging scenarios.',
+    name: 'Ethics & Communication',
+    title: 'HY Ethics & Communication',
+    description: 'Autonomy, informed consent, surrogate decision makers, patient confidentiality, and medical error disclosure.',
     totalPages: 40,
-    lastPage: 1,
-    color: '#374151',
+    lastPage: 40,
+    color: '#344054',
     icon: 'scale',
-    pdfUrl: '/pdf/ethics.pdf',
     topics: [
-      { page: 1, title: 'Informed Consent, Minors & Exceptions' },
-      { page: 12, title: 'Surrogate Decision-Making Hierarchy' },
-      { page: 22, title: 'Confidentiality & Tarasoff Exceptions' },
-      { page: 32, title: 'Physician Impairment & Error Disclosure' },
-      { page: 40, title: 'Challenging & Angry Patient Encounters' }
-    ]
-  },
-  {
-    id: 'gen',
-    name: 'General Pathology',
-    title: 'HY General Pathology PDF',
-    subtitle: 'HY General Pathology PDF',
-    description: 'Cellular adaptation, necrosis vs apoptosis, acute/chronic inflammation, wound healing, and neoplasia.',
-    totalPages: 60,
-    lastPage: 1,
-    color: '#334155',
-    icon: 'book',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-General-Pathology.pdf',
-    topics: [
-      { page: 1, title: 'Cell Injury, Free Radicals & Ischemia-Reperfusion' },
-      { page: 15, title: 'Necrosis Types & Apoptotic Pathways' },
-      { page: 28, title: 'Acute vs Chronic Inflammation Mediators' },
-      { page: 42, title: 'Tissue Repair, Granulation & Scar Formation' },
-      { page: 60, title: 'Neoplasia Hallmarks, Oncogenes & Tumor Suppressors' }
+      { page: 1, title: 'Ethical Principles: Autonomy, Beneficence, Nonmaleficence' },
+      { page: 12, title: 'Informed Consent & Minors' },
+      { page: 22, title: 'Surrogate Decision-Making & Advance Directives' },
+      { page: 32, title: 'Confidentiality & Exceptions (Duty to Protect)' },
+      { page: 40, title: 'Medical Errors & Difficult Patient Communication' }
     ]
   }
 ];
 
+if (typeof state === 'undefined') {
+  window.state = {};
+}
 state.mehlmanSystems = DEFAULT_MEHLMAN_SYSTEMS;
 state.currentMehlmanSystem = null;
 state.currentMehlmanPage = 1;
 let mehlmanZoom = 100;
 
-// Fetch Mehlman systems from API if available
-async function loadMehlmanSystems() {
-  try {
-    const res = await apiFetch('/api/mehlman/systems');
-    if (res && res.systems && res.systems.length > 0) {
-      state.mehlmanSystems = res.systems;
-    }
-  } catch(e) {}
-  renderMehlmanGrid();
-}
+// PDF.js instance cache
+let _mehlmanPdfDoc = null;
+let _mehlmanPdfSysId = null;
+let _mehlmanPageRendering = false;
+let _mehlmanPageNumPending = null;
 
-// Render the 18 Mehlman System Cards Grid (matching Image 1)
+// Render the 15 Mehlman System Cards Grid
 function renderMehlmanGrid() {
   const container = document.getElementById('mehlman-systems-grid');
-  if (!container) {
-    // View not yet in DOM; retry when mehlman view is navigated to
-    return;
-  }
+  if (!container) return;
 
-  const systems = (typeof state !== 'undefined' && state.mehlmanSystems) || DEFAULT_MEHLMAN_SYSTEMS;
-  if (!systems || systems.length === 0) {
-    container.innerHTML = '<div class="col-span-4 text-center py-8 text-slate-400">No systems available</div>';
-    return;
-  }
+  const systems = (state && state.mehlmanSystems) || DEFAULT_MEHLMAN_SYSTEMS;
 
   container.innerHTML = systems.map(sys => {
-    const savedLast = localStorage.getItem('mmb-' + sys.id + '-last') || sys.lastPage || 1;
+    const savedLast = parseInt(localStorage.getItem('mmb-' + sys.id + '-last') || sys.lastPage || 1, 10);
     const progressText = (savedLast && savedLast > 1) 
-      ? `HY ${sys.name} PDF &middot; continue at p. ${savedLast}`
-      : `HY ${sys.name} PDF`;
+      ? `HY ${sys.name} &middot; continue at p. ${savedLast}`
+      : `HY ${sys.name} &middot; ${sys.totalPages} pages`;
 
     return `
       <div onclick="openMehlmanBook('${sys.id}', ${savedLast})"
-           class="cursor-pointer rounded-3xl p-6 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between min-h-[160px] group border border-white/5"
+           class="cursor-pointer rounded-3xl p-6 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between min-h-[160px] group border border-white/10 select-none"
            style="background-color: ${sys.color};">
         <div class="flex items-start justify-between">
           <div class="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white text-lg shadow-inner">
             ${getMehlmanIcon(sys.icon)}
           </div>
-          <a href="/pdf/${sys.id}.pdf" target="_blank" onclick="event.stopPropagation()"
-             class="opacity-0 group-hover:opacity-100 transition-opacity px-2.5 py-1 rounded-full bg-black/30 hover:bg-black/50 text-[10px] font-bold text-white flex items-center gap-1">
-            <span>PDF</span>
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          </a>
+          <span class="px-2.5 py-1 rounded-full bg-black/30 text-[10px] font-bold text-white/90 uppercase tracking-wider">
+            ${sys.totalPages}p
+          </span>
         </div>
         <div class="mt-4">
           <h3 class="text-xl font-black text-white leading-tight">${sys.name}</h3>
@@ -423,83 +322,166 @@ function renderMehlmanGrid() {
 function getMehlmanIcon(icon) {
   const ICONS = {
     heart: '❤️', sparkles: '✨', utensils: '🍽️', droplet: '🩸',
-    bone: '🦴', brain: '🧠', smile: '😊', filter: '🫘',
-    wind: '🫁', flower: '🌸', shield: '🛡️', bug: '🦠',
-    atom: '🧬', pill: '💊', arrows: '⇄', alert: '⚠️',
-    scale: '⚖️', book: '📖'
+    bone: '🦴', brain: '🧠', smile: '😊', filter: '🧪',
+    wind: '🫁', flower: '🌸', shield: '🛡️', bug: '🪲',
+    flask: '🧬', microscope: '🔬', scale: '⚖️'
   };
-  return ICONS[icon] || '📄';
+  return ICONS[icon] || '📖';
 }
 
-// Open a specific Mehlman Book PDF at pageNum
-function openMehlmanBook(systemId, pageNum = 1) {
+// ==========================================
+// NATIVE PDF READER (PDF.JS CANVAS)
+// ==========================================
+
+async function openMehlmanBook(systemId, pageNum = 1) {
   const sys = (state.mehlmanSystems || DEFAULT_MEHLMAN_SYSTEMS).find(s => s.id === systemId);
   if (!sys) return;
 
   state.currentMehlmanSystem = sys;
-  state.currentMehlmanPage = pageNum || 1;
-  localStorage.setItem('mmb-' + sys.id + '-last', state.currentMehlmanPage);
+  const p = Math.max(1, Math.min(sys.totalPages || 999, parseInt(pageNum, 10) || 1));
+  state.currentMehlmanPage = p;
 
-  // Update Header
-  const titleEl = document.getElementById('mehlman-reader-title');
-  const topInd = document.getElementById('mehlman-top-page-indicator');
-  const botInd = document.getElementById('mehlman-bottom-page-indicator');
-  const dlBtn = document.getElementById('mehlman-pdf-dl-btn');
-
-  if (titleEl) titleEl.textContent = `Mehlman · ${sys.title}`;
-  if (topInd) topInd.textContent = `p. ${state.currentMehlmanPage} / ${sys.totalPages}`;
-  if (botInd) botInd.textContent = `< ${state.currentMehlmanPage} / ${sys.totalPages} >`;
-  if (dlBtn && sys.pdfUrl) dlBtn.href = sys.pdfUrl;
-
-  // Try local PDF first, then Google Drive iframe
-  openMehlmanPdfViewer(sys, state.currentMehlmanPage);
-
-  // Update Fallback Canvas Content (hidden when PDF loads)
-  updateMehlmanFallbackView(sys, state.currentMehlmanPage);
-
-  // Render Table of Contents Drawer
-  renderMehlmanTOC(sys);
-
-  // Show Modal
+  // Open modal
   const modal = document.getElementById('modal-mehlman-reader');
   if (modal) modal.classList.remove('hidden');
-}
 
-// Update Fallback view when scanned page is not yet local
-function updateMehlmanFallbackView(sys, pageNum) {
-  const title = document.getElementById('mehlman-fallback-title');
-  const pageLabel = document.getElementById('mehlman-fallback-page-num');
-  const topicList = document.getElementById('mehlman-fallback-topics');
-  const directPdfBtn = document.getElementById('mehlman-fallback-pdf-link');
+  updateMehlmanHeaderIndicators();
+  renderMehlmanTOC(sys);
 
-  if (title) title.textContent = `MEHLMAN MEDICAL ${sys.name.toUpperCase()}`;
-  if (pageLabel) pageLabel.textContent = `Page ${pageNum} of ${sys.totalPages}`;
-  if (directPdfBtn && sys.pdfUrl) directPdfBtn.href = sys.pdfUrl;
+  // If already loaded this system's PDF, render requested page directly
+  if (_mehlmanPdfDoc && _mehlmanPdfSysId === systemId) {
+    queueRenderMehlmanPage(state.currentMehlmanPage);
+    return;
+  }
 
-  if (topicList) {
-    const topics = sys.topics || [];
-    const currentTopic = topics.slice().reverse().find(t => t.page <= pageNum) || topics[0] || { title: sys.name + ' High-Yield Points' };
-    
-    topicList.innerHTML = `
-      <div class="p-4 bg-[#1e1330] rounded-2xl border border-[#432960] space-y-3">
-        <div class="flex items-center justify-between border-b border-[#311c47] pb-2">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400">Section Topic</span>
-          <span class="text-xs font-mono text-slate-400">p. ${currentTopic.page || pageNum}</span>
-        </div>
-        <h4 class="text-lg font-black text-white">${currentTopic.title}</h4>
-        <p class="text-xs text-slate-300 leading-relaxed">${sys.description}</p>
-        <div class="pt-2 flex items-center gap-3">
-          <a href="${sys.pdfUrl}" target="_blank"
-             class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg">
-            <span>📄 Open Full PDF in New Tab</span>
-          </a>
-        </div>
-      </div>
-    `;
+  // Show loading spinner
+  const loadingEl = document.getElementById('mehlman-pdf-loading');
+  if (loadingEl) loadingEl.classList.remove('hidden');
+
+  const pdfUrl = '/pdf/' + sys.id + '.pdf';
+
+  try {
+    if (typeof pdfjsLib === 'undefined') {
+      throw new Error('PDF.js library not ready');
+    }
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    _mehlmanPdfDoc = await loadingTask.promise;
+    _mehlmanPdfSysId = systemId;
+    if (_mehlmanPdfDoc.numPages) {
+      sys.totalPages = _mehlmanPdfDoc.numPages;
+    }
+    updateMehlmanHeaderIndicators();
+    queueRenderMehlmanPage(state.currentMehlmanPage);
+  } catch (err) {
+    console.error('PDF.js load error:', err);
+    if (loadingEl) loadingEl.classList.add('hidden');
+    showMehlmanFallback(sys, state.currentMehlmanPage);
   }
 }
 
-// Render TOC for Mehlman PDF
+async function renderMehlmanPage(num) {
+  if (!_mehlmanPdfDoc) return;
+  _mehlmanPageRendering = true;
+  state.currentMehlmanPage = num;
+  localStorage.setItem('mmb-' + state.currentMehlmanSystem.id + '-last', num);
+
+  const loadingEl = document.getElementById('mehlman-pdf-loading');
+  if (loadingEl) loadingEl.classList.remove('hidden');
+
+  try {
+    const page = await _mehlmanPdfDoc.getPage(num);
+    const canvas = document.getElementById('mehlman-pdf-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Scale calculation: base 1.4 for crisp text, scaled with mehlmanZoom
+    const scale = (mehlmanZoom / 100) * 1.4;
+    const viewport = page.getViewport({ scale });
+
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+
+    const renderTask = page.render(renderContext);
+    await renderTask.promise;
+
+    canvas.classList.remove('hidden');
+    const fallback = document.getElementById('mehlman-reader-fallback');
+    if (fallback) fallback.classList.add('hidden');
+  } catch (err) {
+    console.error('Error rendering page:', err);
+  } finally {
+    if (loadingEl) loadingEl.classList.add('hidden');
+    _mehlmanPageRendering = false;
+    if (_mehlmanPageNumPending !== null) {
+      renderMehlmanPage(_mehlmanPageNumPending);
+      _mehlmanPageNumPending = null;
+    }
+  }
+
+  updateMehlmanHeaderIndicators();
+  renderMehlmanTOC(state.currentMehlmanSystem);
+}
+
+function queueRenderMehlmanPage(num) {
+  const sys = state.currentMehlmanSystem;
+  if (!sys) return;
+  const max = sys.totalPages || (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : 999);
+  const target = Math.max(1, Math.min(max, num));
+  
+  if (_mehlmanPageRendering) {
+    _mehlmanPageNumPending = target;
+  } else {
+    renderMehlmanPage(target);
+  }
+}
+
+function updateMehlmanHeaderIndicators() {
+  const sys = state.currentMehlmanSystem;
+  if (!sys) return;
+  const total = sys.totalPages || (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : 74);
+  const cur = state.currentMehlmanPage;
+
+  const titleEl = document.getElementById('mehlman-reader-title');
+  const topInd = document.getElementById('mehlman-top-page-indicator');
+  const botInd = document.getElementById('mehlman-bottom-page-indicator');
+
+  if (titleEl) titleEl.textContent = `Mehlman · ${sys.title}`;
+  if (topInd) topInd.textContent = `p. ${cur} / ${total}`;
+  if (botInd) botInd.textContent = `${cur} / ${total}`;
+}
+
+function showMehlmanFallback(sys, pageNum) {
+  const canvas = document.getElementById('mehlman-pdf-canvas');
+  if (canvas) canvas.classList.add('hidden');
+
+  const fallback = document.getElementById('mehlman-reader-fallback');
+  if (!fallback) return;
+  fallback.classList.remove('hidden');
+
+  const title = document.getElementById('mehlman-fallback-title');
+  const pageLabel = document.getElementById('mehlman-fallback-page-num');
+  const topicList = document.getElementById('mehlman-fallback-topics');
+
+  if (title) title.textContent = `MEHLMAN MEDICAL ${sys.name.toUpperCase()}`;
+  if (pageLabel) pageLabel.textContent = `Page ${pageNum} of ${sys.totalPages}`;
+
+  if (topicList) {
+    const topics = sys.topics || [];
+    topicList.innerHTML = topics.map(t => `
+      <div onclick="goToMehlmanPage(${t.page})" class="p-3 bg-[#1e1330] rounded-xl border border-[#432960] mb-2 cursor-pointer hover:border-pink-500/50 flex items-center justify-between">
+        <span class="text-xs text-slate-200 font-bold">${t.title}</span>
+        <span class="text-[10px] font-mono text-pink-400">p.${t.page}</span>
+      </div>
+    `).join('');
+  }
+}
+
+// Table of Contents Drawer
 function renderMehlmanTOC(sys) {
   const container = document.getElementById('mehlman-toc-list');
   if (!container || !sys) return;
@@ -523,24 +505,17 @@ function renderMehlmanTOC(sys) {
 }
 
 function goToMehlmanPage(pageNum) {
-  if (!state.currentMehlmanSystem) return;
-  openMehlmanBook(state.currentMehlmanSystem.id, pageNum);
+  queueRenderMehlmanPage(pageNum);
 }
 
 function nextMehlmanPage() {
   if (!state.currentMehlmanSystem) return;
-  const next = state.currentMehlmanPage + 1;
-  if (next <= state.currentMehlmanSystem.totalPages) {
-    openMehlmanBook(state.currentMehlmanSystem.id, next);
-  }
+  queueRenderMehlmanPage(state.currentMehlmanPage + 1);
 }
 
 function prevMehlmanPage() {
   if (!state.currentMehlmanSystem) return;
-  const prev = state.currentMehlmanPage - 1;
-  if (prev >= 1) {
-    openMehlmanBook(state.currentMehlmanSystem.id, prev);
-  }
+  queueRenderMehlmanPage(state.currentMehlmanPage - 1);
 }
 
 function closeMehlmanReader() {
@@ -554,95 +529,31 @@ function toggleMehlmanTOC() {
 }
 
 function zoomMehlmanPage(delta) {
-  mehlmanZoom = Math.max(60, Math.min(180, mehlmanZoom + delta));
-  const wrapper = document.getElementById('mehlman-page-canvas-wrapper');
+  mehlmanZoom = Math.max(70, Math.min(180, mehlmanZoom + delta));
   const label = document.getElementById('mehlman-zoom-label');
-  if (wrapper) wrapper.style.transform = `scale(${mehlmanZoom / 100})`;
   if (label) label.textContent = `${mehlmanZoom}%`;
-}
-
-
-// ── PDF Viewer: Embedded iframe for local PDF ─────────────────────────────────
-const DRIVE_IDS = {
-  cvs:    '1r-B04CLSx7vylvsdyIl-f033qPyAY2SO',
-  endo:   '1ifKCUpt0lw4JnmrOfasuC4MMxPV2xOAM',
-  gi:     '1QE8stM0xhNn7kXU3EFxxcJrlSlPVdv5L',
-  heme:   '1Soq2X5U6v29kCUXxDPnlyhlEK91UQle6',
-  msk:    '1CJxCdtuur84kQUdvtINFDp_Zf12x023v',
-  neuro:  '1WHatbproqEWisXe9bakvHf_NBU6uXmHX',
-  psych:  '1Y93gN5VxRdQnZTJjqkE2dVcn4r29U33I',
-  renal:  '18QkpOaVm0IRnG8i3wPvSuWPTctJ_30kF',
-  resp:   '1pMhIiKY4sSitUCmoNVheAwZFrYQsgC-s',
-  repro:  '10XR2_gXL6Q3liwB4jpXtmYbVtiPoc-cO',
-  immuno: '1K1qVejD2l7DtJLQEDz2KJB8aEXF4KQ-u',
-  micro:  '1gfcxrG442nIG-HKAIBqCPemi1GQSD_xT',
-  biochem:'1EsLudyMWUaC56OluLIPGgTwjzOskf-U2',
-  path:   '1eCKfNndouemEd8dQJT2WdqCY_Owb-e5S',
-  ethics: '1UYbEvB_xPlyFifdR5ac42J_UEiqOufrp',
-};
-
-function openMehlmanPdfViewer(sys, pageNum) {
-  const wrapper = document.getElementById('mehlman-page-canvas-wrapper');
-  const fallback = document.getElementById('mehlman-reader-fallback');
-  const oldImg = document.getElementById('mehlman-reader-page-img');
-  
-  if (!wrapper) return;
-  
-  // Hide old image element
-  if (oldImg) oldImg.classList.add('hidden');
-
-  // Check if local PDF is served
-  const localPdfUrl = '/pdf/' + sys.id + '.pdf#page=' + pageNum;
-  
-  // Remove existing iframe if any
-  let iframe = document.getElementById('mehlman-pdf-iframe');
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.id = 'mehlman-pdf-iframe';
-    iframe.style.cssText = 'width:100%;height:100%;min-height:800px;border:none;background:#fff;';
-    wrapper.style.minHeight = '800px';
-    wrapper.insertBefore(iframe, wrapper.firstChild);
+  if (_mehlmanPdfDoc && state.currentMehlmanSystem) {
+    queueRenderMehlmanPage(state.currentMehlmanPage);
   }
-
-  // Try local PDF
-  iframe.src = localPdfUrl;
-  iframe.classList.remove('hidden');
-  if (fallback) fallback.classList.add('hidden');
-  
-  // Update download link to local PDF
-  const dlBtn = document.getElementById('mehlman-pdf-dl-btn');
-  if (dlBtn) dlBtn.href = '/pdf/' + sys.id + '.pdf';
-  
-  // Handle load error → fall back to Google Drive embed
-  iframe.onerror = function() {
-    const driveId = DRIVE_IDS[sys.id];
-    if (driveId) {
-      iframe.src = 'https://drive.google.com/file/d/' + driveId + '/preview';
-    } else {
-      iframe.classList.add('hidden');
-      if (fallback) fallback.classList.remove('hidden');
-    }
-  };
-}
-function handleMehlmanImageError(img) {
-  img.classList.add('hidden');
-  const fallback = document.getElementById('mehlman-reader-fallback');
-  if (fallback) fallback.classList.remove('hidden');
 }
 
-function handleMehlmanImageSuccess(img) {
-  img.classList.remove('hidden');
-  const fallback = document.getElementById('mehlman-reader-fallback');
-  if (fallback) fallback.classList.add('hidden');
-}
+// Keyboard shortcuts inside Mehlman Reader
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('modal-mehlman-reader');
+  if (!modal || modal.classList.contains('hidden')) return;
 
-function openMehlmanQuestions() {
-  navigate('review');
-  alert('Mehlman high-yield questions loaded into your practice queue!');
-}
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+    e.preventDefault();
+    nextMehlmanPage();
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    prevMehlmanPage();
+  } else if (e.key === 'Escape') {
+    closeMehlmanReader();
+  }
+});
 
 // Immediate initial render & load
 renderMehlmanGrid();
-loadMehlmanSystems();
 
-console.log('✅ Mehlman HY PDFs & Reader module loaded');
+console.log('📖 Mehlman Native In-App PDF Reader ready');
