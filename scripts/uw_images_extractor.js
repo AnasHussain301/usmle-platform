@@ -4,7 +4,7 @@
  * Run in Chrome Console on https://zetchy.net (where you are logged in).
  * 
  * Safe, same-origin extractor:
- *   - Uses relative URLs (no CORS or mixed-content errors)
+ *   - Uses exact path: /fa/${sys}/images.js
  *   - Loads all 13 systems directly from zetchy.net
  *   - Packages into 7 ZIP archives of 500 images each
  */
@@ -23,14 +23,14 @@
     });
   }
 
-  // 1. Fetch imagesJs directly from zetchy.net for all 13 systems
+  // 1. Fetch imagesJs directly from zetchy.net using exact path /fa/${sys}/images.js
   window.FA_IMAGES = window.FA_IMAGES || {};
   const systems = ['cvs', 'endo', 'gi', 'heme', 'msk', 'neuro', 'psych', 'renal', 'repro', 'resp', 'immuno', 'micro', 'gen'];
   console.log("Fetching image definitions for all 13 systems...");
   
   for (const sys of systems) {
     try {
-      const r = await fetch(`/fa-data/images-${sys}.js`);
+      const r = await fetch(`/fa/${sys}/images.js`);
       if (r.ok) {
         const js = await r.text();
         new Function('window', js)(window);
@@ -38,7 +38,7 @@
     } catch(e) {}
   }
 
-  // 2. Collect all unique image IDs
+  // 2. Collect all unique image IDs across all 13 systems
   const imgIds = new Set();
   Object.values(window.FA_IMAGES || {}).forEach(sysMap => {
     Object.values(sysMap || {}).forEach(list => {
@@ -49,7 +49,7 @@
   });
 
   const allIds = Array.from(imgIds);
-  console.log(`📦 Found ${allIds.length} UWorld medical images across First Aid!`);
+  console.log(`📦 Found ${allIds.length} UWorld medical images across all 13 systems!`);
 
   if (allIds.length === 0) {
     console.error("❌ No image IDs found. Make sure you are logged in to https://zetchy.net.");
@@ -58,10 +58,11 @@
 
   // 3. Download in packages of 500 images
   const batchSize = 500;
+  const totalParts = Math.ceil(allIds.length / batchSize);
+
   for (let b = 0; b < allIds.length; b += batchSize) {
     const chunk = allIds.slice(b, b + batchSize);
     const partNum = Math.floor(b / batchSize) + 1;
-    const totalParts = Math.ceil(allIds.length / batchSize);
     const zip = new JSZip();
     let saved = 0;
 
@@ -88,7 +89,7 @@
       await new Promise(r => setTimeout(r, 45)); // Safe pacing against 429
     }
 
-    console.log(`Generating uw_images_part${partNum}.zip (${saved} images)...`);
+    console.log(`Packaging uw_images_part${partNum}.zip (${saved} images)...`);
     const content = await zip.generateAsync({ type: 'blob' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(content);
@@ -101,6 +102,5 @@
     await new Promise(r => setTimeout(r, 1000));
   }
 
-  console.log('🎉 ALL UWORLD MEDICAL IMAGES DOWNLOADED!');
-  console.log('Run in your terminal: node scripts/unpack_uw_images.js');
+  console.log('🎉 ALL UWORLD MEDICAL IMAGES DOWNLOADED SUCCESSFULLY!');
 })();
