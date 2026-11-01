@@ -241,24 +241,139 @@ function renderFirstAidGrid(systems = state.firstAidSystems) {
 function openFirstAidSystem(sysId) {
   const sys = state.firstAidSystems.find(s => s.id === sysId);
   if (!sys) return;
-  const topicsList = (sys.topics || []).map(t => `
-    <div class="p-3 bg-[#170e20] rounded-xl border border-[#3b2554] space-y-1">
-      <div class="flex items-center justify-between">
-        <h4 class="text-sm font-bold text-white">${t.title}</h4>
-        <span class="text-[10px] font-mono text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-900">p.${t.page}</span>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">${t.highYield}</p>
-    </div>
-  `).join('');
+  state.currentFaSystem = sys;
 
-  document.getElementById('complaint-modal-title').textContent = `${sys.name} — High-Yield Headings`;
-  document.getElementById('complaint-modal-body').innerHTML = `
-    <div class="space-y-3">
-      <p class="text-xs text-slate-400">First Aid headings by subject and page number:</p>
-      ${topicsList || '<p class="text-xs text-slate-400 italic">Topics loading...</p>'}
-    </div>
-  `;
-  document.getElementById('modal-complaint').classList.remove('hidden');
+  const topics = sys.topics || [];
+  const firstTopic = topics[0] || { page: 293, title: sys.name, id: '' };
+  openFaBookPage(firstTopic.page || 284, firstTopic);
+}
+
+function openFaBookPage(pageNum, topic = null) {
+  state.currentFaPage = pageNum || 284;
+  const sys = state.currentFaSystem || state.firstAidSystems.find(s => s.id === 'cvs');
+  if (!topic && sys) {
+    topic = (sys.topics || []).find(t => t.page === pageNum) || sys.topics[0];
+  }
+  state.currentFaTopic = topic;
+
+  // Breadcrumb & title
+  const breadcrumb = document.getElementById('fa-reader-breadcrumb');
+  const headingTitle = document.getElementById('fa-reader-heading-title');
+  const pageIndicator = document.getElementById('fa-reader-page-indicator');
+  const pageImg = document.getElementById('fa-reader-page-img');
+
+  if (breadcrumb && sys) breadcrumb.innerHTML = `<span class="text-pink-400">${sys.name}</span> &rsaquo; <span>${topic ? (topic.subject || 'High-Yield') : 'Section'}</span>`;
+  if (headingTitle && topic) headingTitle.textContent = topic.title || sys.name;
+  if (pageIndicator) pageIndicator.textContent = `${state.currentFaPage} / 844`;
+
+  // Try loading real book scan page
+  if (pageImg) {
+    pageImg.src = `/fa-page/${state.currentFaPage}.webp`;
+  }
+
+  // Populate Fallback Text & UWorld Data
+  const sysBadge = document.getElementById('fa-reader-sys-badge');
+  const mainTitle = document.getElementById('fa-reader-main-title');
+  const pageTag = document.getElementById('fa-reader-page-tag');
+  if (sysBadge && sys) sysBadge.textContent = sys.name;
+  if (mainTitle && topic) mainTitle.textContent = topic.title;
+  if (pageTag) pageTag.textContent = `First Aid 2026 · Page ${state.currentFaPage}`;
+
+  // Subtopics
+  const subtopicsContainer = document.getElementById('fa-reader-subtopics');
+  if (subtopicsContainer) {
+    const subs = (topic && topic.subs) || [];
+    if (subs.length > 0) {
+      subtopicsContainer.innerHTML = subs.map(s => `
+        <div class="p-3 bg-[#1e1329] rounded-xl border border-[#3b2452]">
+          <h4 class="text-xs font-bold text-slate-200">${s.title}</h4>
+        </div>
+      `).join('');
+      subtopicsContainer.classList.remove('hidden');
+    } else {
+      subtopicsContainer.innerHTML = '';
+      subtopicsContainer.classList.add('hidden');
+    }
+  }
+
+  // UWorld Tables
+  const tablesContainer = document.getElementById('fa-reader-tables-container');
+  const tablesSection = document.getElementById('fa-reader-tables-section');
+  if (tablesContainer && tablesSection) {
+    const tables = (topic && topic.tables) || [];
+    if (tables.length > 0) {
+      tablesContainer.innerHTML = tables.map(tb => `
+        <div class="bg-[#1a1126] border border-[#3b2752] rounded-xl p-4 overflow-x-auto text-xs text-slate-200">
+          <h4 class="font-bold text-sky-400 mb-2">${tb[1] || 'Table'}</h4>
+          <div class="fa-uworld-table">${tb[2] || ''}</div>
+        </div>
+      `).join('');
+      tablesSection.classList.remove('hidden');
+    } else {
+      tablesSection.classList.add('hidden');
+    }
+  }
+
+  // UWorld Images
+  const imagesContainer = document.getElementById('fa-reader-images-container');
+  const imagesSection = document.getElementById('fa-reader-images-section');
+  if (imagesContainer && imagesSection) {
+    const images = (topic && topic.images) || [];
+    if (images.length > 0) {
+      imagesContainer.innerHTML = images.map(im => `
+        <div class="bg-[#1a1126] border border-[#3b2752] rounded-xl p-3 space-y-2">
+          <div class="text-[10px] font-mono text-purple-400 uppercase">${im[0]}</div>
+          <p class="text-xs text-slate-300 font-medium">${im[1]}</p>
+        </div>
+      `).join('');
+      imagesSection.classList.remove('hidden');
+    } else {
+      imagesSection.classList.add('hidden');
+    }
+  }
+
+  // Build TOC
+  renderFaBookTOC();
+
+  // Open modal
+  document.getElementById('modal-fa-book').classList.remove('hidden');
+}
+
+function renderFaBookTOC() {
+  const tocList = document.getElementById('fa-reader-toc-list');
+  const sys = state.currentFaSystem;
+  if (!tocList || !sys) return;
+
+  tocList.innerHTML = (sys.topics || []).map(t => {
+    const isAct = state.currentFaTopic && state.currentFaTopic.id === t.id;
+    return `
+      <div onclick="openFaBookPage(${t.page}, ${JSON.stringify(t).replace(/"/g, '&quot;')})" 
+           class="p-2 rounded-lg cursor-pointer text-xs ${isAct ? 'bg-pink-600 text-white font-bold' : 'hover:bg-[#251736] text-slate-300'} flex items-center justify-between">
+        <span class="truncate pr-2">${t.title}</span>
+        <span class="text-[10px] opacity-75 font-mono">p.${t.page}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleFaBookTableOfContents() {
+  const toc = document.getElementById('fa-reader-toc');
+  if (toc) toc.classList.toggle('hidden');
+}
+
+function closeFaBookReader() {
+  const modal = document.getElementById('modal-fa-book');
+  if (modal) modal.classList.add('hidden');
+}
+
+function nextFaBookPage() {
+  const next = (state.currentFaPage || 284) + 1;
+  if (next <= 844) openFaBookPage(next);
+}
+
+function prevFaBookPage() {
+  const prev = (state.currentFaPage || 284) - 1;
+  if (prev >= 1) openFaBookPage(prev);
 }
 
 function filterUWorldIncorrects() {

@@ -849,6 +849,88 @@
   </div>
 
   <!-- ========================================== -->
+  <!-- FIRST AID BOOK READER MODAL                -->
+  <!-- ========================================== -->
+  <div id="modal-fa-book" class="hidden fixed inset-0 z-50 bg-[#110b17] flex flex-col">
+    <!-- Top Bar -->
+    <div class="h-14 bg-[#191024] border-b border-[#2d1b40] px-4 flex items-center justify-between text-white shrink-0">
+      <div class="flex items-center gap-3">
+        <button onclick="closeFaBookReader()" class="p-2 hover:bg-white/10 rounded-xl text-slate-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </button>
+        <div>
+          <h3 id="fa-reader-breadcrumb" class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+            <span class="text-pink-400">Cardiovascular</span> &rsaquo; <span>Physiology</span>
+          </h3>
+          <p id="fa-reader-heading-title" class="text-xs text-slate-400">Splitting of S2</p>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center bg-[#251736] border border-[#3d2657] rounded-full px-3 py-1 text-xs">
+          <button onclick="prevFaBookPage()" class="hover:text-pink-400 px-1 font-bold">&lsaquo;</button>
+          <span id="fa-reader-page-indicator" class="mx-2 font-mono font-bold text-slate-200">293 / 844</span>
+          <button onclick="nextFaBookPage()" class="hover:text-pink-400 px-1 font-bold">&rsaquo;</button>
+        </div>
+
+        <button onclick="toggleFaBookTableOfContents()" class="p-2 hover:bg-white/10 rounded-xl text-slate-300" title="Table of Contents">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Reader Workspace -->
+    <div class="flex-1 flex overflow-hidden relative">
+      <!-- Side Drawer: Headings / TOC -->
+      <div id="fa-reader-toc" class="hidden w-80 bg-[#160e20] border-r border-[#2d1b40] overflow-y-auto p-4 space-y-2 shrink-0">
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">System Headings</h4>
+        <div id="fa-reader-toc-list" class="space-y-1"></div>
+      </div>
+
+      <!-- Main Canvas / Content Container -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center bg-[#0d0714]">
+        <div class="max-w-4xl w-full space-y-6">
+          <!-- Book Page Viewer (Real WebP Page Scan) -->
+          <div class="bg-[#180f24] rounded-2xl border border-[#3b2554] overflow-hidden shadow-2xl relative min-h-[500px]">
+            <img id="fa-reader-page-img" src="" alt="First Aid Page" class="w-full h-auto object-contain bg-black"
+                 onerror="this.onerror=null; this.classList.add('hidden'); document.getElementById('fa-reader-fallback-content').classList.remove('hidden');"
+                 onload="document.getElementById('fa-reader-fallback-content').classList.add('hidden'); this.classList.remove('hidden');">
+            
+            <!-- Fallback Rich Text & UWorld Layout when raw image is offline -->
+            <div id="fa-reader-fallback-content" class="p-6 sm:p-8 space-y-6 hidden">
+              <div class="border-b border-[#2d1b40] pb-4">
+                <span id="fa-reader-sys-badge" class="px-2.5 py-1 rounded text-[11px] font-bold uppercase bg-pink-500/20 text-pink-300 border border-pink-500/30">Cardiovascular</span>
+                <h1 id="fa-reader-main-title" class="text-2xl font-black text-white mt-2">Splitting of S2</h1>
+                <p id="fa-reader-page-tag" class="text-xs text-slate-400 mt-1 font-mono">First Aid 2026 · Page 293</p>
+              </div>
+
+              <!-- Topic Detailed Subsections -->
+              <div id="fa-reader-subtopics" class="space-y-4"></div>
+
+              <!-- High-Yield UWorld Tables -->
+              <div id="fa-reader-tables-section" class="space-y-4">
+                <h3 class="text-sm font-bold text-sky-400 flex items-center gap-2">
+                  <span>📊</span> UWorld High-Yield Tables
+                </h3>
+                <div id="fa-reader-tables-container" class="space-y-4"></div>
+              </div>
+
+              <!-- UWorld Medical Images -->
+              <div id="fa-reader-images-section" class="space-y-4">
+                <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2">
+                  <span>🖼️</span> UWorld Medical Images
+                </h3>
+                <div id="fa-reader-images-container" class="grid sm:grid-cols-2 gap-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
   <!-- COMPLAINT / DIFFERENTIAL DETAIL MODAL      -->
   <!-- ========================================== -->
   <div id="modal-complaint" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
