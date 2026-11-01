@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadZetchyData();
 
   const hash = window.location.hash.replace('#', '');
-  if (['fa', 'sketchy', 'review', 'ddx', 'qbank', 'admin'].includes(hash)) {
+  if (['fa', 'sketchy', 'review', 'ddx', 'qbank', 'admin', 'mehlman'].includes(hash)) {
     navigate(hash);
   } else {
     navigate('home');
@@ -160,11 +160,11 @@ function logout() {
 // ==========================================
 // ROUTING
 // ==========================================
-const ALL_VIEWS = ['home', 'fa', 'sketchy', 'sketchy-path', 'sketchy-deck', 'sketch-detail', 'review', 'ddx', 'qbank', 'exam', 'admin'];
+const ALL_VIEWS = ['home', 'fa', 'sketchy', 'sketchy-path', 'sketchy-deck', 'sketch-detail', 'review', 'ddx', 'qbank', 'exam', 'admin', 'mehlman'];
 
 function navigate(viewName) {
   state.currentView = viewName;
-  const hashMap = { home: '', fa: 'fa', sketchy: 'sketchy', 'sketchy-path': 'sketchy', 'sketchy-deck': 'sketchy', 'sketch-detail': 'sketchy', review: 'review', ddx: 'ddx', qbank: 'qbank', exam: 'qbank', admin: 'admin' };
+  const hashMap = { home: '', fa: 'fa', sketchy: 'sketchy', 'sketchy-path': 'sketchy', 'sketchy-deck': 'sketchy', 'sketch-detail': 'sketchy', review: 'review', ddx: 'ddx', qbank: 'qbank', exam: 'qbank', admin: 'admin', mehlman: 'mehlman' };
   window.location.hash = hashMap[viewName] || '';
 
   ALL_VIEWS.forEach(v => {
@@ -175,6 +175,7 @@ function navigate(viewName) {
 
   if (viewName === 'admin') refreshAdminDashboard();
   if (viewName === 'qbank') renderQBankList();
+  if (viewName === 'mehlman' && typeof renderMehlmanGrid === 'function') renderMehlmanGrid();
 }
 
 // ==========================================

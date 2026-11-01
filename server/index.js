@@ -169,6 +169,15 @@ app.post('/api/auth/complete-tour', requireAuth, (req, res) => {
 // 1.5 ZETCHY SECTIONS (FA, SKETCHY, DDX, CARDS)
 // ==========================================
 
+app.get('/api/mehlman/systems', (req, res) => {
+  res.json({ systems: db.data.mehlmanSystems || [] });
+});
+
+app.get('/api/mehlman/:id', (req, res) => {
+  const sys = (db.data.mehlmanSystems || []).find(s => s.id === req.params.id);
+  res.json({ system: sys || null });
+});
+
 app.get('/api/fa/systems', (req, res) => {
   res.json({ systems: db.getFirstAidSystems() });
 });
