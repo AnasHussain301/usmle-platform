@@ -560,11 +560,16 @@ app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`🩺 RadMed USMLE Platform running on http://localhost:${PORT}`);
-  console.log(`👑 Admin Portal: Login with admin@radmed.local / Admin123!`);
-  console.log(`🤖 AI Rad Bot: Active and loaded with Radiology KB`);
-  console.log(`====================================================`);
-});
+// Export for Vercel Serverless
+module.exports = app;
+
+// Start Server locally if not imported as a serverless function
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log('====================================================');
+    console.log(`🩺 RadMed USMLE Platform running on http://localhost:${PORT}`);
+    console.log('👑 Admin Portal: Login with admin@radmed.local / Admin123!');
+    console.log('🤖 AI Rad Bot: Active and loaded with Radiology KB');
+    console.log('====================================================');
+  });
+}

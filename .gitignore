@@ -1,14 +1,10 @@
 node_modules/
 .env
-data/db.json
 out.log
 err.log
 .DS_Store
 
-public/pdf/
-public/uw-img/
 public/fa-page/
 public/mehlman/
 scripts/*.html
-scripts/*.json
-
+scripts/mehlman_pdf_urls.json
