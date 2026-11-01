@@ -281,8 +281,9 @@ let mehlmanZoom = 100;
 // PDF.js instance cache
 let _mehlmanPdfDoc = null;
 let _mehlmanPdfSysId = null;
-let _mehlmanPageRendering = false;
-let _mehlmanPageNumPending = null;
+let _mehlmanRenderTask = null;
+let _mehlmanIsRendering = false;
+let _mehlmanPendingPage = null;
 
 // Render the 15 Mehlman System Cards Grid
 function renderMehlmanGrid() {
@@ -338,7 +339,7 @@ async function openMehlmanBook(systemId, pageNum = 1) {
   if (!sys) return;
 
   state.currentMehlmanSystem = sys;
-  const p = Math.max(1, Math.min(sys.totalPages || 999, parseInt(pageNum, 10) || 1));
+  const p = Math.max(1, parseInt(pageNum, 10) || 1);
   state.currentMehlmanPage = p;
 
   // Open modal
@@ -348,13 +349,18 @@ async function openMehlmanBook(systemId, pageNum = 1) {
   updateMehlmanHeaderIndicators();
   renderMehlmanTOC(sys);
 
-  // If already loaded this system's PDF, render requested page directly
+  // If already loaded this document, jump straight to the page
   if (_mehlmanPdfDoc && _mehlmanPdfSysId === systemId) {
-    queueRenderMehlmanPage(state.currentMehlmanPage);
+    goToMehlmanPage(state.currentMehlmanPage);
     return;
   }
 
-  // Show loading spinner
+  // Cancel any active render task
+  if (_mehlmanRenderTask) {
+    try { _mehlmanRenderTask.cancel(); } catch(e) {}
+    _mehlmanRenderTask = null;
+  }
+
   const loadingEl = document.getElementById('mehlman-pdf-loading');
   if (loadingEl) loadingEl.classList.remove('hidden');
 
@@ -364,14 +370,19 @@ async function openMehlmanBook(systemId, pageNum = 1) {
     if (typeof pdfjsLib === 'undefined') {
       throw new Error('PDF.js library not ready');
     }
-    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    const loadingTask = pdfjsLib.getDocument({
+      url: pdfUrl,
+      cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+      cMapPacked: true
+    });
     _mehlmanPdfDoc = await loadingTask.promise;
     _mehlmanPdfSysId = systemId;
     if (_mehlmanPdfDoc.numPages) {
       sys.totalPages = _mehlmanPdfDoc.numPages;
     }
     updateMehlmanHeaderIndicators();
-    queueRenderMehlmanPage(state.currentMehlmanPage);
+    renderMehlmanTOC(sys);
+    goToMehlmanPage(state.currentMehlmanPage);
   } catch (err) {
     console.error('PDF.js load error:', err);
     if (loadingEl) loadingEl.classList.add('hidden');
@@ -381,9 +392,22 @@ async function openMehlmanBook(systemId, pageNum = 1) {
 
 async function renderMehlmanPage(num) {
   if (!_mehlmanPdfDoc) return;
-  _mehlmanPageRendering = true;
+
+  // If a page is actively rendering, cancel it and queue this target
+  if (_mehlmanIsRendering) {
+    _mehlmanPendingPage = num;
+    if (_mehlmanRenderTask) {
+      try { _mehlmanRenderTask.cancel(); } catch(e) {}
+      _mehlmanRenderTask = null;
+    }
+    return;
+  }
+
+  _mehlmanIsRendering = true;
   state.currentMehlmanPage = num;
-  localStorage.setItem('mmb-' + state.currentMehlmanSystem.id + '-last', num);
+  if (state.currentMehlmanSystem) {
+    localStorage.setItem('mmb-' + state.currentMehlmanSystem.id + '-last', num);
+  }
 
   const loadingEl = document.getElementById('mehlman-pdf-loading');
   if (loadingEl) loadingEl.classList.remove('hidden');
@@ -391,35 +415,67 @@ async function renderMehlmanPage(num) {
   try {
     const page = await _mehlmanPdfDoc.getPage(num);
     const canvas = document.getElementById('mehlman-pdf-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    if (!canvas) {
+      _mehlmanIsRendering = false;
+      return;
+    }
+    const ctx = canvas.getContext('2d', { alpha: false });
 
-    // Scale calculation: base 1.4 for crisp text, scaled with mehlmanZoom
-    const scale = (mehlmanZoom / 100) * 1.4;
-    const viewport = page.getViewport({ scale });
+    // Device Pixel Ratio for sharp retina text rendering
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
+    // Calculate fit width based on screen width & zoom (centered & dynamic)
+    const scrollContainer = document.getElementById('mehlman-scroll-area');
+    const availWidth = scrollContainer && scrollContainer.clientWidth > 100 
+      ? Math.min(scrollContainer.clientWidth - 40, 880) 
+      : Math.min(window.innerWidth - 60, 880);
+
+    const baseViewport = page.getViewport({ scale: 1.0 });
+    const targetWidth = Math.max(480, availWidth) * (mehlmanZoom / 100);
+    const fitScale = targetWidth / baseViewport.width;
+
+    const viewport = page.getViewport({ scale: fitScale });
+
+    // Set physical pixel dimensions for high-DPI display
+    canvas.width = Math.floor(viewport.width * dpr);
+    canvas.height = Math.floor(viewport.height * dpr);
+
+    // Set CSS display dimensions: centered with margin auto
+    canvas.style.display = 'block';
+    canvas.style.margin = '0 auto';
+    canvas.style.width = Math.floor(viewport.width) + 'px';
+    canvas.style.height = Math.floor(viewport.height) + 'px';
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
 
     const renderContext = {
       canvasContext: ctx,
       viewport: viewport
     };
 
-    const renderTask = page.render(renderContext);
-    await renderTask.promise;
+    _mehlmanRenderTask = page.render(renderContext);
+    await _mehlmanRenderTask.promise;
+    _mehlmanRenderTask = null;
+
+    ctx.restore();
 
     canvas.classList.remove('hidden');
     const fallback = document.getElementById('mehlman-reader-fallback');
     if (fallback) fallback.classList.add('hidden');
   } catch (err) {
-    console.error('Error rendering page:', err);
+    if (err && err.name !== 'RenderingCancelledException') {
+      console.error('Error rendering Mehlman page:', err);
+    }
   } finally {
     if (loadingEl) loadingEl.classList.add('hidden');
-    _mehlmanPageRendering = false;
-    if (_mehlmanPageNumPending !== null) {
-      renderMehlmanPage(_mehlmanPageNumPending);
-      _mehlmanPageNumPending = null;
+    _mehlmanIsRendering = false;
+
+    // If another page was requested while rendering, process it now
+    if (_mehlmanPendingPage !== null) {
+      const nextNum = _mehlmanPendingPage;
+      _mehlmanPendingPage = null;
+      renderMehlmanPage(nextNum);
     }
   }
 
@@ -427,59 +483,28 @@ async function renderMehlmanPage(num) {
   renderMehlmanTOC(state.currentMehlmanSystem);
 }
 
-function queueRenderMehlmanPage(num) {
+function goToMehlmanPage(pageNum) {
   const sys = state.currentMehlmanSystem;
   if (!sys) return;
-  const max = sys.totalPages || (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : 999);
-  const target = Math.max(1, Math.min(max, num));
-  
-  if (_mehlmanPageRendering) {
-    _mehlmanPageNumPending = target;
-  } else {
-    renderMehlmanPage(target);
-  }
+  const max = (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : sys.totalPages) || 999;
+  const target = Math.max(1, Math.min(max, parseInt(pageNum, 10) || 1));
+  renderMehlmanPage(target);
+
+  // Scroll viewer to top on page flip
+  const scrollArea = document.getElementById('mehlman-scroll-area');
+  if (scrollArea) scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function updateMehlmanHeaderIndicators() {
-  const sys = state.currentMehlmanSystem;
-  if (!sys) return;
-  const total = sys.totalPages || (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : 74);
-  const cur = state.currentMehlmanPage;
-
-  const titleEl = document.getElementById('mehlman-reader-title');
-  const topInd = document.getElementById('mehlman-top-page-indicator');
-  const botInd = document.getElementById('mehlman-bottom-page-indicator');
-
-  if (titleEl) titleEl.textContent = `Mehlman · ${sys.title}`;
-  if (topInd) topInd.textContent = `p. ${cur} / ${total}`;
-  if (botInd) botInd.textContent = `${cur} / ${total}`;
+function nextMehlmanPage() {
+  if (!state.currentMehlmanSystem) return;
+  goToMehlmanPage(state.currentMehlmanPage + 1);
 }
 
-function showMehlmanFallback(sys, pageNum) {
-  const canvas = document.getElementById('mehlman-pdf-canvas');
-  if (canvas) canvas.classList.add('hidden');
-
-  const fallback = document.getElementById('mehlman-reader-fallback');
-  if (!fallback) return;
-  fallback.classList.remove('hidden');
-
-  const title = document.getElementById('mehlman-fallback-title');
-  const pageLabel = document.getElementById('mehlman-fallback-page-num');
-  const topicList = document.getElementById('mehlman-fallback-topics');
-
-  if (title) title.textContent = `MEHLMAN MEDICAL ${sys.name.toUpperCase()}`;
-  if (pageLabel) pageLabel.textContent = `Page ${pageNum} of ${sys.totalPages}`;
-
-  if (topicList) {
-    const topics = sys.topics || [];
-    topicList.innerHTML = topics.map(t => `
-      <div onclick="goToMehlmanPage(${t.page})" class="p-3 bg-[#1e1330] rounded-xl border border-[#432960] mb-2 cursor-pointer hover:border-pink-500/50 flex items-center justify-between">
-        <span class="text-xs text-slate-200 font-bold">${t.title}</span>
-        <span class="text-[10px] font-mono text-pink-400">p.${t.page}</span>
-      </div>
-    `).join('');
-  }
+function prevMehlmanPage() {
+  if (!state.currentMehlmanSystem) return;
+  goToMehlmanPage(state.currentMehlmanPage - 1);
 }
+
 
 // Table of Contents Drawer
 function renderMehlmanTOC(sys) {

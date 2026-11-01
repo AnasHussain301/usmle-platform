@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
@@ -18,6 +19,21 @@ seed();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+
+// API: First Aid Flashcards & AnKing Questions
+app.get('/api/fa/cards', (req, res) => {
+  const cardsFile = path.join(__dirname, '..', 'data', 'zetchy_cards.json');
+  if (fs.existsSync(cardsFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(cardsFile, 'utf8'));
+      return res.json({ success: true, cards: data });
+    } catch (e) {
+      return res.status(500).json({ error: 'Failed to read zetchy_cards.json' });
+    }
+  }
+  res.json({ success: true, cards: {} });
+});
 
 // Static frontend serving
 app.use(express.static(path.join(__dirname, '..', 'public')));

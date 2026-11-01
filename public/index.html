@@ -1010,7 +1010,7 @@
         </div>
 
         <!-- Floating Bottom Page Stepper Control (< 293 / 844 >) -->
-        <div class="fixed bottom-6 z-30 flex items-center bg-[#251736]/90 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center bg-[#251736]/95 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
           <button onclick="prevFaBookPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&lsaquo;</button>
           <span id="fa-bottom-page-indicator" class="mx-3 font-mono font-bold text-xs text-slate-200">293 / 844</span>
           <button onclick="nextFaBookPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&rsaquo;</button>
@@ -1291,10 +1291,10 @@
         <div id="mehlman-toc-list" class="flex-1 overflow-y-auto p-2 space-y-1 text-xs"></div>
       </div>
 
-      <!-- Center: PDF Viewer & Fallback -->
-      <div class="flex-1 overflow-hidden flex flex-col bg-[#0a0510] relative">
-        <div class="max-w-4xl w-full flex flex-col items-center">
-          <div id="mehlman-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col items-center justify-center p-2 min-h-[700px] border border-[#2b183d]">
+      <!-- Center: PDF Viewer & Fallback (Proper fit & centered) -->
+      <div id="mehlman-scroll-area" class="flex-1 overflow-y-auto flex flex-col items-center py-6 px-2 sm:px-4 bg-[#0a0510] relative w-full h-full" style="scrollbar-width: thin; scrollbar-color: #522f73 #0c0612;">
+        <div class="w-full flex flex-col items-center justify-start pb-24">
+          <div id="mehlman-page-canvas-wrapper" class="w-auto flex flex-col items-center justify-center p-0 rounded-2xl shadow-2xl relative border border-[#2b183d] bg-white overflow-hidden mx-auto my-2">
             <!-- Loading Spinner -->
             <div id="mehlman-pdf-loading" class="hidden absolute inset-0 bg-[#0c0612]/85 backdrop-blur-sm z-20 flex flex-col items-center justify-center space-y-3">
               <div class="w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
@@ -1319,7 +1319,7 @@
         </div>
 
         <!-- Floating Bottom Page Stepper Control (< 74 / 74 >) -->
-        <div class="fixed bottom-6 z-30 flex items-center bg-[#251736]/90 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center bg-[#251736]/95 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
           <button onclick="prevMehlmanPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&lsaquo;</button>
           <span id="mehlman-bottom-page-indicator" class="mx-3 font-mono font-bold text-xs text-slate-200">1 / 74</span>
           <button onclick="nextMehlmanPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&rsaquo;</button>
@@ -1337,6 +1337,110 @@
 
   <script src="/js/pdf.min.js"></script>
   <script src="/js/mehlman.js"></script>
+
+  <script src="/js/fa_questions_data.js"></script>
+  <script src="/js/fa_questions.js"></script>
+
+  <!-- ========================================== -->
+  <!-- MODAL: WHICH QUESTIONS? (SCREENSHOT 1)      -->
+  <!-- ========================================== -->
+  <div id="modal-which-questions" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#190f24] border border-[#3b2352] rounded-3xl max-w-sm w-full p-5 shadow-2xl text-white space-y-4 animate-in zoom-in-95">
+      <div>
+        <h3 class="text-base font-black text-white">Which questions?</h3>
+        <p id="wq-topic-title" class="text-xs text-slate-400 mt-0.5">Autoregulation</p>
+      </div>
+
+      <div class="flex items-center bg-[#120a1a] p-1 rounded-2xl border border-[#2b183d]">
+        <button id="wq-mode-test" onclick="setCardMode('test')" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-[#29173b] text-pink-400 border border-pink-500/50 transition-all">
+          Test
+        </button>
+        <button id="wq-mode-prev" onclick="setCardMode('preview')" class="flex-1 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition-all">
+          Preview
+        </button>
+      </div>
+
+      <div class="flex items-center gap-1.5 border-b border-[#2b183d] pb-3 text-xs">
+        <button id="wq-tab-anking" onclick="setDeckSource('anking')" class="px-3 py-1 rounded-lg text-xs font-bold text-pink-400 bg-pink-950/60 border border-pink-900/60">
+          AnKing 35
+        </button>
+        <button id="wq-tab-mnemo" onclick="setDeckSource('mnemosyne')" class="px-3 py-1 rounded-lg text-xs font-medium text-slate-300 hover:text-white">
+          Mnemosyne 9
+        </button>
+        <button id="wq-tab-mehlman" onclick="setDeckSource('mehlman')" class="px-3 py-1 rounded-lg text-xs font-medium text-slate-300 hover:text-white">
+          Mehlman 4
+        </button>
+      </div>
+
+      <div class="space-y-1 text-xs">
+        <div onclick="startHeadingQuestions('all')" class="p-2.5 rounded-xl hover:bg-[#251538] cursor-pointer flex items-center justify-between text-slate-200 transition-colors">
+          <span class="font-bold">All</span>
+          <span id="wq-count-all" class="font-mono text-slate-400">35</span>
+        </div>
+        <div onclick="startHeadingQuestions('again')" class="p-2.5 rounded-xl hover:bg-[#251538] cursor-pointer flex items-center justify-between text-slate-200 transition-colors">
+          <span class="font-bold">Again (missed)</span>
+          <span id="wq-count-again" class="font-mono text-slate-500">&#8856;</span>
+        </div>
+        <div onclick="startHeadingQuestions('good')" class="p-2.5 rounded-xl hover:bg-[#251538] cursor-pointer flex items-center justify-between text-slate-200 transition-colors">
+          <span class="font-bold">Good</span>
+          <span id="wq-count-good" class="font-mono text-slate-500">&#8856;</span>
+        </div>
+        <div onclick="startHeadingQuestions('not_done')" class="p-2.5 rounded-xl hover:bg-[#251538] cursor-pointer flex items-center justify-between text-slate-200 transition-colors font-bold text-pink-300 bg-pink-950/20 border border-pink-900/30">
+          <span>Not done</span>
+          <span id="wq-count-not-done" class="font-mono text-pink-400">35</span>
+        </div>
+      </div>
+
+      <div class="pt-1 text-center">
+        <button onclick="closeWhichQuestionsModal()" class="w-full py-2 text-xs font-bold text-slate-400 hover:text-white transition-colors">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: FLOATING CARD PLAYER (SCREENSHOT 2)  -->
+  <!-- ========================================== -->
+  <div id="modal-heading-card-player" class="hidden fixed bottom-6 inset-x-4 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 z-50 max-w-xl w-full">
+    <div class="bg-[#1b1129]/95 backdrop-blur-md border border-[#3b2352] rounded-3xl p-5 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between text-xs text-slate-400 border-b border-[#2d1b40] pb-2">
+        <div class="flex items-center gap-2 font-mono">
+          <span id="hcp-counter" class="text-white font-bold">| 1 / 35</span>
+          <span class="text-amber-400 text-xs">&#128993;</span>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-1 text-[11px] font-mono text-slate-500 overflow-hidden max-w-[200px]">
+          <span onclick="prevHeadingCard()" class="cursor-pointer hover:text-white font-bold mr-1">&lsaquo;</span>
+          <span id="hcp-dots-bar" class="truncate text-pink-400"></span>
+          <span onclick="nextHeadingCard()" class="cursor-pointer hover:text-white font-bold ml-1">&rsaquo;</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="px-2.5 py-1 rounded-lg bg-[#27173b] hover:bg-[#341e4f] text-[11px] font-bold text-slate-300 border border-[#442866] transition-colors">
+            + Deck
+          </button>
+          <button onclick="closeHeadingCardPlayer()" class="p-1 hover:text-white text-slate-400 transition-colors">
+            &#10005;
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+        <span id="hcp-topic-tag" class="text-xs font-bold text-pink-300 truncate">Autoregulation</span>
+      </div>
+
+      <div class="py-2 min-h-[70px]">
+        <p id="hcp-prompt-text" class="text-sm sm:text-base font-bold text-white leading-relaxed">
+          ____ is the maintenance of a constant blood flow to an organ in the face of changing arterial pressures
+        </p>
+      </div>
+
+      <div id="hcp-actions-bar" class="flex items-center justify-between border-t border-[#2d1b40] pt-3">
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

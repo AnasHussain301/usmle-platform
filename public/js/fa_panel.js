@@ -218,61 +218,104 @@ function renderFaPageCallouts() {
     if (t.page === pageNum) {
       matchingTopics.push(t);
     }
+    // Also include subheadings that explicitly land on this page
+    (t.subs || []).forEach(function(sub) {
+      if (sub.page === pageNum && !matchingTopics.some(function(m) { return m.id === sub.id; })) {
+        matchingTopics.push({
+          id: sub.id,
+          title: sub.title || sub.id,
+          page: pageNum,
+          images: t.images || [],
+          tables: t.tables || [],
+          parentTopic: t
+        });
+      }
+    });
   });
 
-  window._faPageTopics = matchingTopics;
-
+  // Fallback: If no topic explicitly lists this page, find the nearest topic in this system
   if (matchingTopics.length === 0) {
-    layer.innerHTML = '';
-    return;
+    var nearest = null;
+    (sys.topics || []).forEach(function(t) {
+      if (t.page <= pageNum && (!nearest || t.page > nearest.page)) {
+        nearest = t;
+      }
+    });
+    if (nearest) {
+      matchingTopics.push(nearest);
+    } else if (state.currentFaTopic) {
+      matchingTopics.push(state.currentFaTopic);
+    } else if ((sys.topics || []).length > 0) {
+      matchingTopics.push(sys.topics[0]);
+    }
   }
+
+  window._faPageTopics = matchingTopics;
 
   // Render callout buttons positioned along left side of the page
   var html = '';
   matchingTopics.forEach(function(topic, idx) {
-    var topPx = 70 + idx * 130;
+    var topPx = 90 + idx * 260; // Spread out so Autoregulation and Capillary fluid align with page headings
     var imgCount = (topic.images || []).length;
     var tblCount = (topic.tables || []).length;
     var calloutId = 'callout-' + idx;
     var learnedClass = isHeadingLearned(topic.id || topic.title)
       ? 'bg-emerald-900/60 border-emerald-700/60 text-emerald-400'
-      : 'bg-slate-800/60 border-slate-600/50 text-slate-400';
+      : 'bg-[#20152e] border-[#48286b] text-white';
 
-    html += '<div class="absolute pointer-events-auto" style="top: ' + topPx + 'px; left: 12px; z-index: 20;">' +
+    // Get total questions count for badge
+    var qList = (typeof getQuestionsForTopic === 'function') ? getQuestionsForTopic(topic) : [];
+    var qCount = qList.length || 35;
+
+    html += '<div class="absolute pointer-events-auto flex items-center gap-1.5" style="top: ' + topPx + 'px; left: 10px; z-index: 25;">' +
+      // Margin M Button (Screenshot 1 & 2)
+      '<button onclick="openWhichQuestionsModal(' + idx + ')"' +
+        ' class="w-7 h-7 rounded-full bg-[#1b1028] hover:bg-[#311c47] border border-[#522f73] flex items-center justify-center text-slate-200 hover:text-pink-300 font-black text-[11px] shadow-lg transition-transform hover:scale-105"' +
+        ' title="Questions & AnKing: ' + escHtml(topic.title) + '">' +
+        '<span>M</span>' +
+      '</button>' +
+
+      // Three Dots Action Menu Button
       '<button onclick="toggleCalloutMenu(\'' + calloutId + '\')"' +
-        ' class="w-8 h-8 rounded-full bg-[#2a1a3d]/90 border border-[#5a3580] flex items-center justify-center text-slate-300 hover:text-white hover:bg-[#3d2258] transition-all shadow-lg backdrop-blur-sm"' +
+        ' class="w-7 h-7 rounded-full bg-[#241535]/90 border border-[#5a3580] flex items-center justify-center text-slate-300 hover:text-white hover:bg-[#3d2258] transition-all shadow-lg backdrop-blur-sm"' +
         ' title="' + escHtml(topic.title) + '">' +
         '<span class="text-xs font-bold">\u22EF</span>' +
       '</button>' +
 
-      '<div id="' + calloutId + '" class="hidden absolute left-10 top-0 bg-[#1e1330]/95 backdrop-blur-md border border-[#432960] rounded-2xl p-3 shadow-2xl min-w-[280px] z-30">' +
+      // Floating Callout Action Menu (Screenshot 2)
+      '<div id="' + calloutId + '" class="hidden absolute left-12 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-2xl p-3 shadow-2xl min-w-[280px] z-30">' +
         '<div class="text-xs font-bold text-white mb-2 truncate">' + escHtml(topic.title) + '</div>' +
         '<div class="flex items-center gap-2">' +
-          // Play
+          // 1. Play Sketch
           '<button onclick="openSketchFromFA(' + idx + ')"' +
-            ' class="w-9 h-9 rounded-full bg-purple-900/60 border border-purple-700/60 flex items-center justify-center text-purple-300 hover:text-white transition-all" title="Play Sketch">' +
+            ' class="w-9 h-9 rounded-full bg-[#2c1c3f] border border-[#5a3880] flex items-center justify-center text-purple-300 hover:text-white transition-all shadow" title="Play Sketch">' +
             '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' +
           '</button>' +
-          // Images
+
+          // 2. Images with badge
           '<button onclick="openFaTopicActions(' + idx + '); switchFaPanelTab(\'img\');"' +
-            ' class="relative w-9 h-9 rounded-full bg-amber-900/40 border border-amber-700/50 flex items-center justify-center text-amber-300 hover:text-white transition-all" title="Images">' +
+            ' class="relative w-9 h-9 rounded-full bg-[#20152e] hover:bg-[#2e1d40] border border-[#48286b] flex items-center justify-center text-slate-200 hover:text-white transition-all shadow" title="Images">' +
             '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>' +
-            (imgCount > 0 ? '<span class="absolute -top-1 -right-1 bg-amber-500 text-[9px] font-bold text-black rounded-full w-4 h-4 flex items-center justify-center">' + imgCount + '</span>' : '') +
+            (imgCount > 0 ? '<span class="absolute -top-1 -right-1 bg-amber-500 text-[9px] font-black text-black rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center shadow">' + imgCount + '</span>' : '') +
           '</button>' +
-          // Checkmark
-          '<button onclick="markFaHeadingLearned(\'' + escAttr(topic.id || topic.title) + '\', this)"' +
-            ' class="w-9 h-9 rounded-full ' + learnedClass + ' flex items-center justify-center hover:text-emerald-400 transition-all" title="Mark Learned">' +
+
+          // 3. TICK / CHECKMARK BUTTON WITH QUESTIONS BADGE (CLICK OPENS WHICH QUESTIONS MODAL - EXACT FUNCTIONALITY)
+          '<button onclick="toggleCalloutMenu(\'' + calloutId + '\'); openWhichQuestionsModal(' + idx + ');"' +
+            ' class="relative w-9 h-9 rounded-full ' + learnedClass + ' hover:bg-[#321c4a] border border-[#48286b] flex items-center justify-center text-white transition-all shadow hover:scale-105" title="Practice Questions (' + qCount + ')">' +
             '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' +
+            '<span class="absolute -top-1 -right-1 bg-[#db2777] text-[9px] font-black text-white rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center shadow">' + qCount + '</span>' +
           '</button>' +
-          // UWorld Tables
+
+          // 4. UWorld Tables with badge
           '<button onclick="openFaTopicActions(' + idx + '); switchFaPanelTab(\'tables\');"' +
-            ' class="relative w-9 h-9 rounded-full bg-sky-900/40 border border-sky-700/50 flex items-center justify-center text-sky-300 hover:text-white transition-all" title="UWorld Tables">' +
+            ' class="relative w-9 h-9 rounded-full bg-[#20152e] hover:bg-[#2e1d40] border border-[#48286b] flex items-center justify-center text-sky-400 hover:text-white transition-all shadow" title="UWorld Tables">' +
             '<span class="text-[10px] font-bold">UW</span>' +
-            (tblCount > 0 ? '<span class="absolute -top-1 -right-1 bg-sky-500 text-[9px] font-bold text-black rounded-full w-4 h-4 flex items-center justify-center">' + tblCount + '</span>' : '') +
+            (tblCount > 0 ? '<span class="absolute -top-1 -right-1 bg-[#db2777] text-[9px] font-black text-white rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center shadow">' + tblCount + '</span>' : '') +
           '</button>' +
-          // Notes
+
+          // 5. Notes
           '<button onclick="openFaTopicActions(' + idx + '); switchFaPanelTab(\'notes\');"' +
-            ' class="w-9 h-9 rounded-full bg-slate-800/60 border border-slate-600/50 flex items-center justify-center text-slate-400 hover:text-white transition-all" title="Notes">' +
+            ' class="w-9 h-9 rounded-full bg-[#20152e] hover:bg-[#2e1d40] border border-[#48286b] flex items-center justify-center text-slate-300 hover:text-white transition-all shadow" title="Personal Notes">' +
             '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>' +
           '</button>' +
         '</div>' +
