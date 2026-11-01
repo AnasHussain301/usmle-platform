@@ -13,7 +13,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 74,
     color: '#a33a20',
     icon: 'heart',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Cardio.pdf',
+    pdfUrl: '/pdf/cvs.pdf',
     topics: [
       { page: 1, title: 'Cardiovascular Examination & S1/S2 Sounds' },
       { page: 12, title: 'Systolic vs Diastolic Murmurs Distinctions' },
@@ -34,7 +34,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 63,
     color: '#b58500',
     icon: 'sparkles',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Endocrine.pdf',
+    pdfUrl: '/pdf/endo.pdf',
     topics: [
       { page: 1, title: 'Pituitary Hormones & Adenomas' },
       { page: 15, title: 'Thyroid Disorders, Lab Panels & Nodules' },
@@ -54,7 +54,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 95,
     color: '#4d6b1f',
     icon: 'utensils',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-GI.pdf',
+    pdfUrl: '/pdf/gi.pdf',
     topics: [
       { page: 1, title: 'Esophageal Motility & Neoplasms' },
       { page: 18, title: 'Gastritis, PUD & Gastric Tumors' },
@@ -75,7 +75,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#6d183f',
     icon: 'droplet',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Heme-Onc.pdf',
+    pdfUrl: '/pdf/heme.pdf',
     topics: [
       { page: 1, title: 'Anemia Approach & Iron Metabolism' },
       { page: 14, title: 'Hemolytic Anemias & Blood Smears' },
@@ -95,7 +95,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#c26217',
     icon: 'bone',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-MSK.pdf',
+    pdfUrl: '/pdf/msk.pdf',
     topics: [
       { page: 1, title: 'Upper Extremity Nerve Lesions' },
       { page: 16, title: 'Lower Extremity Nerves & Radiculopathies' },
@@ -115,7 +115,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#431980',
     icon: 'brain',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Neuro.pdf',
+    pdfUrl: '/pdf/neuro.pdf',
     topics: [
       { page: 1, title: 'Circle of Willis & Stroke Syndromes' },
       { page: 18, title: 'Brainstem Cross Sections & Rule of 4s' },
@@ -136,7 +136,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#2d45a8',
     icon: 'smile',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Psychiatry.pdf',
+    pdfUrl: '/pdf/psych.pdf',
     topics: [
       { page: 1, title: 'Major Depression, Bipolar & Dysthymia' },
       { page: 12, title: 'Schizophrenia & Psychotic Disorders' },
@@ -156,7 +156,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 9,
     color: '#166970',
     icon: 'filter',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Renal.pdf',
+    pdfUrl: '/pdf/renal.pdf',
     topics: [
       { page: 1, title: 'Glomerular Anatomy & Filtration Dynamics' },
       { page: 9, title: 'Nephrotic Syndromes & Light Microscopy' },
@@ -176,7 +176,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#0369a1',
     icon: 'wind',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Pulmonary.pdf',
+    pdfUrl: '/pdf/resp.pdf',
     topics: [
       { page: 1, title: 'Pulmonary Function Tests & Flow-Volume Loops' },
       { page: 15, title: 'COPD, Asthma & Bronchiectasis' },
@@ -196,7 +196,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#9d174d',
     icon: 'flower',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Repro.pdf',
+    pdfUrl: '/pdf/repro.pdf',
     topics: [
       { page: 1, title: 'Embryology of Genital Ducts & Ambiguous Genitalia' },
       { page: 18, title: 'Menstrual Cycle Physiology & Amenorrhea' },
@@ -216,7 +216,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#047857',
     icon: 'shield',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Immuno.pdf',
+    pdfUrl: '/pdf/immuno.pdf',
     topics: [
       { page: 1, title: 'T-Cell & B-Cell Development & V(D)J' },
       { page: 14, title: 'Complement Cascade & Deficiencies' },
@@ -235,7 +235,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#15803d',
     icon: 'bug',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Micro.pdf',
+    pdfUrl: '/pdf/micro.pdf',
     topics: [
       { page: 1, title: 'Gram-Positive Bacilli & Cocci Identifiers' },
       { page: 16, title: 'Gram-Negative Rods, Lactose Fermenters' },
@@ -254,7 +254,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#7c3aed',
     icon: 'atom',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Biochem.pdf',
+    pdfUrl: '/pdf/biochem.pdf',
     topics: [
       { page: 1, title: 'Carbohydrate Metabolism & Rate-Limiting Enzymes' },
       { page: 18, title: 'Glycogen Storage Diseases Types I-V' },
@@ -273,7 +273,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#b91c1c',
     icon: 'pill',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Pharm.pdf',
+    pdfUrl: '/pdf/pharm.pdf',
     topics: [
       { page: 1, title: 'Pharmacokinetics: Volume of Distribution & Clearance' },
       { page: 18, title: 'Autonomic Pharmacology: Sympathomimetics & Blockers' },
@@ -292,7 +292,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#be123c',
     icon: 'arrows',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Arrows.pdf',
+    pdfUrl: '/pdf/arrows.pdf',
     topics: [
       { page: 1, title: 'Hemodynamics: Preload, Afterload, Contractility Shifts' },
       { page: 28, title: 'Endocrine Feedback: TSH, Free T4, Cortisol, ACTH' },
@@ -330,7 +330,7 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     lastPage: 1,
     color: '#374151',
     icon: 'scale',
-    pdfUrl: 'https://mehlmanmedical.com/wp-content/uploads/2021/04/HY-Ethics.pdf',
+    pdfUrl: '/pdf/ethics.pdf',
     topics: [
       { page: 1, title: 'Informed Consent, Minors & Exceptions' },
       { page: 12, title: 'Surrogate Decision-Making Hierarchy' },
@@ -379,9 +379,16 @@ async function loadMehlmanSystems() {
 // Render the 18 Mehlman System Cards Grid (matching Image 1)
 function renderMehlmanGrid() {
   const container = document.getElementById('mehlman-systems-grid');
-  if (!container) return;
+  if (!container) {
+    // View not yet in DOM; retry when mehlman view is navigated to
+    return;
+  }
 
-  const systems = state.mehlmanSystems || DEFAULT_MEHLMAN_SYSTEMS;
+  const systems = (typeof state !== 'undefined' && state.mehlmanSystems) || DEFAULT_MEHLMAN_SYSTEMS;
+  if (!systems || systems.length === 0) {
+    container.innerHTML = '<div class="col-span-4 text-center py-8 text-slate-400">No systems available</div>';
+    return;
+  }
 
   container.innerHTML = systems.map(sys => {
     const savedLast = localStorage.getItem('mmb-' + sys.id + '-last') || sys.lastPage || 1;
@@ -397,7 +404,7 @@ function renderMehlmanGrid() {
           <div class="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white text-lg shadow-inner">
             ${getMehlmanIcon(sys.icon)}
           </div>
-          <a href="${sys.pdfUrl}" target="_blank" onclick="event.stopPropagation()"
+          <a href="/pdf/${sys.id}.pdf" target="_blank" onclick="event.stopPropagation()"
              class="opacity-0 group-hover:opacity-100 transition-opacity px-2.5 py-1 rounded-full bg-black/30 hover:bg-black/50 text-[10px] font-bold text-white flex items-center gap-1">
             <span>PDF</span>
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -444,13 +451,10 @@ function openMehlmanBook(systemId, pageNum = 1) {
   if (botInd) botInd.textContent = `< ${state.currentMehlmanPage} / ${sys.totalPages} >`;
   if (dlBtn && sys.pdfUrl) dlBtn.href = sys.pdfUrl;
 
-  // Update Scanned Page Image
-  const imgEl = document.getElementById('mehlman-reader-page-img');
-  if (imgEl) {
-    imgEl.src = `/mehlman/${sys.id}/${state.currentMehlmanPage}.webp`;
-  }
+  // Try local PDF first, then Google Drive iframe
+  openMehlmanPdfViewer(sys, state.currentMehlmanPage);
 
-  // Update Fallback Canvas Content
+  // Update Fallback Canvas Content (hidden when PDF loads)
   updateMehlmanFallbackView(sys, state.currentMehlmanPage);
 
   // Render Table of Contents Drawer
@@ -557,6 +561,69 @@ function zoomMehlmanPage(delta) {
   if (label) label.textContent = `${mehlmanZoom}%`;
 }
 
+
+// ── PDF Viewer: Embedded iframe for local PDF ─────────────────────────────────
+const DRIVE_IDS = {
+  cvs:    '1r-B04CLSx7vylvsdyIl-f033qPyAY2SO',
+  endo:   '1ifKCUpt0lw4JnmrOfasuC4MMxPV2xOAM',
+  gi:     '1QE8stM0xhNn7kXU3EFxxcJrlSlPVdv5L',
+  heme:   '1Soq2X5U6v29kCUXxDPnlyhlEK91UQle6',
+  msk:    '1CJxCdtuur84kQUdvtINFDp_Zf12x023v',
+  neuro:  '1WHatbproqEWisXe9bakvHf_NBU6uXmHX',
+  psych:  '1Y93gN5VxRdQnZTJjqkE2dVcn4r29U33I',
+  renal:  '18QkpOaVm0IRnG8i3wPvSuWPTctJ_30kF',
+  resp:   '1pMhIiKY4sSitUCmoNVheAwZFrYQsgC-s',
+  repro:  '10XR2_gXL6Q3liwB4jpXtmYbVtiPoc-cO',
+  immuno: '1K1qVejD2l7DtJLQEDz2KJB8aEXF4KQ-u',
+  micro:  '1gfcxrG442nIG-HKAIBqCPemi1GQSD_xT',
+  biochem:'1EsLudyMWUaC56OluLIPGgTwjzOskf-U2',
+  path:   '1eCKfNndouemEd8dQJT2WdqCY_Owb-e5S',
+  ethics: '1UYbEvB_xPlyFifdR5ac42J_UEiqOufrp',
+};
+
+function openMehlmanPdfViewer(sys, pageNum) {
+  const wrapper = document.getElementById('mehlman-page-canvas-wrapper');
+  const fallback = document.getElementById('mehlman-reader-fallback');
+  const oldImg = document.getElementById('mehlman-reader-page-img');
+  
+  if (!wrapper) return;
+  
+  // Hide old image element
+  if (oldImg) oldImg.classList.add('hidden');
+
+  // Check if local PDF is served
+  const localPdfUrl = '/pdf/' + sys.id + '.pdf#page=' + pageNum;
+  
+  // Remove existing iframe if any
+  let iframe = document.getElementById('mehlman-pdf-iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.id = 'mehlman-pdf-iframe';
+    iframe.style.cssText = 'width:100%;height:100%;min-height:800px;border:none;background:#fff;';
+    wrapper.style.minHeight = '800px';
+    wrapper.insertBefore(iframe, wrapper.firstChild);
+  }
+
+  // Try local PDF
+  iframe.src = localPdfUrl;
+  iframe.classList.remove('hidden');
+  if (fallback) fallback.classList.add('hidden');
+  
+  // Update download link to local PDF
+  const dlBtn = document.getElementById('mehlman-pdf-dl-btn');
+  if (dlBtn) dlBtn.href = '/pdf/' + sys.id + '.pdf';
+  
+  // Handle load error → fall back to Google Drive embed
+  iframe.onerror = function() {
+    const driveId = DRIVE_IDS[sys.id];
+    if (driveId) {
+      iframe.src = 'https://drive.google.com/file/d/' + driveId + '/preview';
+    } else {
+      iframe.classList.add('hidden');
+      if (fallback) fallback.classList.remove('hidden');
+    }
+  };
+}
 function handleMehlmanImageError(img) {
   img.classList.add('hidden');
   const fallback = document.getElementById('mehlman-reader-fallback');

@@ -976,7 +976,7 @@
       <!-- Center: Scanned Book Canvas & Interactive Overlay -->
       <div id="fa-reader-center-container" class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative transition-all duration-300">
         <!-- The Book Page Container -->
-        <div class="max-w-4xl w-full flex flex-col items-center">
+        <div class="w-full h-full flex flex-col" style="height:calc(100vh - 80px);">
           <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center">
             <!-- Scanned Page Image -->
             <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
@@ -1062,10 +1062,9 @@
           </div>
 
           <!-- The Rendered UWorld Image or Graphic -->
-          <div class="bg-white rounded-xl p-3 shadow-xl overflow-hidden flex flex-col items-center min-h-[300px]">
-            <img id="fa-carousel-main-img" src="" alt="UWorld Diagram" class="w-full h-auto object-contain"
-                 onerror="this.onerror=null; this.src='/assets/sketches/thumb_iron_deficiency.png';">
-            <p id="fa-carousel-caption" class="text-xs text-slate-700 font-medium text-center mt-3 leading-relaxed"></p>
+          <div id="fa-img-card-wrapper" class="bg-[#170e20] rounded-xl p-3 shadow-xl overflow-hidden flex flex-col items-center min-h-[260px] border border-[#2b183d]">
+            <img id="fa-carousel-main-img" alt="UWorld Diagram" class="w-full h-auto object-contain rounded-lg hidden bg-white p-1">
+            <div id="fa-carousel-caption" class="text-xs text-slate-300 font-medium text-center mt-3 leading-relaxed w-full"></div>
           </div>
         </div>
 
@@ -1295,10 +1294,10 @@
         <div id="mehlman-toc-list" class="flex-1 overflow-y-auto p-2 space-y-1 text-xs"></div>
       </div>
 
-      <!-- Center: Scanned Book Canvas & Interactive Overlay -->
-      <div class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative">
+      <!-- Center: PDF Viewer & Fallback -->
+      <div class="flex-1 overflow-hidden flex flex-col bg-[#0a0510] relative">
         <div class="max-w-4xl w-full flex flex-col items-center">
-          <div id="mehlman-page-canvas-wrapper" class="w-full bg-white rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center">
+          <div id="mehlman-page-canvas-wrapper" class="w-full bg-white rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative flex justify-center" style="min-height:85vh;">
             <!-- Scanned Page Image -->
             <img id="mehlman-reader-page-img" src="" alt="Mehlman Book Page"
                  class="w-full h-auto object-contain bg-white"
