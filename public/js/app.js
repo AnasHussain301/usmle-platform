@@ -358,11 +358,12 @@ function renderSketchyPathBrowser() {
 }
 
 function buildSketchCard(sk) {
-  const imgSrc = sk.image || `/assets/sketches/thumb_iron_deficiency.png`;
+  const imgSrc = sk.image || `/assets/sketches/thumb_${sk.id}.webp`;
+  const escapedId = sk.id.replace(/'/g, "\\'");
   return `
-    <div onclick="openInteractiveSketch('${sk.id}')" class="cursor-pointer bg-[#140c1e] hover:bg-[#1f132e] border border-[#3b2752] rounded-2xl overflow-hidden shadow-md transition-all group">
+    <div onclick="openInteractiveSketch('${escapedId}')" class="cursor-pointer bg-[#140c1e] hover:bg-[#1f132e] border border-[#3b2752] rounded-2xl overflow-hidden shadow-md transition-all group">
       <div class="aspect-video bg-black overflow-hidden relative">
-        <img src="${imgSrc}" onerror="this.onerror=null; this.src='/assets/sketches/thumb_iron_deficiency.png'" alt="${escapeHtml(sk.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+        <img src="${imgSrc}" onerror="this.onerror=null; this.style.display='none'" alt="${escapeHtml(sk.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
       </div>
       <div class="p-3 space-y-2">
         <h4 class="text-xs font-bold text-white line-clamp-2">
@@ -485,14 +486,16 @@ function renderSketchDetail(sketch) {
   const pinsOverlay = document.getElementById('sketch-pins-overlay');
   if (pinsOverlay) {
     const symbols = sketch.symbols || [];
-    const pinColors = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+    const defaultColors = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#14b8a6','#a855f7','#f43f5e','#84cc16','#0ea5e9','#e879f9','#facc15'];
     pinsOverlay.innerHTML = symbols.map((sym, idx) => {
       const x = sym.x !== undefined ? sym.x : (5 + (idx * 7.3) % 88);
       const y = sym.y !== undefined ? sym.y : (10 + (idx * 11.7) % 82);
-      const color = pinColors[idx % pinColors.length];
+      const color = sym.color || defaultColors[idx % defaultColors.length];
+      // Scale pin size for sketches with many pins
+      const pinSize = symbols.length > 40 ? 'w-5 h-5 text-[8px]' : 'w-6 h-6 text-[10px]';
       return `
         <div onclick="selectPin(${sym.pin})" id="pin-btn-${sym.pin}"
-          class="absolute w-6 h-6 rounded-full text-white font-bold text-[10px] flex items-center justify-center shadow-lg border border-white cursor-pointer hover:scale-125 transition-transform z-10"
+          class="absolute ${pinSize} rounded-full text-white font-bold flex items-center justify-center shadow-lg border border-white/80 cursor-pointer hover:scale-125 transition-transform z-10"
           style="left: ${x}%; top: ${y}%; background-color: ${color};">
           ${sym.pin}
         </div>
