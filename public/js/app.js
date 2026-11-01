@@ -238,13 +238,42 @@ function renderFirstAidGrid(systems = state.firstAidSystems) {
   `).join('');
 }
 
+function handleFaImageError(img) {
+  img.classList.add('hidden');
+  const fallback = document.getElementById('fa-reader-page-fallback');
+  if (fallback) fallback.classList.remove('hidden');
+}
+
+function handleFaImageSuccess(img) {
+  img.classList.remove('hidden');
+  const fallback = document.getElementById('fa-reader-page-fallback');
+  if (fallback) fallback.classList.add('hidden');
+}
+
+let faZoomLevel = 100;
+function zoomFaPage(delta) {
+  faZoomLevel = Math.max(60, Math.min(180, faZoomLevel + delta));
+  const wrapper = document.getElementById('fa-book-page-canvas-wrapper');
+  const label = document.getElementById('fa-zoom-label');
+  if (wrapper) wrapper.style.transform = `scale(${faZoomLevel / 100})`;
+  if (label) label.textContent = `${faZoomLevel}%`;
+}
+
+function filterFaTOC(query) {
+  const q = (query || '').toLowerCase().trim();
+  const sys = state.currentFaSystem;
+  if (!sys) return;
+  const filtered = (sys.topics || []).filter(t => t.title.toLowerCase().includes(q) || (t.subs||[]).some(s => s.title.toLowerCase().includes(q)));
+  renderFaBookTOC(filtered);
+}
+
 function openFirstAidSystem(sysId) {
   const sys = state.firstAidSystems.find(s => s.id === sysId);
   if (!sys) return;
   state.currentFaSystem = sys;
 
   const topics = sys.topics || [];
-  const firstTopic = topics[0] || { page: 293, title: sys.name, id: '' };
+  const firstTopic = topics[0] || { page: 284, title: sys.name, id: '' };
   openFaBookPage(firstTopic.page || 284, firstTopic);
 }
 
@@ -256,101 +285,102 @@ function openFaBookPage(pageNum, topic = null) {
   }
   state.currentFaTopic = topic;
 
-  // Breadcrumb & title
+  // Header update
   const breadcrumb = document.getElementById('fa-reader-breadcrumb');
-  const headingTitle = document.getElementById('fa-reader-heading-title');
-  const pageIndicator = document.getElementById('fa-reader-page-indicator');
+  const topIndicator = document.getElementById('fa-top-page-indicator');
+  const bottomIndicator = document.getElementById('fa-bottom-page-indicator');
+  const tocSysTitle = document.getElementById('fa-toc-system-title');
+
+  if (breadcrumb && sys) breadcrumb.innerHTML = `${sys.name}`;
+  if (tocSysTitle && sys) tocSysTitle.textContent = sys.name;
+  if (topIndicator) topIndicator.textContent = `p. ${state.currentFaPage}`;
+  if (bottomIndicator) bottomIndicator.textContent = `< ${state.currentFaPage} / 844 >`;
+
+  // Try loading real book page scan
   const pageImg = document.getElementById('fa-reader-page-img');
-
-  if (breadcrumb && sys) breadcrumb.innerHTML = `<span class="text-pink-400">${sys.name}</span> &rsaquo; <span>${topic ? (topic.subject || 'High-Yield') : 'Section'}</span>`;
-  if (headingTitle && topic) headingTitle.textContent = topic.title || sys.name;
-  if (pageIndicator) pageIndicator.textContent = `${state.currentFaPage} / 844`;
-
-  // Try loading real book scan page
   if (pageImg) {
     pageImg.src = `/fa-page/${state.currentFaPage}.webp`;
   }
 
-  // Populate Fallback Text & UWorld Data
-  const sysBadge = document.getElementById('fa-reader-sys-badge');
-  const mainTitle = document.getElementById('fa-reader-main-title');
-  const pageTag = document.getElementById('fa-reader-page-tag');
-  if (sysBadge && sys) sysBadge.textContent = sys.name;
-  if (mainTitle && topic) mainTitle.textContent = topic.title;
-  if (pageTag) pageTag.textContent = `First Aid 2026 · Page ${state.currentFaPage}`;
+  // Fallback layout when raw image is offline
+  const fallbackTitle = document.getElementById('fallback-page-title');
+  const fallbackSecTag = document.getElementById('fallback-sec-tag');
+  const fallbackPageNum = document.getElementById('fallback-page-num');
+  const subtopicsList = document.getElementById('fallback-subtopics-list');
+  const tablesArea = document.getElementById('fallback-tables-area');
+  const imagesArea = document.getElementById('fallback-images-area');
 
-  // Subtopics
-  const subtopicsContainer = document.getElementById('fa-reader-subtopics');
-  if (subtopicsContainer) {
+  if (fallbackTitle && topic) fallbackTitle.textContent = topic.title;
+  if (fallbackSecTag && sys) fallbackSecTag.textContent = `${sys.name.toUpperCase()} \u203a ${(topic.subject || 'HIGH-YIELD').toUpperCase()}`;
+  if (fallbackPageNum) fallbackPageNum.textContent = state.currentFaPage;
+
+  if (subtopicsList) {
     const subs = (topic && topic.subs) || [];
     if (subs.length > 0) {
-      subtopicsContainer.innerHTML = subs.map(s => `
-        <div class="p-3 bg-[#1e1329] rounded-xl border border-[#3b2452]">
-          <h4 class="text-xs font-bold text-slate-200">${s.title}</h4>
+      subtopicsList.innerHTML = subs.map(s => `
+        <div class="p-3 bg-[#170e20] rounded-xl border border-[#3b2452] flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-200">${s.title}</span>
+          <span class="text-[10px] font-mono text-pink-400">p.${s.page || state.currentFaPage}</span>
         </div>
       `).join('');
-      subtopicsContainer.classList.remove('hidden');
     } else {
-      subtopicsContainer.innerHTML = '';
-      subtopicsContainer.classList.add('hidden');
+      subtopicsList.innerHTML = `<div class="p-4 bg-[#170e20] rounded-xl border border-[#3b2452] text-xs text-slate-300">${topic.title} details and high-yield associations.</div>`;
     }
   }
 
   // UWorld Tables
-  const tablesContainer = document.getElementById('fa-reader-tables-container');
-  const tablesSection = document.getElementById('fa-reader-tables-section');
-  if (tablesContainer && tablesSection) {
+  if (tablesArea) {
     const tables = (topic && topic.tables) || [];
     if (tables.length > 0) {
-      tablesContainer.innerHTML = tables.map(tb => `
-        <div class="bg-[#1a1126] border border-[#3b2752] rounded-xl p-4 overflow-x-auto text-xs text-slate-200">
-          <h4 class="font-bold text-sky-400 mb-2">${tb[1] || 'Table'}</h4>
+      tablesArea.innerHTML = tables.map(tb => `
+        <div class="bg-[#170e20] border border-[#38234f] rounded-xl p-4 overflow-x-auto text-xs text-slate-200">
+          <h4 class="font-bold text-sky-400 mb-2 flex items-center gap-1.5"><span>\uD83D\uDCCA</span> ${tb[1] || 'Table'}</h4>
           <div class="fa-uworld-table">${tb[2] || ''}</div>
         </div>
       `).join('');
-      tablesSection.classList.remove('hidden');
     } else {
-      tablesSection.classList.add('hidden');
+      tablesArea.innerHTML = '';
     }
   }
 
   // UWorld Images
-  const imagesContainer = document.getElementById('fa-reader-images-container');
-  const imagesSection = document.getElementById('fa-reader-images-section');
-  if (imagesContainer && imagesSection) {
+  if (imagesArea) {
     const images = (topic && topic.images) || [];
     if (images.length > 0) {
-      imagesContainer.innerHTML = images.map(im => `
-        <div class="bg-[#1a1126] border border-[#3b2752] rounded-xl p-3 space-y-2">
-          <div class="text-[10px] font-mono text-purple-400 uppercase">${im[0]}</div>
-          <p class="text-xs text-slate-300 font-medium">${im[1]}</p>
+      imagesArea.innerHTML = images.map(im => `
+        <div class="bg-[#170e20] border border-[#38234f] rounded-xl p-3 flex items-center justify-between">
+          <span class="text-xs text-slate-300 font-medium">${im[1]}</span>
+          <span class="text-[10px] font-mono text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800">${im[0]}</span>
         </div>
       `).join('');
-      imagesSection.classList.remove('hidden');
     } else {
-      imagesSection.classList.add('hidden');
+      imagesArea.innerHTML = '';
     }
   }
 
-  // Build TOC
+  // Render left sidebar TOC
   renderFaBookTOC();
 
-  // Open modal
+  // Show modal
   document.getElementById('modal-fa-book').classList.remove('hidden');
 }
 
-function renderFaBookTOC() {
+function renderFaBookTOC(topicsList = null) {
   const tocList = document.getElementById('fa-reader-toc-list');
   const sys = state.currentFaSystem;
   if (!tocList || !sys) return;
 
-  tocList.innerHTML = (sys.topics || []).map(t => {
+  const topics = topicsList || sys.topics || [];
+  tocList.innerHTML = topics.map(t => {
     const isAct = state.currentFaTopic && state.currentFaTopic.id === t.id;
     return `
       <div onclick="openFaBookPage(${t.page}, ${JSON.stringify(t).replace(/"/g, '&quot;')})" 
-           class="p-2 rounded-lg cursor-pointer text-xs ${isAct ? 'bg-pink-600 text-white font-bold' : 'hover:bg-[#251736] text-slate-300'} flex items-center justify-between">
-        <span class="truncate pr-2">${t.title}</span>
-        <span class="text-[10px] opacity-75 font-mono">p.${t.page}</span>
+           class="p-2.5 rounded-xl cursor-pointer text-xs transition-colors ${isAct ? 'bg-[#3b1d42] border border-pink-500/50 text-white font-bold' : 'hover:bg-[#1f132a] text-slate-300'} flex items-center justify-between">
+        <div class="flex items-center gap-2 truncate">
+          <span class="text-[10px] text-slate-500 font-mono w-6 shrink-0">${t.page || ''}</span>
+          <span class="truncate">${t.title}</span>
+        </div>
+        <span class="text-slate-600 text-[10px]">&minus;</span>
       </div>
     `;
   }).join('');

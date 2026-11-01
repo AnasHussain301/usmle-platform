@@ -849,82 +849,110 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- FIRST AID BOOK READER MODAL                -->
+  <!-- FIRST AID AUTHENTIC BOOK READER VIEW       -->
   <!-- ========================================== -->
-  <div id="modal-fa-book" class="hidden fixed inset-0 z-50 bg-[#110b17] flex flex-col">
+  <div id="modal-fa-book" class="hidden fixed inset-0 z-50 bg-[#0c0612] flex flex-col text-white select-none">
     <!-- Top Bar -->
-    <div class="h-14 bg-[#191024] border-b border-[#2d1b40] px-4 flex items-center justify-between text-white shrink-0">
+    <div class="h-12 bg-[#170e20] border-b border-[#2d1b40] px-4 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-3">
-        <button onclick="closeFaBookReader()" class="p-2 hover:bg-white/10 rounded-xl text-slate-300">
+        <button onclick="closeFaBookReader()" class="p-1.5 hover:bg-white/10 rounded-lg text-slate-300">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         </button>
-        <div>
-          <h3 id="fa-reader-breadcrumb" class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-            <span class="text-pink-400">Cardiovascular</span> &rsaquo; <span>Physiology</span>
-          </h3>
-          <p id="fa-reader-heading-title" class="text-xs text-slate-400">Splitting of S2</p>
-        </div>
+        <span id="fa-reader-breadcrumb" class="text-sm font-bold text-white flex items-center gap-1.5">
+          Cardiovascular
+        </span>
       </div>
 
-      <!-- Controls -->
-      <div class="flex items-center gap-2">
-        <div class="flex items-center bg-[#251736] border border-[#3d2657] rounded-full px-3 py-1 text-xs">
-          <button onclick="prevFaBookPage()" class="hover:text-pink-400 px-1 font-bold">&lsaquo;</button>
-          <span id="fa-reader-page-indicator" class="mx-2 font-mono font-bold text-slate-200">293 / 844</span>
-          <button onclick="nextFaBookPage()" class="hover:text-pink-400 px-1 font-bold">&rsaquo;</button>
-        </div>
-
-        <button onclick="toggleFaBookTableOfContents()" class="p-2 hover:bg-white/10 rounded-xl text-slate-300" title="Table of Contents">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+      <div class="flex items-center gap-4 text-xs">
+        <span id="fa-top-page-indicator" class="font-mono text-slate-300 font-bold">p. 293</span>
+        <button onclick="toggleFaBookTableOfContents()" class="p-1.5 hover:bg-white/10 rounded-lg text-slate-300" title="Table of Contents">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
+        <button class="p-1.5 hover:bg-white/10 rounded-lg text-slate-300" title="Search">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <button class="p-1.5 hover:bg-white/10 rounded-lg text-slate-300">⋮</button>
       </div>
     </div>
 
-    <!-- Main Reader Workspace -->
+    <!-- Main Body: Split Sidebar & Page View -->
     <div class="flex-1 flex overflow-hidden relative">
-      <!-- Side Drawer: Headings / TOC -->
-      <div id="fa-reader-toc" class="hidden w-80 bg-[#160e20] border-r border-[#2d1b40] overflow-y-auto p-4 space-y-2 shrink-0">
-        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">System Headings</h4>
-        <div id="fa-reader-toc-list" class="space-y-1"></div>
+      <!-- Left Drawer: Exact TOC (Sidebar as seen in screenshot) -->
+      <div id="fa-reader-toc" class="w-80 bg-[#140b1c] border-r border-[#261536] flex flex-col shrink-0">
+        <!-- Sidebar Header -->
+        <div class="p-3 border-b border-[#261536] flex items-center justify-between">
+          <h3 id="fa-toc-system-title" class="text-sm font-bold text-white">Cardiovascular</h3>
+          <button onclick="toggleFaBookTableOfContents()" class="text-slate-400 hover:text-white">&times;</button>
+        </div>
+
+        <!-- Search Bar in Sidebar -->
+        <div class="p-3 border-b border-[#261536] space-y-2.5">
+          <div class="relative">
+            <input type="text" id="fa-toc-search-input" placeholder="Search headings..." oninput="filterFaTOC(this.value)"
+                   class="w-full bg-[#1b1026] border border-[#3b2452] rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
+            <svg class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+          <div class="flex gap-1.5 text-[10px] font-bold">
+            <button class="px-2.5 py-1 bg-[#251736] text-pink-400 rounded-full border border-pink-900/60">Book order</button>
+            <button class="px-2.5 py-1 text-slate-400 hover:text-white">Weakest first</button>
+            <button class="px-2.5 py-1 text-slate-400 hover:text-white">Strongest first</button>
+          </div>
+        </div>
+
+        <!-- Topics List in Sidebar -->
+        <div id="fa-reader-toc-list" class="flex-1 overflow-y-auto p-2 space-y-1 text-xs"></div>
       </div>
 
-      <!-- Main Canvas / Content Container -->
-      <div class="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center bg-[#0d0714]">
-        <div class="max-w-4xl w-full space-y-6">
-          <!-- Book Page Viewer (Real WebP Page Scan) -->
-          <div class="bg-[#180f24] rounded-2xl border border-[#3b2554] overflow-hidden shadow-2xl relative min-h-[500px]">
-            <img id="fa-reader-page-img" src="" alt="First Aid Page" class="w-full h-auto object-contain bg-black"
-                 onerror="this.onerror=null; this.classList.add('hidden'); document.getElementById('fa-reader-fallback-content').classList.remove('hidden');"
-                 onload="document.getElementById('fa-reader-fallback-content').classList.add('hidden'); this.classList.remove('hidden');">
-            
-            <!-- Fallback Rich Text & UWorld Layout when raw image is offline -->
-            <div id="fa-reader-fallback-content" class="p-6 sm:p-8 space-y-6 hidden">
-              <div class="border-b border-[#2d1b40] pb-4">
-                <span id="fa-reader-sys-badge" class="px-2.5 py-1 rounded text-[11px] font-bold uppercase bg-pink-500/20 text-pink-300 border border-pink-500/30">Cardiovascular</span>
-                <h1 id="fa-reader-main-title" class="text-2xl font-black text-white mt-2">Splitting of S2</h1>
-                <p id="fa-reader-page-tag" class="text-xs text-slate-400 mt-1 font-mono">First Aid 2026 · Page 293</p>
+      <!-- Center: Scanned Book Canvas & Interactive Overlay -->
+      <div class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative">
+        <!-- The Book Page Container -->
+        <div class="max-w-4xl w-full flex flex-col items-center">
+          <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center">
+            <!-- Scanned Page Image -->
+            <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
+                 class="w-full h-auto object-contain bg-black"
+                 onerror="handleFaImageError(this)"
+                 onload="handleFaImageSuccess(this)">
+
+            <!-- When Scanned Page Image is not present locally -->
+            <div id="fa-reader-page-fallback" class="p-8 w-full space-y-6 hidden">
+              <!-- Banner header matching book style -->
+              <div class="p-4 bg-gradient-to-r from-pink-900/40 via-purple-900/40 to-sky-900/40 border border-pink-500/30 rounded-xl flex items-center justify-between">
+                <div>
+                  <span id="fallback-sec-tag" class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">CARDIOVASCULAR &rsaquo; PHYSIOLOGY</span>
+                  <h2 id="fallback-page-title" class="text-2xl font-black text-white mt-1">Splitting of S2</h2>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs font-bold text-slate-400 uppercase">SECTION III</span>
+                  <div id="fallback-page-num" class="text-3xl font-black text-slate-300 font-mono">293</div>
+                </div>
               </div>
 
-              <!-- Topic Detailed Subsections -->
-              <div id="fa-reader-subtopics" class="space-y-4"></div>
+              <!-- Content list -->
+              <div id="fallback-subtopics-list" class="space-y-3"></div>
 
-              <!-- High-Yield UWorld Tables -->
-              <div id="fa-reader-tables-section" class="space-y-4">
-                <h3 class="text-sm font-bold text-sky-400 flex items-center gap-2">
-                  <span>📊</span> UWorld High-Yield Tables
-                </h3>
-                <div id="fa-reader-tables-container" class="space-y-4"></div>
-              </div>
+              <!-- High Yield Tables -->
+              <div id="fallback-tables-area" class="space-y-4"></div>
 
-              <!-- UWorld Medical Images -->
-              <div id="fa-reader-images-section" class="space-y-4">
-                <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2">
-                  <span>🖼️</span> UWorld Medical Images
-                </h3>
-                <div id="fa-reader-images-container" class="grid sm:grid-cols-2 gap-4"></div>
-              </div>
+              <!-- Medical Images -->
+              <div id="fallback-images-area" class="space-y-4"></div>
             </div>
           </div>
+        </div>
+
+        <!-- Floating Bottom Page Stepper Control (Exact match to screenshot: < 293 / 844 >) -->
+        <div class="fixed bottom-6 z-30 flex items-center bg-[#251736]/90 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
+          <button onclick="prevFaBookPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&lsaquo;</button>
+          <span id="fa-bottom-page-indicator" class="mx-3 font-mono font-bold text-xs text-slate-200">293 / 844</span>
+          <button onclick="nextFaBookPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&rsaquo;</button>
+        </div>
+
+        <!-- Zoom Control (100% + -) -->
+        <div class="fixed bottom-6 right-6 z-30 flex items-center bg-[#251736]/90 backdrop-blur-md border border-[#432960] rounded-full px-3 py-1 text-xs text-slate-300 gap-2 shadow-2xl">
+          <button onclick="zoomFaPage(-10)" class="hover:text-white font-bold">&minus;</button>
+          <span id="fa-zoom-label">100%</span>
+          <button onclick="zoomFaPage(10)" class="hover:text-white font-bold">&plus;</button>
         </div>
       </div>
     </div>
