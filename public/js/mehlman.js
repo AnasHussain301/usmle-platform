@@ -334,6 +334,25 @@ function getMehlmanIcon(icon) {
 // NATIVE PDF READER (PDF.JS CANVAS)
 // ==========================================
 
+function updateMehlmanHeaderIndicators() {
+  const sys = state.currentMehlmanSystem;
+  if (!sys) return;
+  const curPage = state.currentMehlmanPage || 1;
+  const total = (_mehlmanPdfDoc && _mehlmanPdfDoc.numPages) || sys.totalPages || 1;
+
+  const titleEl = document.getElementById('mehlman-reader-title');
+  if (titleEl) titleEl.textContent = `Mehlman · ${sys.title || sys.name}`;
+
+  const topEl = document.getElementById('mehlman-top-page-indicator');
+  if (topEl) topEl.textContent = `p. ${curPage} / ${total}`;
+
+  const botEl = document.getElementById('mehlman-bottom-page-indicator');
+  if (botEl) botEl.textContent = `${curPage} / ${total}`;
+
+  const zoomEl = document.getElementById('mehlman-zoom-label');
+  if (zoomEl) zoomEl.textContent = `${mehlmanZoom}%`;
+}
+
 async function openMehlmanBook(systemId, pageNum = 1) {
   const sys = (state.mehlmanSystems || DEFAULT_MEHLMAN_SYSTEMS).find(s => s.id === systemId);
   if (!sys) return;
@@ -506,6 +525,17 @@ function prevMehlmanPage() {
 }
 
 
+function showMehlmanFallback(sys, pageNum) {
+  const canvas = document.getElementById('mehlman-pdf-canvas');
+  if (canvas) canvas.classList.add('hidden');
+  const fallback = document.getElementById('mehlman-reader-fallback');
+  if (fallback) fallback.classList.remove('hidden');
+  const title = document.getElementById('mehlman-fallback-title');
+  if (title) title.textContent = sys ? (sys.title || sys.name) : 'MEHLMAN MEDICAL';
+  const page = document.getElementById('mehlman-fallback-page-num');
+  if (page) page.textContent = 'Page ' + pageNum;
+}
+
 // Table of Contents Drawer
 function renderMehlmanTOC(sys) {
   const container = document.getElementById('mehlman-toc-list');
@@ -529,20 +559,6 @@ function renderMehlmanTOC(sys) {
   }).join('');
 }
 
-function goToMehlmanPage(pageNum) {
-  queueRenderMehlmanPage(pageNum);
-}
-
-function nextMehlmanPage() {
-  if (!state.currentMehlmanSystem) return;
-  queueRenderMehlmanPage(state.currentMehlmanPage + 1);
-}
-
-function prevMehlmanPage() {
-  if (!state.currentMehlmanSystem) return;
-  queueRenderMehlmanPage(state.currentMehlmanPage - 1);
-}
-
 function closeMehlmanReader() {
   const modal = document.getElementById('modal-mehlman-reader');
   if (modal) modal.classList.add('hidden');
@@ -558,7 +574,7 @@ function zoomMehlmanPage(delta) {
   const label = document.getElementById('mehlman-zoom-label');
   if (label) label.textContent = `${mehlmanZoom}%`;
   if (_mehlmanPdfDoc && state.currentMehlmanSystem) {
-    queueRenderMehlmanPage(state.currentMehlmanPage);
+    goToMehlmanPage(state.currentMehlmanPage);
   }
 }
 
