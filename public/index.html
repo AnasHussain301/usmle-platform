@@ -48,6 +48,13 @@
     .markdown-body th, .markdown-body td { border: 1px solid #3b2b52; padding: 5px 8px; }
     .markdown-body th { background: #261c33; color: #f43f5e; font-weight: 600; }
     .markdown-body blockquote { border-left: 3px solid #f43f5e; padding-left: 8px; margin: 0.4rem 0; background: #261c33; color: #cbd5e1; }
+
+    /* UWorld Tables in right panel */
+    .fa-uworld-table table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .fa-uworld-table th, .fa-uworld-table td { border: 1px solid #3b2b52; padding: 4px 6px; text-align: left; }
+    .fa-uworld-table th { background: #261c33; color: #38bdf8; font-weight: 600; }
+    .fa-uworld-table tr:nth-child(even) { background: #1a1028; }
+    .fa-uworld-table img { max-width: 100%; height: auto; border-radius: 8px; margin: 4px 0; }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans bg-[#110b17] text-slate-100 antialiased selection:bg-rose-500 selection:text-white">
@@ -905,7 +912,7 @@
       </div>
 
       <!-- Center: Scanned Book Canvas & Interactive Overlay -->
-      <div class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative">
+      <div id="fa-reader-center-container" class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative transition-all duration-300">
         <!-- The Book Page Container -->
         <div class="max-w-4xl w-full flex flex-col items-center">
           <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center">
@@ -914,6 +921,11 @@
                  class="w-full h-auto object-contain bg-black"
                  onerror="handleFaImageError(this)"
                  onload="handleFaImageSuccess(this)">
+
+            <!-- Interactive In-Page Callout Overlays (...) on the page scan -->
+            <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none">
+              <!-- Rendered dynamically: callout pills with action popovers -->
+            </div>
 
             <!-- When Scanned Page Image is not present locally -->
             <div id="fa-reader-page-fallback" class="p-8 w-full space-y-6 hidden">
@@ -931,17 +943,11 @@
 
               <!-- Content list -->
               <div id="fallback-subtopics-list" class="space-y-3"></div>
-
-              <!-- High Yield Tables -->
-              <div id="fallback-tables-area" class="space-y-4"></div>
-
-              <!-- Medical Images -->
-              <div id="fallback-images-area" class="space-y-4"></div>
             </div>
           </div>
         </div>
 
-        <!-- Floating Bottom Page Stepper Control (Exact match to screenshot: < 293 / 844 >) -->
+        <!-- Floating Bottom Page Stepper Control (< 293 / 844 >) -->
         <div class="fixed bottom-6 z-30 flex items-center bg-[#251736]/90 backdrop-blur-md border border-[#432960] rounded-full px-4 py-1.5 shadow-2xl">
           <button onclick="prevFaBookPage()" class="text-slate-300 hover:text-white px-2 py-0.5 font-black text-base">&lsaquo;</button>
           <span id="fa-bottom-page-indicator" class="mx-3 font-mono font-bold text-xs text-slate-200">293 / 844</span>
@@ -953,6 +959,68 @@
           <button onclick="zoomFaPage(-10)" class="hover:text-white font-bold">&minus;</button>
           <span id="fa-zoom-label">100%</span>
           <button onclick="zoomFaPage(10)" class="hover:text-white font-bold">&plus;</button>
+        </div>
+      </div>
+
+      <!-- Right Split Panel: Exact UWorld Images, Tables & Notes Panel (Screenshot 3) -->
+      <div id="fa-right-panel" class="hidden w-[480px] bg-[#160e20] border-l border-[#2b183d] flex flex-col shrink-0 shadow-2xl">
+        <!-- Panel Top Toolbar -->
+        <div class="h-12 bg-[#1b1026] border-b border-[#2b183d] px-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <button id="fa-panel-tab-img" onclick="switchFaPanelTab('img')" class="p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold" title="Images">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <span>Images</span>
+            </button>
+            <button id="fa-panel-tab-notes" onclick="switchFaPanelTab('notes')" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Notes">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              <span>Notes</span>
+            </button>
+            <button id="fa-panel-tab-tables" onclick="switchFaPanelTab('tables')" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Tables">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span>Tables</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span id="fa-right-panel-heading-title" class="text-xs font-bold text-white truncate max-w-[150px]">Splitting of S2</span>
+            <button onclick="closeFaRightPanel()" class="text-slate-400 hover:text-white p-1 text-sm">&times;</button>
+          </div>
+        </div>
+
+        <!-- Panel Body: Images View -->
+        <div id="fa-panel-view-img" class="flex-1 overflow-y-auto p-4 space-y-4">
+          <!-- Image Title & Pagination Carousel (Screenshot 3: < 1/2 >) -->
+          <div class="flex items-center justify-between text-xs text-slate-300 border-b border-[#2b183d] pb-2">
+            <span id="fa-img-carousel-title" class="font-bold text-white">Splitting of S2</span>
+            <div class="flex items-center gap-2 font-mono">
+              <button onclick="prevFaCarouselImg()" class="hover:text-pink-400 font-bold">&lsaquo;</button>
+              <span id="fa-img-carousel-count">1 / 2</span>
+              <button onclick="nextFaCarouselImg()" class="hover:text-pink-400 font-bold">&rsaquo;</button>
+            </div>
+          </div>
+
+          <!-- The Rendered UWorld Image or Graphic -->
+          <div class="bg-white rounded-xl p-3 shadow-xl overflow-hidden flex flex-col items-center min-h-[300px]">
+            <img id="fa-carousel-main-img" src="" alt="UWorld Diagram" class="w-full h-auto object-contain"
+                 onerror="this.onerror=null; this.src='/assets/sketches/thumb_iron_deficiency.png';">
+            <p id="fa-carousel-caption" class="text-xs text-slate-700 font-medium text-center mt-3 leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Panel Body: Notes View (Add Notes Option) -->
+        <div id="fa-panel-view-notes" class="flex-1 overflow-y-auto p-4 space-y-3 hidden">
+          <div class="flex items-center justify-between border-b border-[#2b183d] pb-2">
+            <span class="text-xs font-bold text-white">Personal Study Notes</span>
+            <span id="fa-note-save-status" class="text-[10px] text-emerald-400 hidden">✓ Saved</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Add personal high-yield annotations, mnemonics, or UWorld explanations for this heading:</p>
+          <textarea id="fa-heading-note-input" oninput="saveFaCurrentHeadingNote()" placeholder="Type your high-yield notes, memory anchors, or question learnings here..."
+                    class="w-full h-72 p-3 text-xs bg-[#120a1a] border border-[#3b2752] rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500 font-sans leading-relaxed resize-none"></textarea>
+        </div>
+
+        <!-- Panel Body: Tables View -->
+        <div id="fa-panel-view-tables" class="flex-1 overflow-y-auto p-4 space-y-4 hidden">
+          <div id="fa-panel-tables-list" class="space-y-4"></div>
         </div>
       </div>
     </div>
@@ -1125,5 +1193,6 @@
   </div>
 
   <script src="/js/app.js"></script>
+  <script src="/js/fa_panel.js"></script>
 </body>
 </html>

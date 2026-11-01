@@ -361,6 +361,9 @@ function openFaBookPage(pageNum, topic = null) {
   // Render left sidebar TOC
   renderFaBookTOC();
 
+  // Render callout overlays on the book page (defined in fa_panel.js)
+  if (typeof renderFaPageCallouts === 'function') renderFaPageCallouts();
+
   // Show modal
   document.getElementById('modal-fa-book').classList.remove('hidden');
 }
