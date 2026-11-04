@@ -3,7 +3,7 @@
     {
       "id": "usr_1793475915066_pz8xc",
       "createdAt": "2026-10-31T19:45:15.066Z",
-      "lastLoginAt": "2026-11-01T14:37:56.034Z",
+      "lastLoginAt": "2026-11-04T20:01:53.115Z",
       "status": "active",
       "tier": "premium",
       "role": "admin",
@@ -14,7 +14,7 @@
       "institution": "RadMed Academic Medical Center",
       "lastIp": "::1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-      "updatedAt": "2026-11-01T16:50:52.730Z"
+      "updatedAt": "2026-11-04T20:01:53.115Z"
     },
     {
       "id": "usr_1793475915068_j1n8l",
@@ -50,6 +50,271 @@
     }
   ],
   "activity_logs": [
+    {
+      "id": "log_1793824416754_naju",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Ping check from ANSI 1.0 PRO"
+      },
+      "ip": "::1",
+      "userAgent": "Unknown Device",
+      "timestamp": "2026-11-04T20:33:36.755Z"
+    },
+    {
+      "id": "log_1793822513240_zd3o",
+      "userId": "usr_1793475915066_pz8xc",
+      "userName": "System Administrator",
+      "action": "user_login",
+      "details": {
+        "tier": "premium",
+        "role": "admin"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T20:01:53.241Z"
+    },
+    {
+      "id": "log_1793821589547_7pdj",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Who are you and what platform is this?"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T19:46:29.547Z"
+    },
+    {
+      "id": "log_1793820265827_zj51",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "j"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:24:25.827Z"
+    },
+    {
+      "id": "log_1793819414012_j0s0",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "High yield points from Mehlman HY Neurology"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:10:14.012Z"
+    },
+    {
+      "id": "log_1793819413034_nar8",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "High yield points from Mehlman HY Neurology"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:10:13.034Z"
+    },
+    {
+      "id": "log_1793819402353_8vfo",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Differential diagnosis for nephrotic syndrome"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:10:02.353Z"
+    },
+    {
+      "id": "log_1793819374773_1wyg",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "hi"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:09:34.773Z"
+    },
+    {
+      "id": "log_1793819326248_sk6u",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "a 3 lines summary"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:08:46.248Z"
+    },
+    {
+      "id": "log_1793819266320_gywb",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "precide it into a small summary"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:07:46.320Z"
+    },
+    {
+      "id": "log_1793819221984_xwwh",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "High yield points from Mehlman HY Neurology"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:07:01.985Z"
+    },
+    {
+      "id": "log_1793819141127_klu2",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "who r u"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T19:05:41.127Z"
+    },
+    {
+      "id": "log_1793818992663_d7xk",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "How do I do flashcards for Autoregulation in this app?"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T19:03:12.663Z"
+    },
+    {
+      "id": "log_1793818907392_kr8n",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Give me high yield points from Mehlman HY Renal PDF"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T19:01:47.392Z"
+    },
+    {
+      "id": "log_1793818801217_qqzx",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Which organ has the best autoregulation range? And what section of this app covers it?"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T19:00:01.217Z"
+    },
+    {
+      "id": "log_1793818658048_yk24",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "What is autoregulation of blood flow? Brief answer."
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:57:38.048Z"
+    },
+    {
+      "id": "log_1793818474695_z1q1",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Explain autoregulation of blood flow for USMLE Step 1"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:54:34.695Z"
+    },
+    {
+      "id": "log_1793818366090_jj7x",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Explain autoregulation of blood flow for USMLE Step 1"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:52:46.090Z"
+    },
+    {
+      "id": "log_1793818315278_fhux",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Explain autoregulation of blood flow for USMLE Step 1"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:51:55.278Z"
+    },
+    {
+      "id": "log_1793818027095_sljv",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "Explain autoregulation of blood flow for USMLE"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:47:07.095Z"
+    },
+    {
+      "id": "log_1793817979646_mivn",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "What topics are covered in the Cardiovascular section of First Aid?"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-04T18:46:19.646Z"
+    },
+    {
+      "id": "log_1793797790461_bdr8",
+      "userId": "usr_1793475915066_pz8xc",
+      "userName": "System Administrator",
+      "action": "subscription_upgraded",
+      "details": {
+        "tier": "premium"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-04T13:09:50.461Z"
+    },
     {
       "id": "log_1793551852833_1wjf",
       "userId": "usr_1793475915066_pz8xc",
@@ -602,6 +867,186 @@
   "tests": [],
   "radbot_chats": [
     {
+      "id": "chat_1793824416629_mhhn",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Ping check from ANSI 1.0 PRO",
+      "response": "**ANSI 1.0 PRO Systems Nominal.** Neural board study assistant online and ready. \n\nHow can I help you crush the USMLE today? Ask me a medical question, pull a differential from `#ddx`, or check out study strategies for `#fa`, `#mehlman`, `#sketchy`, or `#qbank`.",
+      "context": {},
+      "timestamp": "2026-11-04T20:33:36.629Z"
+    },
+    {
+      "id": "chat_1793821589419_kkha",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Who are you and what platform is this?",
+      "response": "I am **ANSI 1.0 PRO**, your advanced neural AI study assistant. \n\nThis platform is **Synapse**, an all-in-one USMLE Step 1 and Step 2 board preparation platform featuring:\n\n* **#fa** — Interactive First Aid 2024 reader with over 2.6 million integrated flashcards (AnKing, Mnemosyne, and Mehlman sources) using spaced repetition.\n* **#mehlman** — Native in-browser viewer for Dr. Mehlman’s 15 High-Yield PDF books.\n* **#sketchy** — Full visual mnemonic library covering Pathology, Microbiology, and Pharmacology.\n* **#ddx** — Structured differential diagnosis tool covering 25 high-yield chief complaints.\n* **#qbank** — USMLE-style practice questions with spaced repetition and detailed explanations.\n* **#radbot** — (That's me!) Your next-gen board study assistant ready to help you navigate, master concepts, and crush your exams.\n\nHow can I help you optimize your study session today?",
+      "context": {},
+      "timestamp": "2026-11-04T19:46:29.419Z"
+    },
+    {
+      "id": "chat_1793820265722_cblk",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "j",
+      "response": "Hello, future attending! How can I help you prep for your USMLE boards today? \n\nWhether you need a quick review of high-yield pathology, a structured differential diagnosis (**#ddx**), help navigating the First Aid reader (**#fa**), Mehlman PDFs (**#mehlman**), or Sketchy mnemonics (**#sketchy**), just let me know what topic you're working on!",
+      "context": {},
+      "timestamp": "2026-11-04T19:24:25.722Z"
+    },
+    {
+      "id": "chat_1793819413879_yz7t",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "High yield points from Mehlman HY Neurology",
+      "response": "Here are the high-yield, most heavily tested concepts from **Mehlman HY Neurology** for USMLE Step 1 and Step 2:\n\n### 1. Neurovascular Syndromes (Know Your Strokes)\n*   **MCA Stroke:** Contralateral hemiparesis and sensory loss of the **face and arm > leg**. \n    *   *Left MCA:* Aphasia (Broca or Wernicke).\n    *   *Right MCA:* Neglect (parietal lobe).\n*   **ACA Stroke:** Contralateral hemiparesis and sensory loss of the **leg > face and arm**. Associated with urinary incontinence and abulia (apathy).\n*   **Lateral Medullary (Wallenberg) Syndrome:** PICA occlusion. \n    *   *Key triad:* Ipsilateral Horner syndrome + ipsilateral cerebellar signs (ataxia) + contralateral pain/temperature loss in the body (spinothalamic). *Bonus:* Hoarseness and dysphagia (nucleus ambiguus).\n*   **Lateral Pontine Syndrome:** AICA occlusion. \n    *   Similar to Wallenberg, but **ipsilateral facial paralysis** (CN VII) and **sensorineural hearing loss** (CN VIII - labyrinthine artery branch).\n\n### 2. Spinal Cord Lesions\n*   **Brown-Séquard Syndrome (Hemisection):**\n    *   *Ipsilateral:* Loss of **motor** (corticospinal) and **fine touch/proprioception** (dorsal columns) *below* the lesion.\n    *   *Contralateral:* Loss of **pain and temperature** (spinothalamic) starting 1-2 levels below the lesion.\n*   **Syringomyelia:** Expansion of the central canal (usually C8-T1).\n    *   Bilateral loss of pain and temperature in a **\"cape-like\" distribution** (crossing spinothalamic fibers in the anterior white commissure) with preserved vibration/proprioception.\n*   **Vitamin B12 Deficiency (Subacute Combined Degeneration):**\n    *   Demyelination of **dorsal columns** (loss of proprioception/vibration, positive Romberg), **lateral corticospinal tracts** (spastic paresis), and **spinocerebellar tracts**.\n\n### 3. Neuromuscular Junction Disorders\n*   **Myasthenia Gravis (Post-synaptic ACh receptors):**\n    *   Worsens with use (fatigable weakness). Ptosis and diplopia that worsen throughout the day.\n    *   *Association:* Thymoma or thymic hyperplasia. Diagnosed with anti-AChR antibodies and edrophonium (Tensilon) test.\n*   **Lambert-Eaton Syndrome (Pre-synaptic voltage-gated calcium channels):**\n    *   Improves with use! Proximal muscle weakness, dry mouth, autonomic dysfunction (impotence).\n    *   *Association:* **Small cell lung cancer** (paraneoplastic).\n\n### 4. Dementia & Neurodegeneration\n*   **Alzheimer Disease:** Temporal lobe/hippocampal atrophy. Intracellular neurofibrillary tangles (hyperphosphorylated **tau**) and extracellular amyloid-beta plaques. Associated with **ApoE4**.\n*   **Frontotemporal Dementia (Pick Disease):** Early personality and behavioral changes, disinhibition, language impairment. Associated with tau-containing Pick bodies or TDP-43.\n*   **Lewy Body Dementia:** Visual hallucinations, fluctuating cognition, **parkinsonism** early in the disease course (within 1 year of cognitive symptoms). Alpha-synuclein inclusions.\n*   **Normal Pressure Hydrocephalus:** *Wet, wacky, and wobbly* (urinary incontinence, cognitive impairment, gait ataxia). Communicating hydrocephalus with \"wet tap\" improvement.\n\n### 5. Movement Disorders\n*   **Huntington Disease:** CAG repeat expansion on chromosome 4 (anticipation). Caudate nucleus atrophy with loss of GABAergic neurons (indirect pathway). Presents with chorea, psychiatric symptoms, and dementia.\n*   **Parkinson Disease:** Loss of dopaminergic neurons in the **substantia nigra pars compacta**. Lewy bodies (alpha-synuclein). Resting tremor, rigidity, akinesia, postural instability.\n\n---\n\n### 🚀 Where to go next on the platform:\n*   **#mehlman:** Open the native PDF reader to review the complete **HY Neurology** book (84 pages) for high-yield callout boxes and exam formatting.\n*   **#fa:** Check out *Neurology (pages 491-536)* for the core First Aid organ system breakdown and click the **\"M\"** buttons to drill AnKing neurology flashcards.\n*   **#sketchy:** Watch the Neuro pharmacology videos for high-yield drug mechanisms (e.g., Parkinson's meds, anti-seizure drugs).",
+      "context": {},
+      "timestamp": "2026-11-04T19:10:13.879Z"
+    },
+    {
+      "id": "chat_1793819412909_5xj2",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "High yield points from Mehlman HY Neurology",
+      "response": "Here are the high-yield, board-tested neurological concepts heavily emphasized in **Dr. Mehlman’s HY Neurology** PDF. \n\n### 1. Neurovascular Syndromes (Know Your Strokes)\n*   **MCA Stroke:** Contralateral motor and sensory loss of the **face and arm > leg**, aphasia (if dominant hemisphere, usually left—Broca or Wernicke), and contralateral neglect (if non-dominant hemisphere, usually right).\n*   **ACA Stroke:** Contralateral motor and sensory loss of the **leg > face and arm**, along with abulia (apathy/lack of willpower) and urinary incontinence.\n*   **Lateral Medullary (Wallenberg) Syndrome:** PICA (or vertebral artery) stroke. \n    *   *Symptom triad:* **Ipsilateral Horners syndrome**, **contralateral pain/temperature loss** in the body, and **ipsilateral pain/temperature loss** in the face. Plus: dysphagia, hoarseness, vertigo, and nystagmus. (Remember: \"Don't *pick* (PICA) a *wall* (Wallenberg) to *ice* (ipsilateral face) *contra* (contralateral body) the *horn* (Horner).\")\n*   **Medial Medullary Syndrome:** Anterior spinal artery stroke. Contralateral paralysis of arm/leg, contralateral loss of vibration/proprioception, and **ipsilateral hypoglossal nerve (CN XII) lesion** (tongue deviates toward the lesion).\n\n### 2. Spinal Cord Syndromes\n*   **Brown-Séquard Syndrome (Hemisection):** \n    *   *Ipsilateral:* Loss of motor, vibration, and proprioception **below the lesion**; plus an upper motor neuron (UMN) sign (Babinski) at the level of the lesion.\n    *   *Contralateral:* Loss of pain and temperature starting **2-3 levels below** the lesion (spinothalamic tract crosses a few levels up).\n*   **Syringomyelia:** Expansion of the central canal (usually C8-T1). Leads to a **bilateral loss of pain and temperature in a \"cape-like\" distribution** (crossing fibers of the spinothalamic tract are damaged first) with preserved vibration/touch. Often associated with Chiari I malformation.\n*   **Subacute Combined Degeneration (Vitamin B12 Deficiency):** Demyelination of dorsal columns (vibration/proprioception), lateral corticospinal tracts (spastic paresis), and spinocerebellar tracts. Look for broad-based ataxia, loss of position sense, and + Romberg, **without** cranial nerve or visual symptoms (unlike Tabes Dorsalis).\n\n### 3. Neurodegenerative Pearls\n*   **Parkinson Disease:** Loss of dopaminergic neurons in the **pars compacta of the substantia nigra**. \n    *   *Tetrad:* TRAP (Tremor-rest, Rigidity, Akinesia/bradykinesia, Postural instability). \n    *   *Histology:* **Lewy bodies** (alpha-synuclein).\n*   **Amyotrophic Lateral Sclerosis (ALS):** Combined **Upper Motor Neuron (UMN)** (spasticity, hyperreflexia, Babinski) and **Lower Motor Neuron (LMN)** (fasciculations, atrophy, flaccidity) signs **without sensory loss**. \n    *   *Key rule:* Never forget that **bowel/bladder and extraocular movements are spared** in ALS.\n*   **Huntington Disease:** Autosomal dominant CAG repeat expansion on **Chromosome 4**. Anticipation occurs. Look for chorea, psychiatric changes, and caudate nucleus atrophy (leads to ex vacuo ventriculomegaly).\n\n### 4. Neurocutaneous Disorders (The \"Phakomatoses\")\n*   **Neurofibromatosis Type 1 (NF1):** Chromosome **17**. Café-au-lait spots, Lisch nodules (iris hamartomas), neurofibromas, optic gliomas, and pheochromocytomas. (*Tip: 17 letters in \"Neurofibromatosis\"*).\n*   **Neurofibromatosis Type 2 (NF2):** Chromosome **22**. Bilateral vestibular schwannomas (acoustic neuromas), cataracts, ependymomas, and meningiomas. (*Tip: 22 letters in \"Type two neurofibroma\"*).\n*   **Tuberous Sclerosis:** Chromosome **9 and 16**. **A**ngiofibromas (facial), **L**eaf spots (ash-leaf hypopigmented macules), **R**habdomyomas (cardiac), **T**uberous sclerosis, **S**hagreen patches, subependymal giant cell astrocytomas. \n*   **Sturge-Weber Syndrome:** Congenital non-inherited vascular disorder affecting **CN V1/V2 distribution** (port-wine stain). Associated with **ipsilateral leptomeningeal angioma**, seizures, intellectual disability, and early-onset glaucoma.\n\n---\n\n### 📚 Where to review this further:\n*   **#mehlman:** Open the **HY Neurology** PDF (84 pages) for Dr. Mehlman's high-yield integration paths and targeted vignettes.\n*   **#fa:** Check **First Aid Neurology** (pages 491-536) and hit the **\"M\" flashcard launcher** on neurovascular and spinal cord headings to drill your AnKing cards.",
+      "context": {},
+      "timestamp": "2026-11-04T19:10:12.910Z"
+    },
+    {
+      "id": "chat_1793819402224_duaf",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Differential diagnosis for nephrotic syndrome",
+      "response": "### **Nephrotic Syndrome: Differential Diagnosis**\n\nNephrotic syndrome is defined by **proteinuria (> 3.5 g/24h)**, **hypoalbuminemia**, **edema**, and **hyperlipidemia/hypercholesterolemia**. \n\nHere is the high-yield USMLE differential diagnosis, broken down by primary (renal-limited) and secondary (systemic) causes:\n\n---\n\n### **1. Primary Glomerulopathies**\n\n| Disease | High-Yield Board Associations | Biopsy / Microscopy Findings |\n| :--- | :--- | :--- |\n| **Minimal Change Disease (MCD)** | • Most common cause in **children**<br>• Triggered by infections, immunizations, hodgkin lymphoma<br>• **Selective proteinuria** (albumin only) | • **Normal** light microscopy<br>• Negative immunofluorescence<br>• **Effacement of foot processes** on electron microscopy (EM) |\n| **Focal Segmental Glomerulosclerosis (FSGS)** | • Most common cause in **Hispanic/African American adults**<br>• Associated with **HIV, IV drug use, heroin**, morbid obesity, sickle cell | • Segmental and focal sclerosis on light microscopy<br>• Effacement of foot processes on EM |\n| **Membranous Nephropathy** | • Most common cause in **Caucasian adults**<br>• Associated with **phospholipase A2 receptor (PLA2R)** antibodies, solid tumors (lung, colon, melanoma), SLE (Class V), Hep B/C, NSAIDs | • **\"Spike and dome\"** pattern on EM (subepithelial immune complex deposits)<br>• Diffuse capillary wall thickening on light microscopy |\n\n---\n\n### **2. Secondary Glomerulopathies**\n\n| Disease | High-Yield Board Associations | Distinguishing Features |\n| :--- | :--- | :--- |\n| **Diabetic Nephropathy** | • Most common cause of **End-Stage Renal Disease (ESRD)** in the US<br>• Non-enzymatic glycation of efferent arterioles | • **Kimmelstiel-Wilson lesions** (nodular glomerulosclerosis)<br>• Early finding: Hyperfiltration / microalbuminuria |\n| **Systemic Lupus Erythematosus (SLE)** | • **Lupus Nephritis** (specifically Class V shows membranous pattern; Class IV is diffuse proliferative, presenting with nephRITIC-nephrotic mix) | • ANA, anti-dsDNA, low complement levels |\n| **Amyloidosis** | • Chronic inflammatory states (RA, multiple myeloma, TB)<br>• **\"Apple-green birefringence\"** under polarized light | • Congo red stain positive<br>• Associated with restrictive cardiomyopathy |\n\n---\n\n### **3. Key Board Complications to Remember**\n*   **Hypercoagulability:** Loss of **Antithrombin III** in the urine $\\rightarrow$ Renal vein thrombosis (classic board vignette: flank pain, hematuria, sudden rise in creatinine, especially in **membranous nephropathy**).\n*   **Infection:** Loss of immunoglobulins (IgG) in the urine $\\rightarrow$ Encapsulated bacteria risk (*Streptococcus pneumoniae*, *Haemophilus influenzae*).\n*   **Hyperlipidemia:** Decreased oncotic pressure stimulates hepatic protein synthesis, including lipids.\n\n---\n\n### **Platform Navigation**\n*   **Read FA 2024:** Head to **#fa** $\\rightarrow$ Renal section (pages 569–608) for glomerular disease comparison tables.\n*   **Deep Dive:** Open **#mehlman** $\\rightarrow$ *HY Renal* or *HY Pathology* PDFs for high-yield board associations and classic vignettes.\n*   **Flashcards:** Go to **#fa** Renal section and click the **\"M\"** button to launch AnKing cloze cards on nephrotic vs. nephritic syndromes.\n*   **Chief Complaints:** Use **#ddx** to review related presentations like *Edema* or *Hematuria*.",
+      "context": {},
+      "timestamp": "2026-11-04T19:10:02.224Z"
+    },
+    {
+      "id": "chat_1793819374645_vh5f",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "hi",
+      "response": "Hello! I'm RadBot, your USMLE study assistant. \n\nWhether you need help breaking down a tough pathophysiology concept, building a differential diagnosis, reviewing high-yield pharmacology, or figuring out which platform section to use for your study block—I've got you covered. \n\nWhat are you studying today?",
+      "context": {},
+      "timestamp": "2026-11-04T19:09:34.645Z"
+    },
+    {
+      "id": "chat_1793819326122_fclg",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "a 3 lines summary",
+      "response": "* **Spinal Cord/Brainstem:** Brown-Séquard (ipsilateral motor/proprioception, contralateral pain/temp loss); Wallenberg/PICA (ipsilateral face/Horner, contralateral body pain/temp, hoarseness).\n* **Degenerative/Neuromuscular:** ALS combines UMN/LMN signs with *spared* sensation; Myasthenia Gravis (postsynaptic AChR) worsens with use, while Lambert-Eaton (presynaptic $Ca^{2+}$ channel) improves with use.\n* **Peripheral/Genetics:** Guillain-Barré features ascending paralysis and CSF albuminocytologic dissociation; NF1 (Chr 17) presents with café-au-lait spots and Lisch nodules.",
+      "context": {},
+      "timestamp": "2026-11-04T19:08:46.122Z"
+    },
+    {
+      "id": "chat_1793819266191_l57o",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "precide it into a small summary",
+      "response": "Here is a high-yield summary of the **Mehlman HY Neurology** essentials for the USMLE:\n\n*   **Spinal Cord Syndromes:** \n    *   *Brown-Séquard (Hemisection):* Ipsilateral motor + vibration/proprioception loss; contralateral pain/temperature loss starting 1–2 segments below.\n    *   *Syringomyelia:* Bilateral loss of pain/temperature in a \"cape-like\" distribution (spares vibration).\n*   **Brainstem Strokes:**\n    *   *Weber (Midbrain/PCA):* Ipsilateral CN III palsy + contralateral hemiparesis.\n    *   *Wallenberg (Lateral Medullary/PICA):* Ipsilateral face/Horner/ataxia + contralateral body pain/temp + dysphagia/hoarseness.\n*   **Movement & Degenerative Disorders:**\n    *   *Parkinson:* Substantia nigra pars compacta dopamine loss (resting tremor, rigidity, bradykinesia).\n    *   *Huntington:* Caudate nucleus atrophy, CAG repeats, chorea.\n    *   *ALS:* Mixed UMN + LMN signs with **completely spared sensation**.\n*   **Neuromuscular Junction:**\n    *   *Myasthenia Gravis:* Postsynaptic AChR antibodies; worsens with use; associated with thymoma.\n    *   *Lambert-Eaton:* Presynaptic Ca²⁺ channel antibodies; improves with use; associated with small cell lung cancer.\n*   **Peripheral & Neurocutaneous:**\n    *   *Guillain-Barré:* Ascending paralysis, albuminocytologic dissociation in CSF.\n    *   *NF1 (Chr 17):* Café-au-lait spots, Lisch nodules, neurofibromas.\n\n🚀 *For deep dives, visit **#mehlman** (HY Neurology PDF) or test yourself using **#fa** (Neurology chapter) and **#qbank**.*",
+      "context": {},
+      "timestamp": "2026-11-04T19:07:46.191Z"
+    },
+    {
+      "id": "chat_1793819221837_t6oq",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "High yield points from Mehlman HY Neurology",
+      "response": "Here are the highest-yield, board-tested concepts from the **Mehlman HY Neurology** PDF, organized by clinical syndromes, neuro-anatomy, and pathologies to maximize your USMLE Step 1 and Step 2 scores.\n\n---\n\n### 1. Spinal Cord & Brainstem Lesions\n*   **Brown-Séquard Syndrome (Hemisection of the Cord):**\n    *   *Ipsilateral:* Loss of **motor** (corticospinal tract) + loss of **vibration/proprioception** (dorsal columns) *at and below* the lesion. Plus an ipsilateral Horner syndrome if lesion is above T1.\n    *   *Contralateral:* Loss of **pain and temperature** (spinothalamic tract) starting **1–2 segments below** the lesion.\n*   **Syringomyelia:**\n    *   *Path:* Expansion of the central canal of the spinal cord (usually C8–T1).\n    *   *Presentation:* Bilateral loss of **pain and temperature** in a \"cape-like\" distribution (crossing fibers of the spinothalamic tract in the anterior white commissure are damaged first). Spares vibration/proprioception initially.\n*   **Weber Syndrome (Midbrain Stroke):**\n    *   *Cause:* PCA/paramedian branch stroke affecting the midbrain.\n    *   *Presentation:* **Ipsilateral CN III palsy** (down and out eye, ptosis, blown pupil) + **contralateral hemiparesis** (corticospinal tract).\n*   **Wallenberg Syndrome (Lateral Medullary Syndrome):**\n    *   *Cause:* PICA (Posterior Inferior Cerebellar Artery) stroke.\n    *   *Presentation:* **Ipsilateral** facial pain/temperature loss, Horner syndrome, ataxia, and nystagmus. **Contralateral** body pain/temperature loss. Plus **dysphagia and hoarseness** (nucleus ambiguus). *Mnemonic:* \"Don't **PICA** **HOARSE** (horse) that has **WALL**-eyed **LAT**ERAL vision.\"\n\n### 2. Neurodegenerative & Movement Disorders\n*   **Parkinson Disease:**\n    *   *Path:* Loss of dopaminergic neurons in the **pars compacta of the substantia nigra**.\n    *   *Presentation:* Resting tremor, rigidity, akinesia/bradykinesia, postural instability, and a shuffling gait.\n*   **Huntington Disease:**\n    *   *Path:* Autosomal dominant CAG repeat expansion on chromosome 4 (anticipation). Loss of GABAergic neurons in the **striatum** (caudate nucleus and putamen).\n    *   *Presentation:* Chorea, psychiatric symptoms, dementia. Caudate atrophy with ex vacuo ventriculomegaly.\n*   **Amyotrophic Lateral Sclerosis (ALS):**\n    *   *Path:* Degeneration of both **Upper Motor Neurons (UMN)** in the cortex and **Lower Motor Neurons (LMN)** in the anterior horn of the spinal cord.\n    *   *Presentation:* Mixed UMN (spasticity, hyperreflexia, Babinski) and LMN (fasciculations, atrophy, flaccid paralysis) signs. **Sensation is completely spared.** *Crucial:* No sensory loss and no extraocular movement changes.\n\n### 3. Peripheral Neuropathies & Neuromuscular Junction\n*   **Guillain-Barré Syndrome (AIDP):**\n    *   *Path:* Immune-mediated demyelination of peripheral nerves. Often follows *Campylobacter jejuni* or viral infections (molecular mimicry).\n    *   *Presentation:* Ascending symmetric muscle weakness, hyporeflexia/areflexia, and autonomic instability. \n    *   *CSF finding:* **Albuminocytologic dissociation** (high protein, normal cell count).\n*   **Myasthenia Gravis vs. Lambert-Eaton Syndrome:**\n    *   *Myasthenia Gravis:* Antibodies against **postsynaptic ACh receptors**. Worse with repetitive use (fatigue). Associated with thymoma.\n    *   *Lambert-Eaton:* Antibodies against **presynaptic voltage-gated calcium channels**. *Improves* with repetitive use. Associated with small cell lung cancer (SCLC).\n\n### 4. Neurocutaneous Disorders (Phakomatoses)\n*   **Neurofibromatosis Type 1 (NF1):**\n    *   *Chromosome:* 17 (NF1 gene, neurofibromin).\n    *   *Features:* Café-au-lait spots, neurofibromas, **Lisch nodules** (iris hamartomas), optic gliomas, and axillary/inguinal freckling.\n*   **Tuberous Sclerosis:**\n    *   *Features:* **Hamartomas** in CNS and skin. Ash-leaf spots (hypopigmented), facial angiofibromas (adenoma sebaceum), shagreen patches, subependymal giant cell astrocytomas, and cardiac rhabdomyomas.\n\n---\n\n### 🚀 Platform Navigation & Study Strategy\n1.  **Read the full text:** Go to **#mehlman** and open the *HY Neurology* PDF (84 pages) for high-yield diagnostic algorithms and classic clinical vignettes.\n2.  **Flashcards:** Head to **#fa**, open the **Neurology** chapter (pages 491–536), and click the **\"M\"** button on specific headings to launch targeted AnKing/Mehlman flashcards for spaced repetition.\n3.  **Visuals:** Check out **#sketchy** (Pathology and Pharmacology sections) for visual memory hooks on neurodegenerative drugs and brain tumors.",
+      "context": {},
+      "timestamp": "2026-11-04T19:07:01.837Z"
+    },
+    {
+      "id": "chat_1793819140985_weiu",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "who r u",
+      "response": "I am **RadBot**, your expert AI study assistant built specifically for this USMLE Step 1 & Step 2 preparation platform. \n\nThink of me as your personal medical tutor. I am here to help you:\n*   Navigate the platform's tools (**#fa**, **#mehlman**, **#sketchy**, **#ddx**, **#qbank**, and **#radbot**)\n*   Break down high-yield board concepts, mnemonics, and pharmacology\n*   Build differential diagnoses for any clinical presentation\n*   Explain radiology findings and high-yield physiology\n\nHow can I help you study today?",
+      "context": {},
+      "timestamp": "2026-11-04T19:05:40.985Z"
+    },
+    {
+      "id": "chat_1793818992533_pdq1",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "How do I do flashcards for Autoregulation in this app?",
+      "response": "To do flashcards for **Renal Autoregulation** (or any other topic) in this app, follow these quick steps:\n\n### Step 1: Navigate to the First Aid Reader (#fa)\n1. Click on **#fa** in the app navigation menu to open the First Aid 2024 reader.\n2. Go to the **Renal** chapter (pages 569–608) or the **Cardiovascular** chapter (pages 279–336), depending on whether you want renal hemodynamics or general blood pressure autoregulation. *(Tip: Renal autoregulation via TGF and myogenic mechanism is heavily tested in the Renal and Cardiovascular sections).*\n\n### Step 2: Locate the Topic & Launch the Flashcards\n1. Scroll through the chapter until you find the heading covering **Autoregulation**, **Glomerular Hemodynamics**, or **Renal Blood Flow**.\n2. Look for the **\"M\" button** attached to that specific heading.\n3. Click the **\"M\"** button to open the flashcard launcher popup.\n\n### Step 3: Choose Your Deck & Start Practicing\n1. **Choose your source:** Select tabs between **AnKing** (recommended for comprehensive cloze cards), **Mnemosyne**, or **Mehlman**.\n2. **Select your status:** Click on **\"Not done\"** (or \"Again\" if you are reviewing missed cards) to start the interactive session.\n3. **Study:** An in-book floating flashcard player will pop up featuring cloze-deletion cards testing high-yield concepts like:\n   * *Afferent arteriole constriction decreases RBF and GFR.*\n   * *ACE inhibitors dilate the efferent arteriole, dropping GFR.*\n   * *Tubuloglomerular feedback (TGF) via the macula densa.*\n4. **Spaced Repetition:** Rate your recall using the **Again / Good** buttons. Your progress saves automatically to your browser's localStorage!\n\n---\n\n💡 **Pro-Tip:** Pair your flashcard sessions with the **#mehlman** HY Renal or HY Cardiovascular PDFs, or check out visual mnemonics in **#sketchy** to lock down the physiologic pathways permanently!",
+      "context": {},
+      "timestamp": "2026-11-04T19:03:12.534Z"
+    },
+    {
+      "id": "chat_1793818907262_hkr8",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Give me high yield points from Mehlman HY Renal PDF",
+      "response": "Here are the highest-yield, board-tested concepts from the **Mehlman HY Renal** PDF, organized by topic to maximize your USMLE Step 1 and Step 2 performance. \n\n---\n\n### 1. Glomerular Diseases (The Big Four)\n*   **Post-Streptococcal Glomerulonephritis (PSGN):** \n    *   *Timeline:* 1–3 weeks *after* group A beta-hemolytic *Streptococcus* pharyngitis or impetigo.\n    *   *Biopsy:* **Subepithelial humps** on electron microscopy; IgG and C3 granular deposition (\"starry sky\" or \"lumpy-bumpy\").\n    *   *Key Lab:* Decreased serum C3 levels (classic alternative complement pathway activation).\n*   **Goodpasture Syndrome:** \n    *   *Path:* Anti-type IV collagen antibodies (specifically against the $\\alpha$3 chain of glomerular and alveolar basement membranes).\n    *   *Presentation:* Rapidly progressive glomerulonephritis (RPGN) + hemoptysis.\n    *   *Biopsy:* **Linear IgG** deposition along the GBM.\n*   **Wegener Granulomatosis (GPA):** \n    *   *Presentation:* Upper respiratory tract symptoms (sinusitis, saddle nose), lower respiratory tract (cavitary lung lesions), and renal disease (RPGN).\n    *   *Key Lab:* **c-ANCA** positive (anti-PR3).\n*   **Microscopic Polyangiitis (MPA) & Churg-Strauss (EGPA):**\n    *   *Key Lab:* **p-ANCA** positive (anti-MPO). *Note:* Churg-Strauss also features asthma, eosinophilia, and neuropathy.\n\n### 2. Tubular & Interstitial Pathology\n*   **Acute Tubular Necrosis (ATN):**\n    *   *Causes:* Ischemia (shock, hypotension) or toxins (aminoglycosides, contrast, myoglobin).\n    *   *Urinary findings:* **Muddy brown casts** and \"renal tubular epithelial cells.\"\n    *   *Labs:* Fractional excretion of sodium ($FENa$) **> 2%**; urine osmolarity $\\le$ 350 mOsm/kg (tubules can't reabsorb sodium or concentrate urine).\n*   **Acute Interstitial Nephritis (AIN):**\n    *   *Causes:* Drugs (P-C-N: **P**enicillins/Cephalosporins, **C**iprofloxacin, **N**SAIDs), PPIs, and sulfonamides.\n    *   *Presentation:* Fever, rash, arthralgias, and eosinophiluria 1–3 weeks after starting a drug.\n    *   *Urinary findings:* **White blood cell casts** (eosinophils).\n\n### 3. Renal Electrolyte & Acid-Base Disorders\n*   **Renal Tubular Acidosis (RTA) Summary:**\n    *   *Type 1 (Distal RTA):* Failure to secrete $H^+$ in the collecting duct. Urine pH > 5.5. Associated with stones and **hypokalemia**. \n    *   *Type 2 (Proximal RTA):* Failure to reabsorb $HCO_3^-$ in the PCT. Associated with Fanconi syndrome and **hypokalemia**.\n    *   *Type 4 (Hyperkalemic RTA):* Hypoaldosteronism or aldosterone resistance. Associated with **hyperkalemia** (which inhibits renal ammoniagenesis).\n*   **Bartter vs. Gitelman Syndromes:**\n    *   *Bartter:* Defect in thick ascending limb ($Na^+/K^+/2Cl^-$ cotransporter). Mimics loop diuretic abuse. Presents with **hypokalemia, metabolic alkalosis, and *hypocalcemia***.\n    *   *Gitelman:* Defect in DCT ($NaCl$ cotransporter). Mimics thiazide diuretic abuse. Presents with **hypokalemia, metabolic alkalosis, and *hypomagnesemia/hypocalciuria***.\n\n### 4. Nephrolithiasis (Kidney Stones)\n*   **Calcium Oxalate/Phosphate:** Most common. Radiolucent/Radiopaque? Radiopaque (seen on X-ray). Associated with Crohn disease (increased oxalate absorption).\n*   **Struvite (Magnesium Ammonium Phosphate):** Associated with urease-positive organisms (*Proteus*, *Klebsiella*, *Serratia*). Forms **staghorn calculi**. Treat by removing the stone and treating the infection.\n*   **Uric Acid:** Radiucolent (not seen on standard X-ray; use CT or US). Associated with gout and leukemia. Treatment includes alkalinizing the urine (potassium citrate).\n*   **Cystine:** Genetic defect in dibasic amino acid transport (COLA: Cystine, Ornithine, Lysine, Arginine). Hexagonal crystals in urine. Sodium cyanide-nitroprusside test positive.\n\n---\n\n### 🚀 Platform Navigation & Study Strategy\nTo dive deeper and reinforce these concepts:\n1.  **Read the full text:** Head to **#mehlman** in the sidebar and open the *HY Renal* PDF (76 pages) for high-yield callout boxes and Mehlman’s signature clinical pearls.\n2.  **Flashcards:** Go to **#fa** (First Aid 2024 Renal section, pages 569–608) and click the **\"M\"** button on specific renal headings to launch targeted AnKing/Mehlman flashcards for spaced repetition.\n3.  **Practice Questions:** Test your application of these concepts in the **#qbank** section.",
+      "context": {},
+      "timestamp": "2026-11-04T19:01:47.262Z"
+    },
+    {
+      "id": "chat_1793818801138_aqtc",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Which organ has the best autoregulation range? And what section of this app covers it?",
+      "response": "The **brain** has the best and most tightly controlled autoregulation range. Cerebral blood flow remains constant across a mean arterial pressure (MAP) range of **60 to 160 mmHg**. \n\n### 🔍 Where to find it in the app:\n* **First Aid Reader (#fa):** Navigate to the **Neurology** section (pages 491–536) or **Cardiovascular** section (pages 279–336). Click the \"M\" flashcard launcher to drill high-yield AnKing cards on cerebral perfusion pressure (CPP = MAP - ICP).\n* **Mehlman PDFs (#mehlman):** Check out **HY Neurology** or **HY Cardiovascular** for high-yield board correlations on intracranial pressure and cerebral autoregulation.\n* **Practice Questions (#qbank):** Test your understanding of pressure-flow curves with our USMLE-style QBank.",
+      "context": {},
+      "timestamp": "2026-11-04T19:00:01.138Z"
+    },
+    {
+      "id": "chat_1793818657928_oaey",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "What is autoregulation of blood flow? Brief answer.",
+      "response": "**Autoregulation** is the intrinsic ability of an organ to maintain a constant blood flow despite changes in perfusion pressure (typically mean arterial pressure between 60–160 mmHg).\n\n### Key Mechanisms:\n1. **Myogenic Mechanism:** Vascular smooth muscle contracts in response to stretch (increased pressure) and relaxes when pressure drops.\n2. **Metabolic Mechanism:** Local vasoactive metabolites (e.g., $\\text{CO}_2$, $\\text{H}^+$, adenosine, lactate, $\\text{K}^+$) accumulate during high metabolic activity or low flow, causing vasodilation.\n\n### Organ-Specific Highlights (High-Yield):\n* **Brain:** Highly dependent on local $\\text{CO}_2$ (potent vasodilator) and $\\text{pH}$.\n* **Heart:** Regulated primarily by **adenosine** (mediates coronary reactive hyperemia).\n* **Kidney:** Utilizes the myogenic mechanism and **tubuloglomerular feedback** (macula densa sensing $\\text{NaCl}$).\n* **Lungs (Exception):** Unlike systemic circulation, pulmonary arterioles **hypoxic vasoconstriction**—shunting blood away from poorly ventilated alveoli to well-ventilated areas.\n\n> 🔍 **Platform Tip:** For a deep dive into cardiovascular hemodynamics and organ-specific blood flow, head to **#fa** (Cardiovascular section, pages 279–336) or check out **#mehlman** (HY Cardiovascular PDF). Practice application questions in **#qbank**.",
+      "context": {},
+      "timestamp": "2026-11-04T18:57:37.928Z"
+    },
+    {
+      "id": "chat_1793818474615_lrcl",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Explain autoregulation of blood flow for USMLE Step 1",
+      "response": "⚠️ **Rate limit reached.** Please wait a moment and try again.",
+      "context": {},
+      "timestamp": "2026-11-04T18:54:34.615Z"
+    },
+    {
+      "id": "chat_1793818365965_rp9o",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Explain autoregulation of blood flow for USMLE Step 1",
+      "response": "### 🤖 RadBot — USMLE AI Assistant\n\nI am your AI study assistant with knowledge of your entire USMLE platform.\n\n**You can ask me:**\n* \"Explain autoregulation of blood flow\"\n* \"What are the 4 T's of anterior mediastinal mass?\"\n* \"Differential for nephrotic syndrome\"\n* \"How do I use the AnKing cards in this app?\"\n* \"What is in the Mehlman HY Cardiovascular book?\"\n* \"Quiz me on thyroid pathology\"\n\nWhat would you like to study?",
+      "context": {},
+      "timestamp": "2026-11-04T18:52:45.965Z"
+    },
+    {
+      "id": "chat_1793818315201_9jbk",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Explain autoregulation of blood flow for USMLE Step 1",
+      "response": "### 🤖 RadBot — USMLE AI Assistant\n\nI am your AI study assistant with knowledge of your entire USMLE platform.\n\n**You can ask me:**\n* \"Explain autoregulation of blood flow\"\n* \"What are the 4 T's of anterior mediastinal mass?\"\n* \"Differential for nephrotic syndrome\"\n* \"How do I use the AnKing cards in this app?\"\n* \"What is in the Mehlman HY Cardiovascular book?\"\n* \"Quiz me on thyroid pathology\"\n\nWhat would you like to study?",
+      "context": {},
+      "timestamp": "2026-11-04T18:51:55.201Z"
+    },
+    {
+      "id": "chat_1793818027008_b2q7",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "Explain autoregulation of blood flow for USMLE",
+      "response": "### 🤖 RadBot — USMLE AI Assistant\n\nI am your AI study assistant with knowledge of your entire USMLE platform.\n\n**You can ask me:**\n* \"Explain autoregulation of blood flow\"\n* \"What are the 4 T's of anterior mediastinal mass?\"\n* \"Differential for nephrotic syndrome\"\n* \"How do I use the AnKing cards in this app?\"\n* \"What is in the Mehlman HY Cardiovascular book?\"\n* \"Quiz me on thyroid pathology\"\n\nWhat would you like to study?",
+      "context": {},
+      "timestamp": "2026-11-04T18:47:07.008Z"
+    },
+    {
+      "id": "chat_1793817979497_0kkj",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "What topics are covered in the Cardiovascular section of First Aid?",
+      "response": "📖 **First Aid Reader** → Click **[First Aid]** in the left sidebar or navigate to `#fa`.\n\nEvery heading has an **M button** to launch AnKing/Mnemosyne/Mehlman flashcards for that topic.",
+      "context": {},
+      "timestamp": "2026-11-04T18:46:19.497Z"
+    },
+    {
       "id": "chat_1793525610680_sg7j",
       "userId": "usr_1793475915066_pz8xc",
       "userName": "System Administrator",
@@ -674,6 +1119,28 @@
       "response": "### 🩺 Radiology Deep Dive: **Sail Sign (Thymic sail)**\n\n* **Primary Modality:** Chest X-Ray (Pediatric)\n* **Classic Pathology:** **Normal thymus in infants**\n* **Radiological Appearance:** A triangular radiopacity projecting from the superior mediastinum over the cardiac silhouette.\n\n> 💡 **High-Yield Board Pearl:** Normal variant in children < 2 years. Do NOT confuse with cardiomegaly or mediastinal mass.\n\n*Would you like me to walk through the differential diagnosis or test you on a related case?*",
       "context": {},
       "timestamp": "2026-10-31T19:46:47.144Z"
+    }
+  ],
+  "radbot_sessions": [
+    {
+      "id": "session_1793820261089_lw53s",
+      "userId": "guest",
+      "title": "j",
+      "createdAt": "2026-11-04T19:24:21.089Z",
+      "updatedAt": "2026-11-04T19:24:45.271Z",
+      "wordCount": 52,
+      "messages": [
+        {
+          "role": "user",
+          "text": "j",
+          "timestamp": "2026-11-04T19:24:24.056Z"
+        },
+        {
+          "role": "assistant",
+          "text": "Hello, future attending! How can I help you prep for your USMLE boards today? \n\nWhether you need a quick review of high-yield pathology, a structured differential diagnosis (**#ddx**), help navigating the First Aid reader (**#fa**), Mehlman PDFs (**#mehlman**), or Sketchy mnemonics (**#sketchy**), just let me know what topic you're working on!",
+          "timestamp": "2026-11-04T19:24:25.923Z"
+        }
+      ]
     }
   ],
   "flashcards": [],

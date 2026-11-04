@@ -8,3 +8,4 @@ public/fa-page/
 public/mehlman/
 scripts/*.html
 scripts/mehlman_pdf_urls.json
+tmp/

@@ -1,3 +1,4 @@
+try { if (process.loadEnvFile) process.loadEnvFile(); } catch (e) {}
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
@@ -303,7 +304,7 @@ app.post('/api/questions/submit', requireAuth, (req, res) => {
 // 3. AI RAD BOT ROUTES
 // ==========================================
 
-app.post('/api/radbot/chat', (req, res) => {
+app.post('/api/radbot/chat', async (req, res) => {
   const { message, activeQuestionId } = req.body;
   if (!message || !message.trim()) {
     return res.status(400).json({ error: 'Message cannot be empty.' });
@@ -314,25 +315,61 @@ app.post('/api/radbot/chat', (req, res) => {
     activeQuestion = db.getQuestionById(activeQuestionId);
   }
 
-  const aiReply = radBot.generateResponse(message, activeQuestion);
-
   const userId = req.user ? req.user.id : 'guest';
   const userName = req.user ? req.user.name : 'Guest Visitor';
   const { ip, userAgent } = getClientMeta(req);
 
-  db.logRadBotChat(userId, userName, message, aiReply, { activeQuestionId });
-  db.logActivity(userId, userName, 'radbot_query', { query: message }, ip, userAgent);
+  try {
+    const aiReply = await radBot.generateResponse(message, activeQuestion, userId);
 
-  res.json({
-    reply: aiReply,
-    timestamp: new Date().toISOString()
-  });
+    db.logRadBotChat(userId, userName, message, aiReply, { activeQuestionId });
+    db.logActivity(userId, userName, 'radbot_query', { query: message }, ip, userAgent);
+
+    res.json({
+      reply: aiReply,
+      timestamp: new Date().toISOString()
+    });
+  } catch (err) {
+    console.error('[RadBot Route] Unexpected error:', err.message);
+    res.status(500).json({ error: 'AI assistant temporarily unavailable. Please try again.' });
+  }
 });
 
 app.get('/api/radbot/history', requireAuth, (req, res) => {
   const allChats = db.getRadBotChats(100);
   const userChats = allChats.filter(c => c.userId === req.user.id);
   res.json({ chats: userChats });
+});
+
+// Clear RadBot conversation history (new chat)
+app.post('/api/radbot/clear', (req, res) => {
+  const userId = req.user ? req.user.id : 'guest';
+  radBot.clearHistory(userId);
+  res.json({ success: true, message: 'Conversation cleared.' });
+});
+
+// Chat Sessions API (list, save, delete)
+app.get('/api/radbot/sessions', (req, res) => {
+  const userId = req.user ? req.user.id : 'guest';
+  const sessions = db.getRadBotSessions(userId);
+  res.json({ sessions });
+});
+
+app.post('/api/radbot/sessions', (req, res) => {
+  const userId = req.user ? req.user.id : 'guest';
+  const session = req.body;
+  if (!session || !session.id) {
+    return res.status(400).json({ error: 'Session object with ID required.' });
+  }
+  const saved = db.saveRadBotSession(userId, session);
+  res.json({ success: true, session: saved });
+});
+
+app.delete('/api/radbot/sessions/:id', (req, res) => {
+  const userId = req.user ? req.user.id : 'guest';
+  const sessionId = req.params.id;
+  db.deleteRadBotSession(userId, sessionId);
+  res.json({ success: true, message: 'Session deleted.' });
 });
 
 // ==========================================

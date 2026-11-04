@@ -282,8 +282,8 @@ function renderFaPageCallouts() {
         '<span class="text-xs font-bold">\u22EF</span>' +
       '</button>' +
 
-      // Floating Callout Action Menu (Screenshot 2)
-      '<div id="' + calloutId + '" class="hidden absolute left-12 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-2xl p-3 shadow-2xl min-w-[280px] z-30">' +
+      // Floating Callout Action Menu (Responsive on Mobile & Android)
+      '<div id="' + calloutId + '" class="hidden absolute left-11 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-2xl p-3 shadow-2xl max-w-[calc(100vw-60px)] min-w-[260px] z-30">' +
         '<div class="text-xs font-bold text-white mb-2 truncate">' + escHtml(topic.title) + '</div>' +
         '<div class="flex items-center gap-2">' +
           // 1. Play Sketch

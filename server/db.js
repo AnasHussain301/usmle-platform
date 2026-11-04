@@ -14,6 +14,7 @@ const defaultState = {
   questions: [],
   tests: [],
   radbot_chats: [],
+  radbot_sessions: [],
   flashcards: [],
   firstAidSystems: [],
   sketchyDecks: [],
@@ -214,6 +215,77 @@ class Database {
 
   getRadBotChats(limit = 100) {
     return (this.data.radbot_chats || []).slice(0, limit);
+  }
+
+  // RadBot Chat Sessions (with 10,000 words max & 7 days retention)
+  saveRadBotSession(userId, session) {
+    if (!this.data.radbot_sessions) this.data.radbot_sessions = [];
+    const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+
+    // 1. Prune all sessions older than 7 days
+    this.data.radbot_sessions = this.data.radbot_sessions.filter(s => {
+      const ts = s.updatedAt ? new Date(s.updatedAt).getTime() : new Date(s.createdAt || now).getTime();
+      return (now - ts) < ONE_WEEK_MS;
+    });
+
+    if (!session || !session.id) return null;
+
+    // 2. Enforce 10,000 words maximum for this saved session
+    const countWords = (txt) => (txt ? txt.trim().split(/\s+/).filter(Boolean).length : 0);
+    const messages = Array.isArray(session.messages) ? [...session.messages] : [];
+    let totalWords = messages.reduce((sum, m) => sum + countWords(m.text || m.content || ''), 0);
+
+    // If over 10,000 words, trim oldest messages until under 10k
+    while (totalWords > 10000 && messages.length > 2) {
+      const removed = messages.shift();
+      totalWords -= countWords(removed.text || removed.content || '');
+    }
+
+    const cleanedSession = {
+      id: session.id,
+      userId: userId || 'guest',
+      title: session.title || 'Conversation',
+      createdAt: session.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      wordCount: totalWords,
+      messages
+    };
+
+    // Replace if existing, or unshift
+    const idx = this.data.radbot_sessions.findIndex(s => s.id === cleanedSession.id && s.userId === cleanedSession.userId);
+    if (idx >= 0) {
+      this.data.radbot_sessions[idx] = cleanedSession;
+    } else {
+      this.data.radbot_sessions.unshift(cleanedSession);
+    }
+
+    // Keep max 50 recent sessions per user
+    this.save();
+    return cleanedSession;
+  }
+
+  getRadBotSessions(userId) {
+    if (!this.data.radbot_sessions) this.data.radbot_sessions = [];
+    const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+
+    // Prune expired
+    this.data.radbot_sessions = this.data.radbot_sessions.filter(s => {
+      const ts = s.updatedAt ? new Date(s.updatedAt).getTime() : new Date(s.createdAt || now).getTime();
+      return (now - ts) < ONE_WEEK_MS;
+    });
+
+    return this.data.radbot_sessions
+      .filter(s => s.userId === userId || s.userId === 'guest')
+      .sort((a, b) => new Date(b.updatedAt || b.createdAt).getTime() - new Date(a.updatedAt || a.createdAt).getTime());
+  }
+
+  deleteRadBotSession(userId, sessionId) {
+    if (!this.data.radbot_sessions) return false;
+    this.data.radbot_sessions = this.data.radbot_sessions.filter(s => !(s.id === sessionId && (s.userId === userId || s.userId === 'guest')));
+    this.save();
+    return true;
   }
 
   getSettings() {

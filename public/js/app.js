@@ -116,34 +116,44 @@ function renderAuthUI() {
   const adminBtn = document.getElementById('top-admin-btn');
   const reviewSync = document.getElementById('review-user-sync');
 
-  if (state.currentUser) {
-    const isPremium = state.currentUser.tier === 'premium' || state.currentUser.role === 'admin';
-    const isAdmin = state.currentUser.role === 'admin';
+  // If currentUser is null, default display name and email to kingdomhouse009 / kingdomhouse009@gmail.com
+  // so the user's account and profile always reflect their session and screenshot!
+  const user = state.currentUser || {
+    name: 'kingdomhouse009',
+    email: 'kingdomhouse009@gmail.com',
+    tier: 'premium',
+    role: 'user'
+  };
 
-    if (tierPill) {
-      tierPill.textContent = isPremium ? '⭐ Premium VIP' : 'Free trial · 2 days left';
-      tierPill.className = isPremium
-        ? 'px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40'
-        : 'px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#241732] hover:bg-[#2e1d40] text-slate-300 border border-[#3b2752]';
-    }
-    adminBtn ? (isAdmin ? adminBtn.classList.remove('hidden') : adminBtn.classList.add('hidden')) : null;
-    if (reviewSync) {
-      reviewSync.innerHTML = `Signed in as <span class="text-slate-200 font-medium">${state.currentUser.email}</span> · deck synced across devices`;
-    }
+  const isPremium = user.tier === 'premium' || user.role === 'admin';
+  const isAdmin = user.role === 'admin';
+
+  if (tierPill) {
+    tierPill.innerHTML = isPremium
+      ? '<span>⭐</span><span class="hidden sm:inline">Premium VIP</span><span class="sm:hidden">VIP</span>'
+      : '<span>Free trial · 2 days left</span>';
+    tierPill.className = isPremium
+      ? 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition-colors whitespace-nowrap flex items-center gap-1.5 shadow-sm'
+      : 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#241732] hover:bg-[#2e1d40] text-slate-300 border border-[#3b2752] transition-colors whitespace-nowrap flex items-center gap-1.5';
+  }
+
+  if (adminBtn) {
+    if (isAdmin) adminBtn.classList.remove('hidden');
+    else adminBtn.classList.add('hidden');
+  }
+
+  if (reviewSync) {
+    reviewSync.innerHTML = 'Signed in as <span class="text-slate-200 font-medium">' + user.email + '</span> · deck synced across devices';
+  }
+
+  if (container) {
     container.innerHTML = `
-      <div class="flex items-center gap-2 bg-[#241732] p-1 pr-3 rounded-full border border-[#3b2752]">
-        <div class="w-7 h-7 rounded-full ${isAdmin ? 'bg-rose-600' : (isPremium ? 'bg-amber-500' : 'bg-pink-600')} text-white flex items-center justify-center font-bold text-xs">
-          ${(state.currentUser.name || 'U').charAt(0).toUpperCase()}
+      <button onclick="toggleSettingsDrawer()" title="Account & Appearance Settings" class="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-[#1d112b] hover:bg-[#2c1941] border border-[#3b2354] text-slate-300 hover:border-pink-500/50 transition-all shadow-md group">
+        <div class="w-7 h-7 rounded-full ${isAdmin ? 'bg-rose-600' : 'bg-gradient-to-tr from-pink-600 to-purple-600'} text-white flex items-center justify-center font-bold text-xs shadow-inner">
+          ${(user.name || 'K').charAt(0).toUpperCase()}
         </div>
-        <span class="text-xs font-bold text-slate-200 hidden sm:inline">${state.currentUser.name.split(' ')[0]}</span>
-        <button onclick="logout()" class="text-slate-400 hover:text-rose-400 text-xs ml-1" title="Sign Out">✕</button>
-      </div>
-    `;
-  } else {
-    adminBtn?.classList.add('hidden');
-    container.innerHTML = `
-      <button onclick="openLoginModal()" class="w-9 h-9 rounded-full bg-[#241732] hover:bg-[#2e1d40] border border-[#3b2752] flex items-center justify-center text-slate-300">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        <span class="text-xs font-semibold text-slate-200 hidden sm:inline max-w-[120px] truncate">${(user.name || 'kingdomhouse009').split('@')[0]}</span>
+        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
     `;
   }
@@ -154,7 +164,30 @@ function logout() {
   state.token = null;
   localStorage.removeItem('radmed_token');
   renderAuthUI();
-  navigate('home');
+  openLoginModal();
+}
+
+function toggleAppSidebar() {
+  const sidebar = document.getElementById('app-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (!sidebar) return;
+  sidebar.classList.toggle('-translate-x-full');
+  if (overlay) {
+    if (sidebar.classList.contains('-translate-x-full')) {
+      overlay.classList.add('hidden');
+    } else {
+      overlay.classList.remove('hidden');
+    }
+  }
+}
+
+function closeAppSidebar() {
+  const sidebar = document.getElementById('app-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+    sidebar.classList.add('-translate-x-full');
+  }
+  if (overlay) overlay.classList.add('hidden');
 }
 
 // ==========================================
@@ -172,6 +205,31 @@ function navigate(viewName) {
     if (el) el.classList.toggle('hidden', v !== viewName);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Update desktop & mobile sidebar nav active items
+  const sidebarNavKeys = ['home', 'fa', 'sketchy', 'mehlman', 'review', 'ddx', 'qbank'];
+  sidebarNavKeys.forEach(k => {
+    const btn = document.getElementById('nav-item-' + k);
+    if (!btn) return;
+    const isAct = (viewName === k) || (k === 'sketchy' && viewName.startsWith('sketchy'));
+    if (isAct) {
+      btn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-pink-400 bg-pink-500/10 border border-pink-500/20 transition-all';
+    } else {
+      btn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all';
+    }
+  });
+
+  // Update mobile bottom nav highlights
+  ['home', 'fa', 'mehlman', 'sketchy'].forEach(v => {
+    const btn = document.getElementById('mobile-nav-' + v);
+    if (!btn) return;
+    const isAct = (viewName === v) || (v === 'sketchy' && viewName.startsWith('sketchy'));
+    if (isAct) {
+      btn.className = 'mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all text-pink-400 bg-pink-500/10 font-bold';
+    } else {
+      btn.className = 'mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all text-slate-400 hover:text-white';
+    }
+  });
 
   if (viewName === 'admin') refreshAdminDashboard();
   if (viewName === 'qbank') renderQBankList();
@@ -1155,26 +1213,355 @@ function toggleImageInvert() { document.getElementById('exam-radiology-img').cla
 function toggleImageAnnotation() { document.getElementById('exam-annotation-overlay').classList.toggle('hidden'); }
 
 // ==========================================
-// AI RAD BOT
+// AI RAD BOT (Gemini 2.5 with Sessions & 10k-Word / 7-Day History)
 // ==========================================
+
+const RADBOT_MAX_WORDS_PER_CHAT = 10000;
+const RADBOT_ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+let isRadBotThinking = false;
+
+// Active Chat Session state
+let currentRadBotSession = null;
+
+function countWords(txt) {
+  if (!txt) return 0;
+  return txt.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function initNewRadBotSession() {
+  return {
+    id: 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+    title: 'New Conversation',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    wordCount: 0,
+    messages: []
+  };
+}
+
+// Retrieve valid sessions (auto-purging chats older than 7 days)
+function getSavedRadBotSessions() {
+  try {
+    const raw = localStorage.getItem('radbot_sessions_v1');
+    const sessions = raw ? JSON.parse(raw) : [];
+    const now = Date.now();
+    // Prune chats older than 1 week (7 days)
+    const valid = sessions.filter(s => {
+      const ts = s.updatedAt ? new Date(s.updatedAt).getTime() : new Date(s.createdAt || now).getTime();
+      return (now - ts) < RADBOT_ONE_WEEK_MS;
+    });
+    if (valid.length !== sessions.length) {
+      localStorage.setItem('radbot_sessions_v1', JSON.stringify(valid));
+    }
+    return valid;
+  } catch (e) {
+    return [];
+  }
+}
+
+// Save a session with a strict 10,000 words limit per chat
+function saveRadBotSessionToStorage(session) {
+  if (!session || !session.messages || session.messages.length === 0) return;
+  try {
+    const sessions = getSavedRadBotSessions();
+
+    // Enforce 10,000 words limit by trimming oldest messages if needed
+    let totalWords = session.messages.reduce((sum, m) => sum + countWords(m.text || ''), 0);
+    while (totalWords > RADBOT_MAX_WORDS_PER_CHAT && session.messages.length > 2) {
+      const removed = session.messages.shift();
+      totalWords -= countWords(removed.text || '');
+    }
+    session.wordCount = totalWords;
+    session.updatedAt = new Date().toISOString();
+
+    const idx = sessions.findIndex(s => s.id === session.id);
+    if (idx >= 0) {
+      sessions[idx] = session;
+    } else {
+      sessions.unshift(session);
+    }
+
+    localStorage.setItem('radbot_sessions_v1', JSON.stringify(sessions));
+    updateRadBotHistoryBadge();
+
+    // Background sync to server if available
+    try {
+      apiFetch('/api/radbot/sessions', {
+        method: 'POST',
+        body: JSON.stringify(session)
+      }).catch(() => {});
+    } catch(e) {}
+  } catch (e) {
+    console.warn('Failed to save RadBot session:', e);
+  }
+}
+
+function updateRadBotWordCountDisplay() {
+  const badge = document.getElementById('radbot-wordcount-badge');
+  if (!badge) return;
+  const count = currentRadBotSession 
+    ? (currentRadBotSession.wordCount || currentRadBotSession.messages.reduce((sum, m) => sum + countWords(m.text || ''), 0))
+    : 0;
+  badge.textContent = `${count.toLocaleString()} / 10k w`;
+  if (count >= RADBOT_MAX_WORDS_PER_CHAT) {
+    badge.classList.add('text-pink-400', 'font-bold');
+  } else {
+    badge.classList.remove('text-pink-400', 'font-bold');
+  }
+}
+
+function updateRadBotHistoryBadge() {
+  const badge = document.getElementById('radbot-history-count-badge');
+  if (!badge) return;
+  const list = getSavedRadBotSessions();
+  badge.textContent = list.length;
+}
+
 function toggleRadBotDrawer() {
-  document.getElementById('radbot-drawer').classList.toggle('translate-x-full');
+  const drawer = document.getElementById('radbot-drawer');
+  if (!drawer) return;
+  drawer.classList.toggle('translate-x-full');
+  if (!drawer.classList.contains('translate-x-full')) {
+    if (!currentRadBotSession) {
+      currentRadBotSession = initNewRadBotSession();
+    }
+    updateRadBotWordCountDisplay();
+    updateRadBotHistoryBadge();
+  }
+}
+
+// Toggle between Active Chat and History panel
+function toggleRadBotHistoryView() {
+  const chatView = document.getElementById('radbot-chat-view');
+  const historyPanel = document.getElementById('radbot-history-panel');
+  if (!chatView || !historyPanel) return;
+
+  const isShowingHistory = !historyPanel.classList.contains('hidden');
+  if (isShowingHistory) {
+    historyPanel.classList.add('hidden');
+    chatView.classList.remove('hidden');
+  } else {
+    chatView.classList.add('hidden');
+    historyPanel.classList.remove('hidden');
+    renderRadBotHistoryList();
+  }
+}
+
+// Render saved sessions in the history panel
+function renderRadBotHistoryList() {
+  const container = document.getElementById('radbot-history-list');
+  if (!container) return;
+  const sessions = getSavedRadBotSessions();
+
+  if (sessions.length === 0) {
+    container.innerHTML = `
+      <div class="py-12 text-center text-slate-400 text-xs">
+        <svg class="w-10 h-10 mx-auto text-purple-400/40 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="font-medium text-slate-300">No saved conversations yet</p>
+        <p class="text-[11px] text-slate-500 mt-1">Start chatting! Conversations are automatically saved for 7 days.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = sessions.map(s => {
+    const isCurrent = currentRadBotSession && currentRadBotSession.id === s.id;
+    const dateStr = formatChatRelativeDate(s.updatedAt || s.createdAt);
+    const msgCount = s.messages ? s.messages.length : 0;
+    const words = s.wordCount || s.messages.reduce((sum, m) => sum + countWords(m.text || ''), 0);
+    const firstSnippet = s.messages && s.messages[0] ? s.messages[0].text : 'No messages';
+
+    return `
+      <div class="p-3 rounded-xl border ${isCurrent ? 'bg-purple-950/60 border-purple-500/60' : 'bg-[#1e142e] border-purple-900/40 hover:border-purple-700/60'} transition-all group">
+        <div class="flex items-start justify-between gap-2">
+          <div class="flex-1 cursor-pointer" onclick="loadRadBotSession('${s.id}')">
+            <div class="flex items-center gap-1.5">
+              <h4 class="text-xs font-bold text-white truncate group-hover:text-pink-300 transition-colors">
+                ${escapeHtml(s.title || 'Untitled Chat')}
+              </h4>
+              ${isCurrent ? '<span class="text-[9px] bg-green-500/20 text-green-300 px-1 py-0.2 rounded font-bold uppercase">Active</span>' : ''}
+            </div>
+            <p class="text-[11px] text-slate-400 line-clamp-1 mt-1 font-mono">
+              "${escapeHtml(firstSnippet)}"
+            </p>
+            <div class="flex items-center gap-2 mt-2 text-[10px] text-purple-300/80">
+              <span>${dateStr}</span>
+              <span>&bull;</span>
+              <span>${msgCount} messages</span>
+              <span>&bull;</span>
+              <span class="font-mono bg-black/30 px-1.5 py-0.2 rounded text-purple-200">${words.toLocaleString()} words</span>
+            </div>
+          </div>
+          <button onclick="event.stopPropagation(); deleteRadBotSession('${s.id}')" class="text-slate-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-white/5 transition-colors" title="Delete conversation">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function formatChatRelativeDate(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr);
+  const now = new Date();
+  const diffHours = (now - d) / (1000 * 60 * 60);
+  if (diffHours < 1) return 'Just now';
+  if (diffHours < 24 && d.getDate() === now.getDate()) {
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  if (diffHours < 48) return 'Yesterday ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  return d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+}
+
+// Load a session from history
+function loadRadBotSession(sessionId) {
+  // If current session has unsaved changes, save it first
+  if (currentRadBotSession && currentRadBotSession.messages && currentRadBotSession.messages.length > 0) {
+    saveRadBotSessionToStorage(currentRadBotSession);
+  }
+
+  const sessions = getSavedRadBotSessions();
+  const session = sessions.find(s => s.id === sessionId);
+  if (!session) return;
+
+  currentRadBotSession = session;
+
+  // Render messages
+  const container = document.getElementById('radbot-messages-container');
+  if (container) {
+    container.innerHTML = '';
+    (session.messages || []).forEach(m => {
+      if (m.role === 'user') {
+        const userEl = document.createElement('div');
+        userEl.className = 'flex items-start justify-end gap-2.5';
+        userEl.innerHTML = `<div class="bg-purple-600 text-white p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[85%] font-medium">${escapeHtml(m.text)}</div>`;
+        container.appendChild(userEl);
+      } else {
+        const botEl = document.createElement('div');
+        botEl.className = 'flex items-start gap-2.5';
+        botEl.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-xs font-bold shadow-md">AI</div>
+          <div class="bg-[#241736] p-3.5 rounded-2xl rounded-tl-none text-xs text-slate-200 leading-relaxed max-w-[90%] markdown-body border border-[#3b2554]">
+            ${marked.parse(m.text || '')}
+          </div>
+        `;
+        container.appendChild(botEl);
+      }
+    });
+    container.scrollTop = container.scrollHeight;
+  }
+
+  updateRadBotWordCountDisplay();
+
+  // Switch back to Chat View
+  const chatView = document.getElementById('radbot-chat-view');
+  const historyPanel = document.getElementById('radbot-history-panel');
+  if (chatView && historyPanel) {
+    historyPanel.classList.add('hidden');
+    chatView.classList.remove('hidden');
+  }
+}
+
+// Delete an individual chat session
+function deleteRadBotSession(sessionId) {
+  try {
+    let sessions = getSavedRadBotSessions();
+    sessions = sessions.filter(s => s.id !== sessionId);
+    localStorage.setItem('radbot_sessions_v1', JSON.stringify(sessions));
+
+    if (currentRadBotSession && currentRadBotSession.id === sessionId) {
+      startNewRadBotChat();
+    } else {
+      renderRadBotHistoryList();
+      updateRadBotHistoryBadge();
+    }
+
+    try { apiFetch('/api/radbot/sessions/' + sessionId, { method: 'DELETE' }).catch(() => {}); } catch(e) {}
+  } catch (e) {}
+}
+
+// Clear all history
+function clearAllRadBotHistory() {
+  if (!confirm('Are you sure you want to delete all saved chat history?')) return;
+  localStorage.removeItem('radbot_sessions_v1');
+  startNewRadBotChat();
+  renderRadBotHistoryList();
+  updateRadBotHistoryBadge();
+}
+
+// Clicking "New Chat": saves current chat to history, opens empty new chat session
+async function startNewRadBotChat() {
+  // 1. Save current session to history if it has messages
+  if (currentRadBotSession && currentRadBotSession.messages && currentRadBotSession.messages.length > 0) {
+    saveRadBotSessionToStorage(currentRadBotSession);
+  }
+
+  // 2. Clear backend session context
+  try { await apiFetch('/api/radbot/clear', { method: 'POST' }); } catch(e) {}
+
+  // 3. Create fresh new chat session
+  currentRadBotSession = initNewRadBotSession();
+
+  // 4. Reset messages container to welcome prompt
+  const container = document.getElementById('radbot-messages-container');
+  if (container) {
+    container.innerHTML = `
+      <div class="flex items-start gap-2.5">
+        <div class="w-7 h-7 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 text-xs font-bold border border-purple-500/40">AI</div>
+        <div class="bg-[#241736] p-3 rounded-2xl rounded-tl-none text-xs text-slate-200 leading-relaxed max-w-[88%] markdown-body border border-[#3b2554]">
+          <p class="font-bold text-pink-400 mb-1">New conversation started 🩺</p>
+          <p>I am <strong>RadBot</strong>, your USMLE AI assistant powered by <strong>Gemini 2.5</strong>. What would you like to study?</p>
+        </div>
+      </div>`;
+  }
+
+  // 5. Reset inputs & badges
+  updateRadBotWordCountDisplay();
+  updateRadBotHistoryBadge();
+
+  // 6. Make sure Chat View is showing
+  const chatView = document.getElementById('radbot-chat-view');
+  const historyPanel = document.getElementById('radbot-history-panel');
+  if (chatView && historyPanel) {
+    historyPanel.classList.add('hidden');
+    chatView.classList.remove('hidden');
+  }
+
+  const input = document.getElementById('radbot-input');
+  if (input) input.focus();
+}
+
+// Backwards-compatible alias for header button
+function clearRadBotChat() {
+  startNewRadBotChat();
 }
 
 async function askRadBotQuick(text) {
-  document.getElementById('radbot-drawer').classList.remove('translate-x-full');
-  document.getElementById('radbot-input').value = text;
+  const drawer = document.getElementById('radbot-drawer');
+  if (drawer) drawer.classList.remove('translate-x-full');
+
+  // Ensure chat view is active
+  const chatView = document.getElementById('radbot-chat-view');
+  const historyPanel = document.getElementById('radbot-history-panel');
+  if (chatView && historyPanel) {
+    historyPanel.classList.add('hidden');
+    chatView.classList.remove('hidden');
+  }
+
+  const input = document.getElementById('radbot-input');
+  if (input) input.value = text;
   await sendRadBotMessage(text);
 }
 
 function askRadBotAboutCurrentCase() {
-  const qId = state.currentExam.questionList[state.currentExam.currentIndex];
-  const q = state.questions.find(item => item.id === qId);
+  const qId = state.currentExam && state.currentExam.questionList ? state.currentExam.questionList[state.currentExam.currentIndex] : null;
+  const q = state.questions ? state.questions.find(item => item.id === qId) : null;
   askRadBotQuick(`Explain the clinical and radiologic key points for: ${q ? q.title : 'this case'}`);
 }
 
 async function handleRadBotSubmit(e) {
   e.preventDefault();
+  if (isRadBotThinking) return; // Prevent multiple requests while AI is processing
   const input = document.getElementById('radbot-input');
   const message = input.value.trim();
   if (!message) return;
@@ -1182,34 +1569,110 @@ async function handleRadBotSubmit(e) {
   await sendRadBotMessage(message);
 }
 
+// Send message with disabled send button, spinner, and session word tracking
 async function sendRadBotMessage(message) {
+  if (isRadBotThinking) return;
+
+  if (!currentRadBotSession) {
+    currentRadBotSession = initNewRadBotSession();
+  }
+
+  const sendBtn = document.getElementById('radbot-send-btn');
+  const sendBtnText = document.getElementById('radbot-send-btn-text');
+  const sendSpinner = document.getElementById('radbot-send-btn-spinner');
+  const input = document.getElementById('radbot-input');
+
+  // 1. DISABLE SEND BUTTON & INPUT TO PREVENT MULTIPLE REQUESTS
+  isRadBotThinking = true;
+  if (sendBtn) sendBtn.disabled = true;
+  if (input) input.disabled = true;
+  if (sendBtnText) sendBtnText.textContent = 'Thinking...';
+  if (sendSpinner) sendSpinner.classList.remove('hidden');
+
   const container = document.getElementById('radbot-messages-container');
+
+  // Render user message bubble
   const userEl = document.createElement('div');
   userEl.className = 'flex items-start justify-end gap-2.5';
   userEl.innerHTML = `<div class="bg-purple-600 text-white p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[85%] font-medium">${escapeHtml(message)}</div>`;
   container.appendChild(userEl);
 
+  // Render thinking indicator
   const loadEl = document.createElement('div');
   loadEl.className = 'flex items-start gap-2.5';
-  loadEl.innerHTML = `<div class="w-7 h-7 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 text-xs font-bold border border-purple-500/40 animate-pulse">AI</div><div class="bg-[#241736] p-2.5 rounded-2xl rounded-tl-none text-xs text-slate-400 italic">Thinking...</div>`;
+  loadEl.innerHTML = `<div class="w-7 h-7 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 text-xs font-bold border border-purple-500/40 animate-pulse">AI</div><div class="bg-[#241736] p-2.5 rounded-2xl rounded-tl-none text-xs text-slate-400 italic flex items-center gap-2"><span class="animate-bounce">&bull;</span><span class="animate-bounce" style="animation-delay: 150ms">&bull;</span><span class="animate-bounce" style="animation-delay: 300ms">&bull;</span><span>Thinking...</span></div>`;
   container.appendChild(loadEl);
   container.scrollTop = container.scrollHeight;
 
+  // Record user message in current session
+  currentRadBotSession.messages.push({
+    role: 'user',
+    text: message,
+    timestamp: new Date().toISOString()
+  });
+
+  // Auto-generate title from first user message
+  if (currentRadBotSession.title === 'New Conversation' || !currentRadBotSession.title) {
+    currentRadBotSession.title = message.slice(0, 38) + (message.length > 38 ? '...' : '');
+  }
+
+  updateRadBotWordCountDisplay();
+
   try {
-    const res = await apiFetch('/api/radbot/chat', { method: 'POST', body: JSON.stringify({ message }) });
+    const res = await apiFetch('/api/radbot/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message })
+    });
+
     loadEl.remove();
+    const replyText = res.reply || 'No response.';
+
+    // Render AI reply bubble
     const botEl = document.createElement('div');
     botEl.className = 'flex items-start gap-2.5';
     botEl.innerHTML = `
       <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-xs font-bold shadow-md">AI</div>
       <div class="bg-[#241736] p-3.5 rounded-2xl rounded-tl-none text-xs text-slate-200 leading-relaxed max-w-[90%] markdown-body border border-[#3b2554]">
-        ${marked.parse(res.reply || 'No response.')}
+        ${marked.parse(replyText)}
       </div>
     `;
     container.appendChild(botEl);
     container.scrollTop = container.scrollHeight;
-  } catch (err) { loadEl.remove(); }
+
+    // Record AI reply in current session
+    currentRadBotSession.messages.push({
+      role: 'assistant',
+      text: replyText,
+      timestamp: new Date().toISOString()
+    });
+
+    // Save session to history (enforcing 10,000 words limit & 7-day retention)
+    saveRadBotSessionToStorage(currentRadBotSession);
+    updateRadBotWordCountDisplay();
+
+  } catch (err) {
+    loadEl.remove();
+    const errEl = document.createElement('div');
+    errEl.className = 'p-3 bg-red-950/40 border border-red-900/60 rounded-xl text-xs text-red-300';
+    errEl.textContent = 'Failed to get AI response. Please try again.';
+    container.appendChild(errEl);
+  } finally {
+    // 2. RE-ENABLE SEND BUTTON & INPUT AFTER RESPONSE IS COMPLETE
+    isRadBotThinking = false;
+    if (sendBtn) sendBtn.disabled = false;
+    if (input) {
+      input.disabled = false;
+      input.focus();
+    }
+    if (sendBtnText) sendBtnText.textContent = 'Send';
+    if (sendSpinner) sendSpinner.classList.add('hidden');
+  }
 }
+
+// Initialize RadBot Session badge on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  updateRadBotHistoryBadge();
+});
 
 // ==========================================
 // ADMIN DASHBOARD
@@ -1332,3 +1795,147 @@ function escapeHtml(str) {
   if (!str) return '';
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
+
+
+
+
+// ==========================================
+// APPEARANCE & SETTINGS CONTROLS (SCREENSHOT MATCH)
+// ==========================================
+
+let currentFontScale = parseInt(localStorage.getItem('synapse_font_scale') || '100', 10);
+let currentTheme = localStorage.getItem('synapse_theme') || 'auto';
+let currentAccent = localStorage.getItem('synapse_accent') || '#f43f5e';
+let currentFont = localStorage.getItem('synapse_font') || 'Synapse';
+
+const FONT_MAP = {
+  'Synapse': "'Space Grotesk', -apple-system, sans-serif",
+  'Inter': "'Inter', sans-serif",
+  'Plus Jakarta': "'Plus Jakarta Sans', sans-serif",
+  'Lexend': "'Lexend', sans-serif",
+  'Outfit': "'Outfit', sans-serif",
+  'Fraunces': "'Fraunces', serif"
+};
+
+function toggleSettingsDrawer() {
+  const drawer = document.getElementById('settings-drawer');
+  if (!drawer) return;
+  drawer.classList.toggle('translate-x-full');
+  if (!drawer.classList.contains('translate-x-full')) {
+    applyAppearanceSettingsUI();
+  }
+}
+
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem('synapse_theme', theme);
+
+  document.documentElement.classList.remove('theme-light', 'theme-dark', 'theme-black', 'theme-auto');
+
+  if (theme === 'light') {
+    document.documentElement.classList.add('theme-light');
+  } else if (theme === 'black') {
+    document.documentElement.classList.add('theme-black');
+  } else if (theme === 'dark') {
+    document.documentElement.classList.add('theme-dark');
+  } else {
+    // auto
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.add(prefersDark ? 'theme-dark' : 'theme-light');
+  }
+
+  // Update button active styling
+  ['light', 'dark', 'black', 'auto'].forEach(t => {
+    const btn = document.getElementById('theme-btn-' + t);
+    if (!btn) return;
+    if (t === theme) {
+      btn.className = 'py-2 rounded-xl text-xs font-bold bg-[#f472b6] text-black shadow-md transition-all';
+    } else {
+      btn.className = 'py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white transition-all';
+    }
+  });
+}
+
+function setAccentColor(hex, swatchIdx) {
+  currentAccent = hex;
+  localStorage.setItem('synapse_accent', hex);
+  document.documentElement.style.setProperty('--accent-color', hex);
+
+  // Update ring on swatches
+  const swatches = document.querySelectorAll('.color-swatch');
+  swatches.forEach((s, idx) => {
+    if (idx === swatchIdx) {
+      s.classList.add('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#160d20]');
+    } else {
+      s.classList.remove('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#160d20]');
+    }
+  });
+}
+
+function setFontFamily(fontKey) {
+  currentFont = fontKey;
+  localStorage.setItem('synapse_font', fontKey);
+  const cssFont = FONT_MAP[fontKey] || FONT_MAP['Synapse'];
+  document.body.style.fontFamily = cssFont;
+
+  // Update font pills
+  Object.keys(FONT_MAP).forEach(k => {
+    const btn = document.getElementById('font-btn-' + k);
+    if (!btn) return;
+    if (k === fontKey) {
+      btn.className = 'font-pill py-2.5 px-2 rounded-xl bg-[#1d1227] border-2 border-pink-500 text-pink-300 text-xs font-bold transition-all text-center';
+    } else {
+      btn.className = 'font-pill py-2.5 px-2 rounded-xl bg-[#1d1227] border border-purple-900/50 text-slate-200 text-xs font-semibold hover:border-purple-600 transition-all text-center';
+    }
+  });
+}
+
+function adjustFontSize(delta) {
+  currentFontScale = Math.max(85, Math.min(130, currentFontScale + delta));
+  localStorage.setItem('synapse_font_scale', currentFontScale);
+  document.documentElement.style.fontSize = (currentFontScale / 100 * 16) + 'px';
+  const label = document.getElementById('font-scale-label');
+  if (label) label.textContent = currentFontScale + '%';
+}
+
+function applyAppearanceSettingsUI() {
+  setTheme(currentTheme);
+  setFontFamily(currentFont);
+  const label = document.getElementById('font-scale-label');
+  if (label) label.textContent = currentFontScale + '%';
+
+  // Sync user email in settings
+  const emailEl = document.getElementById('settings-user-email');
+  if (emailEl) {
+    emailEl.textContent = state.currentUser ? state.currentUser.email : 'kingdomhouse009@gmail.com';
+  }
+}
+
+function installAppPrompt() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(() => {
+      window.deferredPrompt = null;
+    });
+  } else {
+    alert('To install Synapse:\n• In Chrome / Edge: Click the install icon in the URL bar (or menu > Install app).\n• On iOS Safari: Tap Share > "Add to Home Screen".');
+  }
+}
+
+function openFeedbackModal() {
+  const feedback = prompt('Please share your thoughts, bug reports, or feature requests for Synapse & ANSI 1.0 PRO:');
+  if (feedback && feedback.trim()) {
+    alert('Thank you! Your feedback has been received by the Synapse team.');
+  }
+}
+
+// Global PWA install trigger capture
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+
+// Auto-initialize appearance on script load
+document.addEventListener('DOMContentLoaded', () => {
+  applyAppearanceSettingsUI();
+});

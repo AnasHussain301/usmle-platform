@@ -357,14 +357,14 @@ function renderCurrentHeadingCard() {
   const actionsEl = document.getElementById('hcp-actions-bar');
   if (actionsEl) {
     actionsEl.innerHTML = `
-      <button onclick="prevHeadingCard()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold transition-colors">
+      <button onclick="prevHeadingCard()" class="min-h-[40px] px-3 text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold transition-colors active:scale-95">
         <span>&larr;</span> Back
       </button>
-      <button onclick="skipHeadingCard()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold transition-colors">
+      <button onclick="skipHeadingCard()" class="min-h-[40px] px-3 text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold transition-colors active:scale-95">
         <span>&rhd;|</span> Skip
       </button>
-      <button onclick="showHeadingCardAnswer()" class="text-xs text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1.5 transition-colors bg-pink-950/40 border border-pink-800/50 px-3 py-1.5 rounded-xl shadow">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <button onclick="showHeadingCardAnswer()" class="min-h-[42px] text-xs text-pink-300 hover:text-white font-bold flex items-center gap-1.5 transition-all bg-gradient-to-r from-pink-900/60 to-purple-900/60 border border-pink-500/50 px-4 py-2 rounded-xl shadow-[0_0_12px_rgba(236,72,153,0.3)] active:scale-95">
+        <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
         <span>Show answer</span>
       </button>
     `;
@@ -398,14 +398,14 @@ function showHeadingCardAnswer() {
   const actionsEl = document.getElementById('hcp-actions-bar');
   if (actionsEl) {
     actionsEl.innerHTML = `
-      <button onclick="prevHeadingCard()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold">
+      <button onclick="prevHeadingCard()" class="min-h-[42px] px-3 text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold active:scale-95">
         <span>&larr;</span> Back
       </button>
-      <div class="flex items-center gap-3">
-        <button onclick="rateHeadingCard('again')" class="px-4 py-1.5 rounded-xl bg-rose-950/80 hover:bg-rose-900 border border-rose-800 text-rose-300 font-bold text-xs flex items-center gap-1.5 shadow-lg transition-all">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="rateHeadingCard('again')" class="min-h-[42px] px-4 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-rose-950 to-red-950 hover:from-rose-900 hover:to-red-900 border border-rose-600/60 text-rose-300 font-bold text-xs flex items-center gap-1.5 shadow-[0_0_12px_rgba(225,29,72,0.3)] active:scale-95 transition-all">
           <span>Again</span>
         </button>
-        <button onclick="rateHeadingCard('good')" class="px-5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-950 transition-all">
+        <button onclick="rateHeadingCard('good')" class="min-h-[42px] px-5 sm:px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.4)] active:scale-95 transition-all">
           <span>Good</span>
           <span>&rarr;</span>
         </button>

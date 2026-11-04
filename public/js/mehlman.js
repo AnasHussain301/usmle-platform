@@ -14,7 +14,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Cardiovascular',
     description: 'High-yield cardiac murmurs, heart failure, pharmacology, congenital anomalies, and hemodynamic loops.',
     totalPages: 74,
-    lastPage: 74,
     color: '#a33a20',
     icon: 'heart',
     topics: [
@@ -33,7 +32,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Endocrine',
     description: 'Thyroid, adrenal, pituitary, MEN syndromes, calcium homeostasis, and diabetes mellitus.',
     totalPages: 63,
-    lastPage: 63,
     color: '#b58500',
     icon: 'sparkles',
     topics: [
@@ -51,7 +49,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Gastrointestinal',
     description: 'Esophageal motility, ulcers, malabsorption, inflammatory bowel, biliary cirrhosis, and hepatic failure.',
     totalPages: 95,
-    lastPage: 95,
     color: '#3e6b21',
     icon: 'utensils',
     topics: [
@@ -69,7 +66,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Hematology & Oncology',
     description: 'Micro/macro/normocytic anemias, bleeding disorders, coagulopathies, leukemias, and lymphomas.',
     totalPages: 60,
-    lastPage: 60,
     color: '#6e1e3b',
     icon: 'droplet',
     topics: [
@@ -86,7 +82,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Musculoskeletal & Skin',
     description: 'Upper/lower extremity nerve lesions, brachial plexus, rheumatology, vasculitis, and derm pathology.',
     totalPages: 88,
-    lastPage: 88,
     color: '#8c4b1b',
     icon: 'bone',
     topics: [
@@ -104,7 +99,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Neurology',
     description: 'Cranial nerves, stroke syndromes, visual field defects, spinal tracts, and neurodegenerative disorders.',
     totalPages: 84,
-    lastPage: 84,
     color: '#461a6b',
     icon: 'brain',
     topics: [
@@ -122,7 +116,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Psychiatry',
     description: 'Mood disorders, psychotic disorders, personality disorders, substance abuse, and psychopharm.',
     totalPages: 48,
-    lastPage: 48,
     color: '#2b3a8c',
     icon: 'smile',
     topics: [
@@ -139,7 +132,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Renal',
     description: 'Nephritic vs nephrotic syndromes, tubular acidoses, electrolyte disorders, and acid-base disturbances.',
     totalPages: 76,
-    lastPage: 76,
     color: '#1a545e',
     icon: 'filter',
     topics: [
@@ -157,7 +149,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Pulmonary',
     description: 'Obstructive vs restrictive PFTs, ARDS, pneumoconioses, lung cancers, and pulmonary emboli.',
     totalPages: 58,
-    lastPage: 58,
     color: '#1a5873',
     icon: 'wind',
     topics: [
@@ -174,7 +165,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Reproductive',
     description: 'Menstrual cycle, pregnancy complications, ovarian tumors, testicular masses, and teratogens.',
     totalPages: 68,
-    lastPage: 68,
     color: '#8c1a4e',
     icon: 'flower',
     topics: [
@@ -191,7 +181,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Immunology',
     description: 'Hypersensitivities (Types I-IV), immunodeficiencies, transplant rejection, and HLA associations.',
     totalPages: 42,
-    lastPage: 42,
     color: '#1a546e',
     icon: 'shield',
     topics: [
@@ -207,7 +196,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Microbiology',
     description: 'Gram positive/negative bacteria, viral taxonomy, mycology, and parasitology high-yield points.',
     totalPages: 52,
-    lastPage: 52,
     color: '#215c2d',
     icon: 'bug',
     topics: [
@@ -224,7 +212,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Biochemistry',
     description: 'Glycogen storage diseases, lysosomal storage diseases, inborn errors of metabolism, and vitamins.',
     totalPages: 56,
-    lastPage: 56,
     color: '#73571a',
     icon: 'flask',
     topics: [
@@ -241,7 +228,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Pathology',
     description: 'Cell injury, necrosis types, inflammation, amyloidosis, and neoplasia characteristics.',
     totalPages: 60,
-    lastPage: 60,
     color: '#6b1a29',
     icon: 'microscope',
     topics: [
@@ -257,7 +243,6 @@ const DEFAULT_MEHLMAN_SYSTEMS = [
     title: 'HY Ethics & Communication',
     description: 'Autonomy, informed consent, surrogate decision makers, patient confidentiality, and medical error disclosure.',
     totalPages: 40,
-    lastPage: 40,
     color: '#344054',
     icon: 'scale',
     topics: [
@@ -293,7 +278,7 @@ function renderMehlmanGrid() {
   const systems = (state && state.mehlmanSystems) || DEFAULT_MEHLMAN_SYSTEMS;
 
   container.innerHTML = systems.map(sys => {
-    const savedLast = parseInt(localStorage.getItem('mmb-' + sys.id + '-last') || sys.lastPage || 1, 10);
+    const savedLast = parseInt(localStorage.getItem('mmb-' + sys.id + '-last') || 1, 10);
     const progressText = (savedLast && savedLast > 1) 
       ? `HY ${sys.name} &middot; continue at p. ${savedLast}`
       : `HY ${sys.name} &middot; ${sys.totalPages} pages`;
@@ -443,14 +428,17 @@ async function renderMehlmanPage(num) {
     // Device Pixel Ratio for sharp retina text rendering
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Calculate fit width based on screen width & zoom (centered & dynamic)
+    // Calculate fit width based on screen width & zoom (fluid & responsive on all Android/mobile screens)
     const scrollContainer = document.getElementById('mehlman-scroll-area');
-    const availWidth = scrollContainer && scrollContainer.clientWidth > 100 
-      ? Math.min(scrollContainer.clientWidth - 40, 880) 
-      : Math.min(window.innerWidth - 60, 880);
+    const isMobile = window.innerWidth < 640;
+    const padding = isMobile ? 16 : 40;
+    const containerWidth = scrollContainer && scrollContainer.clientWidth > 50
+      ? scrollContainer.clientWidth - padding
+      : window.innerWidth - padding;
+    const availWidth = Math.max(280, Math.min(containerWidth, 880));
 
     const baseViewport = page.getViewport({ scale: 1.0 });
-    const targetWidth = Math.max(480, availWidth) * (mehlmanZoom / 100);
+    const targetWidth = availWidth * (mehlmanZoom / 100);
     const fitScale = targetWidth / baseViewport.width;
 
     const viewport = page.getViewport({ scale: fitScale });
@@ -465,19 +453,17 @@ async function renderMehlmanPage(num) {
     canvas.style.width = Math.floor(viewport.width) + 'px';
     canvas.style.height = Math.floor(viewport.height) + 'px';
 
-    ctx.save();
-    ctx.scale(dpr, dpr);
-
+    // Pass DPR transform directly to PDF.js via transform matrix.
+    // Do NOT use ctx.save/restore around render — PDF.js manages canvas state internally.
     const renderContext = {
       canvasContext: ctx,
-      viewport: viewport
+      viewport: viewport,
+      transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null,
     };
 
     _mehlmanRenderTask = page.render(renderContext);
     await _mehlmanRenderTask.promise;
     _mehlmanRenderTask = null;
-
-    ctx.restore();
 
     canvas.classList.remove('hidden');
     const fallback = document.getElementById('mehlman-reader-fallback');
