@@ -207,6 +207,20 @@ function renderFaPageCallouts() {
   var layer = document.getElementById('fa-page-callouts-layer');
   if (!layer) return;
 
+  // ── JSON-DRIVEN PATH (fa_headings.js) ──────────────────────────────────────
+  // If fa_headings.js is loaded and has data for this section, use it
+  if (typeof renderFaGutterMarkers === 'function' &&
+      window.FA_HEADINGS_DATA && Object.keys(window.FA_HEADINGS_DATA).length > 0) {
+    var sys2 = state && state.currentFaSystem;
+    var sectionName2 = sys2 ? (sys2.name || '') : '';
+    var pageNum2 = (state && state.currentFaPage) || 284;
+    // Build matchingTopics for action menu compatibility
+    var matchingTopics2 = window._faPageTopics || (sys2 ? (sys2.topics || []).filter(function(t) { return t.page === pageNum2; }) : []);
+    renderFaGutterMarkers(sectionName2, pageNum2, matchingTopics2);
+    return;
+  }
+
+  // ── LEGACY PATH (fallback when headings data not yet loaded) ───────────────
   var sys = state.currentFaSystem || (state.firstAidSystems || []).find(function(s) { return s.id === 'cvs'; });
   if (!sys) { layer.innerHTML = ''; return; }
 

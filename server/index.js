@@ -608,6 +608,22 @@ app.post('/api/save-sketch', express.json({ limit: '50mb' }), (req, res) => {
   res.json({ success: true, filename, size: buffer.length });
 });
 
+// ==========================================
+// FA HEADINGS JSON — zetchy_headings_all.json
+// ==========================================
+app.get('/api/fa/headings', (req, res) => {
+  const headingsFile = path.join(__dirname, '..', 'data', 'zetchy_headings_all.json');
+  if (fs.existsSync(headingsFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(headingsFile, 'utf8'));
+      return res.json({ success: true, headings: data });
+    } catch (e) {
+      return res.status(500).json({ error: 'Failed to read zetchy_headings_all.json' });
+    }
+  }
+  res.json({ success: true, headings: {} });
+});
+
 // SPA fallback
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

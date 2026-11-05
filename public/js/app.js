@@ -423,7 +423,7 @@ function renderFirstAidGrid(systems = state.firstAidSystems) {
           ${FA_ICONS[sys.icon] || FA_ICONS.heart}
         </div>
         <h3 class="text-base font-bold text-white">${sys.name}</h3>
-        <p class="text-[11px] text-white/80">${sys.subtitle}</p>
+        <p class="text-[11px] text-white/80">'Headings by subject and page'</p>
       </div>
       <div class="pt-3 text-[11px] font-medium text-white/90">
         ✓ ${sys.easy} easy · 🔄 ${sys.forgetting} forgetting
@@ -452,14 +452,6 @@ function zoomFaPage(delta) {
   const label = document.getElementById('fa-zoom-label');
   if (wrapper) wrapper.style.transform = `scale(${faZoomLevel / 100})`;
   if (label) label.textContent = `${faZoomLevel}%`;
-}
-
-function filterFaTOC(query) {
-  const q = (query || '').toLowerCase().trim();
-  const sys = state.currentFaSystem;
-  if (!sys) return;
-  const filtered = (sys.topics || []).filter(t => t.title.toLowerCase().includes(q) || (t.subs||[]).some(s => s.title.toLowerCase().includes(q)));
-  renderFaBookTOC(filtered);
 }
 
 function openFirstAidSystem(sysId) {
@@ -587,14 +579,29 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
     }
   }
 
-  // Render callout overlays on the book page (defined in fa_panel.js)
-  if (typeof renderFaPageCallouts === 'function') renderFaPageCallouts();
+  // Render gutter markers using JSON headings data (fa_headings.js), fallback to legacy
+  if (typeof renderFaGutterMarkers === 'function' && window.FA_HEADINGS_DATA) {
+    const sys = state.currentFaSystem;
+    const sectionName = sys ? sys.name : '';
+    const matchingTopics = window._faPageTopics || (sys ? (sys.topics || []).filter(t => t.page === pageNum) : []);
+    renderFaGutterMarkers(sectionName, state.currentFaPage, matchingTopics);
+  } else if (typeof renderFaPageCallouts === 'function') {
+    renderFaPageCallouts();
+  }
 
   // Show modal
   document.getElementById('modal-fa-book').classList.remove('hidden');
 }
 
+// Legacy renderFaBookTOC — now delegates to fa_headings.js JSON system
 function renderFaBookTOC(topicsList = null) {
+  // If fa_headings.js is loaded and has data, use the JSON-driven renderer
+  if (typeof renderFaHeadingsTOC === 'function' && window.FA_HEADINGS_DATA && Object.keys(window.FA_HEADINGS_DATA).length > 0) {
+    refreshFaHeadingsTOC();
+    return;
+  }
+
+  // Fallback to legacy renderer while headings data loads
   const tocList = document.getElementById('fa-reader-toc-list');
   const sys = state.currentFaSystem;
   if (!tocList || !sys) return;
@@ -612,72 +619,63 @@ function renderFaBookTOC(topicsList = null) {
 
     if (subjKey !== lastSubject && !topicsList) {
       lastSubject = subjKey;
-      html += `
-        <div class="px-2 pt-4 pb-1.5 text-[10px] font-black uppercase tracking-wider text-pink-400/90 border-b border-[#2d1b40]/50 mb-1 flex items-center justify-between">
-          <span>${subjName}</span>
-        </div>
-      `;
+      html += `<div class="px-2 pt-4 pb-1.5 text-[10px] font-black uppercase tracking-wider text-slate-500 border-b border-[#2d1b40]/40 mb-0.5">${subjName}</div>`;
     }
 
     const isAct = state.currentFaTopic && (state.currentFaTopic.id === t.id || state.currentFaTopic.title === t.title);
-    const hasSubs = (t.subs || []).length > 0;
     const isExpanded = isAct || (state.expandedTopics && state.expandedTopics[t.id]);
-    const imgCount = (t.images || []).length;
+    const pageLabel = t.page ? `<span class="text-[10px] text-slate-500 font-mono w-9 shrink-0 text-right pr-1">${t.page}</span>` : `<span class="w-9 shrink-0"></span>`;
 
-    html += `
-      <div class="space-y-0.5">
-        <div onclick="selectFaTopic('${t.id}', ${t.page})" 
-             class="p-2 rounded-xl cursor-pointer text-xs transition-colors flex items-center justify-between ${isAct ? 'bg-[#3b1d42] border border-pink-500/50 text-white font-bold' : 'hover:bg-[#1f132a] text-slate-300'}">
-          <div class="flex items-center gap-2.5 truncate">
-            <span class="text-[10px] text-slate-500 font-mono w-7 shrink-0">${t.page || ''}</span>
-            <span class="truncate ${isAct ? 'text-pink-300 font-bold' : 'text-slate-200'}">${t.title}</span>
-          </div>
-          <div class="flex items-center gap-1.5 shrink-0">
-            ${imgCount > 0 ? `<span class="text-[9px] px-1.5 py-0.5 bg-amber-950/60 text-amber-400 rounded-full border border-amber-900/40">${imgCount}</span>` : ''}
-            <span class="text-slate-600 text-[10px] font-mono">${hasSubs ? (isExpanded ? '&minus;' : '&plus;') : '&minus;'}</span>
-          </div>
-        </div>
-
-        ${hasSubs ? `
-          <div class="pl-8 pr-1 space-y-0.5 ${isExpanded ? '' : 'hidden'}" id="subs-${t.id}">
-            ${t.subs.map(s => {
-              const isSubAct = state.currentFaSubtopic && (state.currentFaSubtopic.id === s.id || state.currentFaSubtopic.title === s.title);
-              const subImgCount = (s.images || []).length;
-              return `
-                <div onclick="selectFaSubtopic('${t.id}', '${s.id}', ${s.page || t.page})"
-                     class="py-1 px-2 rounded-lg cursor-pointer text-[11px] transition-colors flex items-center justify-between ${isSubAct ? 'text-pink-300 font-bold bg-pink-950/50 border border-pink-900/50' : 'text-slate-400 hover:text-white hover:bg-[#1c102a]'}">
-                  <span class="truncate">${s.title}</span>
-                  <div class="flex items-center gap-1 shrink-0">
-                    ${subImgCount > 0 ? `<span class="text-[8px] px-1 bg-amber-950/60 text-amber-400 rounded">${subImgCount}</span>` : ''}
-                    <span class="text-slate-600 text-[9px] font-mono">&minus;</span>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        ` : ''}
-      </div>
-    `;
+    html += `<div class="fa-toc-row flex items-center gap-1 px-2 py-1 cursor-pointer transition-colors ${isAct ? 'bg-[#2a1038] border border-pink-600/30 rounded-xl' : 'hover:bg-[#1a0f27] rounded-xl'}" onclick="selectFaTopic('${t.id}', ${t.page})">
+      ${pageLabel}
+      <span class="flex-1 text-xs leading-snug truncate ${isAct ? 'text-pink-400 font-semibold' : 'text-slate-200 font-medium'}">${t.title}</span>
+      <span class="inline-block w-5 h-5 shrink-0"></span>
+      <span class="w-7 flex items-center justify-center shrink-0"></span>
+    </div>
+    ${(t.subs || []).length > 0 && isExpanded ? (t.subs || []).map(s => `
+      <div class="fa-toc-row flex items-center gap-1 px-2 py-0.5 cursor-pointer transition-colors hover:bg-[#1a0f27] rounded-xl" onclick="selectFaSubtopic('${t.id}', '${s.id}', ${s.page || t.page})">
+        <span class="w-9 shrink-0"></span>
+        <span class="flex-1 text-xs leading-snug truncate text-slate-400">${s.title}</span>
+        <span class="inline-block w-5 h-5 shrink-0"></span>
+        <span class="w-7 shrink-0"></span>
+      </div>`).join('') : ''}`;
   });
 
   tocList.innerHTML = html;
 }
 
+// Legacy filter — now delegates to fa_headings.js
 function filterFaTOC(query) {
+  if (typeof filterFaHeadingsTOC === 'function') {
+    filterFaHeadingsTOC(query);
+    return;
+  }
+  // Fallback
   const q = (query || '').toLowerCase().trim();
   const sys = state.currentFaSystem;
   if (!sys) return;
   if (!q) { renderFaBookTOC(); return; }
-
   const filtered = (sys.topics || []).filter(t => {
-    const matchTitle = (t.title || '').toLowerCase().includes(q);
-    const matchSub = (t.subs || []).some(s => (s.title || '').toLowerCase().includes(q));
-    return matchTitle || matchSub;
+    return (t.title || '').toLowerCase().includes(q) ||
+           (t.subs || []).some(s => (s.title || '').toLowerCase().includes(q));
   });
-
   state.expandedTopics = {};
   filtered.forEach(t => { state.expandedTopics[t.id] = true; });
   renderFaBookTOC(filtered);
+}
+
+// "All text" toggle for sidebar search
+function toggleFaTocAllText() {
+  if (typeof setFaHeadingsAllText === 'function') {
+    const newVal = !(window.FA_HEADINGS_ALL_TEXT);
+    setFaHeadingsAllText(newVal);
+    const btn = document.getElementById('fa-toc-alltext-btn');
+    if (btn) {
+      btn.className = newVal
+        ? 'absolute right-2 top-1 text-[9px] font-bold px-1.5 py-0.5 rounded border border-pink-500/60 text-pink-400 transition-colors'
+        : 'absolute right-2 top-1 text-[9px] font-bold px-1.5 py-0.5 rounded border border-[#3b2452] text-slate-500 hover:text-white hover:border-pink-500/60 transition-colors';
+    }
+  }
 }
 
 function toggleFaBookTableOfContents() {

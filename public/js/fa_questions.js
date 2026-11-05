@@ -369,7 +369,7 @@ function renderCurrentHeadingCard() {
         <span>&larr;</span> Back
       </button>
       <button onclick="skipHeadingCard()" class="min-h-[40px] px-3 text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold transition-colors active:scale-95">
-        <span>&rhd;|</span> Skip
+        <span>⏭</span> Skip
       </button>
       <button onclick="showHeadingCardAnswer()" class="min-h-[42px] text-xs text-pink-300 hover:text-white font-bold flex items-center gap-1.5 transition-all bg-gradient-to-r from-pink-900/60 to-purple-900/60 border border-pink-500/50 px-4 py-2 rounded-xl shadow-[0_0_12px_rgba(236,72,153,0.3)] active:scale-95">
         <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>

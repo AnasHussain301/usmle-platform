@@ -1423,20 +1423,21 @@
         <!-- Search Bar in Sidebar -->
         <div class="p-3 border-b border-[#261536] space-y-2.5">
           <div class="relative">
-            <input type="text" id="fa-toc-search-input" placeholder="Search headings..." oninput="filterFaTOC(this.value)"
-                   class="w-full bg-[#1b1026] border border-[#3b2452] rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
+            <input type="text" id="fa-toc-search-input" placeholder="Search headings..." oninput="filterFaHeadingsTOC(this.value)"
+                   class="w-full bg-[#1b1026] border border-[#3b2452] rounded-xl pl-8 pr-16 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
             <svg class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <button id="fa-toc-alltext-btn" onclick="toggleFaTocAllText()" class="absolute right-2 top-1 text-[9px] font-bold px-1.5 py-0.5 rounded border border-[#3b2452] text-slate-500 hover:text-white hover:border-pink-500/60 transition-colors">All text</button>
           </div>
 
           <div class="flex gap-1.5 text-[10px] font-bold">
-            <button class="px-2.5 py-1 bg-[#251736] text-pink-400 rounded-full border border-pink-900/60">Book order</button>
-            <button class="px-2.5 py-1 text-slate-400 hover:text-white">Weakest first</button>
-            <button class="px-2.5 py-1 text-slate-400 hover:text-white">Strongest first</button>
+            <button class="fa-sort-tab px-2.5 py-1 bg-[#251736] text-pink-400 rounded-full border border-pink-900/60" data-sort="book" onclick="setFaHeadingsSort('book')">Book order</button>
+            <button class="fa-sort-tab px-2.5 py-1 text-slate-400 hover:text-white rounded-full" data-sort="weakest" onclick="setFaHeadingsSort('weakest')">Weakest first</button>
+            <button class="fa-sort-tab px-2.5 py-1 text-slate-400 hover:text-white rounded-full" data-sort="strongest" onclick="setFaHeadingsSort('strongest')">Strongest first</button>
           </div>
         </div>
 
-        <!-- Topics List in Sidebar -->
-        <div id="fa-reader-toc-list" class="flex-1 overflow-y-auto p-2 space-y-1 text-xs"></div>
+        <!-- Topics List in Sidebar — rendered by fa_headings.js -->
+        <div id="fa-reader-toc-list" class="flex-1 overflow-y-auto py-1 text-xs"></div>
       </div>
 
       <!-- Center: Scanned Book Canvas & Interactive Overlay -->
@@ -1959,6 +1960,7 @@
 
   <script src="/js/app.js"></script>
   <script src="/js/fa_panel.js"></script>
+  <script src="/js/fa_headings.js"></script>
   <!-- ========================================== -->
   <!-- FULLSCREEN MEHLMAN HY PDF BOOK READER MODAL-->
   <!-- ========================================== -->

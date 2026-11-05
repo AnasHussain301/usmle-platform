@@ -51,6 +51,102 @@
   ],
   "activity_logs": [
     {
+      "id": "log_1793884354393_chg3",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "what is heart"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-05T13:12:34.393Z"
+    },
+    {
+      "id": "log_1793881679947_9m1c",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "what is a heart"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-05T12:27:59.947Z"
+    },
+    {
+      "id": "log_1793878540542_qqw8",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "what is heart"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-05T11:35:40.542Z"
+    },
+    {
+      "id": "log_1793877513796_at8b",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "what is a heart"
+      },
+      "ip": "::1",
+      "userAgent": "Unknown Device",
+      "timestamp": "2026-11-05T11:18:33.796Z"
+    },
+    {
+      "id": "log_1793876433495_jqoq",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "what is a heart"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-05T11:00:33.495Z"
+    },
+    {
+      "id": "log_1793876397382_w68t",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "hi"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-05T10:59:57.382Z"
+    },
+    {
+      "id": "log_1793875240458_4pwk",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "hi can you please explain ammune system"
+      },
+      "ip": "::1",
+      "userAgent": "node",
+      "timestamp": "2026-11-05T10:40:40.458Z"
+    },
+    {
+      "id": "log_1793875161634_52kj",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "hi can you please explain ammune system"
+      },
+      "ip": "::1",
+      "userAgent": "node",
+      "timestamp": "2026-11-05T10:39:21.634Z"
+    },
+    {
       "id": "log_1793824416754_naju",
       "userId": "guest",
       "userName": "Guest Visitor",
@@ -867,6 +963,78 @@
   "tests": [],
   "radbot_chats": [
     {
+      "id": "chat_1793884354263_bd5m",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "what is heart",
+      "response": "To understand the heart for the USMLE, you must categorize it into three distinct \"languages\": **Physiology (Function), Pathology (Disease), and Pharmacology (Treatment).**\n\n### 1. The Physiology (The \"Engine\")\nThe heart is a **dual-pump system** in series.\n*   **The Wiggers Diagram:** This is the \"Holy Grail\" of Step 1 cardiology. You must be able to correlate the ECG, heart sounds, and pressure changes in the atria, ventricles, and aorta simultaneously.\n*   **Starling’s Law:** Stroke Volume is proportional to End-Diastolic Volume (EDV). If you increase venous return (preload), the heart stretches and pumps harder.\n*   **Pressure-Volume (PV) Loops:** You will be asked how drugs or diseases shift these loops. \n    *   *Example:* **Aortic Stenosis** increases the pressure the left ventricle must overcome, causing a massive increase in afterload and a shift to the right/up.\n\n### 2. The Pathology (The \"Breakdowns\")\n*   **Ischemic Heart Disease:** The balance of $O_2$ supply vs. demand.\n    *   *Supply:* Coronary blood flow (diastolic filling time).\n    *   *Demand:* Heart rate, contractility, afterload, and wall stress.\n*   **Valvular Disease:** Memorize the **\"Mnemonic of Location\":**\n    *   **Aortic:** Right 2nd intercostal space.\n    *   **Pulmonic:** Left 2nd intercostal space.\n    *   **Tricuspid:** Left 4th intercostal space.\n    *   **Mitral:** Left 5th intercostal space (mid-clavicular line).\n\n### 3. The Pharmacology (The \"Modulators\")\n*   **Beta-Blockers:** Decrease $O_2$ demand by slowing HR and contractility.\n*   **Nitrates:** Decrease preload (venous dilation), reducing wall stress.\n*   **ACE Inhibitors:** Decrease afterload and prevent pathological remodeling (the \"long-term survival\" drugs).\n\n---\n\n### Your Synapse Study Path\nTo master this, I recommend the following sequence:\n\n1.  **#fa (First Aid):** Go to **page 279**. Start with the **Cardiac Physiology** section. Use the **AnKing** flashcards to drill the Wiggers Diagram until you can draw it from memory.\n2.  **#mehlman:** Open the **HY Cardiovascular PDF**. Focus on the \"Arrows\" section. This is the single most effective way to prepare for the \"What happens to X when Y changes?\" style of USMLE questions.\n3.  **#sketchy:** Open **Sketchy Pharmacology**. Watch the *Heart Failure* and *Anti-arrhythmic* videos. The visual memory of the drug sites of action is far superior to rote memorization.\n4.  **#qbank:** Once you have reviewed the physiology, take a **15-question block on \"Cardiac Hemodynamics.\"** \n\n**Pro-Tip:** If you are struggling with a specific concept (like why a patient with Aortic Stenosis gets syncope during exercise), tell me, and I will break down the hemodynamic logic for you. \n\n**Are you currently focusing on Physiology or Pathology?**",
+      "context": {},
+      "timestamp": "2026-11-05T13:12:34.263Z"
+    },
+    {
+      "id": "chat_1793881679797_nfnu",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "what is a heart",
+      "response": "To master the \"heart\" for the USMLE, you must move beyond anatomy and view it as a **hemodynamic engine**. On the boards, you are tested on how the heart responds to stress, drugs, and disease.\n\n### 1. The High-Yield \"Big Three\" for Boards\n*   **Physiology (The Pump):** Focus on the **Pressure-Volume Loop**. You must be able to predict how changes in Preload, Afterload, and Contractility shift the loop.\n    *   *Example:* Increased Afterload (e.g., Hypertension) increases the \"height\" of the loop and the End-Systolic Volume.\n*   **Pathology (The Failure):** Distinguish between **HFrEF** (Systolic: low ejection fraction, thin walls) and **HFpEF** (Diastolic: normal EF, stiff/thick walls).\n*   **Pharmacology (The Modulation):** Master the \"Big Four\" for heart failure: **ACE inhibitors/ARBs, Beta-blockers, Aldosterone antagonists, and SGLT2 inhibitors.** These are the only drugs proven to improve mortality in HFrEF.\n\n### 2. Clinical Correlation: The Murmur Cheat Sheet\nIf you hear a murmur on a question, use this hierarchy:\n*   **Systolic:** Aortic Stenosis (crescendo-decrescendo), Mitral Regurgitation (holosystolic, radiates to axilla), VSD (holosystolic, harsh).\n*   **Diastolic:** Aortic Regurgitation (early decrescendo), Mitral Stenosis (opening snap + mid-diastolic rumble).\n\n### 3. Anatomical \"Must-Knows\"\n*   **Coronary Dominance:** 85% of people are \"right-dominant\" (the RCA supplies the PDA).\n*   **The \"Widow-Maker\":** The LAD artery. Occlusion here causes an anterior wall MI (leads V1–V4).\n*   **Nodal Supply:** The SA and AV nodes are usually supplied by the RCA. This is why inferior MIs (RCA) often present with bradycardia or heart block.\n\n---\n\n### Your Synapse Study Plan\n\n*   **#fa (First Aid):** Navigate to **pages 279–336**. Start with the \"Cardiac Physiology\" section. Use the **AnKing** flashcards to memorize the Wiggers Diagram—it is the most high-yield visual for Step 1.\n*   **#mehlman:** Open the **HY Cardiovascular PDF**. Use this specifically for the \"arrows\" questions (e.g., \"What happens to the stroke volume when preload decreases?\"). His explanations are the gold standard for board logic.\n*   **#sketchy:** Watch the **Pharmacology** videos on *Anti-arrhythmics* and *Heart Failure drugs*. The visual mnemonics are essential for remembering the side effects (e.g., Amiodarone's pulmonary fibrosis/thyroid issues).\n*   **#qbank:** Set up a 10-question block on \"Cardiovascular Physiology.\" Focus on the *explanations* for the questions you get wrong—that is where the real points are gained.\n\n**Are you currently studying for Step 1 or Step 2?** I can tailor the depth of my explanations based on your exam phase.",
+      "context": {},
+      "timestamp": "2026-11-05T12:27:59.797Z"
+    },
+    {
+      "id": "chat_1793878540416_9gc1",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "what is heart",
+      "response": "In the context of the USMLE, the heart is not just a pump; it is a **dynamic pressure-volume system** that you must understand in terms of hemodynamics, electrical conduction, and pathology.\n\n### 1. The Cardiac Cycle (Pressure-Volume Loop)\nUnderstanding the **Pressure-Volume (PV) Loop** is essential for Step 1.\n*   **Isovolumetric Contraction:** All valves closed; pressure rises rapidly.\n*   **Systolic Ejection:** Aortic valve opens; volume decreases.\n*   **Isovolumetric Relaxation:** All valves closed; pressure drops.\n*   **Diastolic Filling:** Mitral valve opens; volume increases.\n*   **Board Pearl:** Increased **preload** (venous return) shifts the loop to the right; increased **afterload** (TPR) increases the height of the loop; increased **contractility** increases the stroke volume and decreases end-systolic volume.\n\n### 2. Electrical Conduction\nThe heart’s rhythm is governed by the conduction system.\n*   **SA Node:** The pacemaker (intrinsic rate 60–100 bpm).\n*   **AV Node:** The \"gatekeeper\" (delays signal to allow ventricular filling).\n*   **Bundle of His/Purkinje System:** Rapid conduction for synchronized ventricular contraction.\n*   **Clinical Correlation:** Know the **ECG intervals**:\n    *   **PR Interval:** < 200 ms (AV node conduction time).\n    *   **QRS Complex:** < 120 ms (Ventricular depolarization).\n    *   **QT Interval:** Corrected for heart rate; prolonged QT is a major risk for *Torsades de Pointes*.\n\n### 3. Key Pathophysiology\n*   **Heart Failure (HFrEF vs. HFpEF):** HFrEF (systolic) is a problem of contractility; HFpEF (diastolic) is a problem of compliance.\n*   **Valvular Disease:** Know the murmur associations (e.g., Aortic Stenosis = \"Crescendo-decrescendo systolic murmur at the right sternal border\").\n*   **Ischemic Heart Disease:** The balance between myocardial oxygen supply and demand.\n\n---\n\n### Where to go next on Synapse:\n\n*   **#fa (First Aid):** Go to **pages 279–336**. This is your primary resource for the \"Cardiac Physiology\" and \"Cardiac Pathology\" chapters. Use the **AnKing** flashcards linked to the \"Cardiac Cycle\" and \"ECG\" headers to lock in the mechanics.\n*   **#mehlman:** Open the **HY Cardiovascular PDF**. Dr. Mehlman’s resource is excellent for \"connecting the dots\" between physiology and clinical presentation—specifically for the high-yield \"What happens to the PV loop in X condition?\" questions.\n*   **#sketchy:** Use the **Sketchy Pharmacology** section to master the mechanisms of **ACE inhibitors, Beta-blockers, and Diuretics**. These are the most frequently tested drugs in cardiology.\n*   **#qbank:** Filter for \"Cardiovascular\" and \"Physiology\" to practice interpreting PV loops and ECG strips.\n\n**Do you have a specific cardiac pathology or physiological concept you are struggling with?** (e.g., \"How does aortic stenosis change the PV loop?\" or \"Explain the difference between S3 and S4.\")",
+      "context": {},
+      "timestamp": "2026-11-05T11:35:40.416Z"
+    },
+    {
+      "id": "chat_1793877513672_wbrv",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "what is a heart",
+      "response": "### Anatomical & Functional Overview\nThe heart is a four-chambered muscular pump situated in the mediastinum, responsible for maintaining systemic and pulmonary circulation. \n\n*   **Right Side (Pulmonary Circulation):** Right atrium $\\rightarrow$ Tricuspid valve $\\rightarrow$ Right ventricle $\\rightarrow$ Pulmonic valve $\\rightarrow$ Pulmonary artery $\\rightarrow$ Lungs.\n*   **Left Side (Systemic Circulation):** Lungs $\\rightarrow$ Pulmonary veins $\\rightarrow$ Left atrium $\\rightarrow$ Mitral (bicuspid) valve $\\rightarrow$ Left ventricle $\\rightarrow$ Aortic valve $\\rightarrow$ Aorta $\\rightarrow$ Body.\n\n---\n\n### High-Yield USMLE Board Concepts\n\n#### 1. Blood Supply (Coronary Circulation)\n*   **Right Coronary Artery (RCA):** Supplies the right atrium, right ventricle, and typically the **inferior wall** of the left ventricle (leads II, III, aVF) and the **SA/AV nodes** (determines coronary dominance).\n*   **Left Anterior Descending (LAD):** Supplies the **anterior wall** of the left ventricle and the anterior 2/3 of the interventricular septum (leads V1–V4). *Most commonly occluded artery (\"widow-maker\").*\n*   **Left Circumflex (LCx):** Supplies the **lateral wall** of the left ventricle (leads I, aVL, V5–V6).\n\n#### 2. Heart Sounds\n*   **S1:** Closure of mitral and tricuspid valves (onset of systole). Best heard at the apex.\n*   **S2:** Closure of aortic and pulmonic valves (onset of diastole). Physiological splitting occurs during inspiration due to increased venous return to the right side, delaying P2 closure.\n*   **S3:** Early diastolic filling sound; normal in youth/athletes, pathological in **heart failure with reduced ejection fraction (HFrEF)** or volume overload (mitral regurgitation).\n*   **S4:** Late diastolic sound caused by atrial contraction against a stiff, non-compliant ventricle; associated with **left ventricular hypertrophy (LVH)**, hypertension, or aortic stenosis.\n\n---\n\n### Synapse Platform Navigation\nTo dive deeper into cardiovascular physiology, pathology, and pharmacology for the boards, check out these sections on Synapse:\n*   **#fa (First Aid):** Cardiovascular section (pages 279–336) for core organ system review and integrated **AnKing flashcards** (click the \"M\" button on any heading).\n*   **#mehlman:** *HY Cardiovascular PDF* for high-yield board concepts and rapid-fire associations.\n*   **#sketchy:** *Sketchy Pathology* and *Pharmacology* for visual mnemonics on heart failure drugs, arrhythmias, and valvular diseases.\n*   **#qbank:** Test your knowledge with USMLE-style questions on coronary syndromes and murmurs.",
+      "context": {},
+      "timestamp": "2026-11-05T11:18:33.672Z"
+    },
+    {
+      "id": "chat_1793876433356_ltze",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "what is a heart",
+      "response": "### 🫀 High-Yield Cardiovascular Concepts for USMLE\n\n#### 1. Autoregulation of Blood Flow\nAutoregulation maintains constant perfusion pressure over mean arterial pressures between **60–160 mmHg**.\n* **Brain:** Regulated by local tissue **$p\text{CO}_2$** (hypercapnia &rarr; potent cerebral vasodilation).\n* **Heart:** Regulated by **adenosine, nitric oxide (NO), and local hypoxia**.\n* **Kidney:** Regulated via myogenic stretch mechanism and **tubuloglomerular feedback** (macula densa detects distal tubular NaCl).\n* **Skeletal Muscle:** Regulated by local metabolites during exercise: **adenosine, $\text{K}^+$, $\text{H}^+$, lactate, and $\text{CO}_2$**.\n\n#### 2. Classic Murmurs Distinction\n* **Aortic Stenosis:** Crescendo-decrescendo systolic ejection murmur at right 2nd intercostal space; radiates to **carotids**; pulsus parvus et tardus.\n* **Mitral Regurgitation:** Holosystolic blowing murmur at apex; radiates to **axilla**; loudest in left lateral decubitus.\n* **Aortic Regurgitation:** Early high-pitched blowing diastolic decrescendo murmur at left sternal border; wide pulse pressure (water-hammer pulse).\n* **Mitral Stenosis:** Opening snap followed by mid-diastolic rumbling murmur at apex; often secondary to rheumatic heart disease.\n\n---\n\n#### 📚 Recommended Synapse References:\n* **First Aid 2024 (#fa):** Cardiovascular Physiology & Pathology (pages 284–342).\n* **Mehlman HY PDFs (#mehlman):** HY Cardiovascular (74 pages of annotated loops & vignettes).",
+      "context": {},
+      "timestamp": "2026-11-05T11:00:33.356Z"
+    },
+    {
+      "id": "chat_1793876397237_l55t",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "hi",
+      "response": "Hello! I am ANSI 1.0 PRO, your advanced neural study assistant for USMLE Step 1 and Step 2 preparation on Synapse. \n\nHow can I help you optimize your board prep today? Whether you need help navigating our resources (**#fa**, **#mehlman**, **#sketchy**, **#ddx**, **#qbank**), want to break down a difficult medical concept, or need a structured differential diagnosis, just let me know!",
+      "context": {},
+      "timestamp": "2026-11-05T10:59:57.237Z"
+    },
+    {
+      "id": "chat_1793875240351_8cla",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "hi can you please explain ammune system",
+      "response": "### 🧬 High-Yield USMLE: The Immune System\n\nThe human immune system is divided into two primary arms: **Innate Immunity** (rapid, non-specific, no memory) and **Adaptive Immunity** (slow onset, highly specific, long-term memory).\n\n---\n\n#### 1. Innate Immunity (Immediate: 0 to 12 Hours)\n* **First Line of Defense:** Epithelial barriers (skin, mucosa), defensins, lysosomes.\n* **Cellular Effectors:** \n  * **Neutrophils:** Primary responders to acute bacterial infection and tissue necrosis; recruited by **C5a, LTB4, and IL-8**.\n  * **Macrophages:** Phagocytosis, antigen presentation via MHC II, secretion of **IL-1, IL-6, TNF-α** (acute phase response).\n  * **Natural Killer (NK) Cells:** Large granular lymphocytes that destroy virus-infected and malignant cells. They recognize cells with **decreased MHC Class I expression** (\"missing-self\" signal).\n* **Complement Cascade:**\n  * **Opsonization:** **C3b** (primary opsonin for macrophage phagocytosis).\n  * **Anaphylatoxins:** **C3a, C4a, C5a** (trigger mast cell histamine release).\n  * **Membrane Attack Complex (MAC):** **C5b-C9** punches osmotic holes in Gram-negative bacteria (deficiency leads to recurrent *Neisseria meningitidis/gonorrhoeae*).\n\n---\n\n#### 2. Adaptive Immunity (Delayed: >4 Days)\n##### A. Cell-Mediated Immunity (T-Lymphocytes)\n* Mature in the **thymus**; express CD3 and TCRs.\n* **CD4+ Helper T Cells:** Bind **MHC Class II** (Expressed on APCs: dendritic cells, macrophages, B-cells).\n  * **Th1:** Secretes **IFN-γ** &rarr; activates macrophages to kill intracellular pathogens (*M. tuberculosis*).\n  * **Th2:** Secretes **IL-4, IL-5, IL-13** &rarr; activates eosinophils and drives IgE class switching (allergies, helminths).\n  * **Th17:** Secretes **IL-17** &rarr; recruits neutrophils for mucosal barrier protection.\n  * **Treg:** Secretes **IL-10 & TGF-β** &rarr; immune tolerance and suppression.\n* **CD8+ Cytotoxic T Cells:** Bind **MHC Class I** (Expressed on all nucleated cells); kill infected targets via **perforin and granzyme B** inducing apoptosis.\n* **Mnemonic:** **The Rule of 8**: $\text{CD4} \times \text{MHC II} = 8$ and $\text{CD8} \times \text{MHC I} = 8$.\n\n##### B. Humoral Immunity (B-Lymphocytes & Antibodies)\n* Mature in **bone marrow**; differentiate into plasma cells that produce immunoglobulins.\n* **IgG:** Most abundant; **crosses the placenta** (passive immunity to infant); secondary immune response.\n* **IgA:** Secretory dimer in mucus, saliva, tears, and breast milk; protects mucosal surfaces.\n* **IgM:** Pentamer; primary acute immune response; highest avidity; excellent complement activator.\n* **IgE:** Binds to high-affinity receptors on mast cells and basophils; mediates **Type I hypersensitivity** and defense against helminthic parasites.\n\n---\n\n#### 3. High-Yield Immunodeficiencies on Boards\n* **DiGeorge Syndrome (22q11.2 deletion):** Failed development of 3rd and 4th pharyngeal pouches &rarr; thymic aplasia &rarr; **severe T-cell deficiency** + hypocalcemia (parathyroid aplasia).\n* **X-Linked (Bruton) Agammaglobulinemia:** Defect in **BTK (Bruton tyrosine kinase)** &rarr; failure of pre-B cells to mature &rarr; **absent B cells and low all Ig classes** (recurrent sinopulmonary bacterial infections after 6 months of age).\n* **SCID (Severe Combined Immunodeficiency):** Defective IL-2R gamma chain or adenosine deaminase deficiency &rarr; **absent T cells and B cells**; infant presents with failure to thrive, chronic diarrhea, and thrush.\n* **Chronic Granulomatous Disease (CGD):** NADPH oxidase defect &rarr; impaired respiratory burst &rarr; recurrent infections by catalase-positive organisms (*S. aureus, Serratia, Aspergillus*).\n\n---\n\n#### 📚 Where to Study This in Synapse:\n* **First Aid 2024 (#fa):** Open **Immunology (pages 95–124)**. Click the **M** buttons on each heading to launch targeted AnKing practice cards.\n* **Mehlman HY PDFs (#mehlman):** Review **HY Immunology** for high-yield diagnostic questions.\n* **Sketchy (#sketchy):** Review **Sketchy Micro (Bacteria/Viruses)** for immune evasion mechanisms.",
+      "context": {},
+      "timestamp": "2026-11-05T10:40:40.352Z"
+    },
+    {
+      "id": "chat_1793875161499_23nk",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "hi can you please explain ammune system",
+      "response": "### 🧬 High-Yield USMLE: The Immune System\n\nThe human immune system is divided into two primary arms: **Innate Immunity** (rapid, non-specific, no memory) and **Adaptive Immunity** (slow onset, highly specific, long-term memory).\n\n---\n\n#### 1. Innate Immunity (Immediate: 0 to 12 Hours)\n* **First Line of Defense:** Epithelial barriers (skin, mucosa), defensins, lysosomes.\n* **Cellular Effectors:** \n  * **Neutrophils:** Primary responders to acute bacterial infection and tissue necrosis; recruited by **C5a, LTB4, and IL-8**.\n  * **Macrophages:** Phagocytosis, antigen presentation via MHC II, secretion of **IL-1, IL-6, TNF-α** (acute phase response).\n  * **Natural Killer (NK) Cells:** Large granular lymphocytes that destroy virus-infected and malignant cells. They recognize cells with **decreased MHC Class I expression** (\"missing-self\" signal).\n* **Complement Cascade:**\n  * **Opsonization:** **C3b** (primary opsonin for macrophage phagocytosis).\n  * **Anaphylatoxins:** **C3a, C4a, C5a** (trigger mast cell histamine release).\n  * **Membrane Attack Complex (MAC):** **C5b-C9** punches osmotic holes in Gram-negative bacteria (deficiency leads to recurrent *Neisseria meningitidis/gonorrhoeae*).\n\n---\n\n#### 2. Adaptive Immunity (Delayed: >4 Days)\n##### A. Cell-Mediated Immunity (T-Lymphocytes)\n* Mature in the **thymus**; express CD3 and TCRs.\n* **CD4+ Helper T Cells:** Bind **MHC Class II** (Expressed on APCs: dendritic cells, macrophages, B-cells).\n  * **Th1:** Secretes **IFN-γ** &rarr; activates macrophages to kill intracellular pathogens (*M. tuberculosis*).\n  * **Th2:** Secretes **IL-4, IL-5, IL-13** &rarr; activates eosinophils and drives IgE class switching (allergies, helminths).\n  * **Th17:** Secretes **IL-17** &rarr; recruits neutrophils for mucosal barrier protection.\n  * **Treg:** Secretes **IL-10 & TGF-β** &rarr; immune tolerance and suppression.\n* **CD8+ Cytotoxic T Cells:** Bind **MHC Class I** (Expressed on all nucleated cells); kill infected targets via **perforin and granzyme B** inducing apoptosis.\n* **Mnemonic:** **The Rule of 8**: $\text{CD4} \times \text{MHC II} = 8$ and $\text{CD8} \times \text{MHC I} = 8$.\n\n##### B. Humoral Immunity (B-Lymphocytes & Antibodies)\n* Mature in **bone marrow**; differentiate into plasma cells that produce immunoglobulins.\n* **IgG:** Most abundant; **crosses the placenta** (passive immunity to infant); secondary immune response.\n* **IgA:** Secretory dimer in mucus, saliva, tears, and breast milk; protects mucosal surfaces.\n* **IgM:** Pentamer; primary acute immune response; highest avidity; excellent complement activator.\n* **IgE:** Binds to high-affinity receptors on mast cells and basophils; mediates **Type I hypersensitivity** and defense against helminthic parasites.\n\n---\n\n#### 3. High-Yield Immunodeficiencies on Boards\n* **DiGeorge Syndrome (22q11.2 deletion):** Failed development of 3rd and 4th pharyngeal pouches &rarr; thymic aplasia &rarr; **severe T-cell deficiency** + hypocalcemia (parathyroid aplasia).\n* **X-Linked (Bruton) Agammaglobulinemia:** Defect in **BTK (Bruton tyrosine kinase)** &rarr; failure of pre-B cells to mature &rarr; **absent B cells and low all Ig classes** (recurrent sinopulmonary bacterial infections after 6 months of age).\n* **SCID (Severe Combined Immunodeficiency):** Defective IL-2R gamma chain or adenosine deaminase deficiency &rarr; **absent T cells and B cells**; infant presents with failure to thrive, chronic diarrhea, and thrush.\n* **Chronic Granulomatous Disease (CGD):** NADPH oxidase defect &rarr; impaired respiratory burst &rarr; recurrent infections by catalase-positive organisms (*S. aureus, Serratia, Aspergillus*).\n\n---\n\n#### 📚 Where to Study This in Synapse:\n* **First Aid 2024 (#fa):** Open **Immunology (pages 95–124)**. Click the **M** buttons on each heading to launch targeted AnKing practice cards.\n* **Mehlman HY PDFs (#mehlman):** Review **HY Immunology** for high-yield diagnostic questions.\n* **Sketchy (#sketchy):** Review **Sketchy Micro (Bacteria/Viruses)** for immune evasion mechanisms.",
+      "context": {},
+      "timestamp": "2026-11-05T10:39:21.499Z"
+    },
+    {
       "id": "chat_1793824416629_mhhn",
       "userId": "guest",
       "userName": "Guest Visitor",
@@ -1122,6 +1290,81 @@
     }
   ],
   "radbot_sessions": [
+    {
+      "id": "session_1793884277455_f44vn",
+      "userId": "guest",
+      "title": "what is heart",
+      "createdAt": "2026-11-05T13:11:17.455Z",
+      "updatedAt": "2026-11-05T13:12:34.548Z",
+      "wordCount": 400,
+      "messages": [
+        {
+          "role": "user",
+          "text": "what is heart",
+          "timestamp": "2026-11-05T13:11:23.784Z"
+        },
+        {
+          "role": "assistant",
+          "text": "To understand the heart for the USMLE, you must categorize it into three distinct \"languages\": **Physiology (Function), Pathology (Disease), and Pharmacology (Treatment).**\n\n### 1. The Physiology (The \"Engine\")\nThe heart is a **dual-pump system** in series.\n*   **The Wiggers Diagram:** This is the \"Holy Grail\" of Step 1 cardiology. You must be able to correlate the ECG, heart sounds, and pressure changes in the atria, ventricles, and aorta simultaneously.\n*   **Starling’s Law:** Stroke Volume is proportional to End-Diastolic Volume (EDV). If you increase venous return (preload), the heart stretches and pumps harder.\n*   **Pressure-Volume (PV) Loops:** You will be asked how drugs or diseases shift these loops. \n    *   *Example:* **Aortic Stenosis** increases the pressure the left ventricle must overcome, causing a massive increase in afterload and a shift to the right/up.\n\n### 2. The Pathology (The \"Breakdowns\")\n*   **Ischemic Heart Disease:** The balance of $O_2$ supply vs. demand.\n    *   *Supply:* Coronary blood flow (diastolic filling time).\n    *   *Demand:* Heart rate, contractility, afterload, and wall stress.\n*   **Valvular Disease:** Memorize the **\"Mnemonic of Location\":**\n    *   **Aortic:** Right 2nd intercostal space.\n    *   **Pulmonic:** Left 2nd intercostal space.\n    *   **Tricuspid:** Left 4th intercostal space.\n    *   **Mitral:** Left 5th intercostal space (mid-clavicular line).\n\n### 3. The Pharmacology (The \"Modulators\")\n*   **Beta-Blockers:** Decrease $O_2$ demand by slowing HR and contractility.\n*   **Nitrates:** Decrease preload (venous dilation), reducing wall stress.\n*   **ACE Inhibitors:** Decrease afterload and prevent pathological remodeling (the \"long-term survival\" drugs).\n\n---\n\n### Your Synapse Study Path\nTo master this, I recommend the following sequence:\n\n1.  **#fa (First Aid):** Go to **page 279**. Start with the **Cardiac Physiology** section. Use the **AnKing** flashcards to drill the Wiggers Diagram until you can draw it from memory.\n2.  **#mehlman:** Open the **HY Cardiovascular PDF**. Focus on the \"Arrows\" section. This is the single most effective way to prepare for the \"What happens to X when Y changes?\" style of USMLE questions.\n3.  **#sketchy:** Open **Sketchy Pharmacology**. Watch the *Heart Failure* and *Anti-arrhythmic* videos. The visual memory of the drug sites of action is far superior to rote memorization.\n4.  **#qbank:** Once you have reviewed the physiology, take a **15-question block on \"Cardiac Hemodynamics.\"** \n\n**Pro-Tip:** If you are struggling with a specific concept (like why a patient with Aortic Stenosis gets syncope during exercise), tell me, and I will break down the hemodynamic logic for you. \n\n**Are you currently focusing on Physiology or Pathology?**",
+          "timestamp": "2026-11-05T13:12:34.546Z"
+        }
+      ]
+    },
+    {
+      "id": "session_1793878458229_jv41o",
+      "userId": "guest",
+      "title": "what is heart",
+      "createdAt": "2026-11-05T11:34:18.229Z",
+      "updatedAt": "2026-11-05T12:28:00.111Z",
+      "wordCount": 393,
+      "messages": [
+        {
+          "role": "user",
+          "text": "what is heart",
+          "timestamp": "2026-11-05T11:34:26.252Z"
+        },
+        {
+          "role": "user",
+          "text": "what is a heart",
+          "timestamp": "2026-11-05T12:27:42.501Z"
+        },
+        {
+          "role": "assistant",
+          "text": "To master the \"heart\" for the USMLE, you must move beyond anatomy and view it as a **hemodynamic engine**. On the boards, you are tested on how the heart responds to stress, drugs, and disease.\n\n### 1. The High-Yield \"Big Three\" for Boards\n*   **Physiology (The Pump):** Focus on the **Pressure-Volume Loop**. You must be able to predict how changes in Preload, Afterload, and Contractility shift the loop.\n    *   *Example:* Increased Afterload (e.g., Hypertension) increases the \"height\" of the loop and the End-Systolic Volume.\n*   **Pathology (The Failure):** Distinguish between **HFrEF** (Systolic: low ejection fraction, thin walls) and **HFpEF** (Diastolic: normal EF, stiff/thick walls).\n*   **Pharmacology (The Modulation):** Master the \"Big Four\" for heart failure: **ACE inhibitors/ARBs, Beta-blockers, Aldosterone antagonists, and SGLT2 inhibitors.** These are the only drugs proven to improve mortality in HFrEF.\n\n### 2. Clinical Correlation: The Murmur Cheat Sheet\nIf you hear a murmur on a question, use this hierarchy:\n*   **Systolic:** Aortic Stenosis (crescendo-decrescendo), Mitral Regurgitation (holosystolic, radiates to axilla), VSD (holosystolic, harsh).\n*   **Diastolic:** Aortic Regurgitation (early decrescendo), Mitral Stenosis (opening snap + mid-diastolic rumble).\n\n### 3. Anatomical \"Must-Knows\"\n*   **Coronary Dominance:** 85% of people are \"right-dominant\" (the RCA supplies the PDA).\n*   **The \"Widow-Maker\":** The LAD artery. Occlusion here causes an anterior wall MI (leads V1–V4).\n*   **Nodal Supply:** The SA and AV nodes are usually supplied by the RCA. This is why inferior MIs (RCA) often present with bradycardia or heart block.\n\n---\n\n### Your Synapse Study Plan\n\n*   **#fa (First Aid):** Navigate to **pages 279–336**. Start with the \"Cardiac Physiology\" section. Use the **AnKing** flashcards to memorize the Wiggers Diagram—it is the most high-yield visual for Step 1.\n*   **#mehlman:** Open the **HY Cardiovascular PDF**. Use this specifically for the \"arrows\" questions (e.g., \"What happens to the stroke volume when preload decreases?\"). His explanations are the gold standard for board logic.\n*   **#sketchy:** Watch the **Pharmacology** videos on *Anti-arrhythmics* and *Heart Failure drugs*. The visual mnemonics are essential for remembering the side effects (e.g., Amiodarone's pulmonary fibrosis/thyroid issues).\n*   **#qbank:** Set up a 10-question block on \"Cardiovascular Physiology.\" Focus on the *explanations* for the questions you get wrong—that is where the real points are gained.\n\n**Are you currently studying for Step 1 or Step 2?** I can tailor the depth of my explanations based on your exam phase.",
+          "timestamp": "2026-11-05T12:28:00.106Z"
+        }
+      ]
+    },
+    {
+      "id": "session_1793876391610_sgrua",
+      "userId": "guest",
+      "title": "hi",
+      "createdAt": "2026-11-05T10:59:51.610Z",
+      "updatedAt": "2026-11-05T11:00:33.669Z",
+      "wordCount": 256,
+      "messages": [
+        {
+          "role": "user",
+          "text": "hi",
+          "timestamp": "2026-11-05T10:59:55.651Z"
+        },
+        {
+          "role": "assistant",
+          "text": "Hello! I am ANSI 1.0 PRO, your advanced neural study assistant for USMLE Step 1 and Step 2 preparation on Synapse. \n\nHow can I help you optimize your board prep today? Whether you need help navigating our resources (**#fa**, **#mehlman**, **#sketchy**, **#ddx**, **#qbank**), want to break down a difficult medical concept, or need a structured differential diagnosis, just let me know!",
+          "timestamp": "2026-11-05T10:59:57.540Z"
+        },
+        {
+          "role": "user",
+          "text": "what is a heart",
+          "timestamp": "2026-11-05T11:00:10.084Z"
+        },
+        {
+          "role": "assistant",
+          "text": "### 🫀 High-Yield Cardiovascular Concepts for USMLE\n\n#### 1. Autoregulation of Blood Flow\nAutoregulation maintains constant perfusion pressure over mean arterial pressures between **60–160 mmHg**.\n* **Brain:** Regulated by local tissue **$p\text{CO}_2$** (hypercapnia &rarr; potent cerebral vasodilation).\n* **Heart:** Regulated by **adenosine, nitric oxide (NO), and local hypoxia**.\n* **Kidney:** Regulated via myogenic stretch mechanism and **tubuloglomerular feedback** (macula densa detects distal tubular NaCl).\n* **Skeletal Muscle:** Regulated by local metabolites during exercise: **adenosine, $\text{K}^+$, $\text{H}^+$, lactate, and $\text{CO}_2$**.\n\n#### 2. Classic Murmurs Distinction\n* **Aortic Stenosis:** Crescendo-decrescendo systolic ejection murmur at right 2nd intercostal space; radiates to **carotids**; pulsus parvus et tardus.\n* **Mitral Regurgitation:** Holosystolic blowing murmur at apex; radiates to **axilla**; loudest in left lateral decubitus.\n* **Aortic Regurgitation:** Early high-pitched blowing diastolic decrescendo murmur at left sternal border; wide pulse pressure (water-hammer pulse).\n* **Mitral Stenosis:** Opening snap followed by mid-diastolic rumbling murmur at apex; often secondary to rheumatic heart disease.\n\n---\n\n#### 📚 Recommended Synapse References:\n* **First Aid 2024 (#fa):** Cardiovascular Physiology & Pathology (pages 284–342).\n* **Mehlman HY PDFs (#mehlman):** HY Cardiovascular (74 pages of annotated loops & vignettes).",
+          "timestamp": "2026-11-05T11:00:33.665Z"
+        }
+      ]
+    },
     {
       "id": "session_1793820261089_lw53s",
       "userId": "guest",
