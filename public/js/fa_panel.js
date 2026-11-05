@@ -254,8 +254,14 @@ function renderFaPageCallouts() {
 
   // Render callout buttons positioned along left side of the page
   var html = '';
+  var totalTopics = matchingTopics.length;
   matchingTopics.forEach(function(topic, idx) {
-    var topPx = 90 + idx * 260; // Spread out so Autoregulation and Capillary fluid align with page headings
+    // Dynamically calculate vertical position so every heading on the page gets its own ... icon
+    var topPx = 110 + idx * 135;
+    if (totalTopics > 4) {
+      topPx = 100 + idx * Math.min(130, Math.floor(740 / totalTopics));
+    }
+
     var imgCount = (topic.images || []).length;
     var tblCount = (topic.tables || []).length;
     var calloutId = 'callout-' + idx;
@@ -265,21 +271,14 @@ function renderFaPageCallouts() {
 
     // Get total questions count for badge
     var qList = (typeof getQuestionsForTopic === 'function') ? getQuestionsForTopic(topic) : [];
-    var qCount = qList.length || 35;
+    var qCount = qList.length || 0;
 
     html += '<div class="absolute pointer-events-auto flex items-center gap-1.5" style="top: ' + topPx + 'px; left: 10px; z-index: 25;">' +
-      // Margin M Button (Screenshot 1 & 2)
-      '<button onclick="openWhichQuestionsModal(' + idx + ')"' +
-        ' class="w-7 h-7 rounded-full bg-[#1b1028] hover:bg-[#311c47] border border-[#522f73] flex items-center justify-center text-slate-200 hover:text-pink-300 font-black text-[11px] shadow-lg transition-transform hover:scale-105"' +
-        ' title="Questions & AnKing: ' + escHtml(topic.title) + '">' +
-        '<span>M</span>' +
-      '</button>' +
-
-      // Three Dots Action Menu Button
+      // Three Dots (...) Action Menu Button attached to every heading
       '<button onclick="toggleCalloutMenu(\'' + calloutId + '\')"' +
-        ' class="w-7 h-7 rounded-full bg-[#241535]/90 border border-[#5a3580] flex items-center justify-center text-slate-300 hover:text-white hover:bg-[#3d2258] transition-all shadow-lg backdrop-blur-sm"' +
+        ' class="w-7 h-7 rounded-full bg-[#241535]/90 hover:bg-[#3d2258] border border-[#5a3580] flex items-center justify-center text-slate-300 hover:text-white transition-all shadow-lg backdrop-blur-sm hover:scale-105 active:scale-95"' +
         ' title="' + escHtml(topic.title) + '">' +
-        '<span class="text-xs font-bold">\u22EF</span>' +
+        '<span class="text-xs font-bold leading-none select-none">\u22EF</span>' +
       '</button>' +
 
       // Floating Callout Action Menu (Responsive on Mobile & Android)

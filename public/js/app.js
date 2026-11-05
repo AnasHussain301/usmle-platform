@@ -440,6 +440,7 @@ function handleFaImageError(img) {
 
 function handleFaImageSuccess(img) {
   img.classList.remove('hidden');
+  img.style.opacity = '1';
   const fallback = document.getElementById('fa-reader-page-fallback');
   if (fallback) fallback.classList.add('hidden');
 }
@@ -509,9 +510,11 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   if (topIndicator) topIndicator.textContent = `p. ${state.currentFaPage}`;
   if (bottomIndicator) bottomIndicator.textContent = `< ${state.currentFaPage} / 844 >`;
 
-  // Try loading real book page scan
+  // Smooth page transition animation
   const pageImg = document.getElementById('fa-reader-page-img');
   if (pageImg) {
+    pageImg.style.opacity = '0.35';
+    pageImg.style.transition = 'opacity 0.18s ease-in-out';
     pageImg.src = `/fa-page/${state.currentFaPage}.webp`;
   }
 
@@ -573,6 +576,16 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
 
   // Render left sidebar TOC
   renderFaBookTOC();
+
+  // On mobile screens (< 768px), start with TOC sidebar closed so book page is immediately visible
+  const tocDrawer = document.getElementById('fa-reader-toc');
+  if (tocDrawer) {
+    if (window.innerWidth < 768) {
+      tocDrawer.classList.add('hidden');
+    } else {
+      tocDrawer.classList.remove('hidden');
+    }
+  }
 
   // Render callout overlays on the book page (defined in fa_panel.js)
   if (typeof renderFaPageCallouts === 'function') renderFaPageCallouts();

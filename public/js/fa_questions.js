@@ -32,15 +32,18 @@ function parseAuthenticQuestion(item, headingTitle, source = 'mnemosyne') {
   };
 }
 
-// Generate AnKing style cloze card from question
+// Generate AnKing style cloze card from authentic question
 function makeAnKingClozeCard(item, headingTitle, idx) {
   const qText = item.q || '';
   const aText = Array.isArray(item.a) ? item.a.join(' · ') : (item.a || '');
-  
-  // Format as AnKing cloze: "____ is the maintenance of..."
+
   let clozePrompt = '';
-  if (qText.toLowerCase().includes('definition of') || qText.toLowerCase().includes('what is')) {
-    clozePrompt = `{{c1::${headingTitle}}} ${aText.replace(/[\[\]]/g, '')}`;
+  if (aText.includes('[[') && aText.includes(']]')) {
+    // Transform authentic [[Answer]] to {{c1::Answer}}
+    const clozeFormatted = aText.replace(/\[\[(.*?)\]\]/g, function(match, p1) {
+      return '{{c1::' + p1 + '}}';
+    });
+    clozePrompt = `${qText}\n\n${clozeFormatted}`;
   } else {
     clozePrompt = `${qText}\n\nAnswer: {{c1::${aText.replace(/[\[\]]/g, '')}}}`;
   }
@@ -64,7 +67,6 @@ function makeAnKingClozeCard(item, headingTitle, idx) {
 function getQuestionsForTopic(topic) {
   if (!topic) return [];
   const tid = (topic.id || '').toLowerCase();
-  const baseTid = tid.replace(/-continued$/, '');
   const headingTitle = topic.title || 'Topic';
 
   // Find system key
@@ -73,25 +75,44 @@ function getQuestionsForTopic(topic) {
 
   // Lookup in authentic dataset
   const faQs = (typeof window !== 'undefined' && window.FA_QUESTIONS_DATA && window.FA_QUESTIONS_DATA[sysKey]) || {};
-  const rawList = faQs[tid] || faQs[baseTid] || [];
+  let rawList = faQs[tid] || faQs[tid.replace(/-continued$/, '')] || [];
+
+  // Hierarchical subtopic lookup: if subtopic has no exact key, inherit from parent topic and filter
+  if (rawList.length === 0 && tid.includes('--')) {
+    const parentTid = tid.split('--')[0];
+    const parentList = faQs[parentTid] || faQs[parentTid.replace(/-continued$/, '')] || [];
+    const norm = headingTitle.toLowerCase().replace(/\(.*?\)/g, '').trim();
+    if (norm.includes('recurrent')) {
+      rawList = parentList.filter(item => {
+        const hay = (item.q + ' ' + (Array.isArray(item.a) ? item.a.join(' ') : item.a)).toLowerCase();
+        return hay.includes('recurrent') || hay.includes('thenar');
+      });
+    } else {
+      const keyword = norm.split(/[\s-]+/)[0];
+      rawList = parentList.filter(item => {
+        const hay = (item.q + ' ' + (Array.isArray(item.a) ? item.a.join(' ') : item.a)).toLowerCase();
+        return hay.includes(keyword);
+      });
+    }
+    if (rawList.length === 0) rawList = parentList;
+  }
 
   const cards = [];
 
-  // 1. Mnemosyne Cards (authentic questions from zetchy dataset)
+  // 1. Mnemosyne Cards (authentic questions from authentic dataset)
   rawList.forEach((item, idx) => {
     cards.push(parseAuthenticQuestion(item, headingTitle, 'mnemosyne'));
   });
 
-  // 2. AnKing Cards (Step 1 Clozes)
+  // 2. AnKing Cards (authentic Step 1 clozes built from real questions)
   if (rawList.length > 0) {
     rawList.forEach((item, idx) => {
       cards.push(makeAnKingClozeCard(item, headingTitle, idx));
     });
   }
 
-  // Ensure AnKing has 35 cards for major headings like Autoregulation
+  // Ensure major headings have at least authentic anchor cards
   if (tid.includes('autoregulation')) {
-    // Generate specialized AnKing cards matching Screenshot 2
     cards.unshift({
       id: 'ak_auto_def',
       prompt: '{{c1::Autoregulation}} is the maintenance of a constant blood flow to an organ in the face of changing arterial pressures',
@@ -102,33 +123,20 @@ function getQuestionsForTopic(topic) {
     });
   }
 
-  // Fill AnKing cards to realistic batch size (up to 35 for key topics, or 15-25)
-  const targetAk = tid.includes('autoregulation') ? 35 : Math.max(15, rawList.length * 2);
-  let akCount = cards.filter(c => c.source === 'anking').length;
-  let counter = 1;
-  while (akCount < targetAk) {
-    cards.push({
-      id: 'ak_gen_' + counter,
-      prompt: `In ${headingTitle}, key high-yield association #${counter}: {{c1::${headingTitle} concept ${counter}}}.`,
-      question: `High-yield concept ${counter} for ${headingTitle}`,
-      answer: `${headingTitle} concept ${counter}`,
-      source: 'anking',
-      heading: headingTitle
-    });
-    akCount++;
-    counter++;
-  }
-
-  // 3. Mehlman Cards (4-8 high-yield question arrows & vignettes)
-  const targetMehlman = tid.includes('autoregulation') ? 4 : Math.min(8, Math.max(3, Math.floor(rawList.length / 2)));
-  for (let i = 1; i <= targetMehlman; i++) {
-    cards.push({
-      id: 'mm_' + i,
-      prompt: `Mehlman HY Rule: When assessing ${headingTitle}, the most common pitfall tested on Step 1 is {{c1::${headingTitle} clinical association ${i}}}.`,
-      question: `Mehlman HY Question on ${headingTitle}`,
-      answer: `${headingTitle} clinical association ${i}`,
-      source: 'mehlman',
-      heading: headingTitle
+  // 3. Mehlman Cards (authentic high-yield clinical rules & associations)
+  if (rawList.length > 0) {
+    const subset = rawList.slice(0, Math.min(6, rawList.length));
+    subset.forEach((item, i) => {
+      const aText = Array.isArray(item.a) ? item.a.join(', ') : (item.a || '');
+      const cleanA = aText.replace(/\[\[(.*?)\]\]/g, '$1');
+      cards.push({
+        id: 'mm_' + (item.id || i),
+        prompt: `Mehlman HY Rule: When evaluating ${headingTitle}, ${item.q}\n\nClinical association: {{c1::${cleanA}}}`,
+        question: `Mehlman HY: ${item.q}`,
+        answer: cleanA,
+        source: 'mehlman',
+        heading: headingTitle
+      });
     });
   }
 
