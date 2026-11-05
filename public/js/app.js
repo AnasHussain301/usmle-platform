@@ -1915,10 +1915,9 @@ async function sendRadBotMessage(message) {
   updateRadBotWordCountDisplay();
 
   try {
-    const customApiKey = localStorage.getItem('synapse_gemini_api_key') || '';
     const res = await apiFetch('/api/radbot/chat', {
       method: 'POST',
-      body: JSON.stringify({ message, apiKey: customApiKey })
+      body: JSON.stringify({ message })
     });
 
     loadEl.remove();
@@ -2295,37 +2294,6 @@ function applyAppearanceSettingsUI() {
   const emailEl = document.getElementById('settings-user-email');
   if (emailEl) {
     emailEl.textContent = state.currentUser ? state.currentUser.email : 'kingdomhouse009@gmail.com';
-  }
-  updateGeminiKeyStatusUI();
-}
-
-function saveGeminiApiKey() {
-  const input = document.getElementById('settings-gemini-key-input');
-  if (!input) return;
-  const val = input.value.trim();
-  if (val) {
-    localStorage.setItem('synapse_gemini_api_key', val);
-    alert('Gemini API key saved! ANSI 1.0 PRO is now active with your key.');
-  } else {
-    localStorage.removeItem('synapse_gemini_api_key');
-    alert('Custom key removed. ANSI 1.0 PRO will use the built-in neural medical engine.');
-  }
-  updateGeminiKeyStatusUI();
-}
-
-function updateGeminiKeyStatusUI() {
-  const statusEl = document.getElementById('gemini-key-status');
-  const input = document.getElementById('settings-gemini-key-input');
-  const saved = localStorage.getItem('synapse_gemini_api_key');
-  if (input && saved && !input.value) input.value = saved;
-  if (statusEl) {
-    if (saved) {
-      statusEl.textContent = 'Custom Key Active';
-      statusEl.className = 'text-[10px] font-mono text-emerald-400 font-bold';
-    } else {
-      statusEl.textContent = 'Neural Engine Ready';
-      statusEl.className = 'text-[10px] font-mono text-cyan-400 font-bold';
-    }
   }
 }
 

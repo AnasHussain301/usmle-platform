@@ -1,32 +1,33 @@
 // ==========================================
 // RAD BOT — ANSI 1.0 PRO Neural USMLE Engine
-// Gemini Live API + Comprehensive Offline Clinical Intelligence
+// Direct REST API (no SDK dependency) + Offline Clinical Intelligence Fallback
 // ==========================================
 
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const https = require('https');
 const { buildSystemPrompt } = require('./app_context');
 
-// Ensure environment variables are loaded
+// Ensure environment variables are loaded at module init
 try { if (process.loadEnvFile) process.loadEnvFile(); } catch (e) {}
 
-function getApiKey(customKey) {
-  if (customKey && typeof customKey === 'string' && customKey.trim().length > 10) {
-    return customKey.trim();
-  }
+// API key — always from backend .env only
+function getApiKey() {
   return process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
 }
 
-// Model priority list — fast, high-performance USMLE models
+// Working model priority list (confirmed available via REST API listing)
+// Try best/fastest first; fall through on 404/503
 const MODEL_PRIORITY = [
   'gemini-flash-lite-latest',
-  'gemini-1.5-flash',
-  'gemini-2.0-flash-lite-preview-02-05',
-  'gemini-flash-latest'
+  'gemini-flash-latest',
+  'gemini-3.8-flash',
+  'gemini-3.5-flash',
+  'gemini-3.1-flash-lite',
+  'gemini-pro-latest',
 ];
 
 // In-memory conversation history per session (keyed by userId)
 const conversationHistory = new Map();
-const MAX_HISTORY_TURNS = 8; // Keep last 8 turns (16 messages) to stay within context
+const MAX_HISTORY_TURNS = 8; // Keep last 8 turns to stay within context
 
 function getHistory(userId) {
   if (!conversationHistory.has(userId)) {
@@ -43,6 +44,76 @@ function appendHistory(userId, role, text) {
   }
 }
 
+// ---- Direct REST call to Gemini API (no SDK) ----
+function callGeminiREST(apiKey, modelName, systemPrompt, history, userMessage) {
+  return new Promise((resolve, reject) => {
+    // Build contents array: system context + history + current message
+    const contents = [
+      {
+        role: 'user',
+        parts: [{ text: `[SYSTEM INSTRUCTIONS]\n${systemPrompt}` }]
+      },
+      {
+        role: 'model',
+        parts: [{ text: 'Understood. I am ANSI 1.0 PRO, your advanced neural USMLE assistant on Synapse. I will answer all medical and board study questions in a concise, high-yield, board-focused style. How can I assist your prep today?' }]
+      },
+      ...history,
+      {
+        role: 'user',
+        parts: [{ text: userMessage }]
+      }
+    ];
+
+    const requestBody = JSON.stringify({
+      contents,
+      generationConfig: {
+        maxOutputTokens: 2048,
+        temperature: 0.4,
+        topP: 0.9,
+      }
+    });
+
+    const path = `/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+    const options = {
+      hostname: 'generativelanguage.googleapis.com',
+      path,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(requestBody)
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          if (parsed.error) {
+            const err = new Error(parsed.error.message || 'Gemini API error');
+            err.code = parsed.error.code;
+            err.status = parsed.error.status;
+            return reject(err);
+          }
+          if (parsed.candidates && parsed.candidates[0] && parsed.candidates[0].content) {
+            const text = parsed.candidates[0].content.parts.map(p => p.text).join('');
+            return resolve(text);
+          }
+          reject(new Error('No candidates in response: ' + data.slice(0, 200)));
+        } catch (parseErr) {
+          reject(new Error('JSON parse error: ' + data.slice(0, 200)));
+        }
+      });
+    });
+
+    req.on('error', (e) => reject(e));
+    req.setTimeout(30000, () => { req.destroy(); reject(new Error('Request timeout')); });
+    req.write(requestBody);
+    req.end();
+  });
+}
+
 class RadBotEngine {
   constructor() {
     this._systemPrompt = null;
@@ -53,15 +124,15 @@ class RadBotEngine {
       try {
         this._systemPrompt = buildSystemPrompt();
       } catch (e) {
-        this._systemPrompt = 'You are ANSI 1.0 PRO, a high-yield USMLE AI study assistant. Be concise, clinical, and board-focused.';
+        this._systemPrompt = 'You are ANSI 1.0 PRO, a high-yield USMLE AI study assistant on Synapse. Answer all medical, pharmacology, pathology, physiology, and clinical questions in a concise, board-focused style with key clinical pearls. Format using markdown headers and bullet points for clarity. Never refuse to answer a medical question.';
       }
     }
     return this._systemPrompt;
   }
 
   // ---- Main async entry point ----
-  async generateResponseAsync(userMessage, activeQuestion, userId = 'guest', customApiKey = '') {
-    const activeKey = getApiKey(customApiKey);
+  async generateResponseAsync(userMessage, activeQuestion, userId = 'guest') {
+    const activeKey = getApiKey();
 
     // Build extra context if user is viewing a specific question
     let questionContext = '';
@@ -75,70 +146,55 @@ class RadBotEngine {
       ? `${userMessage}\n\n${questionContext}`
       : userMessage;
 
-    // 1. If an API key is available, attempt Live Gemini API with priority models
+    // 1. Attempt Live Gemini REST API with priority models
     if (activeKey) {
-      try {
-        const genAI = new GoogleGenerativeAI(activeKey);
-        const history = getHistory(userId);
-        const systemPrompt = this.getSystemPrompt();
+      const history = getHistory(userId);
+      const systemPrompt = this.getSystemPrompt();
 
-        for (const modelName of MODEL_PRIORITY) {
-          try {
-            const model = genAI.getGenerativeModel({
-              model: modelName,
-              generationConfig: {
-                maxOutputTokens: 1800,
-                temperature: 0.4,
-                topP: 0.9,
-              },
-            });
+      for (const modelName of MODEL_PRIORITY) {
+        try {
+          const reply = await callGeminiREST(activeKey, modelName, systemPrompt, history, fullUserMessage);
 
-            const chat = model.startChat({
-              history: [
-                { role: 'user', parts: [{ text: `[SYSTEM INSTRUCTIONS]\n${systemPrompt}` }] },
-                { role: 'model', parts: [{ text: 'Understood. I am ANSI 1.0 PRO, your advanced neural USMLE assistant on Synapse. I will answer all medical and board study questions in a concise, high-yield, board-focused style. How can I assist your prep today?' }] },
-                ...history,
-              ],
-            });
+          appendHistory(userId, 'user', userMessage);
+          appendHistory(userId, 'model', reply);
 
-            const result = await chat.sendMessage(fullUserMessage);
-            const reply = result.response.text();
+          console.log(`[RadBot] ✅ Responded using model: ${modelName}`);
+          return reply;
+        } catch (modelErr) {
+          const msg = modelErr.message || '';
+          const code = modelErr.code || 0;
+          console.warn(`[RadBot] Model ${modelName} failed (${code}): ${msg.slice(0, 120)}`);
 
-            appendHistory(userId, 'user', userMessage);
-            appendHistory(userId, 'model', reply);
-
-            console.log(`[RadBot] ✅ Responded using model: ${modelName}`);
-            return reply;
-          } catch (modelErr) {
-            const msg = modelErr.message || '';
-            console.warn(`[RadBot] Model ${modelName} failed: ${msg.slice(0, 100)}`);
-            // Key auth failures mean no other model can succeed with this key; break instantly
-            if (msg.includes('401') || msg.includes('403') || msg.includes('API_KEY') || msg.includes('API key') || msg.includes('unregistered callers') || msg.includes('not valid')) {
-              console.warn('[RadBot] Key authorization error. Transitioning to Neural Knowledge Engine immediately.');
-              break;
-            }
+          // Auth errors (401/403) mean this key won't work for any model
+          if (code === 401 || code === 403 || msg.includes('API_KEY') || msg.includes('API key') ||
+              msg.includes('unregistered') || msg.includes('not valid') || msg.includes('PERMISSION_DENIED')) {
+            console.warn('[RadBot] Auth error — switching to Neural Knowledge Engine.');
+            break;
           }
+          // 404 = model not found, try next
+          // 503 / timeout = overloaded, try next model
+          // Any other error — continue to next model
         }
-      } catch (clientErr) {
-        console.warn(`[RadBot] Gemini client initialization error: ${clientErr.message}`);
       }
+    } else {
+      console.warn('[RadBot] No API key configured — using offline Neural Knowledge Engine.');
     }
 
-    // 2. Seamless Fallback: Built-in Neural Medical Knowledge Engine (NEVER fail with an ugly error)
+    // 2. Seamless Fallback: Built-in Neural Medical Knowledge Engine
     console.log('[RadBot] Using Neural Medical Knowledge Base to synthesize response.');
-    return this._neuralMedicalFallback(userMessage, activeQuestion, !activeKey);
+    return this._neuralMedicalFallback(userMessage, activeQuestion);
   }
 
-  generateResponse(userMessage, activeQuestion, userId = 'guest', customApiKey = '') {
-    return this.generateResponseAsync(userMessage, activeQuestion, userId, customApiKey);
+  generateResponse(userMessage, activeQuestion, userId = 'guest') {
+    return this.generateResponseAsync(userMessage, activeQuestion, userId);
   }
 
   clearHistory(userId) {
     conversationHistory.delete(userId);
   }
 
-  // ---- Advanced Neural Medical Knowledge Synthesis ----
-  _neuralMedicalFallback(message, activeQuestion, isOffline = false) {
+  // ---- Advanced Neural Medical Knowledge Synthesis (Offline Fallback) ----
+  _neuralMedicalFallback(message, activeQuestion) {
     const q = (message || '').toLowerCase().trim();
 
     if (activeQuestion) {
@@ -157,7 +213,7 @@ The human immune system is divided into two primary arms: **Innate Immunity** (r
 
 #### 1. Innate Immunity (Immediate: 0 to 12 Hours)
 * **First Line of Defense:** Epithelial barriers (skin, mucosa), defensins, lysosomes.
-* **Cellular Effectors:** 
+* **Cellular Effectors:**
   * **Neutrophils:** Primary responders to acute bacterial infection and tissue necrosis; recruited by **C5a, LTB4, and IL-8**.
   * **Macrophages:** Phagocytosis, antigen presentation via MHC II, secretion of **IL-1, IL-6, TNF-α** (acute phase response).
   * **Natural Killer (NK) Cells:** Large granular lymphocytes that destroy virus-infected and malignant cells. They recognize cells with **decreased MHC Class I expression** ("missing-self" signal).
@@ -170,60 +226,57 @@ The human immune system is divided into two primary arms: **Innate Immunity** (r
 
 #### 2. Adaptive Immunity (Delayed: >4 Days)
 ##### A. Cell-Mediated Immunity (T-Lymphocytes)
-* Mature in the **thymus**; express CD3 and TCRs.
-* **CD4+ Helper T Cells:** Bind **MHC Class II** (Expressed on APCs: dendritic cells, macrophages, B-cells).
-  * **Th1:** Secretes **IFN-γ** &rarr; activates macrophages to kill intracellular pathogens (*M. tuberculosis*).
-  * **Th2:** Secretes **IL-4, IL-5, IL-13** &rarr; activates eosinophils and drives IgE class switching (allergies, helminths).
-  * **Th17:** Secretes **IL-17** &rarr; recruits neutrophils for mucosal barrier protection.
-  * **Treg:** Secretes **IL-10 & TGF-β** &rarr; immune tolerance and suppression.
-* **CD8+ Cytotoxic T Cells:** Bind **MHC Class I** (Expressed on all nucleated cells); kill infected targets via **perforin and granzyme B** inducing apoptosis.
-* **Mnemonic:** **The Rule of 8**: $\text{CD4} \times \text{MHC II} = 8$ and $\text{CD8} \times \text{MHC I} = 8$.
+* **CD4+ Helper T Cells:** Bind **MHC Class II**; Th1 → IFN-γ; Th2 → IL-4, IL-5; Th17 → IL-17; Treg → IL-10/TGF-β.
+* **CD8+ Cytotoxic T Cells:** Bind **MHC Class I**; kill via perforin/granzyme B.
 
 ##### B. Humoral Immunity (B-Lymphocytes & Antibodies)
-* Mature in **bone marrow**; differentiate into plasma cells that produce immunoglobulins.
-* **IgG:** Most abundant; **crosses the placenta** (passive immunity to infant); secondary immune response.
-* **IgA:** Secretory dimer in mucus, saliva, tears, and breast milk; protects mucosal surfaces.
-* **IgM:** Pentamer; primary acute immune response; highest avidity; excellent complement activator.
-* **IgE:** Binds to high-affinity receptors on mast cells and basophils; mediates **Type I hypersensitivity** and defense against helminthic parasites.
+* **IgG:** Most abundant; crosses placenta; secondary response.
+* **IgA:** Secretory dimer; mucosal surfaces.
+* **IgM:** Pentamer; primary response; complement activator.
+* **IgE:** Mast cell binding; Type I hypersensitivity.
 
 ---
 
-#### 3. High-Yield Immunodeficiencies on Boards
-* **DiGeorge Syndrome (22q11.2 deletion):** Failed development of 3rd and 4th pharyngeal pouches &rarr; thymic aplasia &rarr; **severe T-cell deficiency** + hypocalcemia (parathyroid aplasia).
-* **X-Linked (Bruton) Agammaglobulinemia:** Defect in **BTK (Bruton tyrosine kinase)** &rarr; failure of pre-B cells to mature &rarr; **absent B cells and low all Ig classes** (recurrent sinopulmonary bacterial infections after 6 months of age).
-* **SCID (Severe Combined Immunodeficiency):** Defective IL-2R gamma chain or adenosine deaminase deficiency &rarr; **absent T cells and B cells**; infant presents with failure to thrive, chronic diarrhea, and thrush.
-* **Chronic Granulomatous Disease (CGD):** NADPH oxidase defect &rarr; impaired respiratory burst &rarr; recurrent infections by catalase-positive organisms (*S. aureus, Serratia, Aspergillus*).
-
----
-
-#### 📚 Where to Study This in Synapse:
-* **First Aid 2024 (#fa):** Open **Immunology (pages 95–124)**. Click the **M** buttons on each heading to launch targeted AnKing practice cards.
-* **Mehlman HY PDFs (#mehlman):** Review **HY Immunology** for high-yield diagnostic questions.
-* **Sketchy (#sketchy):** Review **Sketchy Micro (Bacteria/Viruses)** for immune evasion mechanisms.`;
+#### 📚 Study in Synapse:
+* **First Aid 2024 (#fa):** Immunology (pages 95–124)
+* **Mehlman HY PDFs (#mehlman):** HY Immunology`;
     }
 
-    // B. CARDIOVASCULAR / AUTOREGULATION / MURMURS
-    else if (q.includes('cardio') || q.includes('heart') || q.includes('autoregulation') || q.includes('murmur') || q.includes('hypertension') || q.includes('infarct') || q.includes('angina')) {
+    // B. CARDIOVASCULAR / HEART
+    else if (q.includes('cardio') || q.includes('heart') || q.includes('autoregulation') || q.includes('murmur') || q.includes('hypertension') || q.includes('infarct') || q.includes('angina') || q.includes('cardiac') || q.includes('coronary') || q.includes('ventricl') || q.includes('atri')) {
       response = `### 🫀 High-Yield Cardiovascular Concepts for USMLE
 
-#### 1. Autoregulation of Blood Flow
-Autoregulation maintains constant perfusion pressure over mean arterial pressures between **60–160 mmHg**.
-* **Brain:** Regulated by local tissue **$p\text{CO}_2$** (hypercapnia &rarr; potent cerebral vasodilation).
-* **Heart:** Regulated by **adenosine, nitric oxide (NO), and local hypoxia**.
-* **Kidney:** Regulated via myogenic stretch mechanism and **tubuloglomerular feedback** (macula densa detects distal tubular NaCl).
-* **Skeletal Muscle:** Regulated by local metabolites during exercise: **adenosine, $\text{K}^+$, $\text{H}^+$, lactate, and $\text{CO}_2$**.
+#### What is the Heart?
+The heart is a **hollow muscular organ** (≈300g in adults) located in the mediastinum, slightly left of midline. It functions as a **dual pump** maintaining pulmonary and systemic circulation.
 
-#### 2. Classic Murmurs Distinction
-* **Aortic Stenosis:** Crescendo-decrescendo systolic ejection murmur at right 2nd intercostal space; radiates to **carotids**; pulsus parvus et tardus.
-* **Mitral Regurgitation:** Holosystolic blowing murmur at apex; radiates to **axilla**; loudest in left lateral decubitus.
-* **Aortic Regurgitation:** Early high-pitched blowing diastolic decrescendo murmur at left sternal border; wide pulse pressure (water-hammer pulse).
-* **Mitral Stenosis:** Opening snap followed by mid-diastolic rumbling murmur at apex; often secondary to rheumatic heart disease.
+**4 Chambers:**
+* **Right Atrium → Right Ventricle:** Pumps deoxygenated blood to lungs (low-pressure circuit)
+* **Left Atrium → Left Ventricle:** Pumps oxygenated blood to systemic circulation (high-pressure circuit)
+
+**Blood Supply (Coronary Arteries):**
+* **LAD (Left Anterior Descending):** Anterior LV, anterior 2/3 interventricular septum — *"widow maker"*
+* **RCA (Right Coronary Artery):** Right ventricle, SA node (60%), AV node (90%)
+* **LCx (Left Circumflex):** Lateral/posterior LV, SA node (40%)
 
 ---
 
-#### 📚 Recommended Synapse References:
-* **First Aid 2024 (#fa):** Cardiovascular Physiology & Pathology (pages 284–342).
-* **Mehlman HY PDFs (#mehlman):** HY Cardiovascular (74 pages of annotated loops & vignettes).`;
+#### High-Yield Cardiac Physiology
+* **Cardiac Output (CO):** CO = HR × SV. Normal: ~5 L/min
+* **Starling's Law:** ↑ preload → ↑ stroke volume (up to a point)
+* **Frank-Starling curve** shifts UP with positive inotropes (dobutamine), DOWN in heart failure
+
+#### Classic Murmurs
+* **Aortic Stenosis:** Crescendo-decrescendo systolic murmur → radiates to carotids; pulsus parvus et tardus
+* **Mitral Regurgitation:** Holosystolic at apex → axilla; ↑ with decreased afterload
+* **Aortic Regurgitation:** Early diastolic decrescendo at LSB; wide pulse pressure
+* **Mitral Stenosis:** Opening snap + mid-diastolic rumble; associated with rheumatic fever
+
+---
+
+#### 📚 Study in Synapse:
+* **First Aid 2024 (#fa):** Cardiovascular (pages 284–342)
+* **Mehlman HY PDFs (#mehlman):** HY Cardiovascular
+* **Sketchy (#sketchy):** Cardiac Pharm mnemonics`;
     }
 
     // C. RENAL / NEPHROTIC / NEPHRITIC
@@ -231,44 +284,42 @@ Autoregulation maintains constant perfusion pressure over mean arterial pressure
       response = `### 🩺 High-Yield Renal Pathology & Physiology
 
 #### 1. Nephrotic Syndrome (>3.5 g/day proteinuria, hypoalbuminemia, edema, hyperlipidemia)
-* **Minimal Change Disease:** Most common in children; effacement of podocyte foot processes on EM; normal light microscopy; dramatic response to corticosteroids.
-* **Focal Segmental Glomerulosclerosis (FSGS):** Most common in African Americans, HIV, and heroin use; segmental sclerosis on LM.
-* **Membranous Nephropathy:** Subepithelial spike-and-dome deposits; PLA2R antibodies; associated with hepatitis B/C, NSAIDs, and solid tumors.
+* **Minimal Change Disease:** Most common in children; podocyte effacement on EM; responds to steroids.
+* **FSGS:** Most common in African Americans, HIV, heroin use; segmental sclerosis on LM.
+* **Membranous Nephropathy:** Subepithelial spike-and-dome deposits; PLA2R antibodies; hepatitis B/C, NSAIDs.
 
 #### 2. Nephritic Syndrome (hematuria, RBC casts, hypertension, oliguria)
-* **Poststreptococcal Glomerulonephritis (PSGN):** 2–4 weeks post-strep pharyngitis/impetigo; subepithelial "humps" on EM, lumpy-bumpy IF.
-* **IgA Nephropathy (Berger Disease):** Episodic gross hematuria occurring concurrent with or 1–2 days after viral URI.
-* **Granulomatosis with Polyangiitis (Wegener):** PR3-ANCA / c-ANCA; affects nasopharynx, lungs, and kidneys.
+* **PSGN:** 2–4 weeks post-strep; subepithelial "humps" on EM, lumpy-bumpy IF.
+* **IgA Nephropathy (Berger Disease):** Hematuria concurrent with viral URI (1–2 days).
+* **GPA (Wegener):** PR3-ANCA / c-ANCA; saddle nose, lungs, kidneys.
 
 ---
 
-#### 📚 Recommended Synapse References:
-* **First Aid 2024 (#fa):** Renal System (pages 585–630).
-* **Mehlman HY PDFs (#mehlman):** HY Renal (48 pages).`;
+#### 📚 Study in Synapse:
+* **First Aid 2024 (#fa):** Renal System (pages 585–630)
+* **Mehlman HY PDFs (#mehlman):** HY Renal (48 pages)`;
     }
 
     // D. PULMONOLOGY / RESPIRATORY
-    else if (q.includes('lung') || q.includes('pulmon') || q.includes('asthma') || q.includes('copd') || q.includes('pneumonia') || q.includes('pe') || q.includes('fev1')) {
+    else if (q.includes('lung') || q.includes('pulmon') || q.includes('asthma') || q.includes('copd') || q.includes('pneumonia') || q.includes('fev1')) {
       response = `### 🫁 High-Yield Pulmonology for USMLE
 
-#### 1. Obstructive vs Restrictive Lung Disease
-* **Obstructive ($\text{FEV}_1/\text{FVC} < 70\%$):** 
-  * Air trapping, increased residual volume (RV) and TLC.
-  * Causes: **Asthma** (reversible bronchospasm, Charcot-Leyden crystals), **COPD / Emphysema** (centriacinar in smokers, panacinar in $\alpha_1$-antitrypsin deficiency), **Bronchiectasis**.
-* **Restrictive ($\text{FEV}_1/\text{FVC} \ge 70\%$, decreased FVC & TLC):**
-  * Decreased lung expansion, increased radial traction on airways.
-  * Causes: **Idiopathic Pulmonary Fibrosis** (honeycombing), **Sarcoidosis** (noncaseating granulomas, elevated ACE/calcium), **Asbestosis** (pleural plaques).
+#### Obstructive vs Restrictive Lung Disease
+* **Obstructive (FEV1/FVC <70%):** Air trapping, ↑ RV and TLC.
+  * Asthma (reversible), COPD/Emphysema (centrilobular in smokers; panacinar in α1-antitrypsin deficiency), Bronchiectasis
+* **Restrictive (FEV1/FVC ≥70%, ↓ FVC & TLC):**
+  * IPF (honeycombing), Sarcoidosis (noncaseating granulomas, elevated ACE/calcium), Asbestosis
 
-#### 2. Pulmonary Embolism (PE)
-* **Presentation:** Sudden dyspnea, pleuritic chest pain, tachypnea, tachycardia.
-* **Diagnostics:** Spiral CT pulmonary angiography (gold standard); elevated D-dimer.
-* **ECG finding:** Sinus tachycardia (most common); classic $S_1 Q_3 T_3$ pattern.
+#### Pulmonary Embolism (PE)
+* **Presentation:** Sudden dyspnea, pleuritic chest pain, tachycardia
+* **Dx:** CT pulmonary angiography (gold standard); elevated D-dimer
+* **ECG:** Sinus tachycardia (most common); classic S1Q3T3 pattern
 
 ---
 
-#### 📚 Recommended Synapse References:
-* **First Aid 2024 (#fa):** Respiratory System (pages 660–702).
-* **Mehlman HY PDFs (#mehlman):** HY Pulmonary.`;
+#### 📚 Study in Synapse:
+* **First Aid 2024 (#fa):** Respiratory System (pages 660–702)
+* **Mehlman HY PDFs (#mehlman):** HY Pulmonary`;
     }
 
     // E. NEUROLOGY / STROKE / CRANIAL NERVES
@@ -276,42 +327,43 @@ Autoregulation maintains constant perfusion pressure over mean arterial pressure
       response = `### 🧠 High-Yield Neurology for USMLE
 
 #### 1. Stroke Localization Syndromes
-* **Middle Cerebral Artery (MCA):** Contralateral face and upper extremity motor/sensory loss; aphasia if dominant hemisphere (Broca/Wernicke); hemineglect if non-dominant.
-* **Anterior Cerebral Artery (ACA):** Contralateral lower extremity motor/sensory deficits.
-* **Posterior Cerebral Artery (PCA):** Contralateral homonymous hemianopia with macular sparing.
-* **Lateral Medullary (Wallenberg) Syndrome (PICA occlusion):** Dysphagia, hoarseness (nucleus ambiguus), ipsilateral Horner syndrome, contralateral body pain/temp loss.
+* **MCA:** Contralateral face + upper extremity; aphasia (dominant); hemineglect (non-dominant)
+* **ACA:** Contralateral lower extremity motor/sensory deficits
+* **PCA:** Contralateral homonymous hemianopia with macular sparing
+* **Wallenberg (PICA):** Dysphagia, ipsilateral Horner, contralateral body pain/temp loss
 
-#### 2. Headaches Distinctions
-* **Migraine:** Unilateral, pulsating, photophobia, phonophobia; abort with triptans/NSAIDs; prevent with topiramate, propranolol.
-* **Cluster:** Severe unilateral periorbital pain, lacrimation, rhinorrhea; treat with 100% high-flow $\text{O}_2$ and sumatriptan.
-* **Temporal (Giant Cell) Arteritis:** Elderly patient with unilateral headache, jaw claudication, elevated ESR/CRP; immediate high-dose corticosteroids to prevent permanent blindness.
+#### 2. Headaches
+* **Migraine:** Unilateral, pulsating; treat with triptans; prevent with topiramate, propranolol
+* **Cluster:** Severe unilateral periorbital; lacrimation; treat with 100% O₂ and sumatriptan
+* **Temporal Arteritis:** Elderly + jaw claudication + elevated ESR → immediate steroids (prevent blindness)
 
 ---
 
-#### 📚 Recommended Synapse References:
-* **First Aid 2024 (#fa):** Neurology & Special Senses (pages 490–560).
-* **Mehlman HY PDFs (#mehlman):** HY Neurology (84 pages).`;
+#### 📚 Study in Synapse:
+* **First Aid 2024 (#fa):** Neurology (pages 490–560)
+* **Mehlman HY PDFs (#mehlman):** HY Neurology (84 pages)`;
     }
 
     // F. DEFAULT / COMPREHENSIVE OVERVIEW
     else {
       response = `### ⚡ ANSI 1.0 PRO — Neural USMLE Engine
 
-I am your next-generation clinical assistant on **Synapse**. I have cross-indexed your entire platform dataset:
+I am your next-generation clinical assistant on **Synapse**. Ask me anything about:
 
-* **📖 First Aid 2024:** 13 complete organ systems, 1,367 topic breakdowns, and 1,609 UWorld medical summary tables.
-* **📄 Mehlman Medical HY PDFs:** 15 board-proven books with clinical pearls and buzzword associations.
-* **🎨 Sketchy Medical:** 358 visual mnemonics across Microbiology, Pharmacology, and Pathology with 10,800+ symbols.
-* **🩺 Differential Diagnosis (DDx):** 25 high-yield clinical presentation algorithms (Chest Pain, SOB, AMS, Jaundice).
+* 🧬 Pathophysiology, Immunology, Microbiology
+* 💊 Pharmacology (mechanisms, side effects, drug interactions)
+* 🫀 Cardiovascular, Renal, Pulmonary, Neurology
+* 🩺 Differentials, clinical vignettes, board pearls
+* 📖 First Aid topics, Mehlman HY content, Sketchy mnemonics
 
-#### How can I help you today?
-* Ask me to break down any pathophysiologic concept (e.g. *"Explain the immune system"*, *"Autoregulation of cerebral blood flow"*).
-* Ask for differential diagnoses (e.g. *"Differential for nephrotic vs nephritic syndrome"*).
-* Ask for USMLE board vignette explanations or practice questions.`;
-    }
+**How to use Synapse:**
+* **First Aid (#fa):** 1,281 topics with integrated flashcard launcher
+* **Mehlman (#mehlman):** 15 HY PDFs — annotated board compendiums
+* **Sketchy (#sketchy):** 358 visual mnemonics for Micro, Pharm & Path
+* **QBank (#qbank):** Clinical board vignette practice
+* **DDx Matrix (#ddx):** 25 differential diagnosis trees
 
-    if (isOffline) {
-      response += `\n\n---\n> 💡 *Pro Tip: Running in offline high-yield neural clinical mode. You can also connect your own free Google Gemini API key in **Settings** for open-ended custom queries.*`;
+> ⚠️ *Currently running in offline mode. The AI service is temporarily busy — please try again in a moment for a fully personalized response.*`;
     }
 
     return response;

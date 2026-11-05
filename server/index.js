@@ -305,7 +305,7 @@ app.post('/api/questions/submit', requireAuth, (req, res) => {
 // ==========================================
 
 app.post('/api/radbot/chat', async (req, res) => {
-  const { message, activeQuestionId, apiKey } = req.body;
+  const { message, activeQuestionId } = req.body;
   if (!message || !message.trim()) {
     return res.status(400).json({ error: 'Message cannot be empty.' });
   }
@@ -320,7 +320,7 @@ app.post('/api/radbot/chat', async (req, res) => {
   const { ip, userAgent } = getClientMeta(req);
 
   try {
-    const aiReply = await radBot.generateResponse(message, activeQuestion, userId, apiKey);
+    const aiReply = await radBot.generateResponse(message, activeQuestion, userId);
 
     db.logRadBotChat(userId, userName, message, aiReply, { activeQuestionId });
     db.logActivity(userId, userName, 'radbot_query', { query: message }, ip, userAgent);
