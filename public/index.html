@@ -1871,6 +1871,23 @@
         <span>Send feedback</span>
         <span class="text-pink-400 text-base font-bold group-hover:translate-x-1 transition-transform">&rsaquo;</span>
       </button>
+
+      <!-- 5. ANSI 1.0 PRO AI Engine & Key Configuration -->
+      <div class="pt-3 border-t border-purple-900/40 space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-300 font-bold flex items-center gap-1.5">
+            <span>⚡</span> ANSI 1.0 PRO Key
+          </span>
+          <span id="gemini-key-status" class="text-[10px] font-mono text-cyan-400">Neural Engine Ready</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="password" id="settings-gemini-key-input" placeholder="Google Gemini API key (optional)" class="flex-1 bg-[#100719] border border-purple-900/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 font-mono" />
+          <button onclick="saveGeminiApiKey()" class="px-3 py-2 rounded-xl bg-pink-500/20 hover:bg-pink-500/30 border border-pink-500/40 text-pink-300 text-xs font-bold transition-all whitespace-nowrap active:scale-95">
+            Save
+          </button>
+        </div>
+        <p class="text-[10px] text-slate-400 leading-tight">Optionally connect your personal Google Gemini API key or use the built-in offline neural engine.</p>
+      </div>
     </div>
   </div>
 
