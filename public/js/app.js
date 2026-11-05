@@ -1497,7 +1497,7 @@ function toggleImageInvert() { document.getElementById('exam-radiology-img').cla
 function toggleImageAnnotation() { document.getElementById('exam-annotation-overlay').classList.toggle('hidden'); }
 
 // ==========================================
-// AI RAD BOT (Gemini 2.5 with Sessions & 10k-Word / 7-Day History)
+// AI RAD BOT (ANSI 1.0 PRO with Sessions & 10k-Word / 7-Day History)
 // ==========================================
 
 const RADBOT_MAX_WORDS_PER_CHAT = 10000;
@@ -1805,8 +1805,8 @@ async function startNewRadBotChat() {
       <div class="flex items-start gap-2.5">
         <div class="w-7 h-7 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 text-xs font-bold border border-purple-500/40">AI</div>
         <div class="bg-[#241736] p-3 rounded-2xl rounded-tl-none text-xs text-slate-200 leading-relaxed max-w-[88%] markdown-body border border-[#3b2554]">
-          <p class="font-bold text-pink-400 mb-1">New conversation started 🩺</p>
-          <p>I am <strong>RadBot</strong>, your USMLE AI assistant powered by <strong>Gemini 2.5</strong>. What would you like to study?</p>
+          <p class="font-bold text-pink-400 mb-1">ANSI 1.0 PRO Ready ⚡</p>
+          <p>I am <strong>ANSI 1.0 PRO</strong>, your next-generation neural board assistant. I have indexed your entire platform — First Aid 2024, Mehlman HY PDFs, Sketchy visual mnemonics, and 13,000+ authentic board flashcards. Ask me anything!</p>
         </div>
       </div>`;
   }
