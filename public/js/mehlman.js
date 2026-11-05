@@ -336,9 +336,139 @@ function updateMehlmanHeaderIndicators() {
 
   const zoomEl = document.getElementById('mehlman-zoom-label');
   if (zoomEl) zoomEl.textContent = `${mehlmanZoom}%`;
+
+  updateMehlmanScrubberUI();
 }
 
-async function openMehlmanBook(systemId, pageNum = 1) {
+function updateMehlmanScrubberUI() {
+  const sys = state.currentMehlmanSystem;
+  if (!sys) return;
+  const max = (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : sys.totalPages) || 1;
+  const curr = state.currentMehlmanPage || 1;
+  const pct = Math.max(0, Math.min(1, (curr - 1) / Math.max(1, max - 1)));
+
+  const track = document.getElementById('mehlman-scrubber-track');
+  const fill = document.getElementById('mehlman-scrubber-fill');
+  const thumb = document.getElementById('mehlman-scrubber-thumb');
+  const bubbleText = document.getElementById('mehlman-scrubber-bubble-text');
+
+  if (fill) fill.style.height = `${Math.round(pct * 100)}%`;
+  if (track && thumb) {
+    const travel = track.clientHeight - thumb.clientHeight;
+    thumb.style.top = `${Math.round(pct * travel)}px`;
+  }
+  if (bubbleText) bubbleText.textContent = `p. ${curr} / ${max}`;
+}
+
+let _isScrubbingMehlman = false;
+let _scrubberThrottleTimer = null;
+
+function initMehlmanScrubber() {
+  const track = document.getElementById('mehlman-scrubber-track');
+  const thumb = document.getElementById('mehlman-scrubber-thumb');
+  const bubble = document.getElementById('mehlman-scrubber-bubble');
+  const bubbleText = document.getElementById('mehlman-scrubber-bubble-text');
+  const scrollArea = document.getElementById('mehlman-scroll-area');
+
+  if (!track || track._hasInitScrubber) return;
+  track._hasInitScrubber = true;
+
+  function handleScrub(clientY) {
+    const sys = state.currentMehlmanSystem;
+    if (!sys) return;
+    const max = (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : sys.totalPages) || 1;
+    const rect = track.getBoundingClientRect();
+    const offsetY = Math.max(0, Math.min(rect.height, clientY - rect.top));
+    const pct = offsetY / rect.height;
+    const targetPage = Math.max(1, Math.min(max, Math.round(1 + pct * (max - 1))));
+
+    if (bubble) bubble.classList.remove('hidden');
+    if (bubbleText) bubbleText.textContent = `p. ${targetPage} / ${max}`;
+    if (thumb) {
+      const travel = rect.height - thumb.clientHeight;
+      thumb.style.top = `${Math.round(pct * travel)}px`;
+    }
+    const fill = document.getElementById('mehlman-scrubber-fill');
+    if (fill) fill.style.height = `${Math.round(pct * 100)}%`;
+
+    if (!_scrubberThrottleTimer) {
+      _scrubberThrottleTimer = setTimeout(() => {
+        _scrubberThrottleTimer = null;
+        if (targetPage !== state.currentMehlmanPage) {
+          goToMehlmanPage(targetPage);
+        }
+      }, 100);
+    }
+  }
+
+  // Mouse drag & click on vertical bar
+  track.addEventListener('mousedown', (e) => {
+    _isScrubbingMehlman = true;
+    if (bubble) bubble.classList.remove('hidden');
+    handleScrub(e.clientY);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (_isScrubbingMehlman) {
+      e.preventDefault();
+      handleScrub(e.clientY);
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (_isScrubbingMehlman) {
+      _isScrubbingMehlman = false;
+      setTimeout(() => {
+        if (bubble && !_isScrubbingMehlman) bubble.classList.add('hidden');
+      }, 800);
+    }
+  });
+
+  // Touch drag for mobile
+  track.addEventListener('touchstart', (e) => {
+    _isScrubbingMehlman = true;
+    if (bubble) bubble.classList.remove('hidden');
+    if (e.touches && e.touches[0]) handleScrub(e.touches[0].clientY);
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (_isScrubbingMehlman && e.touches && e.touches[0]) {
+      handleScrub(e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    if (_isScrubbingMehlman) {
+      _isScrubbingMehlman = false;
+      setTimeout(() => {
+        if (bubble && !_isScrubbingMehlman) bubble.classList.add('hidden');
+      }, 800);
+    }
+  });
+
+  // Smooth mouse wheel boundary scroll to flip pages vertically
+  if (scrollArea && !scrollArea._hasWheelNav) {
+    scrollArea._hasWheelNav = true;
+    let wheelCooldown = false;
+    scrollArea.addEventListener('wheel', (e) => {
+      if (wheelCooldown) return;
+      const atBottom = scrollArea.scrollTop + scrollArea.clientHeight >= scrollArea.scrollHeight - 18;
+      const atTop = scrollArea.scrollTop <= 18;
+
+      if (e.deltaY > 25 && atBottom) {
+        wheelCooldown = true;
+        nextMehlmanPage();
+        setTimeout(() => { wheelCooldown = false; }, 380);
+      } else if (e.deltaY < -25 && atTop) {
+        wheelCooldown = true;
+        prevMehlmanPage();
+        setTimeout(() => { wheelCooldown = false; }, 380);
+      }
+    }, { passive: true });
+  }
+}
+
+async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
   const sys = (state.mehlmanSystems || DEFAULT_MEHLMAN_SYSTEMS).find(s => s.id === systemId);
   if (!sys) return;
 
@@ -350,7 +480,17 @@ async function openMehlmanBook(systemId, pageNum = 1) {
   const modal = document.getElementById('modal-mehlman-reader');
   if (modal) modal.classList.remove('hidden');
 
+  // Sync browser URL & history if not from popstate
+  if (!options.fromPopState) {
+    const targetHash = `#mehlman/${systemId}/${p}`;
+    if (window.location.hash !== targetHash) {
+      history.pushState({ modal: 'mehlman', systemId, page: p }, '', targetHash);
+    }
+  }
+
+  initMehlmanScrubber();
   updateMehlmanHeaderIndicators();
+  updateMehlmanScrubberUI();
   renderMehlmanTOC(sys);
 
   // If already loaded this document, jump straight to the page
@@ -488,16 +628,22 @@ async function renderMehlmanPage(num) {
   renderMehlmanTOC(state.currentMehlmanSystem);
 }
 
-function goToMehlmanPage(pageNum) {
+function goToMehlmanPage(pageNum, options = {}) {
   const sys = state.currentMehlmanSystem;
   if (!sys) return;
   const max = (_mehlmanPdfDoc ? _mehlmanPdfDoc.numPages : sys.totalPages) || 999;
   const target = Math.max(1, Math.min(max, parseInt(pageNum, 10) || 1));
   renderMehlmanPage(target);
 
+  // Update URL hash smoothly if not from popstate
+  if (!options.fromPopState && window.location.hash.startsWith('#mehlman/')) {
+    history.replaceState({ modal: 'mehlman', systemId: sys.id, page: target }, '', `#mehlman/${sys.id}/${target}`);
+  }
+
   // Scroll viewer to top on page flip
   const scrollArea = document.getElementById('mehlman-scroll-area');
   if (scrollArea) scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
+  updateMehlmanScrubberUI();
 }
 
 function nextMehlmanPage() {
@@ -545,9 +691,12 @@ function renderMehlmanTOC(sys) {
   }).join('');
 }
 
-function closeMehlmanReader() {
+function closeMehlmanReader(options = {}) {
   const modal = document.getElementById('modal-mehlman-reader');
   if (modal) modal.classList.add('hidden');
+  if (!options.fromPopState && window.location.hash.startsWith('#mehlman/')) {
+    history.back();
+  }
 }
 
 function toggleMehlmanTOC() {
