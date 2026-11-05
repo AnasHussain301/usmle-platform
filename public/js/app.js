@@ -451,7 +451,15 @@ function zoomFaPage(delta) {
   const wrapper = document.getElementById('fa-book-page-canvas-wrapper');
   const label = document.getElementById('fa-zoom-label');
   if (wrapper) wrapper.style.transform = `scale(${faZoomLevel / 100})`;
-  if (label) label.textContent = `${faZoomLevel}%`;
+  if (label) label.textContent = ${faZoomLevel}%;
+
+  // Scale gutter width proportionally with zoom
+  const gutter = document.getElementById('fa-page-gutter');
+  if (gutter) {
+    const baseW = 96;
+    const scaledW = Math.round(baseW * (faZoomLevel / 100));
+    gutter.style.width = ${scaledW}px;
+  }
 }
 
 function openFirstAidSystem(sysId) {

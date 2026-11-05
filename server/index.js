@@ -624,6 +624,31 @@ app.get('/api/fa/headings', (req, res) => {
   res.json({ success: true, headings: {} });
 });
 
+// ==========================================
+// MEHLMAN CARDS MAPPING API
+// ==========================================
+app.get('/api/mehlman/cards', (req, res) => {
+  const cardsFile = path.join(__dirname, '..', 'data', 'mehlman_cards_mapped.json');
+  if (fs.existsSync(cardsFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(cardsFile, 'utf8'));
+      return res.json({ success: true, cards: data });
+    } catch (e) {
+      return res.status(500).json({ error: 'Failed to read mehlman_cards_mapped.json' });
+    }
+  }
+  res.json({ success: true, cards: {} });
+});
+
+// Sync Mehlman Progress (easy / forgetting)
+app.post('/api/mehlman/progress', (req, res) => {
+  const { progress } = req.body;
+  if (!db.data.userProgress) db.data.userProgress = {};
+  db.data.userProgress.mehlman = progress || {};
+  db.save();
+  res.json({ success: true });
+});
+
 // SPA fallback
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

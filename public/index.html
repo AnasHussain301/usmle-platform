@@ -1445,17 +1445,24 @@
         <!-- The Book Page Container -->
         <div class="w-full h-full flex flex-col" style="height:calc(100vh - 80px);">
           <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center items-start p-2">
-            <!-- Stage wrapping the image and its aligned callout overlays -->
-            <div id="fa-page-stage" class="relative inline-block w-auto max-w-full">
-              <!-- Scanned Page Image -->
-              <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
-                   class="w-auto max-w-full h-auto max-h-[calc(100vh-140px)] object-contain block mx-auto rounded shadow-lg"
-                   onerror="handleFaImageError(this)"
-                   onload="handleFaImageSuccess(this)">
+            <!-- Stage wrapping gutter and page image as a flex layout -->
+            <div id="fa-page-stage" class="relative flex items-start justify-center max-w-full">
+              <!-- Gutter column (left of page image, reserved space, never overlaps image text) -->
+              <div id="fa-page-gutter" class="relative shrink-0 flex justify-end pr-2 pointer-events-auto" style="width: 96px; min-width: 64px;">
+                <!-- Column 1 (outer/left, ~40px wide): level-0 M badge -->
+                <!-- Column 2 (inner/right, ~40px wide): level-0 '...' button OR level-1 M badge -->
+                <div id="fa-page-gutter-col1" class="absolute top-0 right-12 w-10 h-full pointer-events-none"></div>
+                <div id="fa-page-gutter-col2" class="absolute top-0 right-2 w-10 h-full pointer-events-none"></div>
+              </div>
 
-              <!-- Interactive In-Page Callout Overlays (...) attached directly to headings -->
-              <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none">
-                <!-- Rendered dynamically: callout pills with action popovers -->
+              <!-- Page Image Container -->
+              <div class="relative inline-block shrink-0 max-w-[calc(100%-96px)]">
+                <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
+                     class="w-auto max-w-full h-auto max-h-[calc(100vh-140px)] object-contain block rounded shadow-lg"
+                     onerror="handleFaImageError(this)"
+                     onload="handleFaImageSuccess(this)">
+                <!-- Optional overlays layer inside image bounds if needed -->
+                <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none"></div>
               </div>
             </div>
 
@@ -2064,6 +2071,103 @@
 
   <script src="/js/fa_questions_data.js"></script>
   <script src="/js/fa_questions.js"></script>
+
+  <!-- ========================================== -->
+  <!-- MEHLMAN BOTTOM SHEET MODAL (PART B)        -->
+  <!-- ========================================== -->
+  <div id="modal-mehlman-sheet" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-end justify-center transition-all select-none" onclick="handleMehlmanBackdropClick(event)">
+    <div id="mehlman-sheet-container" class="w-full max-w-3xl bg-[#140b1c] border-t-2 border-pink-500 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] text-white p-4 sm:p-6 flex flex-col space-y-4 max-h-[85vh] overflow-y-auto transform transition-transform" onclick="event.stopPropagation()">
+      <!-- Drag handle -->
+      <div class="w-12 h-1.5 bg-slate-600/70 rounded-full mx-auto -mt-1 cursor-grab active:cursor-grabbing"></div>
+
+      <!-- Header row: [Layout icon] [| 1 / 2 counter] [MEHLMAN pill] ... [Aa] [X] -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <!-- Layout toggle icon button -->
+          <button class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors" title="Toggle Layout">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
+          </button>
+          <!-- Pink vertical bar + counter -->
+          <div class="flex items-center gap-1.5 font-mono text-xs">
+            <span class="w-1 h-3.5 bg-pink-500 rounded-full inline-block"></span>
+            <span id="mehlman-sheet-counter" class="font-bold text-slate-200">1 / 2</span>
+          </div>
+          <!-- Pink MEHLMAN Pill -->
+          <span class="px-2.5 py-0.5 rounded-full bg-pink-950/80 border border-pink-500/60 text-pink-400 text-[10px] font-black uppercase tracking-wider">MEHLMAN</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Font size toggle (Aa) -->
+          <button onclick="toggleMehlmanFontSize()" class="px-2 py-1 text-xs font-bold text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors" title="Toggle Font Size">Aa</button>
+          <!-- Close button (X) -->
+          <button onclick="closeMehlmanSheet()" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors text-base font-bold leading-none" title="Close (Esc)">&times;</button>
+        </div>
+      </div>
+
+      <!-- Thin progress bar -->
+      <div class="w-full bg-[#261536] h-1 rounded-full overflow-hidden">
+        <div id="mehlman-sheet-progress" class="bg-gradient-to-r from-pink-500 to-purple-500 h-full w-1/2 transition-all duration-200"></div>
+      </div>
+
+      <!-- Topic row: pink dot + heading title -->
+      <div class="flex items-center gap-2 text-xs text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-pink-500 shrink-0"></span>
+        <span id="mehlman-sheet-topic" class="font-semibold truncate">Upper extremity nerves</span>
+      </div>
+
+      <!-- Question display -->
+      <div id="mehlman-sheet-question" class="text-sm sm:text-base font-bold text-white leading-relaxed min-h-[48px]">
+        “I know upper limb nerves are HY . What do I need to know for USMLE without all of the bullshit.”
+      </div>
+
+      <!-- Answer Box (Dashed pink border or revealed answer) -->
+      <div id="mehlman-sheet-answer-box" onclick="revealMehlmanAnswer()" class="border-2 border-dashed border-pink-500/60 hover:border-pink-500 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center cursor-pointer transition-all bg-[#1a0f26]/60 hover:bg-[#201230] min-h-[120px]">
+        <div id="mehlman-sheet-tap-hint" class="text-pink-400 font-bold text-xs sm:text-sm flex items-center gap-2">
+          <span>Tap to show the answer</span>
+        </div>
+        <div id="mehlman-sheet-revealed-text" class="hidden text-xs sm:text-sm text-slate-200 leading-relaxed text-left w-full"></div>
+      </div>
+
+      <!-- + Deck small outlined button -->
+      <div class="flex justify-start">
+        <button class="px-3 py-1 rounded-xl border border-[#48286b] text-slate-400 hover:text-white hover:border-pink-500 text-[11px] font-semibold flex items-center gap-1 transition-colors">
+          <span>+</span> Deck
+        </button>
+      </div>
+
+      <!-- Footer: Previous button, Action (Show answer or Easy/Forgot), Next button -->
+      <div class="flex items-center gap-2 pt-2">
+        <!-- Previous (chevron) -->
+        <button id="mehlman-sheet-prev-btn" onclick="prevMehlmanCard()" class="p-3 rounded-2xl border border-[#3b2352] text-slate-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/5 transition-all shrink-0" title="Previous card">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+
+        <!-- Big Pink Action Button / Rating Buttons -->
+        <div id="mehlman-sheet-action-area" class="flex-1 flex gap-2">
+          <!-- Primary: Show answer (before reveal) -->
+          <button id="mehlman-sheet-show-btn" onclick="revealMehlmanAnswer()" class="w-full py-3 px-4 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-400 hover:to-pink-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_4px_20px_rgba(236,72,153,0.4)] flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Show answer</span>
+          </button>
+
+          <!-- Rating Buttons (after reveal): Forgot & Easy -->
+          <div id="mehlman-sheet-rating-btns" class="hidden w-full flex items-center gap-2">
+            <button onclick="rateMehlmanCard('forgot')" class="flex-1 py-3 px-3 rounded-2xl bg-red-950/70 hover:bg-red-900 border border-red-700/60 text-red-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all active:scale-95">
+              <span>🔄</span> Forgot
+            </button>
+            <button onclick="rateMehlmanCard('easy')" class="flex-1 py-3 px-3 rounded-2xl bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all active:scale-95">
+              <span>✓</span> Easy
+            </button>
+          </div>
+        </div>
+
+        <!-- Next (skip-next icon) -->
+        <button id="mehlman-sheet-next-btn" onclick="nextMehlmanCard()" class="p-3 rounded-2xl border border-[#3b2352] text-slate-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/5 transition-all shrink-0" title="Next card">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================== -->
   <!-- MODAL: WHICH QUESTIONS? (SCREENSHOT 1)      -->
