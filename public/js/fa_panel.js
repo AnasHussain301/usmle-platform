@@ -256,10 +256,19 @@ function renderFaPageCallouts() {
   var html = '';
   var totalTopics = matchingTopics.length;
   matchingTopics.forEach(function(topic, idx) {
-    // Dynamically calculate vertical position so every heading on the page gets its own ... icon
-    var topPx = 110 + idx * 135;
-    if (totalTopics > 4) {
-      topPx = 100 + idx * Math.min(130, Math.floor(740 / totalTopics));
+    // Exact percentage vertical positioning matching First Aid book page headers and table rows
+    var topPct = 12;
+    if (totalTopics === 1) {
+      topPct = 12;
+    } else if (totalTopics === 2) {
+      topPct = idx === 0 ? 12 : 52;
+    } else if (totalTopics === 3) {
+      topPct = [12, 42, 70][idx] || 12;
+    } else {
+      // For multi-row tables like Upper extremity nerves (6 nerves + title)
+      var startPct = 14;
+      var spanPct = 68;
+      topPct = Math.round(startPct + (idx / Math.max(1, totalTopics - 1)) * spanPct);
     }
 
     var imgCount = (topic.images || []).length;
@@ -273,12 +282,13 @@ function renderFaPageCallouts() {
     var qList = (typeof getQuestionsForTopic === 'function') ? getQuestionsForTopic(topic) : [];
     var qCount = qList.length || 0;
 
-    html += '<div class="absolute pointer-events-auto flex items-center gap-1.5" style="top: ' + topPx + 'px; left: 10px; z-index: 25;">' +
+    // Attached right on the left margin border of the scanned page canvas (left: 8px)
+    html += '<div class="absolute pointer-events-auto flex items-center gap-1.5" style="top: ' + topPct + '%; left: 8px; z-index: 25; transform: translateY(-50%);">' +
       // Three Dots (...) Action Menu Button attached to every heading
       '<button onclick="toggleCalloutMenu(\'' + calloutId + '\')"' +
-        ' class="w-7 h-7 rounded-full bg-[#241535]/90 hover:bg-[#3d2258] border border-[#5a3580] flex items-center justify-center text-slate-300 hover:text-white transition-all shadow-lg backdrop-blur-sm hover:scale-105 active:scale-95"' +
+        ' class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#1e102e]/95 hover:bg-[#3d2258] border border-[#6b3e94] flex items-center justify-center text-slate-200 hover:text-white transition-all shadow-md backdrop-blur-sm hover:scale-110 active:scale-95"' +
         ' title="' + escHtml(topic.title) + '">' +
-        '<span class="text-xs font-bold leading-none select-none">\u22EF</span>' +
+        '<span class="text-[11px] sm:text-xs font-black leading-none select-none tracking-tighter">\u22EF</span>' +
       '</button>' +
 
       // Floating Callout Action Menu (Responsive on Mobile & Android)

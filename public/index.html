@@ -1443,16 +1443,19 @@
       <div id="fa-reader-center-container" class="flex-1 overflow-y-auto flex flex-col items-center p-2 sm:p-6 bg-[#0a0510] relative transition-all duration-300">
         <!-- The Book Page Container -->
         <div class="w-full h-full flex flex-col" style="height:calc(100vh - 80px);">
-          <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center">
-            <!-- Scanned Page Image -->
-            <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
-                 class="w-full h-auto object-contain bg-black"
-                 onerror="handleFaImageError(this)"
-                 onload="handleFaImageSuccess(this)">
+          <div id="fa-book-page-canvas-wrapper" class="w-full bg-[#120a1a] rounded-lg border border-[#2b183d] overflow-hidden shadow-2xl relative min-h-[700px] flex justify-center items-start p-2">
+            <!-- Stage wrapping the image and its aligned callout overlays -->
+            <div id="fa-page-stage" class="relative inline-block w-auto max-w-full">
+              <!-- Scanned Page Image -->
+              <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
+                   class="w-auto max-w-full h-auto max-h-[calc(100vh-140px)] object-contain block mx-auto rounded shadow-lg"
+                   onerror="handleFaImageError(this)"
+                   onload="handleFaImageSuccess(this)">
 
-            <!-- Interactive In-Page Callout Overlays (...) on the page scan -->
-            <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none">
-              <!-- Rendered dynamically: callout pills with action popovers -->
+              <!-- Interactive In-Page Callout Overlays (...) attached directly to headings -->
+              <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none">
+                <!-- Rendered dynamically: callout pills with action popovers -->
+              </div>
             </div>
 
             <!-- When Scanned Page Image is not present locally -->
