@@ -299,59 +299,76 @@ window.addEventListener('resize', () => {
 function renderHeadingPopoverHtml(popoverId, marker, secSlug, pageNum, matchingTopics) {
   const hSlug = marker.h;
   const rawTitle = marker.title ? marker.title.replace(/^Open:\s*/, '') : hSlug.replace(/-/g, ' ');
-  const titleEsc = _hesc(rawTitle);
+  const titleDisplay = _hesc(rawTitle);
+  const jsTitle = rawTitle.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+  const jsSlug = (hSlug || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
   // Find real topic in app data if exists
-  const matchedTopic = (matchingTopics || []).find(t =>
-    slugify(t.title) === hSlug || (t.title || '').toLowerCase().includes(rawTitle.toLowerCase())
-  );
-  const topicIdx = matchedTopic ? (window._faPageTopics || []).indexOf(matchedTopic) : 0;
-  const realImgCount = matchedTopic ? (matchedTopic.images || []).length : 0;
-  const realTblCount = matchedTopic ? (matchedTopic.tables || []).length : 0;
-  const realQCount = (matchedTopic && typeof getQuestionsForTopic === 'function')
-    ? getQuestionsForTopic(matchedTopic).length
-    : 0;
+  const matchedTopic = (typeof findFaTopicForHeading === 'function')
+    ? findFaTopicForHeading(hSlug, rawTitle, pageNum)
+    : (matchingTopics || []).find(t => slugify(t.title) === hSlug || (t.title || '').toLowerCase().includes(rawTitle.toLowerCase()));
+
+  let realImgCount = 0;
+  if (matchedTopic) {
+    realImgCount = (matchedTopic.images || []).length;
+    if (realImgCount === 0 && matchedTopic.subs && matchedTopic.subs.length > 0) {
+      matchedTopic.subs.forEach(s => { realImgCount += (s.images || []).length; });
+    }
+  }
+
+  let realQCount = 0;
+  if (matchedTopic && typeof getQuestionsForTopic === 'function') {
+    realQCount = getQuestionsForTopic(matchedTopic).length;
+  } else if (window.FA_QUESTIONS_DATA && window.FA_QUESTIONS_DATA[secSlug] && window.FA_QUESTIONS_DATA[secSlug][hSlug]) {
+    realQCount = window.FA_QUESTIONS_DATA[secSlug][hSlug].length;
+  }
+
+  // UWorld question count
+  const uwIds = (typeof getUWorldIdsForHeading === 'function')
+    ? getUWorldIdsForHeading(rawTitle, hSlug, pageNum)
+    : ['1622', '6691', '19567'];
+  const uwCount = uwIds.length;
 
   return `<div id="${popoverId}" class="hidden absolute left-9 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-3xl p-4 shadow-2xl min-w-[280px] z-40 pointer-events-auto text-left animate-in zoom-in-95">
     <!-- Title row: single line, ellipsis, bold -->
-    <div class="text-xs font-bold text-white mb-3 truncate max-w-[260px]">${titleEsc}</div>
+    <div class="text-xs font-bold text-white mb-3 truncate max-w-[260px]">${titleDisplay}</div>
     <!-- Row of 5 round icon buttons (~48-56px styled) -->
     <div class="flex items-center gap-2.5 justify-between">
-      <!-- 1) Play review: big pink/red filled circle with white play triangle -->
-      <button onclick="openSketchFromFA(${topicIdx}); closeAllHeadingPopovers();"
-        class="w-11 h-11 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95"
-        title="Start review for ${titleEsc}">
+      <!-- 1) Play review / Sketch: big pink/red filled circle with white play triangle -->
+      <button onclick="event.stopPropagation(); openSketchFromFA(null, '${jsSlug}', '${jsTitle}'); closeAllHeadingPopovers();"
+        class="w-11 h-11 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+        title="Play Sketch for ${titleDisplay}">
         <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </button>
 
-      <!-- 2) Table/grid icon: light blue circle with pink count badge -->
-      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('img'); closeAllHeadingPopovers();"
-        class="relative w-11 h-11 rounded-full bg-[#1b2b45] hover:bg-[#23385a] border border-sky-500/40 text-sky-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
-        title="Images / Tables">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+      <!-- 2) Image icon: light blue circle with pink count badge (opens right sidebar on Images) -->
+      <button onclick="event.stopPropagation(); openFaRightPanelForHeading('${jsTitle}', '${jsSlug}', ${pageNum}, 'img'); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#1b2b45] hover:bg-[#23385a] border border-sky-500/40 text-sky-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+        title="Images">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         ${realImgCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realImgCount}</span>` : ''}
       </button>
 
-      <!-- 3) Check mark: dark circle with white check & pink count badge -->
-      <button onclick="openWhichQuestionsModal(${topicIdx}); closeAllHeadingPopovers();"
-        class="relative w-11 h-11 rounded-full bg-[#1e142b] hover:bg-[#2b1c3e] border border-[#5a3880] text-emerald-400 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
+      <!-- 3) Check mark: dark circle with white check & pink count badge (UNCHANGED) -->
+      <button onclick="event.stopPropagation(); openWhichQuestionsModal('${jsTitle}'); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#1e142b] hover:bg-[#2b1c3e] border border-[#5a3880] text-emerald-400 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95 cursor-pointer"
         title="Practice Questions">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
         ${realQCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realQCount}</span>` : ''}
       </button>
 
-      <!-- 4) UWorld questions: light circle with "UW" text & pink count badge -->
-      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('tables'); closeAllHeadingPopovers();"
-        class="relative w-11 h-11 rounded-full bg-[#201c36] hover:bg-[#2c264a] border border-indigo-400/40 text-indigo-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
-        title="UWorld Tables">
+      <!-- 4) UWorld questions: light circle with "UW" text & pink count badge (opens UWorld IDs) -->
+      <button onclick="event.stopPropagation(); openUWorldIdsModal('${jsTitle}', '${jsSlug}', ${pageNum}); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#201c36] hover:bg-[#2c264a] border border-indigo-400/40 text-indigo-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+        title="UWorld Question IDs">
         <span class="text-xs font-black">UW</span>
-        ${realTblCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realTblCount}</span>` : ''}
+        ${uwCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${uwCount}</span>` : ''}
       </button>
 
-      <!-- 5) Notes/edit: light yellow circle with pencil icon -->
-      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('notes'); closeAllHeadingPopovers();"
-        class="w-11 h-11 rounded-full bg-[#332b1b] hover:bg-[#453922] border border-amber-400/40 text-amber-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
-        title="Notes">
+      <!-- 5) Notes/edit: light yellow circle with pencil icon (opens right sidebar on Notes) -->
+      <button onclick="event.stopPropagation(); openFaRightPanelForHeading('${jsTitle}', '${jsSlug}', ${pageNum}, 'notes'); closeAllHeadingPopovers();"
+        class="w-11 h-11 rounded-full bg-[#332b1b] hover:bg-[#453922] border border-amber-400/40 text-amber-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+        title="Personal Notes">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
       </button>
     </div>

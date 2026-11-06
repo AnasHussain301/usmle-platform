@@ -2274,7 +2274,51 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- MOBILE BOTTOM NAVIGATION (ANDROID / iOS)   -->
+    <!-- ========================================== -->
+  <!-- MODAL: UWORLD QUESTION IDS (EXACT ZETCHY)  -->
+  <!-- ========================================== -->
+  <div id="modal-uworld-ids" onclick="if(event.target === this) closeUWorldIdsModal();" class="hidden fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#170e24] border border-[#3b2354] rounded-3xl max-w-sm sm:max-w-md w-full p-6 shadow-2xl relative text-left animate-in zoom-in-95">
+      <!-- Header -->
+      <div class="flex items-start justify-between border-b border-[#2d1b42] pb-3 mb-4">
+        <div class="pr-6">
+          <h3 class="text-sm font-bold text-white flex items-center gap-1.5 flex-wrap">
+            <span id="uworld-modal-heading-title" class="truncate max-w-[220px]">Mean arterial pressure</span>
+            <span class="text-slate-400">·</span>
+            <span class="text-pink-400 font-extrabold tracking-wide">UWorld</span>
+          </h3>
+          <p id="uworld-modal-subtitle" class="text-[11px] text-slate-400 mt-1">3 questions (Step 1)</p>
+        </div>
+        <button onclick="closeUWorldIdsModal()" class="w-8 h-8 rounded-full bg-[#241438] hover:bg-[#341d52] text-slate-400 hover:text-white flex items-center justify-center text-lg transition-colors cursor-pointer">
+          &times;
+        </button>
+      </div>
+
+      <!-- IDs Box -->
+      <div class="bg-[#0f0917] border border-[#2b183d] rounded-2xl p-4 mb-4">
+        <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono mb-2">
+          <span>Question IDs</span>
+          <span id="uworld-modal-step-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-800/60">Step 1</span>
+        </div>
+        <div id="uworld-modal-ids-text" class="text-base sm:text-lg font-mono font-bold text-pink-300 tracking-wider select-all break-all leading-relaxed">
+          1622, 6691, 19567
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button id="uworld-modal-copy-btn" onclick="copyUWorldModalIds()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span>Copy IDs</span>
+        </button>
+        <button onclick="closeUWorldIdsModal()" class="py-2.5 px-4 rounded-xl bg-[#241438] hover:bg-[#341d52] text-slate-300 text-xs font-medium transition-colors cursor-pointer">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+<!-- MOBILE BOTTOM NAVIGATION (ANDROID / iOS)   -->
   <!-- ========================================== -->
   <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0e0719]/95 backdrop-blur-2xl border-t border-[#29173e] px-2 py-1.5 pb-safe flex items-center justify-around shadow-2xl">
     <!-- 1. Home -->
