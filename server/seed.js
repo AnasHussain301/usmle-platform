@@ -5,11 +5,21 @@ async function seed() {
   console.log('Seeding Zetchy application database with complete Sketchy, FA, and DDx data...');
 
   // 1. Users — Production Admin Setup
-  const ADMIN_EMAILS = ['asawir125@gmail.com', 'kingdomhouse@gmail.com'];
+  const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
+    .split(',')
+    .map(email => email.trim().toLowerCase())
+    .filter(Boolean);
   const legacyEmails = ['admin@radmed.local', 'sarah.jenkins@usmle.com', 'michael.chen@usmle.com'];
   
   // Remove legacy test users
   db.data.users = (db.data.users || []).filter(u => !legacyEmails.includes(u.email));
+  for (const user of db.data.users || []) {
+    if (user.role === 'admin' && !ADMIN_EMAILS.includes(String(user.email || '').toLowerCase())) {
+      user.role = 'user';
+      if (user.tier === 'admin') user.tier = 'trial';
+      user.trialEndsAt = user.trialEndsAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+    }
+  }
   db.save();
 
   // Ensure super admins exist with all-access admin role

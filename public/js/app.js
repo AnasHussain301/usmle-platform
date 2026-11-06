@@ -116,11 +116,9 @@ function renderAuthUI() {
   const adminBtn = document.getElementById('top-admin-btn');
   const reviewSync = document.getElementById('review-user-sync');
 
-  // If currentUser is null, default display name and email to kingdomhouse009 / kingdomhouse009@gmail.com
-  // so the user's account and profile always reflect their session and screenshot!
   const user = state.currentUser || {
-    name: 'kingdomhouse009',
-    email: 'kingdomhouse009@gmail.com',
+    name: 'Guest',
+    email: '',
     tier: 'premium',
     role: 'user'
   };
@@ -2022,77 +2020,22 @@ async function deleteAdminUser(id) {
 }
 
 // ==========================================
-// AUTH MODAL
+// AUTH HELPERS (Redirect to official Google login)
 // ==========================================
-let isRegisterMode = false;
-
-function openLoginModal(options = {}) {
-  isRegisterMode = false;
-  const title = document.getElementById('auth-modal-title');
-  if (title) title.textContent = 'Sign in to Synapse';
-  const nameCont = document.getElementById('auth-name-container');
-  if (nameCont) nameCont.classList.add('hidden');
-  const subBtn = document.getElementById('auth-submit-btn');
-  if (subBtn) subBtn.textContent = 'Sign In';
-  const swBtn = document.getElementById('auth-switch-btn');
-  if (swBtn) swBtn.textContent = "Don't have an account? Register here";
-  const modal = document.getElementById('modal-auth');
-  if (modal) modal.classList.remove('hidden');
-  if (!options.fromPopState && window.location.hash !== '#login') {
-    history.pushState({ modal: 'auth' }, '', '#login');
-  }
+function openAuthModal() {
+  window.location.href = '/login.html';
 }
 
-function closeAuthModal(options = {}) {
-  const modal = document.getElementById('modal-auth');
-  if (modal) modal.classList.add('hidden');
-  if (!options.fromPopState && window.location.hash === '#login') {
-    history.back();
-  }
+function openLoginModal() {
+  window.location.href = '/login.html';
 }
 
-function toggleAuthMode() {
-  isRegisterMode = !isRegisterMode;
-  if (isRegisterMode) {
-    document.getElementById('auth-modal-title').textContent = 'Create Zetchy Account';
-    document.getElementById('auth-name-container').classList.remove('hidden');
-    document.getElementById('auth-submit-btn').textContent = 'Register Now';
-    document.getElementById('auth-switch-btn').textContent = 'Already have an account? Sign In';
-  } else { openLoginModal(); }
+function openRegisterModal() {
+  window.location.href = '/login.html';
 }
 
-async function handleAuthSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('auth-email').value;
-  const password = document.getElementById('auth-password').value;
-  const name = document.getElementById('auth-name').value;
-  const endpoint = isRegisterMode ? '/api/auth/register' : '/api/auth/login';
-  const payload = isRegisterMode ? { name, email, password } : { email, password };
-  const data = await apiFetch(endpoint, { method: 'POST', body: JSON.stringify(payload) });
-  if (data.token) {
-    state.token = data.token;
-    state.currentUser = data.user;
-    localStorage.setItem('radmed_token', data.token);
-    closeAuthModal();
-    renderAuthUI();
-  } else { alert(data.error || 'Authentication failed.'); }
-}
-
-async function quickDemoLogin(type) {
-  let email = 'admin@radmed.local', password = 'Admin123!';
-  if (type === 'premium') { email = 'sarah.jenkins@usmle.com'; password = 'Student123!'; }
-  else if (type === 'free') { email = 'michael.chen@usmle.com'; password = 'Student123!'; }
-
-  document.getElementById('auth-email').value = email;
-  document.getElementById('auth-password').value = password;
-  const data = await apiFetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-  if (data.token) {
-    state.token = data.token;
-    state.currentUser = data.user;
-    localStorage.setItem('radmed_token', data.token);
-    closeAuthModal();
-    renderAuthUI();
-  } else { alert(data.error || 'Demo login failed.'); }
+function closeAuthModal() {
+  // no-op, redirects to login page
 }
 
 // ==========================================
@@ -2318,7 +2261,7 @@ function applyAppearanceSettingsUI() {
 
   const emailEl = document.getElementById('settings-user-email');
   if (emailEl) {
-    emailEl.textContent = state.currentUser ? state.currentUser.email : 'kingdomhouse009@gmail.com';
+    emailEl.textContent = state.currentUser ? state.currentUser.email : '';
   }
 }
 

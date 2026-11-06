@@ -1766,7 +1766,7 @@
         <div class="flex items-center justify-between text-xs">
           <span class="text-slate-400 font-medium">Account</span>
           <div class="flex items-center gap-2">
-            <span id="settings-user-email" class="font-bold text-white truncate max-w-[190px]">kingdomhouse009@gmail.com</span>
+            <span id="settings-user-email" class="font-bold text-white truncate max-w-[190px]"></span>
             <button onclick="logout()" id="settings-logout-btn" class="text-pink-400 hover:text-pink-300 underline font-medium">Log out</button>
           </div>
         </div>
@@ -1889,13 +1889,13 @@
         <span class="text-pink-400 text-base font-bold group-hover:translate-x-1 transition-transform">&rsaquo;</span>
       </button>
 
-      <!-- SUPPORT & LEGAL POLICIES (AdSense & Compliance) -->
+      <!-- SUPPORT & LEGAL POLICIES -->
       <div class="pt-3 border-t border-purple-950/80 space-y-2">
         <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Support & Legal</div>
 
         <!-- Direct Contact Links -->
         <div class="grid grid-cols-2 gap-2 mb-2">
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com" target="_blank" rel="noopener" class="p-2 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-800/40 flex items-center gap-2 text-rose-300 text-[11px] font-semibold transition-colors">
+          <a href="/contact.html" class="p-2 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-800/40 flex items-center gap-2 text-rose-300 text-[11px] font-semibold transition-colors">
             <svg class="w-3.5 h-3.5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             <span class="truncate">Gmail Support</span>
           </a>
@@ -1933,56 +1933,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- MODALS (LOGIN & PLANS)                     -->
-  <!-- ========================================== -->
-  <div id="modal-auth" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#1d1429] border border-[#3b2454] rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-[#2e1d40] pb-2">
-        <h3 id="auth-modal-title" class="text-lg font-bold text-white">Sign in to Synapse</h3>
-        <button onclick="closeAuthModal()" class="text-slate-400 hover:text-white">&times;</button>
-      </div>
-
-      <div class="bg-[#241736] p-3 rounded-xl border border-[#3b2554] space-y-1.5">
-        <p class="text-[11px] font-bold text-pink-400">1-Click Instant Demo Logins:</p>
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="quickDemoLogin('admin')" class="py-1 px-2 bg-rose-600 hover:bg-rose-700 text-white rounded text-xs font-bold">
-            👑 Admin
-          </button>
-          <button onclick="quickDemoLogin('premium')" class="py-1 px-2 bg-amber-500 hover:bg-amber-600 text-white rounded text-xs font-bold">
-            ⭐ Premium
-          </button>
-          <button onclick="quickDemoLogin('free')" class="py-1 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded text-xs font-bold">
-            🎓 Free
-          </button>
-        </div>
-      </div>
-
-      <form onsubmit="handleAuthSubmit(event)" class="space-y-3">
-        <div id="auth-name-container" class="hidden">
-          <label class="block text-[11px] font-bold text-slate-400 mb-1">Full Name</label>
-          <input type="text" id="auth-name" placeholder="Dr. John Doe" class="w-full px-3 py-2 text-xs bg-[#120a1a] border border-[#3b2752] rounded-xl text-white">
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-400 mb-1">Email Address</label>
-          <input type="email" id="auth-email" required placeholder="doctor@hospital.org" class="w-full px-3 py-2 text-xs bg-[#120a1a] border border-[#3b2752] rounded-xl text-white">
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-400 mb-1">Password</label>
-          <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-3 py-2 text-xs bg-[#120a1a] border border-[#3b2752] rounded-xl text-white">
-        </div>
-        <button type="submit" id="auth-submit-btn" class="w-full py-2.5 rounded-xl font-bold bg-[#db2777] text-white hover:bg-[#e11d48] text-xs">
-          Sign In
-        </button>
-      </form>
-
-      <div class="text-center pt-1">
-        <button onclick="toggleAuthMode()" id="auth-switch-btn" class="text-xs text-pink-400 hover:underline">
-          Don't have an account? Register here
-        </button>
-      </div>
     </div>
   </div>
 

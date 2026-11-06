@@ -27,7 +27,6 @@
   .fade-in { animation: fadeIn 0.5s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .error-box { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 12px 16px; color: #fca5a5; font-size: 13px; }
-  .info-box { background: rgba(147, 51, 234, 0.1); border: 1px solid rgba(147, 51, 234, 0.3); border-radius: 10px; padding: 12px 16px; color: #d8b4fe; font-size: 12px; }
 </style>
 </head>
 <body class="py-10 px-4">
@@ -70,12 +69,12 @@
     <div class="space-y-3.5">
       <div class="text-center mb-1">
         <h2 class="text-base font-semibold text-white">Sign in with your Google account</h2>
-        <p class="text-xs text-slate-400 mt-0.5">Fast, password-less single sign-on</p>
+        <p class="text-xs text-slate-400 mt-0.5">Secure, verified Google Sign-In</p>
       </div>
 
       <div id="error-msg" class="hidden error-box"></div>
 
-      <!-- Live Google Sign-in Button Container -->
+      <!-- Google Sign-in Button Container -->
       <div id="google-signin-wrapper">
         <button class="google-btn" id="google-btn" onclick="handleGoogleSignIn()">
           <svg width="20" height="20" viewBox="0 0 48 48">
@@ -88,29 +87,6 @@
           <span id="google-btn-text">Continue with Google</span>
         </button>
       </div>
-
-      <!-- Setup Helper Banner (shown only when Google Client ID is not yet configured) -->
-      <div id="client-id-notice" class="hidden info-box space-y-2 mt-2">
-        <div class="flex items-start gap-2">
-          <span class="text-base mt-0.5">⚙️</span>
-          <div>
-            <div class="font-bold text-purple-200">Google OAuth Setup Needed</div>
-            <p class="text-[11px] text-purple-300/90 mt-0.5 leading-relaxed">
-              To enable live Google login on <code class="text-pink-300 font-mono">synapses.systems</code>, register a Web Client ID in Google Cloud Console.
-            </p>
-          </div>
-        </div>
-
-        <div class="pt-1 flex flex-col gap-2">
-          <button onclick="openFastLoginModal()" class="w-full py-2 px-3 rounded-lg bg-pink-600 hover:bg-pink-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors">
-            <span>👑 Instant Admin Sign-In (Bypass)</span>
-          </button>
-          <button onclick="openSetClientIdModal()" class="w-full py-1.5 px-3 rounded-lg bg-purple-900/60 hover:bg-purple-800/60 text-purple-200 border border-purple-700/60 font-medium text-xs transition-colors">
-            Configure Client ID Key
-          </button>
-        </div>
-      </div>
-
     </div>
 
     <!-- 30-Day Free Trial Badge -->
@@ -148,9 +124,9 @@
 
     <!-- Direct Contact Pill Links -->
     <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-center gap-3 text-[11px]">
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com" target="_blank" rel="noopener" class="text-slate-400 hover:text-rose-400 flex items-center gap-1.5 transition-colors">
+      <a href="/contact.html" class="text-slate-400 hover:text-rose-400 flex items-center gap-1.5 transition-colors">
         <svg class="w-3.5 h-3.5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        <span>kingdomhouse009@gmail.com</span>
+        <span>Contact Support</span>
       </a>
       <span class="text-slate-600">•</span>
       <a href="https://wa.me/923238057305?text=Hello%20Synapse%20Support" target="_blank" rel="noopener" class="text-slate-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors">
@@ -162,71 +138,13 @@
   </div>
 </div>
 
-<!-- FAST ADMIN LOGIN MODAL -->
-<div id="fast-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="glass-card rounded-2xl max-w-sm w-full p-6 space-y-4 border border-purple-500/40">
-    <div class="flex justify-between items-center">
-      <h3 class="text-base font-bold text-white flex items-center gap-2">
-        <span>👑</span> Admin Fast Login
-      </h3>
-      <button onclick="closeFastLoginModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
-    </div>
-    <p class="text-xs text-slate-300">
-      Quickly authenticate as a verified Super Admin during setup:
-    </p>
-    <div class="space-y-2">
-      <button onclick="fastLogin('kingdomhouse009@gmail.com')" class="w-full py-2.5 px-3 rounded-xl bg-purple-900/60 hover:bg-purple-800/80 border border-purple-700/60 text-white font-semibold text-xs text-left flex items-center justify-between transition-colors">
-        <span>kingdomhouse009@gmail.com</span>
-        <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Admin</span>
-      </button>
-      <button onclick="fastLogin('asawir125@gmail.com')" class="w-full py-2.5 px-3 rounded-xl bg-purple-900/60 hover:bg-purple-800/80 border border-purple-700/60 text-white font-semibold text-xs text-left flex items-center justify-between transition-colors">
-        <span>asawir125@gmail.com</span>
-        <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Admin</span>
-      </button>
-    </div>
-    <div class="pt-2 border-t border-white/5">
-      <input type="email" id="custom-fast-email" placeholder="or enter any registered email"
-             class="w-full bg-[#1b1028] border border-purple-900/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 mb-2 focus:outline-none focus:ring-1 focus:ring-pink-500">
-      <button onclick="fastLogin(document.getElementById('custom-fast-email').value)" class="w-full py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition-colors">
-        Log In
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- CONFIGURE CLIENT ID MODAL -->
-<div id="set-client-id-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="glass-card rounded-2xl max-w-md w-full p-6 space-y-4 border border-purple-500/40">
-    <div class="flex justify-between items-center">
-      <h3 class="text-base font-bold text-white flex items-center gap-2">
-        <span>🔑</span> Google OAuth Client ID
-      </h3>
-      <button onclick="closeSetClientIdModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
-    </div>
-    <p class="text-xs text-slate-300 leading-relaxed">
-      In Google Cloud Console (<a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener" class="text-pink-400 underline">console.cloud.google.com</a>):
-      <br>1. Create an <strong>OAuth 2.0 Client ID</strong> (Web application).
-      <br>2. Add Authorized JavaScript origin: <code class="text-purple-300 font-mono">https://synapses.systems</code> (and <code class="text-purple-300 font-mono">http://localhost:5000</code>).
-      <br>3. Paste your Client ID below:
-    </p>
-    <div>
-      <input type="text" id="input-client-id" placeholder="xxxx-xxxx.apps.googleusercontent.com"
-             class="w-full bg-[#1b1028] border border-purple-900/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
-    </div>
-    <div class="flex justify-end gap-2">
-      <button onclick="closeSetClientIdModal()" class="py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold">Cancel</button>
-      <button onclick="saveClientIdFromModal()" class="py-2 px-5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xs">Save Key</button>
-    </div>
-  </div>
-</div>
-
 <!-- Google Identity Services SDK -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/js/cookie-banner.js"></script>
 
 <script>
 // ============================================================
-// DYNAMIC GOOGLE CLIENT ID CONFIGURATION
+// GOOGLE OAUTH AUTHENTICATION (STRICT GOOGLE ONLY)
 // ============================================================
 let activeGoogleClientId = '';
 let isGoogleConfigured = false;
@@ -240,12 +158,7 @@ async function initAuthConfig() {
       isGoogleConfigured = Boolean(data.isConfigured);
 
       if (isGoogleConfigured && activeGoogleClientId) {
-        // Initialize official Google Identity Services
         setupGoogleSignIn(activeGoogleClientId);
-      } else {
-        // Show setup banner so admin isn't faced with broken 401 popup
-        const notice = document.getElementById('client-id-notice');
-        if (notice) notice.classList.remove('hidden');
       }
     }
   } catch (err) {
@@ -278,11 +191,9 @@ function handleGoogleCallback(response) {
 
 function handleGoogleSignIn() {
   if (isGoogleConfigured && activeGoogleClientId && typeof google !== 'undefined') {
-    // Official Google OAuth Flow
     try {
       google.accounts.id.prompt((notification) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback popup if one-tap is suppressed
           google.accounts.id.initialize({
             client_id: activeGoogleClientId,
             callback: handleGoogleCallback
@@ -293,8 +204,7 @@ function handleGoogleSignIn() {
       showError('Google Sign-In prompt failed: ' + err.message);
     }
   } else {
-    // Client ID not yet set — show the configuration & fast login modal
-    openFastLoginModal();
+    showError('Google OAuth is initializing. If you are the administrator, set GOOGLE_CLIENT_ID in your server environment.');
   }
 }
 
@@ -322,30 +232,6 @@ async function loginWithGoogleToken(credential) {
   }
 }
 
-async function fastLogin(email) {
-  if (!email || !email.trim()) return;
-  const btn = document.getElementById('google-btn');
-  const btnText = document.getElementById('google-btn-text');
-  btn.disabled = true;
-  if (btnText) btnText.textContent = 'Authenticating…';
-  closeFastLoginModal();
-
-  try {
-    const res = await fetch('/api/auth/dev-login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.trim() })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Fast login failed.');
-    completeLogin(data);
-  } catch (err) {
-    showError(err.message);
-    btn.disabled = false;
-    if (btnText) btnText.textContent = 'Continue with Google';
-  }
-}
-
 function completeLogin(data) {
   localStorage.setItem('synapse_token', data.token);
   localStorage.setItem('synapse_user', JSON.stringify(data.user));
@@ -364,32 +250,6 @@ function showError(msg) {
     el.textContent = msg;
     el.classList.remove('hidden');
   }
-}
-
-function openFastLoginModal() {
-  document.getElementById('fast-login-modal').classList.remove('hidden');
-}
-function closeFastLoginModal() {
-  document.getElementById('fast-login-modal').classList.add('hidden');
-}
-function openSetClientIdModal() {
-  document.getElementById('set-client-id-modal').classList.remove('hidden');
-}
-function closeSetClientIdModal() {
-  document.getElementById('set-client-id-modal').classList.add('hidden');
-}
-
-async function saveClientIdFromModal() {
-  const input = document.getElementById('input-client-id').value.trim();
-  if (!input) return alert('Please enter a valid Google Client ID.');
-  
-  // Test local save & setup
-  activeGoogleClientId = input;
-  isGoogleConfigured = true;
-  setupGoogleSignIn(input);
-  closeSetClientIdModal();
-  document.getElementById('client-id-notice').classList.add('hidden');
-  alert('Client ID saved! Click "Continue with Google" to test OAuth.');
 }
 
 // Auto-redirect if already logged in with valid token

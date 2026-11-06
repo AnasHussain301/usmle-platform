@@ -176,7 +176,7 @@ const settingsDrawerHtml = `
         <div class="flex items-center justify-between text-xs">
           <span class="text-slate-400 font-medium">Account</span>
           <div class="flex items-center gap-2">
-            <span id="settings-user-email" class="font-bold text-white truncate max-w-[190px]">kingdomhouse009@gmail.com</span>
+            <span id="settings-user-email" class="font-bold text-white truncate max-w-[190px]"></span>
             <button onclick="logout()" class="text-pink-400 hover:text-pink-300 underline font-medium">Log out</button>
           </div>
         </div>

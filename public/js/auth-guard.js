@@ -76,8 +76,18 @@
   window.synapseGetUser = getUser;
   window.synapseGetToken = getToken;
 
-  // Skip guard on public pages and admin
+  // Guard logic for admin and public pages
   const page = window.location.pathname;
+  if (page.startsWith('/admin')) {
+    const token = getToken();
+    const user = getUser();
+    if (!token || !user || user.role !== 'admin') {
+      window.location.href = '/login.html';
+      return;
+    }
+    return;
+  }
+
   const publicPages = [
     '/login.html',
     '/terms.html',
@@ -86,7 +96,7 @@
     '/editorial.html',
     '/contact.html'
   ];
-  if (publicPages.includes(page) || page.startsWith('/admin')) return;
+  if (publicPages.includes(page)) return;
 
   async function verifyAndRender() {
     const token = getToken();
@@ -190,7 +200,7 @@
         <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your 30-day free trial has ended. Subscribe to continue accessing Synapse.</p>
         <div style="background:linear-gradient(135deg,rgba(220,38,127,0.1),rgba(124,58,237,0.1));border:1px solid rgba(220,38,127,0.2);border-radius:16px;padding:20px;margin-bottom:24px;">
           <div style="color:#f43f8e;font-size:20px;font-weight:800;margin-bottom:4px;">Contact Admin</div>
-          <div style="color:#94a3b8;font-size:13px;">Email: asawir125@gmail.com<br>to activate your subscription</div>
+          <div style="color:#94a3b8;font-size:13px;">Contact the Synapse support team<br>to activate your subscription</div>
         </div>
         <button onclick="window.synapseLogout()" style="padding:12px 32px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:14px;font-weight:600;cursor:pointer;">Sign Out</button>
       </div>`;

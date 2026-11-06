@@ -113,7 +113,7 @@ function applyAppearanceSettingsUI() {
   // Sync user email in settings
   const emailEl = document.getElementById('settings-user-email');
   if (emailEl) {
-    emailEl.textContent = state.currentUser ? state.currentUser.email : 'kingdomhouse009@gmail.com';
+    emailEl.textContent = state.currentUser ? state.currentUser.email : '';
   }
 }
 

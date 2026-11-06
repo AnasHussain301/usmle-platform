@@ -13,13 +13,27 @@ const seed = require('./seed');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'synapse_secret_jwt_key_2026_secure';
+const JWT_SECRET = process.env.JWT_SECRET;
 let GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 
 // ============================================================
 // ADMIN EMAILS — MUST MATCH EXACTLY (lowercase)
 // ============================================================
-const ADMIN_EMAILS = ['asawir125@gmail.com', 'kingdomhouse@gmail.com', 'kingdomhouse009@gmail.com'];
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
+  .split(',')
+  .map(email => email.trim().toLowerCase())
+  .filter(Boolean);
+
+if (!JWT_SECRET && process.env.VERCEL) {
+  throw new Error('JWT_SECRET is required in production.');
+}
+if (process.env.VERCEL && (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com'))) {
+  throw new Error('GOOGLE_CLIENT_ID is required in production.');
+}
+if (process.env.VERCEL && ADMIN_EMAILS.length === 0) {
+  throw new Error('ADMIN_EMAILS must contain the authorized administrator addresses.');
+}
+const runtimeJwtSecret = JWT_SECRET || require('crypto').randomBytes(48).toString('hex');
 
 // Run DB seed on startup if fresh
 seed();
@@ -113,7 +127,7 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) { req.user = null; return next(); }
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, runtimeJwtSecret, (err, decoded) => {
     if (err) { req.user = null; }
     else { req.user = db.getUserById(decoded.id); }
     next();
@@ -150,32 +164,22 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
   try {
     let googleUser;
 
-    // Verify token with Google (if client ID set) or decode payload directly
-    if (googleClient && GOOGLE_CLIENT_ID) {
-      const ticket = await googleClient.verifyIdToken({
-        idToken: token,
-        audience: GOOGLE_CLIENT_ID
-      });
-      const payload = ticket.getPayload();
-      googleUser = {
-        sub: payload.sub,
-        email: payload.email?.toLowerCase(),
-        name: payload.name,
-        picture: payload.picture,
-        email_verified: payload.email_verified
-      };
-    } else {
-      // Dev mode: decode without verify (MUST set GOOGLE_CLIENT_ID in production)
-      const [, payloadB64] = token.split('.');
-      const payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString());
-      googleUser = {
-        sub: payload.sub,
-        email: payload.email?.toLowerCase(),
-        name: payload.name,
-        picture: payload.picture,
-        email_verified: payload.email_verified
-      };
+    if (!googleClient || !GOOGLE_CLIENT_ID) {
+      return res.status(503).json({ error: 'Google sign-in is not configured. Contact the administrator.' });
     }
+
+    const ticket = await googleClient.verifyIdToken({
+      idToken: token,
+      audience: GOOGLE_CLIENT_ID
+    });
+    const payload = ticket.getPayload();
+    googleUser = {
+      sub: payload.sub,
+      email: payload.email?.toLowerCase(),
+      name: payload.name,
+      picture: payload.picture,
+      email_verified: payload.email_verified
+    };
 
     if (!googleUser.email) {
       return res.status(400).json({ error: 'Could not get email from Google account.' });
@@ -220,6 +224,9 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
       if (isAdmin) {
         updates.role = 'admin';
         updates.tier = 'admin';
+      } else if (user.role === 'admin') {
+        updates.role = 'user';
+        updates.tier = user.tier === 'admin' ? 'trial' : user.tier;
       }
       user = db.updateUser(user.id, updates);
       db.logActivity(user.id, user.name, 'google_login', { email: googleUser.email, ip }, ip, userAgent);
@@ -233,7 +240,7 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
     const accessStatus = getAccessStatus(user);
 
     const jwtPayload = { id: user.id, email: user.email, role: user.role };
-    const authToken = jwt.sign(jwtPayload, JWT_SECRET, { expiresIn: '7d' });
+    const authToken = jwt.sign(jwtPayload, runtimeJwtSecret, { expiresIn: '7d' });
 
     const { passwordHash: _, ...safeUser } = user;
     res.json({ user: safeUser, token: authToken, accessStatus });
@@ -286,65 +293,13 @@ app.get('/api/auth/config', (req, res) => {
   res.json({
     googleClientId: isConfigured ? GOOGLE_CLIENT_ID : '',
     isConfigured,
-    supportEmail: 'kingdomhouse009@gmail.com',
+    supportEmail: process.env.SUPPORT_EMAIL || '',
     whatsapp: '+92-3238057305',
     whatsappUrl: 'https://wa.me/923238057305?text=Hello%20Synapse%20Support',
-    gmailUrl: 'https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com'
+    gmailUrl: process.env.SUPPORT_EMAIL
+      ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(process.env.SUPPORT_EMAIL)}`
+      : '/contact.html'
   });
-});
-
-// DEV / ADMIN FAST LOGIN (When GOOGLE_CLIENT_ID is not yet configured)
-app.post('/api/auth/dev-login', authLimiter, async (req, res) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ error: 'Email required.' });
-  const cleanEmail = email.trim().toLowerCase();
-
-  const isSuperAdmin = ADMIN_EMAILS.includes(cleanEmail);
-  const isDevMode = !GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID.includes('__');
-
-  if (!isDevMode && !isSuperAdmin) {
-    return res.status(403).json({ error: 'Live Google Sign-In is required in production.' });
-  }
-
-  const { ip, userAgent } = getClientMeta(req);
-  let user = db.getUserByEmail(cleanEmail);
-
-  if (!user) {
-    user = db.createUser({
-      googleId: 'fast_' + Date.now(),
-      email: cleanEmail,
-      name: cleanEmail.split('@')[0],
-      avatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(cleanEmail),
-      role: isSuperAdmin ? 'admin' : 'user',
-      tier: isSuperAdmin ? 'admin' : 'trial',
-      trialEndsAt: isSuperAdmin ? null : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      status: 'active',
-      lastIp: ip,
-      lastUserAgent: userAgent
-    });
-  } else {
-    if (isSuperAdmin) {
-      user.role = 'admin';
-      user.tier = 'admin';
-      user.trialEndsAt = null;
-    }
-    user.lastLoginAt = new Date().toISOString();
-    user.lastIp = ip;
-    user.lastUserAgent = userAgent;
-    db.save();
-  }
-
-  const token = jwt.sign(
-    { id: user.id, email: user.email, role: user.role },
-    JWT_SECRET,
-    { expiresIn: '30d' }
-  );
-
-  db.logActivity(user.id, user.name, 'login_dev_mode', { email: user.email }, ip, userAgent);
-
-  const { passwordHash: _, ...safeUser } = user;
-  const accessStatus = getAccessStatus(user);
-  res.json({ token, user: safeUser, accessStatus });
 });
 
 // CONTACT FORM SUBMISSION
@@ -401,7 +356,7 @@ app.get('/api/study/progress', requireAuth, (req, res) => {
 
 // FA page access - require active access
 app.get('/api/fa/page-token', requireAccess, (req, res) => {
-  const token = jwt.sign({ type: 'page', uid: req.user.id }, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ type: 'page', uid: req.user.id }, runtimeJwtSecret, { expiresIn: '1h' });
   res.json({ token });
 });
 
@@ -742,40 +697,7 @@ app.put('/api/admin/settings', requireAdmin, (req, res) => {
   res.json({ settings: updated });
 });
 
-// Admin update Google Client ID
-app.post('/api/admin/set-google-client-id', requireAdmin, (req, res) => {
-  const { clientId } = req.body;
-  if (!clientId || !clientId.trim()) {
-    return res.status(400).json({ error: 'Google Client ID is required.' });
-  }
-  const cleanId = clientId.trim();
-  GOOGLE_CLIENT_ID = cleanId;
-  try {
-    googleClient = new OAuth2Client(cleanId);
-  } catch (e) {
-    console.error('Failed to instantiate OAuth2Client:', e);
-  }
-
-  try {
-    const envPath = path.join(__dirname, '..', '.env');
-    let envContent = '';
-    if (fs.existsSync(envPath)) {
-      envContent = fs.readFileSync(envPath, 'utf8');
-    }
-    if (envContent.includes('GOOGLE_CLIENT_ID=')) {
-      envContent = envContent.replace(/GOOGLE_CLIENT_ID=.*/g, `GOOGLE_CLIENT_ID=${cleanId}`);
-    } else {
-      envContent += `\nGOOGLE_CLIENT_ID=${cleanId}\n`;
-    }
-    fs.writeFileSync(envPath, envContent.trim() + '\n', 'utf8');
-  } catch (err) {
-    console.error('Failed to update .env:', err);
-  }
-
-  const { ip, userAgent } = getClientMeta(req);
-  db.logActivity(req.user.id, req.user.name, 'admin_updated_google_client_id', { clientId: cleanId }, ip, userAgent);
-  res.json({ success: true, message: 'Google Client ID saved and activated successfully.', clientId: cleanId });
-});
+// Google OAuth configuration is deployment-managed only and cannot be changed by users.
 
 // Admin Question CRUD
 app.post('/api/admin/questions', requireAdmin, (req, res) => {
