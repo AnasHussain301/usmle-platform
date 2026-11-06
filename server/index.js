@@ -146,6 +146,9 @@ app.use('/api/', apiLimiter);
 let googleClient = (GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.includes('__')) ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
 
 app.post('/api/auth/google', authLimiter, async (req, res) => {
+  if (!JWT_SECRET) {
+    return res.status(503).json({ error: 'Secure sign-in is not configured on the server. Deployment administrator must set JWT_SECRET.' });
+  }
   const { idToken, credential } = req.body;
   const token = idToken || credential;
   if (!token) return res.status(400).json({ error: 'Google credential required.' });
@@ -238,7 +241,11 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
 
   } catch (err) {
     console.error('[Google Auth Error]', err.message);
-    return res.status(401).json({ error: 'Google sign-in failed. Please try again.' });
+    const message = String(err.message || '').toLowerCase();
+    if (message.includes('audience') || message.includes('wrong recipient') || message.includes('issuer')) {
+      return res.status(401).json({ error: 'Google rejected this sign-in configuration. Verify the OAuth Client ID and Google Cloud authorized origins.' });
+    }
+    return res.status(401).json({ error: 'Google blocked this account. If the OAuth app is in Testing mode, add the account as a test user or publish the app externally.' });
   }
 });
 
