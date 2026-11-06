@@ -167,13 +167,20 @@ function logout() {
   openLoginModal();
 }
 
+// Close sidebar only on mobile screens (used by nav items)
+function closeSidebarMobileOnly() {
+  if (window.innerWidth < 1024) closeAppSidebar();
+}
+
 function toggleAppSidebar() {
   const sidebar = document.getElementById('app-sidebar');
   const overlay = document.getElementById('sidebar-overlay');
   if (!sidebar) return;
   if (window.innerWidth >= 1024) {
+    // Desktop: toggle collapsed state
     sidebar.classList.toggle('sidebar-collapsed');
   } else {
+    // Mobile/tablet: slide in/out
     sidebar.classList.toggle('sidebar-mobile-open');
     if (overlay) {
       overlay.classList.toggle('hidden', !sidebar.classList.contains('sidebar-mobile-open'));
@@ -185,7 +192,9 @@ function closeAppSidebar() {
   const sidebar = document.getElementById('app-sidebar');
   const overlay = document.getElementById('sidebar-overlay');
   if (!sidebar) return;
-  if (window.innerWidth < 1024) {
+  if (window.innerWidth >= 1024) {
+    sidebar.classList.add('sidebar-collapsed');
+  } else {
     sidebar.classList.remove('sidebar-mobile-open');
     if (overlay) overlay.classList.add('hidden');
   }
@@ -492,8 +501,15 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   if (!options.fromPopState) {
     const sysId = sys ? sys.id : 'cvs';
     const targetHash = `#fa/${sysId}/${state.currentFaPage}`;
-    if (window.location.hash !== targetHash) {
+    // Use replaceState for in-reader page navigation so the back button
+    // only needs ONE press to exit the reader back to wherever the user came from.
+    // Only pushState once when entering the reader for the first time (modal was hidden).
+    const modal = document.getElementById('modal-fa-book');
+    const isFirstOpen = modal && modal.classList.contains('hidden');
+    if (isFirstOpen) {
       history.pushState({ modal: 'fa-book', systemId: sysId, page: state.currentFaPage }, '', targetHash);
+    } else {
+      history.replaceState({ modal: 'fa-book', systemId: sysId, page: state.currentFaPage }, '', targetHash);
     }
   }
   initFaScrubber();
@@ -512,7 +528,7 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
     breadcrumb.innerHTML = `
       <span class="hover:text-pink-400 cursor-pointer font-bold" onclick="renderFaBookTOC()">${sys.name}</span>
       ${subjName ? `<span class="text-slate-500 font-normal mx-1">&rsaquo;</span><span class="text-slate-300 font-medium">${subjName}</span>` : ''}
-      ${topicTitle ? `<span class="text-slate-500 font-normal mx-1">&middot;</span><span class="text-white font-bold truncate max-w-[220px]">${topicTitle}</span>` : ''}
+      ${topicTitle ? `<span class="text-slate-500 font-normal mx-1">&middot;</span><span class="text-white font-bold">${topicTitle}</span>` : ''}
     `;
   }
   if (tocSysTitle && sys) tocSysTitle.textContent = sys.name;

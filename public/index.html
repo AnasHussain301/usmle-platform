@@ -202,9 +202,14 @@
     /* Sidebar Collapse & Mobile slide transitions */
     @media (min-width: 1024px) {
       #app-sidebar.sidebar-collapsed {
-        margin-left: -16rem !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+        overflow: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
+        padding: 0 !important;
+        border: none !important;
       }
     }
     @media (max-width: 1023px) {
@@ -309,6 +314,28 @@
     .fa-uworld-table tr:nth-child(even) { background: #1a1028; }
     .fa-uworld-table img { max-width: 100%; height: auto; border-radius: 8px; margin: 4px 0; }
   </style>
+  <style id="synapse-extra-styles">
+    /* Sidebar smooth transition on all screen sizes */
+    #app-sidebar {
+      transition: width 0.28s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.22s ease,
+                  margin 0.28s cubic-bezier(0.4,0,0.2,1) !important;
+    }
+    /* FA reader breadcrumb: ellipsis-overflow, full text visible */
+    #fa-reader-breadcrumb {
+      max-width: 55vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    /* TOC row: show full title text, truncate only when truly cramped */
+    .fa-toc-title {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 <body class="h-full flex flex-col font-sans bg-[#0c0614] text-slate-100 antialiased selection:bg-rose-500 selection:text-white">
 
@@ -395,13 +422,13 @@
       
       <!-- Top Section -->
       <div class="p-4 space-y-4 overflow-y-auto">
-        <!-- Sidebar Brand & Close for Mobile -->
+        <!-- Sidebar Brand & Close — visible on ALL screen sizes -->
         <div class="flex items-center justify-between pb-2 border-b border-[#231534]">
           <div class="flex items-center gap-2.5">
             <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-pink-500 to-cyan-400 animate-pulse"></span>
             <span class="text-xs font-mono font-bold tracking-widest text-slate-300 uppercase">SYSTEMS V2.4 PRO</span>
           </div>
-          <button onclick="closeAppSidebar()" class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+          <button onclick="toggleAppSidebar()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" title="Close sidebar">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
@@ -411,7 +438,7 @@
           <div class="px-2 text-[10px] font-mono font-bold text-slate-500 tracking-wider uppercase mb-1">Navigation</div>
           
           <!-- Nav 1: Dashboard / Home -->
-          <button onclick="navigate('home'); closeAppSidebar();" id="nav-item-home" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-pink-400 bg-pink-500/10 border border-pink-500/20 transition-all group">
+          <button onclick="navigate('home'); closeSidebarMobileOnly();" id="nav-item-home" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-pink-400 bg-pink-500/10 border border-pink-500/20 transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
               <span>Dashboard</span>
@@ -420,7 +447,7 @@
           </button>
 
           <!-- Nav 2: First Aid Atlas -->
-          <button onclick="navigate('fa'); closeAppSidebar();" id="nav-item-fa" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('fa'); closeSidebarMobileOnly();" id="nav-item-fa" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
               <span>First Aid Atlas</span>
@@ -429,7 +456,7 @@
           </button>
 
           <!-- Nav 3: Sketchy Studio -->
-          <button onclick="navigate('sketchy'); closeAppSidebar();" id="nav-item-sketchy" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('sketchy'); closeSidebarMobileOnly();" id="nav-item-sketchy" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
               <span>Sketchy Studio</span>
@@ -438,7 +465,7 @@
           </button>
 
           <!-- Nav 4: Mehlman HY Vault -->
-          <button onclick="navigate('mehlman'); closeAppSidebar();" id="nav-item-mehlman" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('mehlman'); closeSidebarMobileOnly();" id="nav-item-mehlman" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <div class="w-4 h-4 rounded bg-purple-500/20 text-purple-300 font-bold text-[10px] flex items-center justify-center border border-purple-500/40">M</div>
               <span>Mehlman HY</span>
@@ -447,7 +474,7 @@
           </button>
 
           <!-- Nav 5: Cloze Decks (Cards) -->
-          <button onclick="navigate('review'); closeAppSidebar();" id="nav-item-review" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('review'); closeSidebarMobileOnly();" id="nav-item-review" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               <span>Cloze Decks</span>
@@ -456,7 +483,7 @@
           </button>
 
           <!-- Nav 6: DDx Diagnostic Matrix -->
-          <button onclick="navigate('ddx'); closeAppSidebar();" id="nav-item-ddx" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('ddx'); closeSidebarMobileOnly();" id="nav-item-ddx" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
               <span>DDx Matrix</span>
@@ -465,7 +492,7 @@
           </button>
 
           <!-- Nav 7: USMLE QBank -->
-          <button onclick="navigate('qbank'); closeAppSidebar();" id="nav-item-qbank" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
+          <button onclick="navigate('qbank'); closeSidebarMobileOnly();" id="nav-item-qbank" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#1f1130] transition-all group">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
               <span>USMLE QBank</span>
@@ -474,7 +501,7 @@
           </button>
 
           <!-- Nav 8: ANSI 1.0 PRO Assistant -->
-          <button onclick="toggleRadBotDrawer(); closeAppSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-100 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-cyan-600/20 border border-pink-500/40 hover:border-pink-400 shadow-[0_0_15px_rgba(244,63,94,0.15)] transition-all group mt-2">
+          <button onclick="toggleRadBotDrawer(); closeSidebarMobileOnly();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-100 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-cyan-600/20 border border-pink-500/40 hover:border-pink-400 shadow-[0_0_15px_rgba(244,63,94,0.15)] transition-all group mt-2">
             <div class="flex items-center gap-3">
               <span class="text-base">⚡</span>
               <span class="ansi-shimmer-text">ANSI 1.0 PRO</span>
@@ -486,7 +513,7 @@
 
       <!-- Bottom Account & Preferences Card -->
       <div class="p-3 border-t border-[#231534] bg-[#0c0515]/95 space-y-2">
-        <button onclick="toggleSettingsDrawer(); closeAppSidebar();" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#190d26] hover:bg-[#25143a] border border-[#301a47] text-left transition-all group">
+        <button onclick="toggleSettingsDrawer(); closeSidebarMobileOnly();" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#190d26] hover:bg-[#25143a] border border-[#301a47] text-left transition-all group">
           <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-600 to-purple-600 text-white flex items-center justify-center font-bold text-xs shadow-inner">
               K
@@ -1489,23 +1516,7 @@
           <button onclick="zoomFaPage(10)" class="hover:text-white font-bold">&plus;</button>
         </div>
 
-        <!-- Vertical Page Slider / Scrubber Bar (Right Side) -->
-        <div id="fa-slider-wrapper" class="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 flex items-center select-none" style="touch-action: none;">
-          <!-- Floating Page Indicator Bubble -->
-          <div id="fa-scrubber-bubble" class="hidden absolute right-7 bg-[#170c26]/95 border border-pink-500/50 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-xl shadow-2xl whitespace-nowrap pointer-events-none items-center gap-1.5 backdrop-blur-md">
-            <span id="fa-scrubber-bubble-text">p. 284 / 844</span>
-          </div>
 
-          <!-- Vertical Scrubber Track -->
-          <div id="fa-scrubber-track" class="w-1.5 sm:w-2 h-64 sm:h-80 bg-white/10 hover:bg-white/20 rounded-full relative cursor-pointer shadow-lg backdrop-blur-sm flex flex-col justify-start overflow-visible group transition-colors">
-            <!-- Progress Fill Bar -->
-            <div id="fa-scrubber-fill" class="w-full bg-gradient-to-b from-pink-500 to-purple-600 rounded-full transition-all duration-75" style="height: 35%;"></div>
-            <!-- Scrubber Thumb -->
-            <div id="fa-scrubber-thumb" class="absolute -left-1 sm:-left-1.5 w-3.5 sm:w-5 h-3.5 sm:h-5 rounded-full bg-white border border-pink-500 shadow-md cursor-grab active:cursor-grabbing hover:scale-125 transition-transform flex items-center justify-center pointer-events-auto" style="top: 0px;">
-              <div class="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-pink-500"></div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Right Split Panel: Exact UWorld Images, Tables & Notes Panel (Screenshot 3) -->

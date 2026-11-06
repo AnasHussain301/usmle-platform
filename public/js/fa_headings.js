@@ -176,7 +176,7 @@ function renderHeadingRow(row, rowIdx, currentPageNum, sectionSlug) {
 
   return `<div class="fa-toc-row flex items-center gap-1 px-2 py-1 cursor-pointer transition-colors ${rowBg}" data-row-idx="${rowIdx}" data-page="${navPage || ''}" data-level="${row.level}" data-has-m="${row.hasM}" ${clickFn}>
   ${pageLabel}
-  <span class="fa-toc-title flex-1 text-xs leading-snug truncate ${titleColor}">${_hesc(row.title)}</span>
+  <span class="fa-toc-title flex-1 text-xs leading-snug break-words min-w-0 ${titleColor}">${_hesc(row.title)}</span>
   ${mBadge}
   <span class="fa-toc-menu-slot w-7 flex items-center justify-center shrink-0">${menuBtn}</span>
 </div>`;
