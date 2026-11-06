@@ -297,6 +297,25 @@ class Database {
     this.save();
     return this.data.settings;
   }
+
+  // Study Progress per user
+  saveStudyProgress(userId, progressData) {
+    if (!this.data.study_progress) this.data.study_progress = {};
+    if (!this.data.study_progress[userId]) this.data.study_progress[userId] = {};
+    this.data.study_progress[userId] = {
+      ...this.data.study_progress[userId],
+      ...progressData,
+      updatedAt: new Date().toISOString()
+    };
+    this.save();
+    return this.data.study_progress[userId];
+  }
+
+  getStudyProgress(userId) {
+    if (!this.data.study_progress) return {};
+    return this.data.study_progress[userId] || {};
+  }
+
 }
 
 module.exports = new Database();

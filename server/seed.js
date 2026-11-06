@@ -4,41 +4,35 @@ const db = require('./db');
 async function seed() {
   console.log('Seeding Zetchy application database with complete Sketchy, FA, and DDx data...');
 
-  // 1. Users
-  const users = db.getUsers();
-  if (users.length === 0) {
-    const adminPasswordHash = bcrypt.hashSync('Admin123!', 10);
-    const userPasswordHash = bcrypt.hashSync('Student123!', 10);
+  // 1. Users — Production Admin Setup
+  const ADMIN_EMAILS = ['asawir125@gmail.com', 'kingdomhouse@gmail.com'];
+  const legacyEmails = ['admin@radmed.local', 'sarah.jenkins@usmle.com', 'michael.chen@usmle.com'];
+  
+  // Remove legacy test users
+  db.data.users = (db.data.users || []).filter(u => !legacyEmails.includes(u.email));
+  db.save();
 
-    db.createUser({
-      name: 'Dr. System Admin',
-      email: 'admin@radmed.local',
-      passwordHash: adminPasswordHash,
-      role: 'admin',
-      tier: 'premium',
-      hasCompletedTour: true,
-      trialDaysRemaining: 365
-    });
-
-    db.createUser({
-      name: 'Dr. Sarah Jenkins',
-      email: 'sarah.jenkins@usmle.com',
-      passwordHash: userPasswordHash,
-      role: 'user',
-      tier: 'premium',
-      hasCompletedTour: true,
-      trialDaysRemaining: 30
-    });
-
-    db.createUser({
-      name: 'Dr. Michael Chen',
-      email: 'michael.chen@usmle.com',
-      passwordHash: userPasswordHash,
-      role: 'user',
-      tier: 'free',
-      hasCompletedTour: false,
-      trialDaysRemaining: 2
-    });
+  // Ensure super admins exist with all-access admin role
+  for (const email of ADMIN_EMAILS) {
+    const existing = db.getUserByEmail(email);
+    if (!existing) {
+      db.createUser({
+        name: email.split('@')[0],
+        email,
+        googleId: null,
+        role: 'admin',
+        tier: 'admin',
+        authProvider: 'google',
+        passwordHash: null,
+        status: 'active',
+        trialEndsAt: null,
+        hasCompletedTour: true
+      });
+      console.log('[Seed] Super Admin initialized:', email);
+    } else if (existing.role !== 'admin' || existing.tier !== 'admin') {
+      db.updateUser(existing.id, { role: 'admin', tier: 'admin' });
+      console.log('[Seed] Super Admin updated:', email);
+    }
   }
 
   // 2. First Aid Organ Systems & UWorld Tables/Images

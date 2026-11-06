@@ -1,55 +1,94 @@
 {
   "users": [
     {
-      "id": "usr_1793475915066_pz8xc",
-      "createdAt": "2026-10-31T19:45:15.066Z",
-      "lastLoginAt": "2026-11-04T20:01:53.115Z",
+      "id": "usr_1793991705347_8bx58",
+      "createdAt": "2026-11-06T19:01:45.347Z",
+      "lastLoginAt": "2026-11-06T19:03:34.882Z",
       "status": "active",
-      "tier": "premium",
+      "tier": "admin",
       "role": "admin",
-      "name": "System Administrator",
-      "email": "admin@radmed.local",
-      "passwordHash": "$2b$10$2JD6VVwFypZfHK5wrOYXfecInNmeAOKo6zHlH7diJnPSkfA3JzWpS",
-      "specialty": "Diagnostic Radiology & Medical Education",
-      "institution": "RadMed Academic Medical Center",
+      "hasCompletedTour": true,
+      "trialDaysRemaining": 2,
+      "name": "asawir125",
+      "email": "asawir125@gmail.com",
+      "googleId": "1092830192830192",
+      "authProvider": "google",
+      "passwordHash": null,
+      "trialEndsAt": null,
       "lastIp": "::1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-      "updatedAt": "2026-11-04T20:01:53.115Z"
+      "userAgent": "node",
+      "picture": "https://lh3.googleusercontent.com/a/default",
+      "updatedAt": "2026-11-06T19:03:34.882Z"
     },
     {
-      "id": "usr_1793475915068_j1n8l",
-      "createdAt": "2026-10-31T19:45:15.068Z",
-      "lastLoginAt": "2026-11-01T12:28:10.173Z",
+      "id": "usr_1793991705424_4v32r",
+      "createdAt": "2026-11-06T19:01:45.424Z",
+      "lastLoginAt": "2026-11-06T19:01:45.424Z",
       "status": "active",
-      "tier": "premium",
-      "role": "user",
-      "name": "Dr. Sarah Jenkins",
-      "email": "sarah.jenkins@usmle.com",
-      "passwordHash": "$2b$10$IYx0ELIjGtftCw6HXhH63.W7ahG8pu7HvkQShRn6Hrh3BhLyjMidy",
-      "specialty": "MS4 / Radiology Applicant",
-      "institution": "Johns Hopkins SOM",
-      "lastIp": "::1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-      "updatedAt": "2026-11-01T12:28:22.402Z"
-    },
-    {
-      "id": "usr_1793475915069_12yle",
-      "createdAt": "2026-10-31T19:45:15.069Z",
-      "lastLoginAt": "2026-11-01T09:56:38.257Z",
-      "status": "active",
-      "tier": "free",
-      "role": "user",
-      "name": "Dr. Michael Chen",
-      "email": "michael.chen@usmle.com",
-      "passwordHash": "$2b$10$IYx0ELIjGtftCw6HXhH63.W7ahG8pu7HvkQShRn6Hrh3BhLyjMidy",
-      "specialty": "MS3 / Internal Medicine Bound",
-      "institution": "Baylor College of Medicine",
-      "lastIp": "::1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-      "updatedAt": "2026-11-01T09:56:38.257Z"
+      "tier": "admin",
+      "role": "admin",
+      "hasCompletedTour": true,
+      "trialDaysRemaining": 2,
+      "name": "kingdomhouse",
+      "email": "kingdomhouse@gmail.com",
+      "googleId": null,
+      "authProvider": "google",
+      "passwordHash": null,
+      "trialEndsAt": null
     }
   ],
   "activity_logs": [
+    {
+      "id": "log_1793991815013_x5cw",
+      "userId": "usr_1793991705347_8bx58",
+      "userName": "asawir125",
+      "action": "google_login",
+      "details": {
+        "email": "asawir125@gmail.com",
+        "ip": "::1"
+      },
+      "ip": "::1",
+      "userAgent": "node",
+      "timestamp": "2026-11-06T19:03:35.013Z"
+    },
+    {
+      "id": "log_1793991803485_4aqk",
+      "userId": "usr_1793991803378_jnv15",
+      "userName": "Student Test",
+      "action": "google_signup",
+      "details": {
+        "email": "student.test@gmail.com",
+        "ip": "198.51.100.42"
+      },
+      "ip": "198.51.100.42",
+      "userAgent": "node",
+      "timestamp": "2026-11-06T19:03:23.485Z"
+    },
+    {
+      "id": "log_1793991789654_oqnx",
+      "userId": "usr_1793991705347_8bx58",
+      "userName": "asawir125",
+      "action": "google_login",
+      "details": {
+        "email": "asawir125@gmail.com",
+        "ip": "::1"
+      },
+      "ip": "::1",
+      "userAgent": "node",
+      "timestamp": "2026-11-06T19:03:09.654Z"
+    },
+    {
+      "id": "log_1793989894373_hou0",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "action": "radbot_query",
+      "details": {
+        "query": "hi"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "timestamp": "2026-11-06T18:31:34.373Z"
+    },
     {
       "id": "log_1793884354393_chg3",
       "userId": "guest",
@@ -963,6 +1002,15 @@
   "tests": [],
   "radbot_chats": [
     {
+      "id": "chat_1793989894249_0m0y",
+      "userId": "guest",
+      "userName": "Guest Visitor",
+      "message": "hi",
+      "response": "Hello, future doctor! ANSI 1.0 PRO here, your neural study assistant for Synapse. \n\nWhether you need a high-yield breakdown of a tough pathophysiology concept, a structured differential for a clinical vignette, help finding the right resource in our platform (`#fa`, `#mehlman`, `#sketchy`, `#ddx`, `#qbank`), or strategic advice on your Step prep—I've got you covered.\n\nWhat are we tackling today?",
+      "context": {},
+      "timestamp": "2026-11-06T18:31:34.249Z"
+    },
+    {
       "id": "chat_1793884354263_bd5m",
       "userId": "guest",
       "userName": "Guest Visitor",
@@ -1290,6 +1338,26 @@
     }
   ],
   "radbot_sessions": [
+    {
+      "id": "session_1793989888642_ivow9",
+      "userId": "guest",
+      "title": "hi",
+      "createdAt": "2026-11-06T18:31:28.642Z",
+      "updatedAt": "2026-11-06T18:31:34.526Z",
+      "wordCount": 60,
+      "messages": [
+        {
+          "role": "user",
+          "text": "hi",
+          "timestamp": "2026-11-06T18:31:31.996Z"
+        },
+        {
+          "role": "assistant",
+          "text": "Hello, future doctor! ANSI 1.0 PRO here, your neural study assistant for Synapse. \n\nWhether you need a high-yield breakdown of a tough pathophysiology concept, a structured differential for a clinical vignette, help finding the right resource in our platform (`#fa`, `#mehlman`, `#sketchy`, `#ddx`, `#qbank`), or strategic advice on your Step prep—I've got you covered.\n\nWhat are we tackling today?",
+          "timestamp": "2026-11-06T18:31:34.523Z"
+        }
+      ]
+    },
     {
       "id": "session_1793884277455_f44vn",
       "userId": "guest",
@@ -190417,5 +190485,28 @@
         }
       ]
     }
-  ]
+  ],
+  "userProgress": {
+    "mehlman": {
+      "msk|453|wrist-region": {
+        "easy": 4,
+        "forgetting": 4,
+        "lastRated": "2026-11-06T17:52:12.024Z"
+      },
+      "msk|450|upper-extremity-nerves": {
+        "easy": 1,
+        "forgetting": 0,
+        "lastRated": "2026-11-06T18:26:37.764Z"
+      }
+    }
+  },
+  "study_progress": {
+    "usr_1793991803378_jnv15": {
+      "fa_last_page": "289",
+      "mehlman_progress": {
+        "cvs|289|ejection-fraction": "easy"
+      },
+      "updatedAt": "2026-11-06T19:03:23.610Z"
+    }
+  }
 }

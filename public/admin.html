@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synapse Admin Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#070711;color:#e2e8f0;min-height:100vh;}
+  ::-webkit-scrollbar{width:6px;height:6px;}
+  ::-webkit-scrollbar-track{background:#111;}
+  ::-webkit-scrollbar-thumb{background:#374151;border-radius:3px;}
+  .sidebar{width:240px;min-height:100vh;background:#0d0d1a;border-right:1px solid rgba(255,255,255,0.06);position:fixed;left:0;top:0;z-index:50;}
+  .main{margin-left:240px;min-height:100vh;padding:0;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:500;color:#94a3b8;margin:2px 8px;}
+  .nav-item:hover{background:rgba(255,255,255,0.05);color:#e2e8f0;}
+  .nav-item.active{background:rgba(220,38,127,0.15);color:#f43f8e;border:1px solid rgba(220,38,127,0.2);}
+  .card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;}
+  .stat-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 20px;}
+  .badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:600;}
+  .badge-green{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3);}
+  .badge-yellow{background:rgba(234,179,8,0.15);color:#facc15;border:1px solid rgba(234,179,8,0.3);}
+  .badge-red{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
+  .badge-blue{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);}
+  .badge-purple{background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.3);}
+  .badge-pink{background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.3);}
+  .btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;}
+  .btn-primary{background:linear-gradient(135deg,#dc2680,#7c3aed);color:white;}
+  .btn-primary:hover{opacity:0.9;transform:translateY(-1px);}
+  .btn-danger{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
+  .btn-danger:hover{background:rgba(239,68,68,0.25);}
+  .btn-sm{padding:4px 10px;font-size:11px;}
+  table{width:100%;border-collapse:collapse;}
+  thead th{text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#64748b;border-bottom:1px solid rgba(255,255,255,0.06);}
+  tbody tr{border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.1s;}
+  tbody tr:hover{background:rgba(255,255,255,0.03);}
+  td{padding:12px 14px;font-size:13px;}
+  .tab{padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:#64748b;transition:all 0.15s;}
+  .tab.active{background:rgba(220,38,127,0.15);color:#f43f8e;}
+  .online-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse2 2s infinite;}
+  .offline-dot{width:8px;height:8px;border-radius:50%;background:#374151;display:inline-block;}
+  @keyframes pulse2{0%,100%{opacity:1}50%{opacity:0.4}}
+  .log-row{font-size:12px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.04);display:grid;grid-template-columns:140px 120px 120px 1fr 120px;gap:8px;align-items:center;}
+  .log-row:hover{background:rgba(255,255,255,0.03);}
+  .section{display:none;}
+  .section.active{display:block;}
+  input,select{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;color:#e2e8f0;font-size:13px;outline:none;}
+  input:focus,select:focus{border-color:rgba(220,38,127,0.5);}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar flex flex-col">
+  <div class="p-5 border-b border-white/5">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-600 to-purple-700 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      </div>
+      <div>
+        <div class="font-bold text-white text-sm">Synapse Admin</div>
+        <div class="text-xs text-slate-500">Control Panel</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="flex-1 py-4 space-y-1">
+    <div class="nav-item active" onclick="showSection('overview')">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+      Overview
+    </div>
+    <div class="nav-item" onclick="showSection('users')">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      Users
+    </div>
+    <div class="nav-item" onclick="showSection('live')">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      Live Sessions
+    </div>
+    <div class="nav-item" onclick="showSection('activity')">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Activity Logs
+    </div>
+    <div class="nav-item" onclick="showSection('security')">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      Security / IPs
+    </div>
+  </nav>
+
+  <div class="p-4 border-t border-white/5">
+    <div id="admin-info" class="text-xs text-slate-500 mb-3"></div>
+    <button class="btn btn-danger w-full text-xs" onclick="adminLogout()">Sign Out</button>
+    <a href="/" class="block mt-2 text-center text-xs text-slate-500 hover:text-pink-400 transition-colors">← Back to App</a>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+  <!-- Top bar -->
+  <div class="sticky top-0 z-40 bg-[#070711]/90 backdrop-blur border-b border-white/5 px-6 py-3 flex items-center justify-between">
+    <div>
+      <h1 id="page-title" class="font-semibold text-white text-sm">Overview</h1>
+      <p class="text-xs text-slate-500">Synapse Admin Panel</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <div id="live-indicator" class="flex items-center gap-1.5 text-xs text-slate-400">
+        <span class="online-dot"></span> Live Monitoring
+      </div>
+      <button class="btn btn-primary text-xs" onclick="refreshAll()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <div class="p-6">
+
+    <!-- SECTION: OVERVIEW -->
+    <div class="section active" id="section-overview">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Total Users</div>
+          <div id="stat-total" class="text-2xl font-bold text-white">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Online Now <span class="text-[10px] text-slate-600">(15 min)</span></div>
+          <div id="stat-online" class="text-2xl font-bold text-green-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Active Today</div>
+          <div id="stat-today" class="text-2xl font-bold text-blue-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Trial Users</div>
+          <div id="stat-trial" class="text-2xl font-bold text-yellow-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Premium Users</div>
+          <div id="stat-premium" class="text-2xl font-bold text-pink-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">Expired Trials</div>
+          <div id="stat-expired" class="text-2xl font-bold text-red-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">New This Month</div>
+          <div id="stat-newmonth" class="text-2xl font-bold text-purple-400">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="text-xs text-slate-500 mb-1">AI Interactions</div>
+          <div id="stat-ai" class="text-2xl font-bold text-cyan-400">—</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="font-semibold text-white text-sm mb-4 flex items-center gap-2">
+          <span class="online-dot"></span> Recent Activity
+        </h3>
+        <div class="log-row" style="color:#475569;border-bottom:1px solid rgba(255,255,255,0.08);font-weight:600;">
+          <div>Timestamp</div><div>User</div><div>Action</div><div>Details</div><div>IP Address</div>
+        </div>
+        <div id="recent-logs" class="max-h-96 overflow-y-auto">
+          <div class="text-center py-8 text-slate-500 text-sm">Loading…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: USERS -->
+    <div class="section" id="section-users">
+      <div class="card">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-semibold text-white text-sm">User Management</h3>
+          <div class="flex gap-2">
+            <input type="text" id="user-search" placeholder="Search email or name…" oninput="filterUsers()" style="width:200px;">
+            <select id="user-filter" onchange="filterUsers()">
+              <option value="">All Users</option>
+              <option value="trial">Trial</option>
+              <option value="premium">Premium</option>
+              <option value="admin">Admin</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Tier</th>
+                <th>Trial Ends</th>
+                <th>Last Login</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <tr><td colspan="7" class="text-center py-8 text-slate-500">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: LIVE SESSIONS -->
+    <div class="section" id="section-live">
+      <div class="card">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-semibold text-white text-sm flex items-center gap-2">
+            <span class="online-dot"></span> Live Sessions
+            <span class="badge badge-green text-xs ml-2" id="live-count">0 online</span>
+          </h3>
+          <button class="btn btn-primary text-xs" onclick="loadLiveSessions()">↻ Refresh</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Tier</th>
+                <th>Last Active</th>
+                <th>IP Address</th>
+                <th>Device / Browser</th>
+                <th>Trial Ends</th>
+              </tr>
+            </thead>
+            <tbody id="live-table-body">
+              <tr><td colspan="8" class="text-center py-8 text-slate-500">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: ACTIVITY LOGS -->
+    <div class="section" id="section-activity">
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-white text-sm">Activity Audit Log</h3>
+          <div class="flex gap-2">
+            <input type="text" id="log-search" placeholder="Search logs…" oninput="filterLogs()" style="width:180px;">
+            <button class="btn btn-primary text-xs" onclick="loadActivity()">↻ Refresh</button>
+          </div>
+        </div>
+        <div class="log-row font-semibold" style="color:#475569;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div>Timestamp</div><div>User</div><div>Action</div><div>Details</div><div>IP Address</div>
+        </div>
+        <div id="activity-log-body" class="max-h-[600px] overflow-y-auto">
+          <div class="text-center py-8 text-slate-500 text-sm">Loading…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: SECURITY / IPs -->
+    <div class="section" id="section-security">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card">
+          <h3 class="font-semibold text-white text-sm mb-4">Top IP Addresses</h3>
+          <div id="ip-list" class="space-y-2">
+            <div class="text-center py-4 text-slate-500 text-sm">Loading…</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold text-white text-sm mb-4">Suspicious Activity</h3>
+          <div id="security-alerts" class="space-y-2">
+            <div class="text-center py-4 text-slate-500 text-sm">Analyzing…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <h3 class="font-semibold text-white text-sm mb-4">All Registered IPs & Credentials</h3>
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Last IP</th>
+                <th>Last Login</th>
+                <th>Auth Provider</th>
+                <th>Tier</th>
+                <th>User Agent</th>
+              </tr>
+            </thead>
+            <tbody id="credentials-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /p-6 -->
+</div><!-- /main -->
+
+<!-- Edit User Modal -->
+<div id="modal-edit-user" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+  <div class="bg-[#13131f] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+    <h3 class="font-semibold text-white mb-4">Edit User</h3>
+    <input type="hidden" id="edit-user-id">
+    <div class="space-y-3">
+      <div>
+        <label class="text-xs text-slate-400 block mb-1">Tier</label>
+        <select id="edit-tier" class="w-full">
+          <option value="trial">Trial</option>
+          <option value="premium">Premium</option>
+          <option value="free">Free</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-slate-400 block mb-1">Status</label>
+        <select id="edit-status" class="w-full">
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-slate-400 block mb-1">Extend Trial Until</label>
+        <input type="date" id="edit-trial-date" class="w-full">
+      </div>
+    </div>
+    <div class="flex gap-2 mt-4">
+      <button class="btn btn-primary flex-1" onclick="saveUserEdit()">Save Changes</button>
+      <button class="btn btn-danger" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOKEN = localStorage.getItem('synapse_token');
+const USER  = JSON.parse(localStorage.getItem('synapse_user') || '{}');
+
+// Security check
+if (!TOKEN || USER.role !== 'admin') {
+  window.location.href = '/login.html';
+}
+
+document.getElementById('admin-info').textContent = USER.email || 'Admin';
+
+let allUsers = [];
+let allLogs  = [];
+
+async function api(url, opts = {}) {
+  const r = await fetch(url, {
+    ...opts,
+    headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', ...(opts.headers||{}) }
+  });
+  if (r.status === 401 || r.status === 403) { adminLogout(); throw new Error('Unauthorized'); }
+  return r.json();
+}
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  document.getElementById('page-title').textContent = { overview: 'Overview', users: 'User Management', live: 'Live Sessions', activity: 'Activity Logs', security: 'Security & IP Monitor' }[name];
+  if (name === 'overview') loadOverview();
+  if (name === 'users') loadUsers();
+  if (name === 'live') loadLiveSessions();
+  if (name === 'activity') loadActivity();
+  if (name === 'security') loadSecurity();
+}
+
+function refreshAll() {
+  loadOverview();
+  if (document.getElementById('section-users').classList.contains('active')) loadUsers();
+  if (document.getElementById('section-live').classList.contains('active')) loadLiveSessions();
+  if (document.getElementById('section-activity').classList.contains('active')) loadActivity();
+  if (document.getElementById('section-security').classList.contains('active')) loadSecurity();
+}
+
+// ============================================================
+// OVERVIEW
+// ============================================================
+async function loadOverview() {
+  try {
+    const d = await api('/api/admin/overview');
+    const m = d.metrics;
+    document.getElementById('stat-total').textContent   = m.totalUsers;
+    document.getElementById('stat-online').textContent  = m.onlineNow;
+    document.getElementById('stat-today').textContent   = m.activeToday;
+    document.getElementById('stat-trial').textContent   = m.trialUsers;
+    document.getElementById('stat-premium').textContent = m.premiumUsers;
+    document.getElementById('stat-expired').textContent = m.expiredTrials;
+    document.getElementById('stat-newmonth').textContent= m.newThisMonth;
+    document.getElementById('stat-ai').textContent      = m.radBotInteractions;
+    renderLogs(d.recentLogs, 'recent-logs');
+  } catch {}
+}
+
+// ============================================================
+// USERS
+// ============================================================
+async function loadUsers() {
+  try {
+    const d = await api('/api/admin/users');
+    allUsers = d.users;
+    renderUsers(allUsers);
+  } catch {}
+}
+
+function filterUsers() {
+  const q   = document.getElementById('user-search').value.toLowerCase();
+  const f   = document.getElementById('user-filter').value;
+  let list  = allUsers;
+  if (q) list = list.filter(u => (u.email+' '+u.name).toLowerCase().includes(q));
+  if (f === 'expired') {
+    list = list.filter(u => u.tier === 'trial' && u.trialEndsAt && new Date(u.trialEndsAt) < new Date());
+  } else if (f) {
+    list = list.filter(u => (f === 'admin' ? u.role === 'admin' : u.tier === f));
+  }
+  renderUsers(list);
+}
+
+function renderUsers(users) {
+  const tbody = document.getElementById('users-table-body');
+  if (!users.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-center py-8 text-slate-500">No users found</td></tr>'; return; }
+  tbody.innerHTML = users.map(u => {
+    const isAdmin = u.role === 'admin';
+    const tierBadge = isAdmin
+      ? '<span class="badge badge-pink">Admin</span>'
+      : u.tier === 'premium'
+        ? '<span class="badge badge-purple">Premium</span>'
+        : u.tier === 'trial'
+          ? '<span class="badge badge-yellow">Trial</span>'
+          : '<span class="badge badge-red">Free</span>';
+    const statusBadge = u.status === 'active'
+      ? '<span class="badge badge-green">Active</span>'
+      : '<span class="badge badge-red">Suspended</span>';
+    const trialEnd = u.trialEndsAt ? (new Date(u.trialEndsAt) < new Date()
+      ? '<span class="text-red-400 text-xs">Expired</span>'
+      : '<span class="text-green-400 text-xs">' + new Date(u.trialEndsAt).toLocaleDateString() + '</span>')
+      : '<span class="text-slate-500 text-xs">—</span>';
+    const pic = u.picture ? `<img src="${u.picture}" class="w-6 h-6 rounded-full inline-block mr-2">` : '';
+    return `<tr>
+      <td>${pic}<span class="font-medium text-white">${u.name||'—'}</span><br><span class="text-slate-500 text-xs">${u.email}</span></td>
+      <td>${tierBadge}</td>
+      <td>${trialEnd}</td>
+      <td class="text-slate-400 text-xs">${u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : '—'}</td>
+      <td class="font-mono text-xs text-cyan-400">${u.lastIp||'—'}</td>
+      <td>${statusBadge}</td>
+      <td>
+        ${!isAdmin ? `<button class="btn btn-primary btn-sm mr-1" onclick="openEditModal('${u.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteUser('${u.id}','${u.email}')">Del</button>` : '<span class="text-xs text-slate-500">Protected</span>'}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// LIVE SESSIONS
+// ============================================================
+async function loadLiveSessions() {
+  try {
+    const d = await api('/api/admin/sessions-live');
+    const sessions = d.sessions;
+    const online = sessions.filter(s => s.online);
+    document.getElementById('live-count').textContent = online.length + ' online';
+    const tbody = document.getElementById('live-table-body');
+    if (!sessions.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8 text-slate-500">No sessions</td></tr>'; return; }
+    tbody.innerHTML = sessions.sort((a,b) => (b.lastLoginAt||'') > (a.lastLoginAt||'') ? 1 : -1).map(s => {
+      const statusDot = s.online ? '<span class="online-dot"></span>' : '<span class="offline-dot"></span>';
+      const tierBadge = s.role === 'admin'
+        ? '<span class="badge badge-pink">Admin</span>'
+        : s.tier === 'premium'
+          ? '<span class="badge badge-purple">Premium</span>'
+          : s.tier === 'trial'
+            ? '<span class="badge badge-yellow">Trial</span>'
+            : '<span class="badge badge-red">Free</span>';
+      const trialEnd = s.trialEndsAt ? new Date(s.trialEndsAt).toLocaleDateString() : '—';
+      const ua = (s.userAgent||'').substring(0, 50);
+      const pic = s.picture ? `<img src="${s.picture}" class="w-6 h-6 rounded-full inline-block mr-1 align-middle">` : '';
+      return `<tr>
+        <td>${statusDot}</td>
+        <td>${pic}${s.name||'—'}</td>
+        <td class="text-slate-400 text-xs">${s.email}</td>
+        <td>${tierBadge}</td>
+        <td class="text-slate-400 text-xs">${s.lastLoginAt ? new Date(s.lastLoginAt).toLocaleString() : '—'}</td>
+        <td class="font-mono text-xs text-cyan-400">${s.lastIp||'—'}</td>
+        <td class="text-slate-500 text-xs">${ua}</td>
+        <td class="text-xs">${trialEnd}</td>
+      </tr>`;
+    }).join('');
+  } catch {}
+}
+
+// ============================================================
+// ACTIVITY LOGS
+// ============================================================
+async function loadActivity() {
+  try {
+    const d = await api('/api/admin/activity?limit=500');
+    allLogs = d.logs;
+    renderLogs(allLogs, 'activity-log-body');
+  } catch {}
+}
+
+function filterLogs() {
+  const q = document.getElementById('log-search').value.toLowerCase();
+  const filtered = allLogs.filter(l =>
+    (l.action||'').toLowerCase().includes(q) ||
+    (l.userName||'').toLowerCase().includes(q) ||
+    (l.ip||'').includes(q) ||
+    JSON.stringify(l.details||{}).toLowerCase().includes(q)
+  );
+  renderLogs(filtered, 'activity-log-body');
+}
+
+function renderLogs(logs, containerId) {
+  const el = document.getElementById(containerId);
+  if (!logs || !logs.length) { el.innerHTML = '<div class="text-center py-8 text-slate-500 text-sm">No logs found</div>'; return; }
+  const actionColors = {
+    google_login: 'badge-green', google_signup: 'badge-blue',
+    question_answered: 'badge-purple', test_completed: 'badge-pink',
+    admin_updated_user: 'badge-yellow', admin_deleted_user: 'badge-red',
+    radbot_query: 'badge-blue'
+  };
+  el.innerHTML = logs.map(l => {
+    const badge = actionColors[l.action] || 'badge-blue';
+    const detail = JSON.stringify(l.details||{}).substring(0, 80).replace(/"/g,'');
+    return `<div class="log-row">
+      <div class="text-slate-500 text-xs">${new Date(l.timestamp).toLocaleString()}</div>
+      <div class="text-white text-xs font-medium">${l.userName||'—'}</div>
+      <div><span class="badge ${badge} text-[10px]">${l.action}</span></div>
+      <div class="text-slate-400 text-xs truncate">${detail}</div>
+      <div class="font-mono text-xs text-cyan-400">${l.ip||'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// SECURITY
+// ============================================================
+async function loadSecurity() {
+  try {
+    const [ud, ad] = await Promise.all([api('/api/admin/users'), api('/api/admin/activity?limit=1000')]);
+    const users = ud.users;
+    const logs  = ad.logs;
+
+    // IP frequency
+    const ipCount = {};
+    logs.forEach(l => { if (l.ip) ipCount[l.ip] = (ipCount[l.ip]||0) + 1; });
+    const topIps = Object.entries(ipCount).sort((a,b) => b[1]-a[1]).slice(0, 10);
+    document.getElementById('ip-list').innerHTML = topIps.map(([ip, count]) => `
+      <div class="flex justify-between items-center p-3 rounded-xl bg-white/[0.03] border border-white/5">
+        <span class="font-mono text-sm text-cyan-400">${ip}</span>
+        <span class="badge badge-blue text-xs">${count} requests</span>
+      </div>`).join('') || '<div class="text-slate-500 text-xs">No data</div>';
+
+    // Suspicious: multiple failed logins, rapid requests
+    const alerts = [];
+    const loginAttempts = {};
+    logs.filter(l => l.action === 'google_login' || l.action === 'google_signup').forEach(l => {
+      loginAttempts[l.ip] = (loginAttempts[l.ip]||0) + 1;
+    });
+    Object.entries(loginAttempts).filter(([,c]) => c > 20).forEach(([ip, c]) => {
+      alerts.push(`<div class="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-sm"><span class="text-red-400 font-mono">${ip}</span> — ${c} login attempts (possible brute force)</div>`);
+    });
+    document.getElementById('security-alerts').innerHTML = alerts.length
+      ? alerts.join('')
+      : '<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 text-sm text-green-400">✓ No suspicious activity detected</div>';
+
+    // Credentials table
+    document.getElementById('credentials-table').innerHTML = users.map(u => `<tr>
+      <td class="font-medium text-white text-xs">${u.email}</td>
+      <td class="text-slate-400 text-xs">${u.name||'—'}</td>
+      <td class="font-mono text-xs text-cyan-400">${u.lastIp||'—'}</td>
+      <td class="text-slate-400 text-xs">${u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : '—'}</td>
+      <td><span class="badge badge-blue text-[10px]">${u.authProvider||'google'}</span></td>
+      <td class="text-xs">${u.role === 'admin' ? '<span class="badge badge-pink">Admin</span>' : u.tier === 'premium' ? '<span class="badge badge-purple">Premium</span>' : '<span class="badge badge-yellow">Trial</span>'}</td>
+      <td class="text-slate-500 text-xs" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">${(u.userAgent||'').substring(0,60)}</td>
+    </tr>`).join('');
+
+  } catch (e) { console.error(e); }
+}
+
+// ============================================================
+// USER EDIT MODAL
+// ============================================================
+function openEditModal(userId) {
+  const user = allUsers.find(u => u.id === userId);
+  if (!user) return;
+  document.getElementById('edit-user-id').value = userId;
+  document.getElementById('edit-tier').value = user.tier || 'trial';
+  document.getElementById('edit-status').value = user.status || 'active';
+  if (user.trialEndsAt) {
+    document.getElementById('edit-trial-date').value = user.trialEndsAt.split('T')[0];
+  }
+  document.getElementById('modal-edit-user').classList.remove('hidden');
+}
+
+function closeModal() { document.getElementById('modal-edit-user').classList.add('hidden'); }
+
+async function saveUserEdit() {
+  const id = document.getElementById('edit-user-id').value;
+  const tier = document.getElementById('edit-tier').value;
+  const status = document.getElementById('edit-status').value;
+  const trialDate = document.getElementById('edit-trial-date').value;
+  try {
+    await api('/api/admin/users/' + id, {
+      method: 'PUT',
+      body: JSON.stringify({ tier, status, trialEndsAt: trialDate ? new Date(trialDate).toISOString() : undefined })
+    });
+    closeModal();
+    loadUsers();
+  } catch {}
+}
+
+async function deleteUser(id, email) {
+  if (!confirm('Delete user ' + email + '? This cannot be undone.')) return;
+  try {
+    await api('/api/admin/users/' + id, { method: 'DELETE' });
+    loadUsers();
+  } catch {}
+}
+
+function adminLogout() {
+  localStorage.removeItem('synapse_token');
+  localStorage.removeItem('synapse_user');
+  localStorage.removeItem('synapse_access');
+  window.location.href = '/login.html';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadOverview();
+// Auto-refresh every 30 seconds
+setInterval(() => {
+  if (document.getElementById('section-overview').classList.contains('active')) loadOverview();
+  if (document.getElementById('section-live').classList.contains('active')) loadLiveSessions();
+}, 30000);
+</script>
+</body>
+</html>
