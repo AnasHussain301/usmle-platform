@@ -35,9 +35,53 @@
       "authProvider": "google",
       "passwordHash": null,
       "trialEndsAt": null
+    },
+    {
+      "id": "usr_1793995802883_kg97t",
+      "createdAt": "2026-11-06T20:10:02.883Z",
+      "lastLoginAt": "2026-11-06T20:10:02.883Z",
+      "status": "active",
+      "tier": "admin",
+      "role": "admin",
+      "hasCompletedTour": false,
+      "trialDaysRemaining": 2,
+      "googleId": "fast_1793995802882",
+      "email": "kingdomhouse009@gmail.com",
+      "name": "kingdomhouse009",
+      "avatar": "https://api.dicebear.com/7.x/identicon/svg?seed=kingdomhouse009%40gmail.com",
+      "trialEndsAt": null,
+      "lastIp": "::1",
+      "lastUserAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818"
     }
   ],
   "activity_logs": [
+    {
+      "id": "log_1793995803036_7p8n",
+      "userId": "usr_1793995802883_kg97t",
+      "userName": "kingdomhouse009",
+      "action": "login_dev_mode",
+      "details": {
+        "email": "kingdomhouse009@gmail.com"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-06T20:10:03.036Z"
+    },
+    {
+      "id": "log_1793995731923_fgdi",
+      "userId": "anonymous",
+      "userName": "Test Student",
+      "action": "contact_form_submitted",
+      "details": {
+        "email": "student@test.com",
+        "category": "Medical Erratum",
+        "subject": "Cardio review",
+        "message": "Testing contact endpoint"
+      },
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.9818",
+      "timestamp": "2026-11-06T20:08:51.923Z"
+    },
     {
       "id": "log_1793991815013_x5cw",
       "userId": "usr_1793991705347_8bx58",

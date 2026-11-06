@@ -340,6 +340,8 @@
 
   <!-- Synapse Auth Guard - MUST be first script -->
   <script src="/js/auth-guard.js"></script>
+  <!-- Synapse Cookie Banner & Preferences -->
+  <script src="/js/cookie-banner.js" defer></script>
 </head>
 <body class="h-full flex flex-col font-sans bg-[#0c0614] text-slate-100 antialiased selection:bg-rose-500 selection:text-white">
 
@@ -1886,6 +1888,50 @@
         <span>Send feedback</span>
         <span class="text-pink-400 text-base font-bold group-hover:translate-x-1 transition-transform">&rsaquo;</span>
       </button>
+
+      <!-- SUPPORT & LEGAL POLICIES (AdSense & Compliance) -->
+      <div class="pt-3 border-t border-purple-950/80 space-y-2">
+        <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Support & Legal</div>
+
+        <!-- Direct Contact Links -->
+        <div class="grid grid-cols-2 gap-2 mb-2">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com" target="_blank" rel="noopener" class="p-2 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-800/40 flex items-center gap-2 text-rose-300 text-[11px] font-semibold transition-colors">
+            <svg class="w-3.5 h-3.5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span class="truncate">Gmail Support</span>
+          </a>
+          <a href="https://wa.me/923238057305?text=Hello%20Synapse%20Support" target="_blank" rel="noopener" class="p-2 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-800/40 flex items-center gap-2 text-emerald-300 text-[11px] font-semibold transition-colors">
+            <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.12c-.24.68-1.39 1.3-1.92 1.38-.49.08-1.12.12-3.64-.92-2.83-1.17-4.66-4.04-4.8-4.23-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4.07.61.57.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.15-.31.31-.13.62.18.31.79 1.3 1.7 2.11 1.17 1.04 2.16 1.36 2.47 1.51.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.15.28.11 1.77.83 2.07.98.3.15.5.23.57.36.07.13.07.75-.17 1.43z"/></svg>
+            <span class="truncate">WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="space-y-1 text-xs">
+          <a href="/terms.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
+            <span>Terms of Service</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </a>
+          <a href="/privacy.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
+            <span>Privacy Policy</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </a>
+          <a href="/cookies.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
+            <span>Cookie Policy</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </a>
+          <a href="/editorial.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
+            <span>Editorial &amp; Review Policy</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </a>
+          <a href="/contact.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
+            <span>Contact Us &amp; Errata</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </a>
+          <button onclick="window.openCookieSettings && window.openCookieSettings()" class="w-full text-left flex items-center justify-between py-1.5 text-purple-400 hover:text-purple-300 transition-colors">
+            <span>Cookie Preferences</span>
+            <span class="text-slate-600">&rsaquo;</span>
+          </button>
+        </div>
+      </div>
 
     </div>
   </div>

@@ -7,119 +7,268 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-x: hidden; position: relative; }
+  .font-brand { font-family: 'Space Grotesk', sans-serif; }
   .bg-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; }
   .orb1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(220,38,127,0.18) 0%, transparent 70%); top: -100px; left: -100px; }
   .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(109,40,217,0.15) 0%, transparent 70%); bottom: -100px; right: -100px; }
   .orb3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); }
   .glass-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-  .google-btn { background: #fff; color: #1f2937; border: none; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .google-btn { background: #fff; color: #1f2937; border: none; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 12px; width: 100%; justify-content: center; transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
   .google-btn:hover { background: #f3f4f6; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
   .google-btn:active { transform: translateY(0); }
   .google-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
   .spinner { width: 20px; height: 20px; border: 2px solid rgba(220,38,127,0.3); border-top-color: #dc267f; border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .fade-in { animation: fadeIn 0.5s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .error-box { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 12px 16px; color: #fca5a5; font-size: 13px; }
+  .info-box { background: rgba(147, 51, 234, 0.1); border: 1px solid rgba(147, 51, 234, 0.3); border-radius: 10px; padding: 12px 16px; color: #d8b4fe; font-size: 12px; }
 </style>
 </head>
-<body>
+<body class="py-10 px-4">
 <!-- Background orbs -->
 <div class="bg-orb orb1"></div>
 <div class="bg-orb orb2"></div>
 <div class="bg-orb orb3"></div>
 
-<div class="relative z-10 w-full max-w-md mx-auto px-4 fade-in">
-  <div class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl">
+<div class="relative z-10 w-full max-w-md mx-auto fade-in">
+  <div class="glass-card rounded-3xl p-7 sm:p-9 shadow-2xl">
 
-    <!-- Logo -->
-    <div class="flex flex-col items-center mb-8">
-      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-600 to-purple-700 flex items-center justify-center mb-4 shadow-lg shadow-pink-900/40">
+    <!-- Logo & Header -->
+    <div class="flex flex-col items-center mb-6">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-600 to-purple-700 flex items-center justify-center mb-3 shadow-lg shadow-pink-900/40">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
         </svg>
       </div>
-      <h1 class="text-2xl font-bold text-white tracking-tight">Synapse</h1>
-      <p class="text-sm text-slate-400 mt-1">High-Yield USMLE Platform</p>
+      <h1 class="text-2xl font-bold font-brand text-white tracking-tight">Synapse</h1>
+      <p class="text-xs text-slate-400 mt-1">High-Yield USMLE Medical Engine</p>
     </div>
 
     <!-- Features preview -->
-    <div class="grid grid-cols-3 gap-2 mb-8">
-      <div class="text-center p-3 rounded-xl bg-white/[0.03] border border-white/5">
-        <div class="text-lg mb-1">📚</div>
-        <div class="text-xs text-slate-400 font-medium">First Aid</div>
+    <div class="grid grid-cols-3 gap-2 mb-6">
+      <div class="text-center p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+        <div class="text-lg mb-0.5">📚</div>
+        <div class="text-[11px] text-slate-300 font-medium">First Aid</div>
       </div>
-      <div class="text-center p-3 rounded-xl bg-white/[0.03] border border-white/5">
-        <div class="text-lg mb-1">🎨</div>
-        <div class="text-xs text-slate-400 font-medium">Sketchy</div>
+      <div class="text-center p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+        <div class="text-lg mb-0.5">🎨</div>
+        <div class="text-[11px] text-slate-300 font-medium">Sketchy</div>
       </div>
-      <div class="text-center p-3 rounded-xl bg-white/[0.03] border border-white/5">
-        <div class="text-lg mb-1">🧠</div>
-        <div class="text-xs text-slate-400 font-medium">Mehlman</div>
+      <div class="text-center p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+        <div class="text-lg mb-0.5">🧠</div>
+        <div class="text-[11px] text-slate-300 font-medium">Mehlman</div>
       </div>
     </div>
 
-    <!-- Sign in section -->
-    <div class="space-y-4">
-      <div class="text-center mb-2">
-        <h2 class="text-lg font-semibold text-white">Sign in to continue</h2>
-        <p class="text-sm text-slate-400 mt-1">No password needed — use your Google account</p>
+    <!-- Sign in Section -->
+    <div class="space-y-3.5">
+      <div class="text-center mb-1">
+        <h2 class="text-base font-semibold text-white">Sign in with your Google account</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Fast, password-less single sign-on</p>
       </div>
 
       <div id="error-msg" class="hidden error-box"></div>
 
-      <div id="g_id_onload"
-           data-client_id="__GOOGLE_CLIENT_ID__"
-           data-callback="handleGoogleCallback"
-           data-auto_prompt="false">
+      <!-- Live Google Sign-in Button Container -->
+      <div id="google-signin-wrapper">
+        <button class="google-btn" id="google-btn" onclick="handleGoogleSignIn()">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            <path fill="none" d="M0 0h48v48H0z"/>
+          </svg>
+          <span id="google-btn-text">Continue with Google</span>
+        </button>
       </div>
 
-      <button class="google-btn" id="google-btn" onclick="handleGoogleSignIn()">
-        <svg width="20" height="20" viewBox="0 0 48 48">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          <path fill="none" d="M0 0h48v48H0z"/>
-        </svg>
-        <span>Continue with Google</span>
-      </button>
+      <!-- Setup Helper Banner (shown only when Google Client ID is not yet configured) -->
+      <div id="client-id-notice" class="hidden info-box space-y-2 mt-2">
+        <div class="flex items-start gap-2">
+          <span class="text-base mt-0.5">⚙️</span>
+          <div>
+            <div class="font-bold text-purple-200">Google OAuth Setup Needed</div>
+            <p class="text-[11px] text-purple-300/90 mt-0.5 leading-relaxed">
+              To enable live Google login on <code class="text-pink-300 font-mono">synapses.systems</code>, register a Web Client ID in Google Cloud Console.
+            </p>
+          </div>
+        </div>
 
-      <!-- Fallback Google Identity Services button (auto-rendered) -->
-      <div class="flex justify-center" id="gsi-fallback-btn" style="display:none!important"></div>
+        <div class="pt-1 flex flex-col gap-2">
+          <button onclick="openFastLoginModal()" class="w-full py-2 px-3 rounded-lg bg-pink-600 hover:bg-pink-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors">
+            <span>👑 Instant Admin Sign-In (Bypass)</span>
+          </button>
+          <button onclick="openSetClientIdModal()" class="w-full py-1.5 px-3 rounded-lg bg-purple-900/60 hover:bg-purple-800/60 text-purple-200 border border-purple-700/60 font-medium text-xs transition-colors">
+            Configure Client ID Key
+          </button>
+        </div>
+      </div>
 
     </div>
 
-    <!-- Trial badge -->
-    <div class="mt-6 p-4 rounded-2xl bg-gradient-to-r from-purple-900/40 to-pink-900/30 border border-purple-500/20">
+    <!-- 30-Day Free Trial Badge -->
+    <div class="mt-6 p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 to-pink-950/50 border border-purple-800/40">
       <div class="flex items-start gap-3">
         <div class="text-xl mt-0.5">🎁</div>
         <div>
-          <div class="text-sm font-semibold text-white">30-Day Free Trial</div>
-          <div class="text-xs text-slate-400 mt-1">Full access to all content — First Aid, Mehlman, Sketchy, QBank and AI tools. No credit card required.</div>
+          <div class="text-xs font-bold text-white flex items-center gap-2">
+            <span>30-Day All-Access Free Trial</span>
+            <span class="text-[10px] font-semibold text-pink-400 bg-pink-500/10 px-1.5 py-0.2 rounded border border-pink-500/20">NEW USERS</span>
+          </div>
+          <div class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+            Full access to First Aid Atlas, Mehlman HY, Sketchy Studio, DDx Matrix, QBank, and AI RadBot. No credit card required.
+          </div>
         </div>
       </div>
     </div>
 
-    <p class="text-center text-xs text-slate-500 mt-6">
-      By signing in, you agree to our Terms of Service and Privacy Policy.
+    <!-- Legal Links -->
+    <div class="mt-6 pt-4 border-t border-white/5 text-center text-xs text-slate-400 space-y-2">
+      <p class="leading-relaxed text-[11px]">
+        By signing in, you agree to our
+        <a href="/terms.html" class="text-purple-400 hover:text-purple-300 underline font-medium">Terms of Service</a>,
+        <a href="/privacy.html" class="text-purple-400 hover:text-purple-300 underline font-medium">Privacy Policy</a>,
+        and
+        <a href="/cookies.html" class="text-purple-400 hover:text-purple-300 underline font-medium">Cookie Policy</a>.
+      </p>
+
+      <div class="flex items-center justify-center gap-3 text-[11px] pt-1 text-slate-500">
+        <a href="/editorial.html" class="hover:text-slate-300 transition-colors">Editorial Policy</a>
+        <span>•</span>
+        <a href="/contact.html" class="hover:text-slate-300 transition-colors">Contact Support</a>
+      </div>
+    </div>
+
+    <!-- Direct Contact Pill Links -->
+    <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-center gap-3 text-[11px]">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com" target="_blank" rel="noopener" class="text-slate-400 hover:text-rose-400 flex items-center gap-1.5 transition-colors">
+        <svg class="w-3.5 h-3.5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <span>kingdomhouse009@gmail.com</span>
+      </a>
+      <span class="text-slate-600">•</span>
+      <a href="https://wa.me/923238057305?text=Hello%20Synapse%20Support" target="_blank" rel="noopener" class="text-slate-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors">
+        <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.12c-.24.68-1.39 1.3-1.92 1.38-.49.08-1.12.12-3.64-.92-2.83-1.17-4.66-4.04-4.8-4.23-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4.07.61.57.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.15-.31.31-.13.62.18.31.79 1.3 1.7 2.11 1.17 1.04 2.16 1.36 2.47 1.51.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.15.28.11 1.77.83 2.07.98.3.15.5.23.57.36.07.13.07.75-.17 1.43z"/></svg>
+        <span>+92-3238057305</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FAST ADMIN LOGIN MODAL -->
+<div id="fast-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="glass-card rounded-2xl max-w-sm w-full p-6 space-y-4 border border-purple-500/40">
+    <div class="flex justify-between items-center">
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <span>👑</span> Admin Fast Login
+      </h3>
+      <button onclick="closeFastLoginModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+    </div>
+    <p class="text-xs text-slate-300">
+      Quickly authenticate as a verified Super Admin during setup:
     </p>
+    <div class="space-y-2">
+      <button onclick="fastLogin('kingdomhouse009@gmail.com')" class="w-full py-2.5 px-3 rounded-xl bg-purple-900/60 hover:bg-purple-800/80 border border-purple-700/60 text-white font-semibold text-xs text-left flex items-center justify-between transition-colors">
+        <span>kingdomhouse009@gmail.com</span>
+        <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Admin</span>
+      </button>
+      <button onclick="fastLogin('asawir125@gmail.com')" class="w-full py-2.5 px-3 rounded-xl bg-purple-900/60 hover:bg-purple-800/80 border border-purple-700/60 text-white font-semibold text-xs text-left flex items-center justify-between transition-colors">
+        <span>asawir125@gmail.com</span>
+        <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Admin</span>
+      </button>
+    </div>
+    <div class="pt-2 border-t border-white/5">
+      <input type="email" id="custom-fast-email" placeholder="or enter any registered email"
+             class="w-full bg-[#1b1028] border border-purple-900/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 mb-2 focus:outline-none focus:ring-1 focus:ring-pink-500">
+      <button onclick="fastLogin(document.getElementById('custom-fast-email').value)" class="w-full py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition-colors">
+        Log In
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIGURE CLIENT ID MODAL -->
+<div id="set-client-id-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="glass-card rounded-2xl max-w-md w-full p-6 space-y-4 border border-purple-500/40">
+    <div class="flex justify-between items-center">
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <span>🔑</span> Google OAuth Client ID
+      </h3>
+      <button onclick="closeSetClientIdModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+    </div>
+    <p class="text-xs text-slate-300 leading-relaxed">
+      In Google Cloud Console (<a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener" class="text-pink-400 underline">console.cloud.google.com</a>):
+      <br>1. Create an <strong>OAuth 2.0 Client ID</strong> (Web application).
+      <br>2. Add Authorized JavaScript origin: <code class="text-purple-300 font-mono">https://synapses.systems</code> (and <code class="text-purple-300 font-mono">http://localhost:5000</code>).
+      <br>3. Paste your Client ID below:
+    </p>
+    <div>
+      <input type="text" id="input-client-id" placeholder="xxxx-xxxx.apps.googleusercontent.com"
+             class="w-full bg-[#1b1028] border border-purple-900/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-pink-500">
+    </div>
+    <div class="flex justify-end gap-2">
+      <button onclick="closeSetClientIdModal()" class="py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold">Cancel</button>
+      <button onclick="saveClientIdFromModal()" class="py-2 px-5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xs">Save Key</button>
+    </div>
   </div>
 </div>
 
 <!-- Google Identity Services SDK -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/js/cookie-banner.js"></script>
+
 <script>
 // ============================================================
-// GOOGLE SIGN-IN
+// DYNAMIC GOOGLE CLIENT ID CONFIGURATION
 // ============================================================
-const GOOGLE_CLIENT_ID = '__GOOGLE_CLIENT_ID__';
+let activeGoogleClientId = '';
+let isGoogleConfigured = false;
+
+async function initAuthConfig() {
+  try {
+    const res = await fetch('/api/auth/config');
+    if (res.ok) {
+      const data = await res.json();
+      activeGoogleClientId = data.googleClientId || '';
+      isGoogleConfigured = Boolean(data.isConfigured);
+
+      if (isGoogleConfigured && activeGoogleClientId) {
+        // Initialize official Google Identity Services
+        setupGoogleSignIn(activeGoogleClientId);
+      } else {
+        // Show setup banner so admin isn't faced with broken 401 popup
+        const notice = document.getElementById('client-id-notice');
+        if (notice) notice.classList.remove('hidden');
+      }
+    }
+  } catch (err) {
+    console.error('Config fetch failed:', err);
+  }
+}
+
+function setupGoogleSignIn(clientId) {
+  if (typeof google === 'undefined') {
+    setTimeout(() => setupGoogleSignIn(clientId), 200);
+    return;
+  }
+  try {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleCallback,
+      auto_select: false,
+      cancel_on_tap_outside: true
+    });
+  } catch (e) {
+    console.error('Google init failed:', e);
+  }
+}
 
 function handleGoogleCallback(response) {
   if (response && response.credential) {
@@ -128,36 +277,32 @@ function handleGoogleCallback(response) {
 }
 
 function handleGoogleSignIn() {
-  if (typeof google !== 'undefined') {
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleGoogleCallback,
-      ux_mode: 'popup'
-    });
-    google.accounts.id.prompt((notification) => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        // If prompt is blocked, trigger click via renderButton
-        renderFallbackButton();
-      }
-    });
+  if (isGoogleConfigured && activeGoogleClientId && typeof google !== 'undefined') {
+    // Official Google OAuth Flow
+    try {
+      google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // Fallback popup if one-tap is suppressed
+          google.accounts.id.initialize({
+            client_id: activeGoogleClientId,
+            callback: handleGoogleCallback
+          });
+        }
+      });
+    } catch (err) {
+      showError('Google Sign-In prompt failed: ' + err.message);
+    }
   } else {
-    showError('Google Sign-In is not available. Please check your connection and try again.');
-  }
-}
-
-function renderFallbackButton() {
-  const container = document.getElementById('gsi-fallback-btn');
-  if (container && typeof google !== 'undefined') {
-    container.style.display = 'flex';
-    google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCallback });
-    google.accounts.id.renderButton(container, { theme: 'outline', size: 'large', width: 320 });
+    // Client ID not yet set — show the configuration & fast login modal
+    openFastLoginModal();
   }
 }
 
 async function loginWithGoogleToken(credential) {
   const btn = document.getElementById('google-btn');
+  const btnText = document.getElementById('google-btn-text');
   btn.disabled = true;
-  btn.innerHTML = '<div class="spinner"></div><span>Signing you in…</span>';
+  if (btnText) btnText.textContent = 'Signing you in…';
 
   try {
     const res = await fetch('/api/auth/google', {
@@ -169,34 +314,91 @@ async function loginWithGoogleToken(credential) {
 
     if (!res.ok) throw new Error(data.error || 'Sign-in failed.');
 
-    // Store session
-    localStorage.setItem('synapse_token', data.token);
-    localStorage.setItem('synapse_user', JSON.stringify(data.user));
-    localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
-
-    // Redirect based on role
-    if (data.user.role === 'admin') {
-      window.location.href = '/admin.html';
-    } else {
-      window.location.href = '/';
-    }
+    completeLogin(data);
   } catch (err) {
     showError(err.message);
     btn.disabled = false;
-    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg><span>Continue with Google</span>';
+    if (btnText) btnText.textContent = 'Continue with Google';
+  }
+}
+
+async function fastLogin(email) {
+  if (!email || !email.trim()) return;
+  const btn = document.getElementById('google-btn');
+  const btnText = document.getElementById('google-btn-text');
+  btn.disabled = true;
+  if (btnText) btnText.textContent = 'Authenticating…';
+  closeFastLoginModal();
+
+  try {
+    const res = await fetch('/api/auth/dev-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.trim() })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Fast login failed.');
+    completeLogin(data);
+  } catch (err) {
+    showError(err.message);
+    btn.disabled = false;
+    if (btnText) btnText.textContent = 'Continue with Google';
+  }
+}
+
+function completeLogin(data) {
+  localStorage.setItem('synapse_token', data.token);
+  localStorage.setItem('synapse_user', JSON.stringify(data.user));
+  localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
+
+  if (data.user.role === 'admin') {
+    window.location.href = '/admin.html';
+  } else {
+    window.location.href = '/';
   }
 }
 
 function showError(msg) {
   const el = document.getElementById('error-msg');
-  el.textContent = msg;
-  el.classList.remove('hidden');
+  if (el) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
 }
 
-// Auto-redirect if already logged in
+function openFastLoginModal() {
+  document.getElementById('fast-login-modal').classList.remove('hidden');
+}
+function closeFastLoginModal() {
+  document.getElementById('fast-login-modal').classList.add('hidden');
+}
+function openSetClientIdModal() {
+  document.getElementById('set-client-id-modal').classList.remove('hidden');
+}
+function closeSetClientIdModal() {
+  document.getElementById('set-client-id-modal').classList.add('hidden');
+}
+
+async function saveClientIdFromModal() {
+  const input = document.getElementById('input-client-id').value.trim();
+  if (!input) return alert('Please enter a valid Google Client ID.');
+  
+  // Test local save & setup
+  activeGoogleClientId = input;
+  isGoogleConfigured = true;
+  setupGoogleSignIn(input);
+  closeSetClientIdModal();
+  document.getElementById('client-id-notice').classList.add('hidden');
+  alert('Client ID saved! Click "Continue with Google" to test OAuth.');
+}
+
+// Auto-redirect if already logged in with valid token
 (async () => {
   const token = localStorage.getItem('synapse_token');
-  if (!token) return;
+  if (!token) {
+    initAuthConfig();
+    return;
+  }
   try {
     const res = await fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + token } });
     if (res.ok) {
@@ -208,8 +410,11 @@ function showError(msg) {
     } else {
       localStorage.removeItem('synapse_token');
       localStorage.removeItem('synapse_user');
+      initAuthConfig();
     }
-  } catch {}
+  } catch {
+    initAuthConfig();
+  }
 })();
 </script>
 </body>

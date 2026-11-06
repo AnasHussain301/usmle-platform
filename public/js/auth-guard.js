@@ -76,9 +76,17 @@
   window.synapseGetUser = getUser;
   window.synapseGetToken = getToken;
 
-  // Skip guard on login/admin pages
+  // Skip guard on public pages and admin
   const page = window.location.pathname;
-  if (page === '/login.html' || page.startsWith('/admin')) return;
+  const publicPages = [
+    '/login.html',
+    '/terms.html',
+    '/privacy.html',
+    '/cookies.html',
+    '/editorial.html',
+    '/contact.html'
+  ];
+  if (publicPages.includes(page) || page.startsWith('/admin')) return;
 
   async function verifyAndRender() {
     const token = getToken();

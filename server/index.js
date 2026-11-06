@@ -14,12 +14,12 @@ const seed = require('./seed');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'synapse_secret_jwt_key_2026_secure';
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
+let GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 
 // ============================================================
 // ADMIN EMAILS — MUST MATCH EXACTLY (lowercase)
 // ============================================================
-const ADMIN_EMAILS = ['asawir125@gmail.com', 'kingdomhouse@gmail.com'];
+const ADMIN_EMAILS = ['asawir125@gmail.com', 'kingdomhouse@gmail.com', 'kingdomhouse009@gmail.com'];
 
 // Run DB seed on startup if fresh
 seed();
@@ -138,7 +138,7 @@ app.use('/api/', apiLimiter);
 // ============================================================
 // GOOGLE OAUTH — VERIFY ID TOKEN
 // ============================================================
-const googleClient = GOOGLE_CLIENT_ID ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
+let googleClient = (GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.includes('__')) ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
 
 app.post('/api/auth/google', authLimiter, async (req, res) => {
   const { idToken, credential } = req.body;
@@ -272,6 +272,100 @@ app.get('/api/auth/me', requireAuth, (req, res) => {
   const { passwordHash: _, ...safeUser } = req.user;
   const accessStatus = getAccessStatus(req.user);
   res.json({ user: safeUser, accessStatus });
+});
+
+// ============================================================
+// PUBLIC AUTH CONFIG (Google Client ID & Contact URLs)
+// ============================================================
+app.get('/api/auth/config', (req, res) => {
+  const isConfigured = Boolean(
+    GOOGLE_CLIENT_ID &&
+    !GOOGLE_CLIENT_ID.includes('__') &&
+    GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com')
+  );
+  res.json({
+    googleClientId: isConfigured ? GOOGLE_CLIENT_ID : '',
+    isConfigured,
+    supportEmail: 'kingdomhouse009@gmail.com',
+    whatsapp: '+92-3238057305',
+    whatsappUrl: 'https://wa.me/923238057305?text=Hello%20Synapse%20Support',
+    gmailUrl: 'https://mail.google.com/mail/?view=cm&fs=1&to=kingdomhouse009@gmail.com'
+  });
+});
+
+// DEV / ADMIN FAST LOGIN (When GOOGLE_CLIENT_ID is not yet configured)
+app.post('/api/auth/dev-login', authLimiter, async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email required.' });
+  const cleanEmail = email.trim().toLowerCase();
+
+  const isSuperAdmin = ADMIN_EMAILS.includes(cleanEmail);
+  const isDevMode = !GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID.includes('__');
+
+  if (!isDevMode && !isSuperAdmin) {
+    return res.status(403).json({ error: 'Live Google Sign-In is required in production.' });
+  }
+
+  const { ip, userAgent } = getClientMeta(req);
+  let user = db.getUserByEmail(cleanEmail);
+
+  if (!user) {
+    user = db.createUser({
+      googleId: 'fast_' + Date.now(),
+      email: cleanEmail,
+      name: cleanEmail.split('@')[0],
+      avatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(cleanEmail),
+      role: isSuperAdmin ? 'admin' : 'user',
+      tier: isSuperAdmin ? 'admin' : 'trial',
+      trialEndsAt: isSuperAdmin ? null : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      status: 'active',
+      lastIp: ip,
+      lastUserAgent: userAgent
+    });
+  } else {
+    if (isSuperAdmin) {
+      user.role = 'admin';
+      user.tier = 'admin';
+      user.trialEndsAt = null;
+    }
+    user.lastLoginAt = new Date().toISOString();
+    user.lastIp = ip;
+    user.lastUserAgent = userAgent;
+    db.save();
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email, role: user.role },
+    JWT_SECRET,
+    { expiresIn: '30d' }
+  );
+
+  db.logActivity(user.id, user.name, 'login_dev_mode', { email: user.email }, ip, userAgent);
+
+  const { passwordHash: _, ...safeUser } = user;
+  const accessStatus = getAccessStatus(user);
+  res.json({ token, user: safeUser, accessStatus });
+});
+
+// CONTACT FORM SUBMISSION
+app.post('/api/contact', apiLimiter, (req, res) => {
+  const { name, email, subject, category, message } = req.body;
+  if (!email || !message) {
+    return res.status(400).json({ error: 'Email and message are required.' });
+  }
+  const { ip, userAgent } = getClientMeta(req);
+  db.logActivity(
+    req.user ? req.user.id : 'anonymous',
+    name || email,
+    'contact_form_submitted',
+    { email, category: category || 'General', subject: subject || 'No Subject', message: message.slice(0, 500) },
+    ip,
+    userAgent
+  );
+  res.json({
+    success: true,
+    message: 'Thank you! Your message has been received by the Synapse medical team. We will respond to ' + email + ' within 24 hours.'
+  });
 });
 
 // ============================================================
@@ -646,6 +740,41 @@ app.put('/api/admin/settings', requireAdmin, (req, res) => {
   const { ip, userAgent } = getClientMeta(req);
   db.logActivity(req.user.id, req.user.name, 'admin_updated_settings', {}, ip, userAgent);
   res.json({ settings: updated });
+});
+
+// Admin update Google Client ID
+app.post('/api/admin/set-google-client-id', requireAdmin, (req, res) => {
+  const { clientId } = req.body;
+  if (!clientId || !clientId.trim()) {
+    return res.status(400).json({ error: 'Google Client ID is required.' });
+  }
+  const cleanId = clientId.trim();
+  GOOGLE_CLIENT_ID = cleanId;
+  try {
+    googleClient = new OAuth2Client(cleanId);
+  } catch (e) {
+    console.error('Failed to instantiate OAuth2Client:', e);
+  }
+
+  try {
+    const envPath = path.join(__dirname, '..', '.env');
+    let envContent = '';
+    if (fs.existsSync(envPath)) {
+      envContent = fs.readFileSync(envPath, 'utf8');
+    }
+    if (envContent.includes('GOOGLE_CLIENT_ID=')) {
+      envContent = envContent.replace(/GOOGLE_CLIENT_ID=.*/g, `GOOGLE_CLIENT_ID=${cleanId}`);
+    } else {
+      envContent += `\nGOOGLE_CLIENT_ID=${cleanId}\n`;
+    }
+    fs.writeFileSync(envPath, envContent.trim() + '\n', 'utf8');
+  } catch (err) {
+    console.error('Failed to update .env:', err);
+  }
+
+  const { ip, userAgent } = getClientMeta(req);
+  db.logActivity(req.user.id, req.user.name, 'admin_updated_google_client_id', { clientId: cleanId }, ip, userAgent);
+  res.json({ success: true, message: 'Google Client ID saved and activated successfully.', clientId: cleanId });
 });
 
 // Admin Question CRUD
