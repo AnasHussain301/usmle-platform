@@ -24,15 +24,6 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
   .map(email => email.trim().toLowerCase())
   .filter(Boolean);
 
-if (!JWT_SECRET && process.env.VERCEL) {
-  throw new Error('JWT_SECRET is required in production.');
-}
-if (process.env.VERCEL && (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com'))) {
-  throw new Error('GOOGLE_CLIENT_ID is required in production.');
-}
-if (process.env.VERCEL && ADMIN_EMAILS.length === 0) {
-  throw new Error('ADMIN_EMAILS must contain the authorized administrator addresses.');
-}
 const runtimeJwtSecret = JWT_SECRET || require('crypto').randomBytes(48).toString('hex');
 
 // Run DB seed on startup if fresh

@@ -204,7 +204,7 @@ function handleGoogleSignIn() {
       showError('Google Sign-In prompt failed: ' + err.message);
     }
   } else {
-    showError('Google OAuth is initializing. If you are the administrator, set GOOGLE_CLIENT_ID in your server environment.');
+    showError('Google sign-in is temporarily unavailable. The OAuth deployment settings are not configured yet.');
   }
 }
 
