@@ -115,7 +115,13 @@
       });
 
       if (!res.ok) {
-        logout();
+        if (res.status === 401 || res.status === 403) {
+          logout();
+        } else if (user && access && access.active) {
+          window.__SYNAPSE_USER__ = user;
+          window.__SYNAPSE_ACCESS__ = access;
+          document.body.hidden = false;
+        }
         return;
       }
 
@@ -135,12 +141,14 @@
 
       // Check access
       if (!serverAccess.active && serverUser.role !== 'admin') {
+        document.body.hidden = false;
         showUpgradeWall(serverAccess);
         return;
       }
 
       // Inject user info into header if element exists
       injectUserUI(serverUser, serverAccess);
+      document.body.hidden = false;
 
       // Expose globally for the app
       window.__SYNAPSE_USER__   = serverUser;
@@ -157,6 +165,7 @@
         window.__SYNAPSE_ACCESS__ = access;
         window.__SYNAPSE_TOKEN__  = token;
         injectUserUI(user, access);
+        document.body.hidden = false;
       } else {
         logout();
       }

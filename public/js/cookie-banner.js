@@ -1,8 +1,7 @@
 /**
- * Synapse Cookie Consent Banner (GDPR, CPRA & Google AdSense Compliant)
+ * Synapse Essential Cookie Consent Banner
  * ======================================================================
- * Manages cookie preferences, stores consent in localStorage, and configures
- * Google AdSense personalized vs. non-personalized advertising appropriately.
+ * Manages cookie preferences and stores consent in localStorage.
  */
 (function() {
   'use strict';
@@ -24,9 +23,6 @@
       localStorage.setItem(CONSENT_DATE_KEY, new Date().toISOString());
     } catch {}
 
-    // Apply to Google AdSense / Analytics
-    applyAdSenseConsent(choice);
-
     // Hide banner
     const banner = document.getElementById('synapse-cookie-banner');
     if (banner) {
@@ -40,21 +36,10 @@
     if (modal) modal.remove();
   }
 
-  function applyAdSenseConsent(choice) {
-    if (choice === 'essential' || choice === 'declined') {
-      // Force non-personalized ads for Google AdSense
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.requestNonPersonalizedAds = 1;
-    } else if (choice === 'all') {
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.requestNonPersonalizedAds = 0;
-    }
-  }
-
   function renderBanner() {
+    if (localStorage.getItem('synapse_token')) return;
     if (document.getElementById('synapse-cookie-banner')) return;
     if (getConsent()) {
-      applyAdSenseConsent(getConsent());
       return;
     }
 
@@ -88,10 +73,10 @@
           <div style="flex: 1; min-width: 0;">
             <div style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
               <span>Cookie & Privacy Choice</span>
-              <span style="font-size: 10px; font-weight: 600; background: rgba(147, 51, 234, 0.25); color: #c084fc; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(147, 51, 234, 0.4);">GDPR / CPRA / AdSense</span>
+              <span style="font-size: 10px; font-weight: 600; background: rgba(147, 51, 234, 0.25); color: #c084fc; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(147, 51, 234, 0.4);">GDPR / CPRA</span>
             </div>
             <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; margin: 0;">
-              Synapse uses essential cookies to keep you signed in, preserve your dark mode theme, and save your USMLE flashcard progress. We and our partner <strong style="color: #cbd5e1;">Google AdSense</strong> also use cookies to analyze study engagement and serve personalized or non-personalized medical education advertisements.
+              Synapse uses essential storage to keep you signed in, preserve your theme, and save your USMLE flashcard progress.
               <a href="/cookies.html" style="color: #ec4899; text-decoration: underline; margin-left: 4px; font-weight: 500;">Read Cookie Policy</a>
             </p>
           </div>
@@ -211,17 +196,6 @@
           </p>
         </div>
 
-        <!-- Category 3: Advertising / Google AdSense -->
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px; margin-bottom: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <div style="font-size: 13px; font-weight: 700; color: #fff;">3. Google AdSense Advertising</div>
-            <input type="checkbox" id="cookie-opt-ads" ${currentConsent === 'all' ? 'checked' : ''} style="cursor: pointer; width: 18px; height: 18px; accent-color: #ec4899;">
-          </div>
-          <p style="font-size: 11px; color: #94a3b8; margin: 0; line-height: 1.4;">
-            Google and third-party vendors use cookies to serve ads based on your prior visits. If disabled, non-personalized contextual ads will be served instead.
-          </p>
-        </div>
-
         <div style="display: flex; justify-content: flex-end; gap: 10px;">
           <button id="cookie-modal-save-btn" style="
             background: linear-gradient(135deg, #ec4899, #8b5cf6);
@@ -246,13 +220,8 @@
     });
 
     document.getElementById('cookie-modal-save-btn').addEventListener('click', () => {
-      const adsChecked = document.getElementById('cookie-opt-ads').checked;
       const analyticsChecked = document.getElementById('cookie-opt-analytics').checked;
-      if (adsChecked && analyticsChecked) {
-        setConsent('all');
-      } else {
-        setConsent('essential');
-      }
+      setConsent(analyticsChecked ? 'all' : 'essential');
     });
   }
 
