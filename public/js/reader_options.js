@@ -512,6 +512,7 @@ function _syncOptionsPanelUI() {
   _setToggle('opt-toggle-auto-blanks',     p.autoBlanks);
   _setToggle('opt-toggle-blur-questions',  p.blurInQuestions);
   _setToggle('opt-toggle-mehlman-tags',    p.mehlmanTags);
+  _setToggle('opt-toggle-list-view',       p.listView);
   _setToggle('opt-toggle-uworld-tables',   p.showUWorldTables);
   _setToggle('opt-toggle-uworld-images',   p.showUWorldImages);
   _setToggle('opt-toggle-anking',          p.showAnKing);
@@ -577,6 +578,17 @@ function _syncOptionsPanelUI() {
     } else {
       btn.classList.remove('border-purple-600', 'text-purple-700', 'bg-purple-50', 'font-bold');
       btn.classList.add('border-slate-200', 'text-slate-800', 'bg-[#f5f2f8]');
+    }
+  });
+
+  // Sync colour swatches in reader options panel
+  const currentSwatchIdx = parseInt(localStorage.getItem('synapse_swatch_idx') || '0', 10);
+  const colorSwatches = document.querySelectorAll('#reader-options-panel .color-swatch');
+  colorSwatches.forEach((s, idx) => {
+    if (idx === currentSwatchIdx) {
+      s.classList.add('ring-2', 'ring-purple-600', 'ring-offset-2');
+    } else {
+      s.classList.remove('ring-2', 'ring-purple-600', 'ring-offset-2');
     }
   });
 }

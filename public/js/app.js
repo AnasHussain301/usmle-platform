@@ -2169,20 +2169,31 @@ function setTheme(theme) {
 
   // Update theme buttons: active button takes currentAccent with high contrast white text
   ['light', 'dark', 'black', 'auto'].forEach(t => {
+    // Main settings drawer buttons
     const btn = document.getElementById('theme-btn-' + t);
-    if (!btn) return;
-    if (t === theme) {
-      btn.classList.add('theme-btn-active');
-      btn.style.setProperty('background-color', currentAccent, 'important');
-      btn.style.setProperty('color', '#ffffff', 'important');
-      btn.style.fontWeight = 'bold';
-      btn.style.boxShadow = `0 0 14px ${currentAccent}80`;
-    } else {
-      btn.classList.remove('theme-btn-active');
-      btn.style.removeProperty('background-color');
-      btn.style.removeProperty('color');
-      btn.style.fontWeight = '600';
-      btn.style.boxShadow = 'none';
+    if (btn) {
+      if (t === theme) {
+        btn.classList.add('theme-btn-active');
+        btn.style.setProperty('background-color', currentAccent, 'important');
+        btn.style.setProperty('color', '#ffffff', 'important');
+        btn.style.fontWeight = 'bold';
+        btn.style.boxShadow = `0 0 14px ${currentAccent}80`;
+      } else {
+        btn.classList.remove('theme-btn-active');
+        btn.style.removeProperty('background-color');
+        btn.style.removeProperty('color');
+        btn.style.fontWeight = '600';
+        btn.style.boxShadow = 'none';
+      }
+    }
+    // Reader options panel buttons (opt-theme-*)
+    const optBtn = document.getElementById('opt-theme-' + t);
+    if (optBtn) {
+      if (t === theme) {
+        optBtn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold bg-white text-purple-700 shadow-sm transition-all';
+      } else {
+        optBtn.className = 'flex-1 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all';
+      }
     }
   });
 }
@@ -2251,22 +2262,36 @@ function setFontFamily(fontKey) {
   document.body.style.fontFamily = cssFont;
 
   Object.keys(FONT_MAP).forEach(k => {
+    // Main settings drawer font buttons
     const btn = document.getElementById('font-btn-' + k);
-    if (!btn) return;
-    if (k === fontKey) {
-      btn.classList.add('font-pill-active');
-      btn.style.setProperty('border-color', currentAccent, 'important');
-      btn.style.setProperty('color', currentAccent, 'important');
-      btn.style.setProperty('background-color', `${currentAccent}22`, 'important');
-      btn.style.borderWidth = '2px';
-      btn.style.fontWeight = 'bold';
-    } else {
-      btn.classList.remove('font-pill-active');
-      btn.style.removeProperty('border-color');
-      btn.style.removeProperty('color');
-      btn.style.removeProperty('background-color');
-      btn.style.borderWidth = '1px';
-      btn.style.fontWeight = '600';
+    if (btn) {
+      if (k === fontKey) {
+        btn.classList.add('font-pill-active');
+        btn.style.setProperty('border-color', currentAccent, 'important');
+        btn.style.setProperty('color', currentAccent, 'important');
+        btn.style.setProperty('background-color', `${currentAccent}22`, 'important');
+        btn.style.borderWidth = '2px';
+        btn.style.fontWeight = 'bold';
+      } else {
+        btn.classList.remove('font-pill-active');
+        btn.style.removeProperty('border-color');
+        btn.style.removeProperty('color');
+        btn.style.removeProperty('background-color');
+        btn.style.borderWidth = '1px';
+        btn.style.fontWeight = '600';
+      }
+    }
+    // Reader options panel font buttons — ID mapping: Synapse→opt-font-Synapse, Plus Jakarta→opt-font-Plus-Jakarta
+    const optId = 'opt-font-' + k.replace(/\s+/g, '-');
+    const optBtn = document.getElementById(optId);
+    if (optBtn) {
+      if (k === fontKey) {
+        optBtn.classList.add('border-purple-600', 'text-purple-700', 'bg-purple-50', 'font-bold');
+        optBtn.classList.remove('border-slate-200', 'text-slate-800', 'bg-[#f5f2f8]');
+      } else {
+        optBtn.classList.remove('border-purple-600', 'text-purple-700', 'bg-purple-50', 'font-bold');
+        optBtn.classList.add('border-slate-200', 'text-slate-800', 'bg-[#f5f2f8]');
+      }
     }
   });
 }
@@ -2275,8 +2300,11 @@ function adjustFontSize(delta) {
   currentFontScale = Math.max(85, Math.min(130, currentFontScale + delta));
   localStorage.setItem('synapse_font_scale', currentFontScale);
   document.documentElement.style.fontSize = (currentFontScale / 100 * 16) + 'px';
+  // Update both labels
   const label = document.getElementById('font-scale-label');
   if (label) label.textContent = currentFontScale + '%';
+  const optLabel = document.getElementById('opt-font-scale-label');
+  if (optLabel) optLabel.textContent = currentFontScale + '%';
 }
 
 function applyAppearanceSettingsUI() {
