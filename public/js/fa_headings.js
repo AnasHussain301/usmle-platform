@@ -152,17 +152,14 @@ function renderHeadingRow(row, rowIdx, currentPageNum, sectionSlug) {
   const navPage = isLevel1 ? (parentPageNum || currentPageNum) : pageNum;
 
   // Highlight rule: exactly ONE current row at a time matching current reader page
-  const isCurrent = currentPageNum !== null && (
-    (!isLevel1 && pageNum === currentPageNum) ||
-    (isLevel1 && parentPageNum === currentPageNum && row.current)
-  );
+  const isCurrent = currentPageNum !== null && (!isLevel1 && pageNum === currentPageNum);
 
   const titleColor = isCurrent
     ? 'text-pink-400 font-bold'
-    : (isLevel1 ? 'text-slate-400 font-normal' : 'text-slate-100 font-bold');
+    : (isLevel1 ? 'text-slate-400 font-normal' : 'text-slate-100 font-semibold');
 
   const rowBg = isCurrent
-    ? 'bg-[#2a1038] border border-pink-600/40 rounded-xl'
+    ? 'bg-[#2a1038] border border-pink-600/40 rounded-xl fa-toc-active-row'
     : 'hover:bg-[#1a0f27] rounded-xl';
 
   // Page number ONLY for level 0
@@ -226,22 +223,18 @@ function renderFaHeadingsTOC(sectionNameOrSysKey, currentPageNum, sortMode, filt
 }
 
 // ============================================================
-// PART 1: READER PAGE + MARKER GUTTER
-// Exactly matches Part 1 spec:
-// - Left gutter column layout (96px, reserved, does NOT overlap image)
-// - Top = yRatio * renderedPageHeight (measured from TOP of page image)
+// PART 1: READER PAGE + MARKER OVERLAY
+// Markers overlay directly on page image container matching zetchy.net:
+// - Exact coordinates from zetchy_reader_markers.json:
+//   left: xRatio * 100%, top: yRatio * 100%, transform: translate(-50%, -50%)
 // - Column 1 (xRatio ~0.0348, outer/left) vs Column 2 (xRatio ~0.065, inner/right)
-// - Recomputed on zoom change, window resize, image panel toggle
+// - Percentage coordinates scale with zoom and window resize
 // ============================================================
 function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
-  const col1 = document.getElementById('fa-page-gutter-col1');
-  const col2 = document.getElementById('fa-page-gutter-col2');
-  const gutter = document.getElementById('fa-page-gutter');
-  const img = document.getElementById('fa-reader-page-img');
-  if (!col1 || !col2 || !gutter) return;
+  const container = document.getElementById('fa-page-markers-layer');
+  if (!container) return;
 
-  col1.innerHTML = '';
-  col2.innerHTML = '';
+  container.innerHTML = '';
 
   const secSlug = SECTION_TO_SYS_KEY[sectionName] || 'cvs';
   const allMarkers = window.FA_MARKERS_DATA || [];
@@ -252,48 +245,44 @@ function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
     return;
   }
 
-  // Get rendered image height
-  const renderedH = img ? (img.clientHeight || 1169) : 1169;
-
-  let htmlCol1 = '';
-  let htmlCol2 = '';
+  let html = '';
 
   pageMarkers.forEach((m, idx) => {
-    // top = yRatio * renderedPageHeight (measured from top of page image)
-    const topPx = Math.round(m.yRatio * renderedH);
+    // Exact percentage coordinates from zetchy.net
+    const leftPct = (m.xRatio * 100).toFixed(3);
+    const topPct = (m.yRatio * 100).toFixed(3);
     const hSlug = m.h;
     const titleEsc = _hesc(m.title || hSlug).replace(/'/g, "&#39;");
 
     if (m.kind === 'M') {
       const qCount = m.mehlmanCount || null;
-      const btnHtml = `<button onclick="openMehlmanSheet('${secSlug}', '${pageNum}', '${titleEsc}', '${hSlug}', ${qCount || 'null'})"
-        data-h="${_hesc(hSlug)}"
-        class="w-[26px] h-[26px] rounded-full bg-[#1e1030] hover:bg-pink-700 border border-pink-500/80 flex items-center justify-center text-white text-[11px] font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto"
-        title="${qCount ? qCount + ' Mehlman questions' : 'Mehlman: ' + titleEsc}">M</button>`;
-
-      if (m.col === 1 || m.xRatio < 0.05) {
-        htmlCol1 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
-      } else {
-        htmlCol2 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
-      }
+      html += `
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
+             style="left: ${leftPct}%; top: ${topPct}%;">
+          <button onclick="event.stopPropagation(); openMehlmanSheet('${secSlug}', '${pageNum}', '${titleEsc}', '${hSlug}', ${qCount || 'null'})"
+            data-h="${_hesc(hSlug)}"
+            class="w-[22px] h-[22px] sm:w-[24px] sm:h-[24px] rounded-full bg-[#1b0f2a] hover:bg-pink-600 border border-pink-500/80 flex items-center justify-center text-white text-[10px] font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto cursor-pointer"
+            title="${qCount ? qCount + ' Mehlman questions' : 'Mehlman: ' + titleEsc}">M</button>
+        </div>`;
     } else if (m.kind === 'dots') {
       const popoverId = `popover-dots-${idx}`;
-      const btnHtml = `<div class="relative flex items-center justify-center">
-        <button onclick="toggleHeadingPopover('${popoverId}')"
-          data-h="${_hesc(hSlug)}"
-          class="w-[26px] h-[26px] rounded-full bg-white/90 hover:bg-white text-[#160d21] border border-white/60 flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto"
-          title="Actions: ${titleEsc}">
-          <span class="tracking-tighter">⋯</span>
-        </button>
-        ${renderHeadingPopoverHtml(popoverId, m, secSlug, pageNum, matchingTopics)}
-      </div>`;
-
-      htmlCol2 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
+      html += `
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
+             style="left: ${leftPct}%; top: ${topPct}%;">
+          <div class="relative flex items-center justify-center">
+            <button onclick="event.stopPropagation(); toggleHeadingPopover('${popoverId}')"
+              data-h="${_hesc(hSlug)}"
+              class="w-[22px] h-[22px] sm:w-[24px] sm:h-[24px] rounded-full bg-white/95 hover:bg-white text-[#180e22] border border-white/80 flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto cursor-pointer"
+              title="Actions: ${titleEsc}">
+              <span class="tracking-tighter">⋯</span>
+            </button>
+            ${renderHeadingPopoverHtml(popoverId, m, secSlug, pageNum, matchingTopics)}
+          </div>
+        </div>`;
     }
   });
 
-  col1.innerHTML = htmlCol1;
-  col2.innerHTML = htmlCol2;
+  container.innerHTML = html;
 }
 
 // Re-align gutter markers when window resizes or images panel toggles

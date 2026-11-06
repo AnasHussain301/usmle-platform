@@ -190,6 +190,30 @@ app.get('/api/mehlman/systems', (req, res) => {
   res.json({ systems: db.data.mehlmanSystems || [] });
 });
 
+// Mehlman Cards Mapping (must be defined BEFORE :id wildcard)
+app.get('/api/mehlman/cards', (req, res) => {
+  const cardsFile = path.join(__dirname, '..', 'data', 'mehlman_cards_mapped.json');
+  if (fs.existsSync(cardsFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(cardsFile, 'utf8'));
+      return res.json({ success: true, cards: data });
+    } catch (e) {
+      return res.status(500).json({ error: 'Failed to read mehlman_cards_mapped.json' });
+    }
+  }
+  res.json({ success: true, cards: {} });
+});
+
+// Sync Mehlman Progress (easy / forgetting)
+app.post('/api/mehlman/progress', (req, res) => {
+  const { progress } = req.body || {};
+  if (!progress) return res.status(400).json({ error: 'Missing progress data' });
+  if (!db.data.userProgress) db.data.userProgress = {};
+  db.data.userProgress.mehlman = { ...(db.data.userProgress.mehlman || {}), ...progress };
+  db.write();
+  res.json({ success: true, progress: db.data.userProgress.mehlman });
+});
+
 app.get('/api/mehlman/:id', (req, res) => {
   const sys = (db.data.mehlmanSystems || []).find(s => s.id === req.params.id);
   res.json({ system: sys || null });
@@ -640,30 +664,7 @@ app.get('/api/fa/markers', (req, res) => {
   res.json({ success: true, markers: [] });
 });
 
-// ==========================================
-// MEHLMAN CARDS MAPPING API
-// ==========================================
-app.get('/api/mehlman/cards', (req, res) => {
-  const cardsFile = path.join(__dirname, '..', 'data', 'mehlman_cards_mapped.json');
-  if (fs.existsSync(cardsFile)) {
-    try {
-      const data = JSON.parse(fs.readFileSync(cardsFile, 'utf8'));
-      return res.json({ success: true, cards: data });
-    } catch (e) {
-      return res.status(500).json({ error: 'Failed to read mehlman_cards_mapped.json' });
-    }
-  }
-  res.json({ success: true, cards: {} });
-});
 
-// Sync Mehlman Progress (easy / forgetting)
-app.post('/api/mehlman/progress', (req, res) => {
-  const { progress } = req.body;
-  if (!db.data.userProgress) db.data.userProgress = {};
-  db.data.userProgress.mehlman = progress || {};
-  db.save();
-  res.json({ success: true });
-});
 
 // SPA fallback
 app.use((req, res) => {

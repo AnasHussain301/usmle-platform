@@ -445,19 +445,22 @@ function handleFaImageSuccess(img) {
   img.style.opacity = '1';
   const fallback = document.getElementById('fa-reader-page-fallback');
   if (fallback) fallback.classList.add('hidden');
+  if (typeof renderFaGutterMarkers === 'function' && window.FA_HEADINGS_DATA && window.state) {
+    const sys = state.currentFaSystem;
+    renderFaGutterMarkers(sys ? sys.name : '', state.currentFaPage, window._faPageTopics);
+  }
 }
 
 let faZoomLevel = 100;
 function zoomFaPage(delta) {
   faZoomLevel = Math.max(60, Math.min(180, faZoomLevel + delta));
-  const wrapper = document.getElementById('fa-book-page-canvas-wrapper');
+  const container = document.getElementById('fa-page-container');
   const label = document.getElementById('fa-zoom-label');
-  if (wrapper) wrapper.style.transform = `scale(${faZoomLevel / 100})`;
-  if (label) label.textContent = `${faZoomLevel}%`;
-  const gutter = document.getElementById("fa-page-gutter");
-  if (gutter) {
-    gutter.style.width = `${Math.round(96 * (faZoomLevel / 100))}px`;
+  if (container) {
+    const targetW = Math.round(840 * (faZoomLevel / 100));
+    container.style.width = `${targetW}px`;
   }
+  if (label) label.textContent = `${faZoomLevel}%`;
 }
 
 function filterFaTOC(query) {
@@ -611,68 +614,22 @@ function renderFaBookTOC(topicsList = null) {
   const sys = state.currentFaSystem;
   if (!tocList || !sys) return;
 
-  const topics = topicsList || sys.topics || [];
-  const subjectsMap = {};
-  (sys.subjects || []).forEach(s => { subjectsMap[s.key] = s.name; });
-
-  let html = '';
-  let lastSubject = null;
-
-  topics.forEach((t) => {
-    const subjKey = t.subject || 'general';
-    const subjName = subjectsMap[subjKey] || (subjKey ? subjKey.toUpperCase() : 'HIGH-YIELD');
-
-    if (subjKey !== lastSubject && !topicsList) {
-      lastSubject = subjKey;
-      html += `
-        <div class="px-2 pt-4 pb-1.5 text-[10px] font-black uppercase tracking-wider text-pink-400/90 border-b border-[#2d1b40]/50 mb-1 flex items-center justify-between">
-          <span>${subjName}</span>
-        </div>
-      `;
-    }
-
-    const isAct = state.currentFaTopic && (state.currentFaTopic.id === t.id || state.currentFaTopic.title === t.title);
-    const hasSubs = (t.subs || []).length > 0;
-    const isExpanded = isAct || (state.expandedTopics && state.expandedTopics[t.id]);
-    const imgCount = (t.images || []).length;
-
-    html += `
-      <div class="space-y-0.5">
-        <div onclick="selectFaTopic('${t.id}', ${t.page})" 
-             class="p-2 rounded-xl cursor-pointer text-xs transition-colors flex items-center justify-between ${isAct ? 'bg-[#3b1d42] border border-pink-500/50 text-white font-bold' : 'hover:bg-[#1f132a] text-slate-300'}">
-          <div class="flex items-center gap-2.5 truncate">
-            <span class="text-[10px] text-slate-500 font-mono w-7 shrink-0">${t.page || ''}</span>
-            <span class="truncate ${isAct ? 'text-pink-300 font-bold' : 'text-slate-200'}">${t.title}</span>
-          </div>
-          <div class="flex items-center gap-1.5 shrink-0">
-            ${imgCount > 0 ? `<span class="text-[9px] px-1.5 py-0.5 bg-amber-950/60 text-amber-400 rounded-full border border-amber-900/40">${imgCount}</span>` : ''}
-            <span class="text-slate-600 text-[10px] font-mono">${hasSubs ? (isExpanded ? '&minus;' : '&plus;') : '&minus;'}</span>
-          </div>
-        </div>
-
-        ${hasSubs ? `
-          <div class="pl-8 pr-1 space-y-0.5 ${isExpanded ? '' : 'hidden'}" id="subs-${t.id}">
-            ${t.subs.map(s => {
-              const isSubAct = state.currentFaSubtopic && (state.currentFaSubtopic.id === s.id || state.currentFaSubtopic.title === s.title);
-              const subImgCount = (s.images || []).length;
-              return `
-                <div onclick="selectFaSubtopic('${t.id}', '${s.id}', ${s.page || t.page})"
-                     class="py-1 px-2 rounded-lg cursor-pointer text-[11px] transition-colors flex items-center justify-between ${isSubAct ? 'text-pink-300 font-bold bg-pink-950/50 border border-pink-900/50' : 'text-slate-400 hover:text-white hover:bg-[#1c102a]'}">
-                  <span class="truncate">${s.title}</span>
-                  <div class="flex items-center gap-1 shrink-0">
-                    ${subImgCount > 0 ? `<span class="text-[8px] px-1 bg-amber-950/60 text-amber-400 rounded">${subImgCount}</span>` : ''}
-                    <span class="text-slate-600 text-[9px] font-mono">&minus;</span>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        ` : ''}
-      </div>
-    `;
-  });
-
-  tocList.innerHTML = html;
+  if (typeof renderFaHeadingsTOC === 'function' && window.FA_HEADINGS_DATA) {
+    tocList.innerHTML = renderFaHeadingsTOC(
+      sys.name,
+      state.currentFaPage,
+      window.FA_HEADINGS_SORT || 'book',
+      window.FA_HEADINGS_FILTER || '',
+      window.FA_HEADINGS_ALL_TEXT || false
+    );
+    setTimeout(() => {
+      const activeEl = tocList.querySelector('.fa-toc-active-row') || tocList.querySelector('[data-page="' + state.currentFaPage + '"]');
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }, 40);
+    return;
+  }
 }
 
 function filterFaTOC(query) {
@@ -725,23 +682,24 @@ function updateFaScrubberUI() {
 
 let _isScrubbingFa = false;
 let _faScrubThrottle = null;
+let _faLastScrubbedPage = 284;
 
 function initFaScrubber() {
   const track = document.getElementById('fa-scrubber-track');
   const thumb = document.getElementById('fa-scrubber-thumb');
   const bubble = document.getElementById('fa-scrubber-bubble');
   const bubbleText = document.getElementById('fa-scrubber-bubble-text');
-  const centerContainer = document.getElementById('fa-reader-center-container');
 
   if (!track || track._hasInitFaScrubber) return;
   track._hasInitFaScrubber = true;
 
-  function handleFaScrub(clientY) {
+  function handleFaScrub(clientY, isFinal = false) {
     const max = 844;
     const rect = track.getBoundingClientRect();
     const offsetY = Math.max(0, Math.min(rect.height, clientY - rect.top));
     const pct = offsetY / rect.height;
     const targetPage = Math.max(1, Math.min(max, Math.round(1 + pct * (max - 1))));
+    _faLastScrubbedPage = targetPage;
 
     if (bubble) bubble.classList.remove('hidden');
     if (bubbleText) bubbleText.textContent = `p. ${targetPage} / ${max}`;
@@ -752,79 +710,77 @@ function initFaScrubber() {
     const fill = document.getElementById('fa-scrubber-fill');
     if (fill) fill.style.height = `${Math.round(pct * 100)}%`;
 
-    if (!_faScrubThrottle) {
-      _faScrubThrottle = setTimeout(() => {
-        _faScrubThrottle = null;
-        if (targetPage !== state.currentFaPage) {
-          openFaBookPage(targetPage);
-        }
-      }, 100);
+    const bottomIndicator = document.getElementById('fa-bottom-page-indicator');
+    if (bottomIndicator) bottomIndicator.textContent = `< ${targetPage} / ${max} >`;
+    const topIndicator = document.getElementById('fa-top-page-indicator');
+    if (topIndicator) topIndicator.textContent = `p. ${targetPage}`;
+
+    if (isFinal) {
+      if (targetPage !== state.currentFaPage) {
+        openFaBookPage(targetPage);
+      }
+    } else {
+      if (!_faScrubThrottle) {
+        _faScrubThrottle = requestAnimationFrame(() => {
+          _faScrubThrottle = null;
+          const pageImg = document.getElementById('fa-reader-page-img');
+          if (pageImg && pageImg.getAttribute('data-scrub-page') !== String(targetPage)) {
+            pageImg.setAttribute('data-scrub-page', String(targetPage));
+            pageImg.src = `/fa-page/${targetPage}.webp`;
+            if (typeof renderFaGutterMarkers === 'function') {
+              const sys = state.currentFaSystem;
+              renderFaGutterMarkers(sys ? sys.name : '', targetPage, window._faPageTopics);
+            }
+          }
+        });
+      }
     }
   }
 
   track.addEventListener('mousedown', (e) => {
     _isScrubbingFa = true;
     if (bubble) bubble.classList.remove('hidden');
-    handleFaScrub(e.clientY);
+    handleFaScrub(e.clientY, false);
   });
 
   window.addEventListener('mousemove', (e) => {
     if (_isScrubbingFa) {
       e.preventDefault();
-      handleFaScrub(e.clientY);
+      handleFaScrub(e.clientY, false);
     }
   });
 
   window.addEventListener('mouseup', () => {
     if (_isScrubbingFa) {
       _isScrubbingFa = false;
+      handleFaScrub(0, true);
       setTimeout(() => {
         if (bubble && !_isScrubbingFa) bubble.classList.add('hidden');
-      }, 800);
+      }, 500);
     }
   });
 
   track.addEventListener('touchstart', (e) => {
     _isScrubbingFa = true;
     if (bubble) bubble.classList.remove('hidden');
-    if (e.touches && e.touches[0]) handleFaScrub(e.touches[0].clientY);
+    if (e.touches && e.touches[0]) handleFaScrub(e.touches[0].clientY, false);
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
     if (_isScrubbingFa && e.touches && e.touches[0]) {
-      handleFaScrub(e.touches[0].clientY);
+      handleFaScrub(e.touches[0].clientY, false);
     }
   }, { passive: true });
 
   window.addEventListener('touchend', () => {
     if (_isScrubbingFa) {
       _isScrubbingFa = false;
+      handleFaScrub(0, true);
       setTimeout(() => {
         if (bubble && !_isScrubbingFa) bubble.classList.add('hidden');
-      }, 800);
+      }, 500);
     }
   });
-
-  // Vertical mouse wheel boundary page flip
-  if (centerContainer && !centerContainer._hasWheelNav) {
-    centerContainer._hasWheelNav = true;
-    let wheelCooldown = false;
-    centerContainer.addEventListener('wheel', (e) => {
-      if (wheelCooldown) return;
-      const atBottom = centerContainer.scrollTop + centerContainer.clientHeight >= centerContainer.scrollHeight - 18;
-      const atTop = centerContainer.scrollTop <= 18;
-
-      if (e.deltaY > 25 && atBottom) {
-        wheelCooldown = true;
-        nextFaBookPage();
-        setTimeout(() => { wheelCooldown = false; }, 380);
-      } else if (e.deltaY < -25 && atTop) {
-        wheelCooldown = true;
-        prevFaBookPage();
-        setTimeout(() => { wheelCooldown = false; }, 380);
-      }
-    }, { passive: true });
-  }
 }
 
 
