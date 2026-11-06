@@ -401,26 +401,38 @@ async function openMehlmanSheet(sectionSlug, page, title, hSlug, expectedCount) 
   await loadMehlmanCardsData();
 
   const slug = hSlug || slugify(title);
+  const subSlug = slug && slug.includes('--') ? slug.split('--').pop() : slug;
   const data = window.MEHLMAN_CARDS_DATA || {};
 
   // Lookup priority:
   // 1) exact slug + page key
-  // 2) slug alone
-  // 3) legacy key
+  // 2) sub-slug + page key
+  // 3) exact slug alone
+  // 4) sub-slug alone
+  // 5) legacy title key
   let cards = data[`${sectionSlug}|${page}|${slug}`] ||
+              data[`${sectionSlug}|${page}|${subSlug}`] ||
               data[slug] ||
-              data[`${sectionSlug}|${page}|${title}`] || [];
+              data[subSlug] ||
+              data[`${sectionSlug}|${page}|${title}`] ||
+              data[title] || [];
+
+  let displayTitle = (title || '').replace(/^Open:\s*/, '').trim();
+  if (!displayTitle || /^\d+\s+Mehlman\s+question/i.test(displayTitle)) {
+    const rawWord = subSlug || slug;
+    displayTitle = rawWord ? (rawWord.charAt(0).toUpperCase() + rawWord.slice(1).replace(/-/g, ' ')) : 'Mehlman Questions';
+  }
 
   window.currentMehlmanSheet = {
     headingKey: `${sectionSlug}|${page}|${slug}`,
     sectionSlug,
     page,
-    title: title ? title.replace(/^Open:\s*/, '') : slug.replace(/-/g, ' '),
+    title: displayTitle,
     cards,
     currentIndex: 0,
     revealed: false,
-    expectedCount: expectedCount || (cards.length > 0 ? cards.length : null),
-    fontSize: window.currentMehlmanSheet.fontSize || 'normal'
+    expectedCount: (cards.length > 0 ? cards.length : (expectedCount || null)),
+    fontSize: (window.currentMehlmanSheet && window.currentMehlmanSheet.fontSize) || 'normal'
   };
 
   const modal = document.getElementById('modal-mehlman-sheet');
