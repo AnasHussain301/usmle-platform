@@ -625,6 +625,22 @@ app.get('/api/fa/headings', (req, res) => {
 });
 
 // ==========================================
+// FA READER MARKERS API — zetchy_reader_markers.json
+// ==========================================
+app.get('/api/fa/markers', (req, res) => {
+  const markersFile = path.join(__dirname, '..', 'data', 'zetchy_reader_markers.json');
+  if (fs.existsSync(markersFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(markersFile, 'utf8'));
+      return res.json({ success: true, markers: data });
+    } catch (e) {
+      return res.status(500).json({ error: 'Failed to read zetchy_reader_markers.json' });
+    }
+  }
+  res.json({ success: true, markers: [] });
+});
+
+// ==========================================
 // MEHLMAN CARDS MAPPING API
 // ==========================================
 app.get('/api/mehlman/cards', (req, res) => {

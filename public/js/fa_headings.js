@@ -1,8 +1,10 @@
 /**
  * FA HEADINGS MODULE — Zetchy-exact headings list & reader gutter
  * ================================================================
- * Source of truth: /api/fa/headings (zetchy_headings_all.json)
- * Mehlman Cards:   /api/mehlman/cards (mehlman_cards_mapped.json)
+ * Source of truth:
+ *   Headings: /api/fa/headings (zetchy_headings_all.json)
+ *   Markers:  /api/fa/markers  (zetchy_reader_markers.json)
+ *   Cards:    /api/mehlman/cards (mehlman_cards_mapped.json)
  */
 
 'use strict';
@@ -11,12 +13,12 @@
 // STATE
 // ============================================================
 window.FA_HEADINGS_DATA = null;
+window.FA_MARKERS_DATA = null;
 window.MEHLMAN_CARDS_DATA = null;
 window.FA_HEADINGS_SORT = 'book';
 window.FA_HEADINGS_FILTER = '';
 window.FA_HEADINGS_ALL_TEXT = false;
 
-// Bottom sheet state
 window.currentMehlmanSheet = {
   headingKey: '',
   sectionSlug: '',
@@ -25,7 +27,7 @@ window.currentMehlmanSheet = {
   cards: [],
   currentIndex: 0,
   revealed: false,
-  fontSize: 'normal' // 'normal' | 'large'
+  fontSize: 'normal'
 };
 
 const SECTION_TO_SYS_KEY = {
@@ -48,6 +50,15 @@ const SYS_KEY_TO_SECTION = Object.fromEntries(
   Object.entries(SECTION_TO_SYS_KEY).map(([k, v]) => [v, k])
 );
 
+// Slugify matching zetchy exactly
+function slugify(title) {
+  return String(title || '').toLowerCase()
+    .replace(/[—–]/g, '-')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+
 // ============================================================
 // DATA LOADERS
 // ============================================================
@@ -64,6 +75,21 @@ async function loadFaHeadingsData() {
     window.FA_HEADINGS_DATA = {};
   }
   return window.FA_HEADINGS_DATA;
+}
+
+async function loadFaMarkersData() {
+  if (window.FA_MARKERS_DATA) return window.FA_MARKERS_DATA;
+  try {
+    const res = await fetch('/api/fa/markers');
+    const json = await res.json();
+    if (json.success && Array.isArray(json.markers)) {
+      window.FA_MARKERS_DATA = json.markers;
+    }
+  } catch (e) {
+    console.warn('[FA Markers] Failed to load markers:', e.message);
+    window.FA_MARKERS_DATA = [];
+  }
+  return window.FA_MARKERS_DATA;
 }
 
 async function loadMehlmanCardsData() {
@@ -96,46 +122,50 @@ function _hesc(str) {
 }
 
 // ============================================================
-// SHARED COMPONENTS
+// PART 4: HEADINGS LIST ("Contents" drawer)
 // ============================================================
 function renderGroupLabel(groupName) {
-  return `<div class="fa-toc-group-label px-3 pt-4 pb-1 text-[10px] font-black uppercase tracking-widest text-slate-500 select-none pointer-events-none border-b border-[#2d1b40]/40 mb-0.5">${_hesc(groupName)}</div>`;
+  return `<div class="fa-toc-group-label px-3 pt-3.5 pb-1 text-[10px] font-black uppercase tracking-widest text-slate-500 select-none pointer-events-none border-b border-[#2d1b40]/40 mb-0.5">${_hesc(groupName)}</div>`;
 }
 
 function renderMehlmanBadge(show, sectionSlug, page, title) {
   if (show) {
     const escTitle = _hesc(title).replace(/'/g, "&#39;");
-    return `<button onclick="event.stopPropagation(); openMehlmanSheet('${sectionSlug}', '${page || ''}', '${escTitle}')" class="fa-toc-m-badge inline-flex items-center justify-center w-5 h-5 rounded bg-pink-600 hover:bg-pink-500 text-white text-[9px] font-black shrink-0 select-none transition-all active:scale-95 cursor-pointer shadow-sm" title="Mehlman HY content for ${_hesc(title)}">M</button>`;
+    const hSlug = slugify(title);
+    return `<button onclick="event.stopPropagation(); openMehlmanSheet('${sectionSlug}', '${page || ''}', '${escTitle}', '${hSlug}')" class="fa-toc-m-badge inline-flex items-center justify-center w-5 h-5 rounded bg-pink-600 hover:bg-pink-500 text-white text-[9px] font-black shrink-0 select-none transition-all active:scale-95 cursor-pointer shadow-sm" title="Mehlman HY content for ${_hesc(title)}">M</button>`;
   }
   return `<span class="fa-toc-m-placeholder inline-block w-5 h-5 shrink-0"></span>`;
 }
 
+// Circle button with "-" (minus) symbol on EVERY row
 function renderMenuButton(rowIdx, pageNum, titleEsc, isLevel1, parentPageNum) {
   const navPage = isLevel1 ? (parentPageNum || pageNum) : pageNum;
   return `<button class="fa-toc-menu-btn w-6 h-6 rounded-full border border-[#4b2d6b] bg-[#1e1030]/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-[#3d2258] hover:border-pink-500/60 transition-all shrink-0 text-[12px] font-black leading-none active:scale-95"
     onclick="event.stopPropagation(); faHeadingMenuAction(${rowIdx}, ${navPage || 'null'}, '${_hesc(titleEsc).replace(/'/g, "&#39;")}', event)"
-    title="Options for ${_hesc(titleEsc)}">⋯</button>`;
+    title="Options for ${_hesc(titleEsc)}">&minus;</button>`;
 }
 
-function renderHeadingRow(row, rowIdx, isCurrentPage, currentPageNum, sectionSlug) {
+function renderHeadingRow(row, rowIdx, currentPageNum, sectionSlug) {
   const isLevel1 = row.level === 1;
   const pageNum = row.page ? parseInt(row.page, 10) : null;
   const parentPageNum = row.parentPage ? parseInt(row.parentPage, 10) : null;
   const navPage = isLevel1 ? (parentPageNum || currentPageNum) : pageNum;
 
-  const isCurrent = isCurrentPage && (
+  // Highlight rule: exactly ONE current row at a time matching current reader page
+  const isCurrent = currentPageNum !== null && (
     (!isLevel1 && pageNum === currentPageNum) ||
-    (isLevel1 && parentPageNum === currentPageNum)
+    (isLevel1 && parentPageNum === currentPageNum && row.current)
   );
 
   const titleColor = isCurrent
-    ? 'text-pink-400 font-semibold'
-    : (isLevel1 ? 'text-slate-400' : 'text-slate-200 font-medium');
+    ? 'text-pink-400 font-bold'
+    : (isLevel1 ? 'text-slate-400 font-normal' : 'text-slate-100 font-bold');
 
   const rowBg = isCurrent
-    ? 'bg-[#2a1038] border border-pink-600/30 rounded-xl'
+    ? 'bg-[#2a1038] border border-pink-600/40 rounded-xl'
     : 'hover:bg-[#1a0f27] rounded-xl';
 
+  // Page number ONLY for level 0
   const pageLabel = (!isLevel1 && pageNum)
     ? `<span class="text-[10px] font-mono text-slate-500 w-9 shrink-0 text-right pr-1">${pageNum}</span>`
     : `<span class="w-9 shrink-0"></span>`;
@@ -155,9 +185,6 @@ function renderHeadingRow(row, rowIdx, isCurrentPage, currentPageNum, sectionSlu
 </div>`;
 }
 
-// ============================================================
-// RENDER TOC
-// ============================================================
 function renderFaHeadingsTOC(sectionNameOrSysKey, currentPageNum, sortMode, filterQuery, allText) {
   let sectionName = sectionNameOrSysKey;
   if (SECTION_TO_SYS_KEY[sectionNameOrSysKey] === undefined && SYS_KEY_TO_SECTION[sectionNameOrSysKey]) {
@@ -187,116 +214,81 @@ function renderFaHeadingsTOC(sectionNameOrSysKey, currentPageNum, sortMode, filt
     </button>
   </div>`;
 
-  rows.forEach((row, idx) => {
+  rows.forEach((row) => {
     if (!q && row.group && row.group !== lastGroup) {
       lastGroup = row.group;
       html += renderGroupLabel(row.group);
     }
-    html += renderHeadingRow(row, row.order, currentPageNum !== null, currentPageNum, secSlug);
+    html += renderHeadingRow(row, row.order, currentPageNum, secSlug);
   });
 
   return html;
 }
 
 // ============================================================
-// READER GUTTER MARKERS (RESERVED COLUMN, NO OVERLAP)
-// Two columns inside #fa-page-gutter:
-//   Column 1 (outer/left): level-0 M badge
-//   Column 2 (inner/right, next to page): level-0 "..." button OR level-1 M badge
+// PART 1: READER PAGE + MARKER GUTTER
+// Exactly matches Part 1 spec:
+// - Left gutter column layout (96px, reserved, does NOT overlap image)
+// - Top = yRatio * renderedPageHeight (measured from TOP of page image)
+// - Column 1 (xRatio ~0.0348, outer/left) vs Column 2 (xRatio ~0.065, inner/right)
+// - Recomputed on zoom change, window resize, image panel toggle
 // ============================================================
 function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
   const col1 = document.getElementById('fa-page-gutter-col1');
   const col2 = document.getElementById('fa-page-gutter-col2');
   const gutter = document.getElementById('fa-page-gutter');
+  const img = document.getElementById('fa-reader-page-img');
   if (!col1 || !col2 || !gutter) return;
 
+  col1.innerHTML = '';
+  col2.innerHTML = '';
+
   const secSlug = SECTION_TO_SYS_KEY[sectionName] || 'cvs';
-  const rows = getHeadingsForSection(sectionName);
-  if (!rows || rows.length === 0) return;
+  const allMarkers = window.FA_MARKERS_DATA || [];
+  const pageMarkers = allMarkers.filter(m => m.page === pageNum);
 
-  // Find all headings that belong on this page:
-  // - level 0 where page == pageNum
-  // - level 1 where parentPage == pageNum
-  const pageRows = rows.filter(r => {
-    if (r.level === 0 && parseInt(r.page, 10) === pageNum) return true;
-    if (r.level === 1 && parseInt(r.parentPage, 10) === pageNum) return true;
-    return false;
-  });
-
-  if (pageRows.length === 0) {
-    col1.innerHTML = '';
-    col2.innerHTML = '';
+  // If no marker data for this page: render nothing, NO ERRORS, NO FAKE MARKERS
+  if (pageMarkers.length === 0) {
     return;
   }
 
-  const total = pageRows.length;
+  // Get rendered image height
+  const renderedH = img ? (img.clientHeight || 1169) : 1169;
+
   let htmlCol1 = '';
   let htmlCol2 = '';
 
-  pageRows.forEach((row, idx) => {
-    let topPct;
-    if (total === 1) {
-      topPct = 12;
-    } else if (total === 2) {
-      topPct = idx === 0 ? 12 : 55;
-    } else if (total === 3) {
-      topPct = [12, 42, 72][idx];
-    } else {
-      // Multi-row page (like page 450 with 6 nerve rows)
-      const startPct = 14;
-      const spanPct = 68;
-      topPct = Math.round(startPct + (idx / Math.max(1, total - 1)) * spanPct);
-    }
+  pageMarkers.forEach((m, idx) => {
+    // top = yRatio * renderedPageHeight (measured from top of page image)
+    const topPx = Math.round(m.yRatio * renderedH);
+    const hSlug = m.h;
+    const titleEsc = _hesc(m.title || hSlug).replace(/'/g, "&#39;");
 
-    const escTitle = _hesc(row.title).replace(/'/g, "&#39;");
-    const navPage = row.page || row.parentPage || pageNum;
+    if (m.kind === 'M') {
+      const qCount = m.mehlmanCount || null;
+      const btnHtml = `<button onclick="openMehlmanSheet('${secSlug}', '${pageNum}', '${titleEsc}', '${hSlug}', ${qCount || 'null'})"
+        data-h="${_hesc(hSlug)}"
+        class="w-[26px] h-[26px] rounded-full bg-[#1e1030] hover:bg-pink-700 border border-pink-500/80 flex items-center justify-center text-white text-[11px] font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto"
+        title="${qCount ? qCount + ' Mehlman questions' : 'Mehlman: ' + titleEsc}">M</button>`;
 
-    if (row.level === 0) {
-      // Column 1 (outer): M badge for level-0
-      if (row.hasM) {
-        htmlCol1 += `<div class="absolute right-0 flex items-center justify-center pointer-events-auto" style="top: ${topPct}%; transform: translateY(-50%);">
-          <button onclick="openMehlmanSheet('${secSlug}', '${navPage}', '${escTitle}')"
-            class="w-7 h-7 rounded-full bg-[#1e1030] hover:bg-pink-700 border border-pink-500/80 flex items-center justify-center text-pink-300 hover:text-white text-[10px] font-black shadow-lg transition-transform hover:scale-110 active:scale-95"
-            title="Mehlman: ${_hesc(row.title)}">M</button>
-        </div>`;
+      if (m.col === 1 || m.xRatio < 0.05) {
+        htmlCol1 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
+      } else {
+        htmlCol2 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
       }
-
-      // Column 2 (inner): "..." action button for level-0
-      const calloutId = `callout-g-${idx}`;
-      const matchedTopic = (matchingTopics || []).find(t =>
-        (t.title || '').toLowerCase() === (row.title || '').toLowerCase()
-      ) || (matchingTopics || [])[0] || null;
-      const topicIdx = matchedTopic ? (window._faPageTopics || []).indexOf(matchedTopic) : idx;
-      const qCount = matchedTopic && typeof getQuestionsForTopic === 'function' ? getQuestionsForTopic(matchedTopic).length : 0;
-      const imgCount = matchedTopic ? (matchedTopic.images || []).length : 0;
-      const tblCount = matchedTopic ? (matchedTopic.tables || []).length : 0;
-
-      htmlCol2 += `<div class="absolute right-0 flex items-center justify-center pointer-events-auto" style="top: ${topPct}%; transform: translateY(-50%);">
-        <button onclick="toggleCalloutMenu('${calloutId}')"
-          class="w-7 h-7 rounded-full bg-[#1e102e]/95 hover:bg-[#3d2258] border border-[#6b3e94] flex items-center justify-center text-slate-200 hover:text-white transition-transform hover:scale-110 active:scale-95 shadow-lg"
-          title="${_hesc(row.title)}">
-          <span class="text-xs font-black select-none tracking-tighter">⋯</span>
+    } else if (m.kind === 'dots') {
+      const popoverId = `popover-dots-${idx}`;
+      const btnHtml = `<div class="relative flex items-center justify-center">
+        <button onclick="toggleHeadingPopover('${popoverId}')"
+          data-h="${_hesc(hSlug)}"
+          class="w-[26px] h-[26px] rounded-full bg-white/90 hover:bg-white text-[#160d21] border border-white/60 flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-110 active:scale-95 pointer-events-auto"
+          title="Actions: ${titleEsc}">
+          <span class="tracking-tighter">⋯</span>
         </button>
-        <div id="${calloutId}" class="hidden absolute left-9 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-2xl p-3 shadow-2xl min-w-[240px] z-30 pointer-events-auto text-left">
-          <div class="text-xs font-bold text-white mb-2 truncate">${_hesc(row.title)}</div>
-          <div class="flex items-center gap-2">
-            <button onclick="openSketchFromFA(${topicIdx})" class="w-8 h-8 rounded-full bg-[#2c1c3f] border border-[#5a3880] flex items-center justify-center text-purple-300 hover:text-white" title="Play Sketch"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-            <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('img');" class="relative w-8 h-8 rounded-full bg-[#20152e] border border-[#48286b] flex items-center justify-center text-slate-200 hover:text-white" title="Images"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${imgCount > 0 ? `<span class="absolute -top-1 -right-1 bg-amber-500 text-[8px] font-black text-black rounded-full px-1">${imgCount}</span>`:''}</button>
-            <button onclick="toggleCalloutMenu('${calloutId}'); openWhichQuestionsModal(${topicIdx});" class="relative w-8 h-8 rounded-full bg-[#20152e] border border-[#48286b] flex items-center justify-center text-white" title="Practice Questions"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="absolute -top-1 -right-1 bg-[#db2777] text-[8px] font-black text-white rounded-full px-1">${qCount}</span></button>
-            <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('tables');" class="relative w-8 h-8 rounded-full bg-[#20152e] border border-[#48286b] flex items-center justify-center text-sky-400 hover:text-white" title="UWorld Tables"><span class="text-[9px] font-bold">UW</span>${tblCount > 0 ? `<span class="absolute -top-1 -right-1 bg-[#db2777] text-[8px] font-black text-white rounded-full px-1">${tblCount}</span>`:''}</button>
-            <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('notes');" class="w-8 h-8 rounded-full bg-[#20152e] border border-[#48286b] flex items-center justify-center text-slate-300 hover:text-white" title="Notes"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
-          </div>
-        </div>
+        ${renderHeadingPopoverHtml(popoverId, m, secSlug, pageNum, matchingTopics)}
       </div>`;
-    } else {
-      // Level-1 subheading: only Column 2 gets M badge if hasM is true
-      if (row.hasM) {
-        htmlCol2 += `<div class="absolute right-0 flex items-center justify-center pointer-events-auto" style="top: ${topPct}%; transform: translateY(-50%);">
-          <button onclick="openMehlmanSheet('${secSlug}', '${navPage}', '${escTitle}')"
-            class="w-7 h-7 rounded-full bg-[#1e1030] hover:bg-pink-700 border border-pink-500/80 flex items-center justify-center text-pink-300 hover:text-white text-[10px] font-black shadow-lg transition-transform hover:scale-110 active:scale-95"
-            title="Mehlman: ${_hesc(row.title)}">M</button>
-        </div>`;
-      }
+
+      htmlCol2 += `<div class="absolute right-0 flex items-center justify-center" style="top: ${topPx}px; transform: translateY(-50%);">${btnHtml}</div>`;
     }
   });
 
@@ -304,23 +296,124 @@ function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
   col2.innerHTML = htmlCol2;
 }
 
+// Re-align gutter markers when window resizes or images panel toggles
+window.addEventListener('resize', () => {
+  if (window.state && window.state.currentFaPage) {
+    const sys = window.state.currentFaSystem;
+    renderFaGutterMarkers(sys ? sys.name : '', window.state.currentFaPage, window._faPageTopics);
+  }
+});
+
 // ============================================================
-// PART B: MEHLMAN BOTTOM SHEET LOGIC
+// PART 3: HEADING ACTION POPOVER (5 round buttons)
 // ============================================================
-async function openMehlmanSheet(sectionSlug, page, title) {
+function renderHeadingPopoverHtml(popoverId, marker, secSlug, pageNum, matchingTopics) {
+  const hSlug = marker.h;
+  const rawTitle = marker.title ? marker.title.replace(/^Open:\s*/, '') : hSlug.replace(/-/g, ' ');
+  const titleEsc = _hesc(rawTitle);
+
+  // Find real topic in app data if exists
+  const matchedTopic = (matchingTopics || []).find(t =>
+    slugify(t.title) === hSlug || (t.title || '').toLowerCase().includes(rawTitle.toLowerCase())
+  );
+  const topicIdx = matchedTopic ? (window._faPageTopics || []).indexOf(matchedTopic) : 0;
+  const realImgCount = matchedTopic ? (matchedTopic.images || []).length : 0;
+  const realTblCount = matchedTopic ? (matchedTopic.tables || []).length : 0;
+  const realQCount = (matchedTopic && typeof getQuestionsForTopic === 'function')
+    ? getQuestionsForTopic(matchedTopic).length
+    : 0;
+
+  return `<div id="${popoverId}" class="hidden absolute left-9 top-0 bg-[#160d21]/95 backdrop-blur-md border border-[#3b2352] rounded-3xl p-4 shadow-2xl min-w-[280px] z-40 pointer-events-auto text-left animate-in zoom-in-95">
+    <!-- Title row: single line, ellipsis, bold -->
+    <div class="text-xs font-bold text-white mb-3 truncate max-w-[260px]">${titleEsc}</div>
+    <!-- Row of 5 round icon buttons (~48-56px styled) -->
+    <div class="flex items-center gap-2.5 justify-between">
+      <!-- 1) Play review: big pink/red filled circle with white play triangle -->
+      <button onclick="openSketchFromFA(${topicIdx}); closeAllHeadingPopovers();"
+        class="w-11 h-11 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95"
+        title="Start review for ${titleEsc}">
+        <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+
+      <!-- 2) Table/grid icon: light blue circle with pink count badge -->
+      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('img'); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#1b2b45] hover:bg-[#23385a] border border-sky-500/40 text-sky-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
+        title="Images / Tables">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+        ${realImgCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realImgCount}</span>` : ''}
+      </button>
+
+      <!-- 3) Check mark: dark circle with white check & pink count badge -->
+      <button onclick="openWhichQuestionsModal(${topicIdx}); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#1e142b] hover:bg-[#2b1c3e] border border-[#5a3880] text-emerald-400 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
+        title="Practice Questions">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        ${realQCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realQCount}</span>` : ''}
+      </button>
+
+      <!-- 4) UWorld questions: light circle with "UW" text & pink count badge -->
+      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('tables'); closeAllHeadingPopovers();"
+        class="relative w-11 h-11 rounded-full bg-[#201c36] hover:bg-[#2c264a] border border-indigo-400/40 text-indigo-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
+        title="UWorld Tables">
+        <span class="text-xs font-black">UW</span>
+        ${realTblCount > 0 ? `<span class="absolute -top-1 -right-1 bg-pink-600 text-[10px] font-black text-white rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow">${realTblCount}</span>` : ''}
+      </button>
+
+      <!-- 5) Notes/edit: light yellow circle with pencil icon -->
+      <button onclick="openFaTopicActions(${topicIdx}); switchFaPanelTab('notes'); closeAllHeadingPopovers();"
+        class="w-11 h-11 rounded-full bg-[#332b1b] hover:bg-[#453922] border border-amber-400/40 text-amber-300 flex items-center justify-center shadow transition-transform hover:scale-105 active:scale-95"
+        title="Notes">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+      </button>
+    </div>
+  </div>`;
+}
+
+function toggleHeadingPopover(id) {
+  const pop = document.getElementById(id);
+  if (!pop) return;
+  const isHidden = pop.classList.contains('hidden');
+  closeAllHeadingPopovers();
+  if (isHidden) pop.classList.remove('hidden');
+}
+
+function closeAllHeadingPopovers() {
+  document.querySelectorAll('[id^="popover-dots-"]').forEach(el => el.classList.add('hidden'));
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('[id^="popover-dots-"]') && !e.target.closest('button[data-h]')) {
+    closeAllHeadingPopovers();
+  }
+});
+
+// ============================================================
+// PART 2: MEHLMAN BOTTOM SHEET
+// ============================================================
+async function openMehlmanSheet(sectionSlug, page, title, hSlug, expectedCount) {
+  closeAllHeadingPopovers();
   await loadMehlmanCardsData();
 
-  const key = `${sectionSlug}|${page}|${title}`;
-  const cards = (window.MEHLMAN_CARDS_DATA && window.MEHLMAN_CARDS_DATA[key]) || [];
+  const slug = hSlug || slugify(title);
+  const data = window.MEHLMAN_CARDS_DATA || {};
+
+  // Lookup priority:
+  // 1) exact slug + page key
+  // 2) slug alone
+  // 3) legacy key
+  let cards = data[`${sectionSlug}|${page}|${slug}`] ||
+              data[slug] ||
+              data[`${sectionSlug}|${page}|${title}`] || [];
 
   window.currentMehlmanSheet = {
-    headingKey: key,
+    headingKey: `${sectionSlug}|${page}|${slug}`,
     sectionSlug,
     page,
-    title,
+    title: title ? title.replace(/^Open:\s*/, '') : slug.replace(/-/g, ' '),
     cards,
     currentIndex: 0,
     revealed: false,
+    expectedCount: expectedCount || (cards.length > 0 ? cards.length : null),
     fontSize: window.currentMehlmanSheet.fontSize || 'normal'
   };
 
@@ -329,8 +422,6 @@ async function openMehlmanSheet(sectionSlug, page, title) {
 
   renderMehlmanSheetCard();
   modal.classList.remove('hidden');
-
-  // Keyboard navigation
   window.addEventListener('keydown', handleMehlmanSheetKeydown);
 }
 
@@ -341,19 +432,14 @@ function closeMehlmanSheet() {
 }
 
 function handleMehlmanBackdropClick(e) {
-  if (e.target.id === 'modal-mehlman-sheet') {
-    closeMehlmanSheet();
-  }
+  if (e.target.id === 'modal-mehlman-sheet') closeMehlmanSheet();
 }
 
 function handleMehlmanSheetKeydown(e) {
-  if (e.key === 'Escape') {
-    closeMehlmanSheet();
-  } else if (e.key === 'ArrowRight') {
-    nextMehlmanCard();
-  } else if (e.key === 'ArrowLeft') {
-    prevMehlmanCard();
-  } else if (e.key === ' ') {
+  if (e.key === 'Escape') closeMehlmanSheet();
+  else if (e.key === 'ArrowRight') nextMehlmanCard();
+  else if (e.key === 'ArrowLeft') prevMehlmanCard();
+  else if (e.key === ' ') {
     e.preventDefault();
     revealMehlmanAnswer();
   }
@@ -365,7 +451,6 @@ function renderMehlmanSheetCard() {
   const total = cards.length;
   const idx = state.currentIndex;
 
-  // Header elements
   const counterEl = document.getElementById('mehlman-sheet-counter');
   const progressEl = document.getElementById('mehlman-sheet-progress');
   const topicEl = document.getElementById('mehlman-sheet-topic');
@@ -380,11 +465,10 @@ function renderMehlmanSheetCard() {
   if (topicEl) topicEl.textContent = state.title;
 
   if (total === 0) {
-    // EMPTY STATE: "No Mehlman cards linked yet"
-    if (counterEl) counterEl.textContent = '0 / 0';
+    if (counterEl) counterEl.textContent = state.expectedCount ? `0 / ${state.expectedCount}` : '0 / 0';
     if (progressEl) progressEl.style.width = '100%';
     if (questionEl) questionEl.textContent = 'No Mehlman cards linked yet';
-    if (tapHint) tapHint.innerHTML = '<span class="text-slate-500 italic">No flashcards available for this heading</span>';
+    if (tapHint) tapHint.innerHTML = '<span class="text-slate-500 italic">No Mehlman cards linked yet</span>';
     if (revealedText) revealedText.classList.add('hidden');
     if (showBtn) showBtn.classList.add('hidden');
     if (ratingBtns) ratingBtns.classList.add('hidden');
@@ -393,9 +477,9 @@ function renderMehlmanSheetCard() {
     return;
   }
 
-  // Update counter & progress bar
-  if (counterEl) counterEl.textContent = `${idx + 1} / ${total}`;
-  if (progressEl) progressEl.style.width = `${((idx + 1) / total) * 100}%`;
+  const displayTotal = state.expectedCount || total;
+  if (counterEl) counterEl.textContent = `${idx + 1} / ${displayTotal}`;
+  if (progressEl) progressEl.style.width = `${((idx + 1) / displayTotal) * 100}%`;
 
   const curCard = cards[idx];
   if (questionEl) {
@@ -405,7 +489,6 @@ function renderMehlmanSheetCard() {
       : 'text-sm sm:text-base font-bold text-white leading-relaxed min-h-[48px]';
   }
 
-  // State: revealed vs unrevealed
   if (state.revealed) {
     if (tapHint) tapHint.classList.add('hidden');
     if (revealedText) {
@@ -415,7 +498,6 @@ function renderMehlmanSheetCard() {
         ? 'text-sm sm:text-base text-slate-100 leading-relaxed text-left w-full font-medium'
         : 'text-xs sm:text-sm text-slate-200 leading-relaxed text-left w-full';
     }
-    // Show rating buttons, hide Show answer
     if (showBtn) showBtn.classList.add('hidden');
     if (ratingBtns) ratingBtns.classList.remove('hidden');
   } else {
@@ -425,7 +507,6 @@ function renderMehlmanSheetCard() {
     if (ratingBtns) ratingBtns.classList.add('hidden');
   }
 
-  // Prev / Next button states
   if (prevBtn) prevBtn.disabled = (idx === 0);
   if (nextBtn) nextBtn.disabled = (idx === total - 1);
 }
@@ -461,8 +542,7 @@ function toggleMehlmanFontSize() {
 }
 
 // ============================================================
-// PART C: SPACED REPETITION (EASY / FORGOT RATINGS)
-// Stored in localStorage under 'mehlman_progress' and synced to db
+// SPACED REPETITION (EASY / FORGOT)
 // ============================================================
 function getMehlmanProgress() {
   try {
@@ -475,7 +555,6 @@ function getMehlmanProgress() {
 function saveMehlmanProgress(prog) {
   try {
     localStorage.setItem('mehlman_progress', JSON.stringify(prog));
-    // Background sync to server
     fetch('/api/mehlman/progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -501,10 +580,8 @@ function rateMehlmanCard(rating) {
   prog[key].lastRated = new Date().toISOString();
   saveMehlmanProgress(prog);
 
-  // Update current system counters in state so home grid reads real numbers
   updateSystemRatingCounters(s.sectionSlug);
 
-  // Automatically advance to next card or close if last
   if (s.currentIndex < s.cards.length - 1) {
     nextMehlmanCard();
   } else {
@@ -525,7 +602,6 @@ function updateSystemRatingCounters(sectionSlug) {
     }
   }
 
-  // Update in app state
   if (window.state && window.state.firstAidSystems) {
     const sys = window.state.firstAidSystems.find(s => s.id === sectionSlug);
     if (sys) {
@@ -537,7 +613,7 @@ function updateSystemRatingCounters(sectionSlug) {
 }
 
 // ============================================================
-// NAVIGATION HANDLERS
+// NAVIGATION & HEADER CONTROLS
 // ============================================================
 function faHeadingRowClick(pageNum, title) {
   if (pageNum && typeof openFaBookPage === 'function') {
@@ -551,10 +627,6 @@ function faHeadingRowClick(pageNum, title) {
 
 function faHeadingMenuAction(rowIdx, pageNum, title, event) {
   faHeadingRowClick(pageNum, title);
-  setTimeout(() => {
-    const calloutId = `callout-g-${rowIdx}`;
-    if (typeof toggleCalloutMenu === 'function') toggleCalloutMenu(calloutId);
-  }, 100);
 }
 
 function copyUWorldIds(sectionName) {
@@ -624,9 +696,12 @@ function refreshFaHeadingsTOC() {
   );
 }
 
+// ============================================================
+// INITIALIZATION
+// ============================================================
 async function initFaHeadings() {
-  await Promise.all([loadFaHeadingsData(), loadMehlmanCardsData()]);
-  console.log('[FA Headings] Module ready with Mehlman Cards!');
+  await Promise.all([loadFaHeadingsData(), loadFaMarkersData(), loadMehlmanCardsData()]);
+  console.log('[FA Headings] Module ready with JSON markers & Mehlman cards!');
 }
 
 if (document.readyState === 'loading') {

@@ -1,0 +1,2700 @@
+{
+  "antiarrhythmics-potassium-channel-blockers-class-iii": [
+    {
+      "q": "What are the type III anti-arrhythmics?",
+      "a": "potassium channel blockers à amiodarone, dronedarone, sotalol, ibutilide, dofetilide à often used in ventricular arrhythmias and in patients being defibrillated unsuccessfully à can be used in atrial fibrillation for rhythm control in those with structural heart disease who cannot take flecainide."
+    },
+    {
+      "q": "Points about amiodarone?",
+      "a": "causes TdP, pulmonary fibrosis, drug-induced thyroid dysfunction (~40% iodine by weight), corneal deposits, blue-grey skin discoloration à do PFTs, TFTs, LFTs before commencing amiodarone."
+    }
+  ],
+  "antiarrhythmics-calcium-channel-blockers-class-iv": [
+    {
+      "q": "What are the type IV anti-arrhythmics?",
+      "a": "non-dihydropyridine calcium channel blockers à verapamil, diltiazem à verapamil acts selectively on cardiac (nodal) tissue; in contrast, dihydropyridines like nifedipine act on vascular smooth muscle; diltiazem is said to be a mixed agent à verapamil’s notable use is for AF rate control in patients who cannot receive beta-blockers à verapamil causes constipation (really HY); it can also cause hyperprolactinemia; diltiazem has occasional utility in the Tx of anal fissure and achalasia."
+    }
+  ],
+  "other-antiarrhythmics--ivabradine": [
+    {
+      "q": "What is ivabradine?",
+      "a": "inhibits myocardial “funny” Na channels (phase IV of AP) à may be attempted in select patients with stable angina who cannot take beta-blockers à can cause “luminous phenomenon,” which is brightness in an area of the visual field."
+    }
+  ],
+  "upper-extremity-nerves": [
+    {
+      "q": "“I know upper limb nerves are HY . What do I need to know for USMLE without all of the bullshit.”",
+      "a": "You need to know the injuries associated with the nerves, and then just basic motor/sensory issues."
+    },
+    {
+      "q": "“Does USMLE care about upper limb reflexes?”",
+      "a": "They do show up on NBME, yes. You could be aware that if biceps reflex is weakened, they want C5 as the nerve root that’s fucked up. And if triceps reflex is weakened, it’s C6-7 that’s fucked up."
+    }
+  ],
+  "cell-cycle-phases": [
+    {
+      "q": "Absent thymic shadow = T cell deficiency?",
+      "a": "DiGeorge."
+    },
+    {
+      "q": "Scanty lymph nodes/tonsils = B cell deficiency?",
+      "a": "Bruto n agammaglobulinemia."
+    }
+  ],
+  "rough-endoplasmic-reticulum": [
+    {
+      "q": "GFR is increased because of hyperfiltration secondary to hyperglycemia. That is, since serum glucose is high, more glucose is filtered through the glomerulus, which pulls water with it?",
+      "a": "hyperfiltration."
+    }
+  ],
+  "cell-trafficking": [
+    {
+      "q": "Absent thymic shadow = T cell deficiency?",
+      "a": "DiGeorge."
+    },
+    {
+      "q": "Scanty lymph nodes/tonsils = B cell deficiency?",
+      "a": "Bruto n agammaglobulinemia."
+    }
+  ],
+  "primary-ciliary-dyskinesia": [
+    {
+      "q": "Agenesis of the parathyroid glands?",
+      "a": "primary hypoparathyroidism à low calcium + high phosphate."
+    }
+  ],
+  "genetic-terms": [
+    {
+      "q": "Student says, “But dad died of alcoholic liver disease it says, so why is that genetic?",
+      "a": "implication is the father had one or more of the disease alleles, which caused greater susceptibility to accelerated liver disease in the setting of alcohol consumption. (I’ve seen this in NBME vignettes)"
+    }
+  ],
+  "cystic-fibrosis": [
+    {
+      "q": "USMLE wants you to know idiopathic pulmonary fibrosis is also known as usual interstitial pneumoni tis (UIP)?",
+      "a": "shows up a few times as the answer on Step 1 NBMEs. In other words, memorize that UIP = pulmonary fibrosis."
+    }
+  ],
+  "ethanol-metabolism": [
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    },
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    }
+  ],
+  "glycolysis-regulation-key-enzymes": [
+    {
+      "q": "Phosphodiesterase 5 has no relation to this diagnosis. I was just being trolling by putting it here, since studen ts sometimes confuse these enzymes. Sildenafil (Viagra) is a phosphodiesterase 5 inhibitor, which prevents the breakdown of cGMP . More cGMP promotes vasodilation and engorgement of corpus cavernosum?",
+      "a": "erection."
+    }
+  ],
+  "gluconeogenesis-irreversible-enzymes": [
+    {
+      "q": "Phosphodiesterase 5 has no relation to this diagnosis. I was just being trolling by putting it here, since studen ts sometimes confuse these enzymes. Sildenafil (Viagra) is a phosphodiesterase 5 inhibitor, which prevents the breakdown of cGMP . More cGMP promotes vasodilation and engorgement of corpus cavernosum?",
+      "a": "erection."
+    }
+  ],
+  "glucose-6-phosphate-dehydrogenase-deficiency": [
+    {
+      "q": "Agenesis of the parathyroid glands?",
+      "a": "primary hypoparathyroidism à low calcium + high phosphate."
+    }
+  ],
+  "urea-cycle": [
+    {
+      "q": "BUN/Cr is >20 in prenenal because low renal perfusion?",
+      "a": "kid ney tries to reabsorb more water from the urine to compensate à it accomplishes this by reabsorbing more sodium and urea in the PCT à water follows sodium and urea à fluid retention."
+    }
+  ],
+  "ornithine-transcarbamylase-deficiency": [
+    {
+      "q": "Absent thymic shadow = T cell deficiency?",
+      "a": "DiGeorge."
+    },
+    {
+      "q": "Scanty lymph nodes/tonsils = B cell deficiency?",
+      "a": "Bruto n agammaglobulinemia."
+    },
+    {
+      "q": "reductase deficiency. This enzyme normally converts testosterone?",
+      "a": "DHT."
+    }
+  ],
+  "fatty-acid-metabolism": [
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    },
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    },
+    {
+      "q": "Ketone bodies are acidic?",
+      "a": "cau ses metabolic acidosis (decreased bicarbonate)."
+    }
+  ],
+  "fasting-and-starvation": [
+    {
+      "q": "The first thing we have to ask is: is he in the fed or fasting state?",
+      "a": "he’s in the fed state."
+    }
+  ],
+  "cellular-adaptations": [
+    {
+      "q": "Serum sodium is decreased mostly due to dilutional hyponatremia. As mentioned earlier, serum osmolality is high, which causes fluid retention intravascularly?",
+      "a": "dilutes out serum sodium. In addition , low insulin mean s less glucose enters cells à less ATP production à less cellular Na + /K +"
+    }
+  ],
+  "cell-injury": [
+    {
+      "q": "Absent thymic shadow = T cell deficiency?",
+      "a": "DiGeorge."
+    }
+  ],
+  "amyloidosis": [
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    }
+  ],
+  "g-protein-linked-second-messengers": [
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    },
+    {
+      "q": "GFR is increased because of hyperfiltration secondary to hyperglycemia. That is, since serum glucose is high, more glucose is filtered through the glomerulus, which pulls water with it?",
+      "a": "hyperfiltration."
+    },
+    {
+      "q": "What I’ve seen in NBME Qs is: they want IgE crosslinking on surface of mast cells and basophils?",
+      "a": "ca uses release of histamine + prostaglandin à causes the recruitment of eosinophils secondarily."
+    }
+  ],
+  "quantifying-risk": [
+    {
+      "q": "Diagnosis is Sheehan syndrome. The pituitary doubles in size during pregnanc y in order to produce more prolactin?",
+      "a": "greater oxygen demand. If patient loses a lot of blood during parturition, she is at risk of ischemic infarction à decreased production of pituitary hormones."
+    }
+  ],
+  "confounding-vs-effect-modification": [
+    {
+      "q": "blockers increase preload, then how could they possibly decrease oxygen demand, cuz doesn’t higher preload mean higher oxygen demand on myocardiu m?",
+      "a": "we have a net decrease in oxygen demand because the effect of the reduced chronotropy and inotropy outweigh the increase in preload."
+    }
+  ],
+  "meta-analysis": [
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    },
+    {
+      "q": "gap metabolic acidoses for Step are MUDPILES?",
+      "a": "Methanol toxicity, Uremia (renal failure), DKA, Phenformin (weird drug you don’t need to know), Iron tablets/Isoniazid, Lactic acidosis, Ethylene glycol toxicity, Salicylates (aspirin)."
+    }
+  ],
+  "common-statistical-tests": [
+    {
+      "q": "Needing to sl eep on pillows in order to breathe properly is called orthopnea. This is common in patients with left heart failure. When the patient lies flat, there is increased venous return to the right heart?",
+      "a": "increased preload arriving at left heart à left heart can ’t handle it à blood backs up to lungs à pulmonary edema + difficulty breathing. So if the patient sleeps on pillows à slightly less venous return to right heart à left heart can tolerate lower preload slightly better à less pulmonary edema."
+    }
+  ],
+  "decision-making-capacity": [
+    {
+      "q": "Some students might say, “Well if we have the same oxygen making its way into the blood but we have less hemoglobin, wouldn’t the available hemoglobin have increased saturation then?",
+      "a": "h emoglobin saturation is not increased because Hb is already maximally saturated in the absence of anemia in he althy patients , so it won’t go up anymore."
+    }
+  ],
+  "accepting-gifts-from-patients": [
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    }
+  ],
+  "patient-centered-interviewing-techniques": [
+    {
+      "q": "Diagnosis is Sheehan syndrome. The pituitary doubles in size during pregnanc y in order to produce more prolactin?",
+      "a": "greater oxygen demand. If patient loses a lot of blood during parturition, she is at risk of ischemic infarction à decreased production of pituitary hormones."
+    },
+    {
+      "q": "A student might say, “Wait, but why are you giving the above bold arrows if you just gave me all sorts of transient changes in the arrows based on TBG?",
+      "a": "It’s because the bold arrows are what the USMLE wants. Pregnant women who are euthyroid will have normal free T4 and increased total T4 , and t heir TSH will be normal. The changes due to TBG ris ing are likely synchronous and slow enough that the patient’s arrows stay as the bold ones."
+    }
+  ],
+  "communicating-with-patients-with-disabilities": [
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    }
+  ],
+  "challenging-patient-and-ethical-scenarios": [
+    {
+      "q": "Diagnosis is Sheehan syndrome. The pituitary doubles in size during pregnanc y in order to produce more prolactin?",
+      "a": "greater oxygen demand. If patient loses a lot of blood during parturition, she is at risk of ischemic infarction à decreased production of pituitary hormones."
+    },
+    {
+      "q": "A student might say, “Wait, but why are you giving the above bold arrows if you just gave me all sorts of transient changes in the arrows based on TBG?",
+      "a": "It’s because the bold arrows are what the USMLE wants. Pregnant women who are euthyroid will have normal free T4 and increased total T4 , and t heir TSH will be normal. The changes due to TBG ris ing are likely synchronous and slow enough that the patient’s arrows stay as the bold ones."
+    },
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    },
+    {
+      "q": "Needing to sl eep on pillows in order to breathe properly is called orthopnea. This is common in patients with left heart failure. When the patient lies flat, there is increased venous return to the right heart?",
+      "a": "increased preload arriving at left heart à left heart can ’t handle it à blood backs up to lungs à pulmonary edema + difficulty breathing. So if the patient sleeps on pillows à slightly less venous return to right heart à left heart can tolerate lower preload slightly better à less pulmonary edema."
+    },
+    {
+      "q": "Some students might say, “Well if we have the same oxygen making its way into the blood but we have less hemoglobin, wouldn’t the available hemoglobin have increased saturation then?",
+      "a": "h emoglobin saturation is not increased because Hb is already maximally saturated in the absence of anemia in he althy patients , so it won’t go up anymore."
+    }
+  ],
+  "challenging-patient-and-ethical-scenarios-continued": [
+    {
+      "q": "Diagnosis is Sheehan syndrome. The pituitary doubles in size during pregnanc y in order to produce more prolactin?",
+      "a": "greater oxygen demand. If patient loses a lot of blood during parturition, she is at risk of ischemic infarction à decreased production of pituitary hormones."
+    },
+    {
+      "q": "A student might say, “Wait, but why are you giving the above bold arrows if you just gave me all sorts of transient changes in the arrows based on TBG?",
+      "a": "It’s because the bold arrows are what the USMLE wants. Pregnant women who are euthyroid will have normal free T4 and increased total T4 , and t heir TSH will be normal. The changes due to TBG ris ing are likely synchronous and slow enough that the patient’s arrows stay as the bold ones."
+    },
+    {
+      "q": "One could make the argument of, “Well if renal amyloidosis could lead to renal failure, wouldn’t that cause secondary hyperparathyroidi sm, so calcium would be low, not high ?",
+      "a": "Patients with multiple myeloma will have hypercalcemia due to lytic lesions far before renal failure ensues."
+    },
+    {
+      "q": "Needing to sl eep on pillows in order to breathe properly is called orthopnea. This is common in patients with left heart failure. When the patient lies flat, there is increased venous return to the right heart?",
+      "a": "increased preload arriving at left heart à left heart can ’t handle it à blood backs up to lungs à pulmonary edema + difficulty breathing. So if the patient sleeps on pillows à slightly less venous return to right heart à left heart can tolerate lower preload slightly better à less pulmonary edema."
+    },
+    {
+      "q": "Some students might say, “Well if we have the same oxygen making its way into the blood but we have less hemoglobin, wouldn’t the available hemoglobin have increased saturation then?",
+      "a": "h emoglobin saturation is not increased because Hb is already maximally saturated in the absence of anemia in he althy patients , so it won’t go up anymore."
+    }
+  ],
+  "causes-of-medical-errors": [
+    {
+      "q": "You might say, “I thought PTH causes bone resorption in order to increase serum calcium. Why would osteoblast activity be increased?",
+      "a": "USMLE wants you to know that PTH binds to osteob lasts, not"
+    }
+  ],
+  "heart-anatomy": [
+    {
+      "q": "heart problems cause a backup of pressure onto the pulmonary circulation, leading to increased pulmonary capillary hydrostati c pressure?",
+      "a": "transudation of fluid into the alveolar spaces (pulmonary edema). Sometimes this can also cause pleural effusion."
+    },
+    {
+      "q": "heart pathology + dyspnea, and then ask for the cause of the dyspnea?",
+      "a": "answer = “increased pulmonary capillary hydrostatic pressure.” Another answer in this case is “increase d alveolar"
+    },
+    {
+      "q": "Since blood cannot enter the right heart as easily, it backs up to the neck veins (JVD) and venous circulation (increased hydrostatic pressure in veins?",
+      "a": "transudation of fluid into legs). The Q might mention that central venous pressure is high."
+    },
+    {
+      "q": "Right heart failure (either due to cor pulmonale or congestive)?",
+      "a": "¯ ability to fill right heart à central venous pressure à systemic venous hydrostatic pressure à transudation of fluid from systemic veins/venules into interstitium of legs."
+    }
+  ],
+  "splitting-of-s2": [
+    {
+      "q": "Can sometimes be associated with a systolic flow murmur, since more blood L?",
+      "a": "R from the LA à RA means more blood flow across the pulmonic valve. So Q might say “fixed splitting of S2 and a systolic murmur.”"
+    }
+  ],
+  "auscultation-of-the-heart": [
+    {
+      "q": "heart problems cause a backup of pressure onto the pulmonary circulation, leading to increased pulmonary capillary hydrostati c pressure?",
+      "a": "transudation of fluid into the alveolar spaces (pulmonary edema). Sometimes this can also cause pleural effusion."
+    },
+    {
+      "q": "heart pathology + dyspnea, and then ask for the cause of the dyspnea?",
+      "a": "answer = “increased pulmonary capillary hydrostatic pressure.” Another answer in this case is “increase d alveolar"
+    },
+    {
+      "q": "Since blood cannot enter the right heart as easily, it backs up to the neck veins (JVD) and venous circulation (increased hydrostatic pressure in veins?",
+      "a": "transudation of fluid into legs). The Q might mention that central venous pressure is high."
+    },
+    {
+      "q": "Right heart failure (either due to cor pulmonale or congestive)?",
+      "a": "¯ ability to fill right heart à central venous pressure à systemic venous hydrostatic pressure à transudation of fluid from systemic veins/venules into interstitium of legs."
+    },
+    {
+      "q": "sided heart murm urs get worse with inspiration?",
+      "a": "diaphragm moves down à decreased intra"
+    },
+    {
+      "q": "output cardiac failure . This is because blood quickly enters the venous circulation from the arterial circulation?",
+      "a": "combo of preload back to r ight heart + poorer arterial perfusion distal to the fistula à compensatory CO."
+    },
+    {
+      "q": "low pressu re gradient from right heart to the lungs?",
+      "a": "¯ in afterload on RV from the lungs à blood moves easier from right heart to the lungs à blood is pulled easier from SVC/IVC to the RA)."
+    },
+    {
+      "q": "IV drug users?",
+      "a": "venous blood inoculated with S. aureus à travels to heart and causes vegetation of tricuspid valve."
+    },
+    {
+      "q": "Stress triggers an initial sympathetic response, which in turn triggers a compensatory parasympathetic response. This latter response is excessive in some people, where the peripheral arterioles dilate and the heart slows too much?",
+      "a": "decreased cerebral perfusion à lightheadedness/fainting."
+    },
+    {
+      "q": "II constrictive effect on arterioles?",
+      "a": "¯ afterload à heart pumps easier), but loops are first"
+    },
+    {
+      "q": "As discussed earlier, they liberate NO which guanylyl cyclase?",
+      "a": "cGMP à relaxation of venous smooth muscle à venous dilation/pooling à ¯ preload on heart à ¯ oxygen demand à relief of anginal pain."
+    },
+    {
+      "q": "Congenital heart block; Dx in the mom?",
+      "a": "SLE à 1"
+    },
+    {
+      "q": "Fetal alcohol syndrome + heart/lung fistula; mechanism?",
+      "a": "answer = “failure of migration of neural crest cells.”"
+    },
+    {
+      "q": "34F + ulnar deviation + MCP/PIP pain + heart problem; Dx?",
+      "a": "pericarditis à autoimmune diseases like RA and SLE cause serous pericarditis."
+    },
+    {
+      "q": "Scl70 (topoisomeras e I) Abs + heart issue; Dx?",
+      "a": "pericardial fibrosis due to systemic sclerosis."
+    },
+    {
+      "q": "What does S1 heart sound mean?",
+      "a": "closure of atrioventricular valves (mitral + tricuspid), signifying onset of systole."
+    },
+    {
+      "q": "What does S2 heart sound mean?",
+      "a": "closure of semilunar valves (aortic + pulmonic), signifying onset of diastole."
+    },
+    {
+      "q": "What does S3 heart sound mean?",
+      "a": "early"
+    }
+  ],
+  "heart-murmurs": [
+    {
+      "q": "heart problems cause a backup of pressure onto the pulmonary circulation, leading to increased pulmonary capillary hydrostati c pressure?",
+      "a": "transudation of fluid into the alveolar spaces (pulmonary edema). Sometimes this can also cause pleural effusion."
+    },
+    {
+      "q": "heart pathology + dyspnea, and then ask for the cause of the dyspnea?",
+      "a": "answer = “increased pulmonary capillary hydrostatic pressure.” Another answer in this case is “increase d alveolar"
+    },
+    {
+      "q": "Since blood cannot enter the right heart as easily, it backs up to the neck veins (JVD) and venous circulation (increased hydrostatic pressure in veins?",
+      "a": "transudation of fluid into legs). The Q might mention that central venous pressure is high."
+    },
+    {
+      "q": "Right heart failure (either due to cor pulmonale or congestive)?",
+      "a": "¯ ability to fill right heart à central venous pressure à systemic venous hydrostatic pressure à transudation of fluid from systemic veins/venules into interstitium of legs."
+    },
+    {
+      "q": "sided heart murm urs get worse with inspiration?",
+      "a": "diaphragm moves down à decreased intra"
+    },
+    {
+      "q": "output cardiac failure . This is because blood quickly enters the venous circulation from the arterial circulation?",
+      "a": "combo of preload back to r ight heart + poorer arterial perfusion distal to the fistula à compensatory CO."
+    },
+    {
+      "q": "low pressu re gradient from right heart to the lungs?",
+      "a": "¯ in afterload on RV from the lungs à blood moves easier from right heart to the lungs à blood is pulled easier from SVC/IVC to the RA)."
+    },
+    {
+      "q": "IV drug users?",
+      "a": "venous blood inoculated with S. aureus à travels to heart and causes vegetation of tricuspid valve."
+    },
+    {
+      "q": "Stress triggers an initial sympathetic response, which in turn triggers a compensatory parasympathetic response. This latter response is excessive in some people, where the peripheral arterioles dilate and the heart slows too much?",
+      "a": "decreased cerebral perfusion à lightheadedness/fainting."
+    },
+    {
+      "q": "II constrictive effect on arterioles?",
+      "a": "¯ afterload à heart pumps easier), but loops are first"
+    },
+    {
+      "q": "As discussed earlier, they liberate NO which guanylyl cyclase?",
+      "a": "cGMP à relaxation of venous smooth muscle à venous dilation/pooling à ¯ preload on heart à ¯ oxygen demand à relief of anginal pain."
+    },
+    {
+      "q": "Congenital heart block; Dx in the mom?",
+      "a": "SLE à 1"
+    },
+    {
+      "q": "Fetal alcohol syndrome + heart/lung fistula; mechanism?",
+      "a": "answer = “failure of migration of neural crest cells.”"
+    },
+    {
+      "q": "34F + ulnar deviation + MCP/PIP pain + heart problem; Dx?",
+      "a": "pericarditis à autoimmune diseases like RA and SLE cause serous pericarditis."
+    },
+    {
+      "q": "Scl70 (topoisomeras e I) Abs + heart issue; Dx?",
+      "a": "pericardial fibrosis due to systemic sclerosis."
+    }
+  ],
+  "atrial-natriuretic-peptide": [
+    {
+      "q": "Location of AV node?",
+      "a": "answer on NBME = “inferior to the opening of the coronary sinus” à it is located on the posteroinferior interatrial septum near the coronary sinus."
+    },
+    {
+      "q": "Patient with alternating tachycardia + bradycardia; Dx?",
+      "a": "sick sinus syndrome à caused by damage to SA node (i.e., due to coronary artery or valvular disease, or autoimmunity, e.g., sarcoidosis) à Tx with atrial pacemaker."
+    }
+  ],
+  "baroreceptors-and-chemoreceptors": [
+    {
+      "q": "They’ll say dude was shaving then got lightheadedness or fainted. Mechanism is stretch of carotid sinus baroreceptors?",
+      "a": "afferent CN IX firing to solitary nucleus of the medulla à efferent CN X parasympathetic fir ing down to cardiac nodal tissue à ¯ HR à ¯ CO à ¯ cerebral perfusion. Costochondritis"
+    },
+    {
+      "q": "I’m still a little confused though. If patient is hypovolemic, then what happens in terms of autoregulation?",
+      "a": "decreased stretch of carotid sinus baroreceptors à DECREASED afferent firing of CN IX à decreased efferent CN X firing à decreased ACh binding to M2 receptors at atria + increased sympathetic outflow à HR increases."
+    }
+  ],
+  "normal-resting-cardiac-pressures": [
+    {
+      "q": "Causes wide pulse pres sure (i.e., big difference between systolic and diastolic pressures, e.g., 160/50, or 120/40)?",
+      "a": "results in head"
+    }
+  ],
+  "autoregulation": [
+    {
+      "q": "Can you explain ‘autoregulation’?",
+      "a": "Carotid sinus baro receptors (think “ sinus pressure ”) are stretch"
+    },
+    {
+      "q": "I’m still a little confused though. If patient is hypovolemic, then what happens in terms of autoregulation?",
+      "a": "decreased stretch of carotid sinus baroreceptors à DECREASED afferent firing of CN IX à decreased efferent CN X firing à decreased ACh binding to M2 receptors at atria + increased sympathetic outflow à HR increases."
+    }
+  ],
+  "coarctation-of-the-aorta": [
+    {
+      "q": "If a PDA occurs, blood moves in the neonate L?",
+      "a": "R (i.e., opposite of in utero) from the descending arch of the aorta to the pulmonary trunk."
+    },
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 10 impossible. The only way this could have occurred is if oxygenated blood came L?",
+      "a": "R from the aorta to the pulmonary artery v ia a PDA."
+    }
+  ],
+  "congenital-cardiac-defect-associations": [
+    {
+      "q": "cardiac L?",
+      "a": "R shunt.”"
+    },
+    {
+      "q": "output cardiac failure. For example, they will say a patient h as an AV fistula/conduit or Paget disease, an d they will say there’s S3 and S4 and ask for diagnosis?",
+      "a": "answer = high"
+    },
+    {
+      "q": "output cardiac failure . This is because blood quickly enters the venous circulation from the arterial circulation?",
+      "a": "combo of preload back to r ight heart + poorer arterial perfusion distal to the fistula à compensatory CO."
+    }
+  ],
+  "persistent-pulmonary-hypertension-of-the-newborn": [
+    {
+      "q": "VSD does not cause cyanosis at birth. Only years later after the higher blood flow to the lungs resul ts in pulmonary hypertension, followed by right ventricular hypertrophy and reversal R?",
+      "a": "L (Eisenmenger) can the patient become cyanotic."
+    }
+  ],
+  "atherosclerosis": [
+    {
+      "q": "HTN biggest risk factor for atherosclerosis specifically of the carotids (strong systolic impulse pounds the carotids?",
+      "a": "endothelial damage à atheromatous plaque formation)."
+    }
+  ],
+  "traumatic-aortic-rupture": [
+    {
+      "q": "Hi ghest yield cause on USMLE is aortic dissection?",
+      "a": "can retrograde propagate toward the aortic root causing aortic root dilatation and AR."
+    },
+    {
+      "q": "leg BP)?",
+      "a": "sometimes thoracic aortic dissections can anterograde propagate all the way down to the abdominal aorta."
+    },
+    {
+      "q": "Similar to aortic aneurysms, AV fistulae can sometimes present with pulsatile mass, but in a weird location , e.g., around the left ear in patient with tinnitus (on NBME exam). Student says, “Why is it at the left ear though?",
+      "a": "No fucking idea. Take it up with NBME."
+    },
+    {
+      "q": "Endothelial cell damage / dysfunction (e.g., from HTN or smoking)?",
+      "a": "monocytes leave blood and accumulate beneath internal elastic lamina of artery à monocytes within tunica media of artery are now called macrophages à phagocytosis of oxidized LDL particles à macrophages are now called foam cells à accumulation of foam cells leads to fatty streak/plaque à stimulates vascular smooth muscle cell migratio n/proliferation within plaque à cap thinning + rupture à myocardial infarction, etc. HY points"
+    },
+    {
+      "q": "Neonate with supravalvular aortic stenosis; Dx?",
+      "a": "kid has William syndrome (chromosome 7, AD; elfin"
+    },
+    {
+      "q": "day Hx of severe chest pain + dyspnea + visible pulsation above manubrium + tracheal deviation + murmur in 2 nd intercostal space on the right; Dx?",
+      "a": "USMLE answer = aortic aneurysm."
+    }
+  ],
+  "aortic-dissection": [
+    {
+      "q": "Hi ghest yield cause on USMLE is aortic dissection?",
+      "a": "can retrograde propagate toward the aortic root causing aortic root dilatation and AR."
+    },
+    {
+      "q": "leg BP)?",
+      "a": "sometimes thoracic aortic dissections can anterograde propagate all the way down to the abdominal aorta."
+    },
+    {
+      "q": "Similar to aortic aneurysms, AV fistulae can sometimes present with pulsatile mass, but in a weird location , e.g., around the left ear in patient with tinnitus (on NBME exam). Student says, “Why is it at the left ear though?",
+      "a": "No fucking idea. Take it up with NBME."
+    },
+    {
+      "q": "Neonate with supravalvular aortic stenosis; Dx?",
+      "a": "kid has William syndrome (chromosome 7, AD; elfin"
+    }
+  ],
+  "coronary-artery-disease": [
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 10 impossible. The only way this could have occurred is if oxygenated blood came L?",
+      "a": "R from the aorta to the pulmonary artery v ia a PDA."
+    },
+    {
+      "q": "Vignette will give a stroke, TIA, or retinal artery occlusion in the setting of a patient with HTN.?",
+      "a": "You have to be able to make the association that a plaque from one of the carot ids has launched off, since HTN = risk."
+    },
+    {
+      "q": "dominant circulation, the sequence USMLE wants is: left main coronary?",
+      "a": "left circumflex à PDA."
+    },
+    {
+      "q": "Endothelial cell damage / dysfunction (e.g., from HTN or smoking)?",
+      "a": "monocytes leave blood and accumulate beneath internal elastic lamina of artery à monocytes within tunica media of artery are now called macrophages à phagocytosis of oxidized LDL particles à macrophages are now called foam cells à accumulation of foam cells leads to fatty streak/plaque à stimulates vascular smooth muscle cell migratio n/proliferation within plaque à cap thinning + rupture à myocardial infarction, etc. HY points"
+    },
+    {
+      "q": "Percutaneous coronary intervention used to open blocked coronary artery can cause reperfusion injury , where fast influx of oxygen to tissue results in high density of oxygen free radicals and peroxidation of lipid membranes?",
+      "a": "further myocardial necrosis. But this outcome is superior to non"
+    },
+    {
+      "q": "Location of AV node?",
+      "a": "answer on NBME = “inferior to the opening of the coronary sinus” à it is located on the posteroinferior interatrial septum near the coronary sinus."
+    }
+  ],
+  "ecg-localization-of-stemi": [
+    {
+      "q": "Right heart failure (either due to cor pulmonale or congestive)?",
+      "a": "¯ ability to fill right heart à central venous pressure à systemic venous hydrostatic pressure à transudation of fluid from systemic veins/venules into interstitium of legs."
+    },
+    {
+      "q": "Cirrhosis?",
+      "a": "¯ hepatic production of albumin à ¯ intravascular oncotic pressure à transudation of fluid from systemic veins/venules into interstitium of legs. Nephrogenic"
+    },
+    {
+      "q": "Proteinuria?",
+      "a": "hypoalbuminemia à ¯ intravascular oncotic pressure à transudation of fluid from systemic veins/venules into interstitium of legs. Drugs"
+    },
+    {
+      "q": "Strict vegetarianism or veganism?",
+      "a": "¯ dietary protein consumption à ¯ intravascular oncotic pressure à transudation of fluid from systemic veins/venules into interstitium of l egs. Pregnancy"
+    },
+    {
+      "q": "72M + had STEMI two days ago + now has central friction rub; Dx?",
+      "a": "post"
+    },
+    {
+      "q": "Scl70 (topoisomeras e I) Abs + heart issue; Dx?",
+      "a": "pericardial fibrosis due to systemic sclerosis."
+    }
+  ],
+  "sick-sinus-syndrome": [
+    {
+      "q": "AF usually is paroxysmal, which means it comes and goes. The vignette might say the patient is 75 + had a TIA + BP normal + ECG shows sinus rhythm with no abnormalities?",
+      "a": "next best step is Holter monitor (24"
+    }
+  ],
+  "acute-coronary-syndrome-treatments": [
+    {
+      "q": "dominant circulation, the sequence USMLE wants is: left main coronary?",
+      "a": "left circumflex à PDA."
+    }
+  ],
+  "heart-failure": [
+    {
+      "q": "heart problems cause a backup of pressure onto the pulmonary circulation, leading to increased pulmonary capillary hydrostati c pressure?",
+      "a": "transudation of fluid into the alveolar spaces (pulmonary edema). Sometimes this can also cause pleural effusion."
+    },
+    {
+      "q": "heart pathology + dyspnea, and then ask for the cause of the dyspnea?",
+      "a": "answer = “increased pulmonary capillary hydrostatic pressure.” Another answer in this case is “increase d alveolar"
+    },
+    {
+      "q": "Since blood cannot enter the right heart as easily, it backs up to the neck veins (JVD) and venous circulation (increased hydrostatic pressure in veins?",
+      "a": "transudation of fluid into legs). The Q might mention that central venous pressure is high."
+    },
+    {
+      "q": "Right heart failure (either due to cor pulmonale or congestive)?",
+      "a": "¯ ability to fill right heart à central venous pressure à systemic venous hydrostatic pressure à transudation of fluid from systemic veins/venules into interstitium of legs."
+    },
+    {
+      "q": "sided heart murm urs get worse with inspiration?",
+      "a": "diaphragm moves down à decreased intra"
+    },
+    {
+      "q": "output cardiac failure. For example, they will say a patient h as an AV fistula/conduit or Paget disease, an d they will say there’s S3 and S4 and ask for diagnosis?",
+      "a": "answer = high"
+    },
+    {
+      "q": "output cardiac failure . This is because blood quickly enters the venous circulation from the arterial circulation?",
+      "a": "combo of preload back to r ight heart + poorer arterial perfusion distal to the fistula à compensatory CO."
+    },
+    {
+      "q": "low pressu re gradient from right heart to the lungs?",
+      "a": "¯ in afterload on RV from the lungs à blood moves easier from right heart to the lungs à blood is pulled easier from SVC/IVC to the RA)."
+    },
+    {
+      "q": "IV drug users?",
+      "a": "venous blood inoculated with S. aureus à travels to heart and causes vegetation of tricuspid valve."
+    },
+    {
+      "q": "Stress triggers an initial sympathetic response, which in turn triggers a compensatory parasympathetic response. This latter response is excessive in some people, where the peripheral arterioles dilate and the heart slows too much?",
+      "a": "decreased cerebral perfusion à lightheadedness/fainting."
+    },
+    {
+      "q": "II constrictive effect on arterioles?",
+      "a": "¯ afterload à heart pumps easier), but loops are first"
+    }
+  ],
+  "high-output-heart-failure": [
+    {
+      "q": "heart problems cause a backup of pressure onto the pulmonary circulation, leading to increased pulmonary capillary hydrostati c pressure?",
+      "a": "transudation of fluid into the alveolar spaces (pulmonary edema). Sometimes this can also cause pleural effusion."
+    },
+    {
+      "q": "heart pathology + dyspnea, and then ask for the cause of the dyspnea?",
+      "a": "answer = “increased pulmonary capillary hydrostatic pressure.” Another answer in this case is “increase d alveolar"
+    }
+  ],
+  "shock": [
+    {
+      "q": "MI can lead to acute tubular necrosis from cardiogenic shock?",
+      "a": "acute drop in renal perfusion. This is not pre"
+    },
+    {
+      "q": "Confused old man + temp of 96F + CO high + PCWP low + TPR low; Dx?",
+      "a": "septic shock à dementia increases risk of aspiration pneumonia due to diminished gag reflex (important cause of sepsis) à by all means the vignette might say urinary retention in BPH, or tell you there’s a catheter à also important causes of sepsis here."
+    },
+    {
+      "q": "What is PCWP?",
+      "a": "equal to left atrial pressure ; if you stick a catheter through the venous circulation all the way back to the right heart, and then into the pulmonary circulation, and then into a distal pulmonary capillary such that it can’t go any farther, the pressure reverberations are said to best reflect those of the lef t atrium. The USMLE is obsessed with PCWP; you need to know it is increased not just in cardiogenic shock, but also in LH pathology as I’ve stated above."
+    },
+    {
+      "q": "Hypovolemic shock ar rows?",
+      "a": "CO down, VR down, TPR up, PCWP down (or normal)."
+    },
+    {
+      "q": "Cardiogenic shock arrows?",
+      "a": "CO down, VR down, TPR up, PCWP up."
+    },
+    {
+      "q": "Septic + anaphylactic shock arrows?",
+      "a": "CO up, VR up, TPR down, PCWP normal."
+    },
+    {
+      "q": "Neurogenic shock + adrenal crisis arrows?",
+      "a": "CO down, VR down, TP R down, PCWP normal."
+    }
+  ],
+  "cardiac-tamponade": [
+    {
+      "q": "cardiac L?",
+      "a": "R shunt.”"
+    },
+    {
+      "q": "output cardiac failure. For example, they will say a patient h as an AV fistula/conduit or Paget disease, an d they will say there’s S3 and S4 and ask for diagnosis?",
+      "a": "answer = high"
+    },
+    {
+      "q": "output cardiac failure . This is because blood quickly enters the venous circulation from the arterial circulation?",
+      "a": "combo of preload back to r ight heart + poorer arterial perfusion distal to the fistula à compensatory CO."
+    },
+    {
+      "q": "They’ll say dude was shaving then got lightheadedness or fainted. Mechanism is stretch of carotid sinus baroreceptors?",
+      "a": "afferent CN IX firing to solitary nucleus of the medulla à efferent CN X parasympathetic fir ing down to cardiac nodal tissue à ¯ HR à ¯ CO à ¯ cerebral perfusion. Costochondritis"
+    }
+  ],
+  "pulsus-paradoxus": [
+    {
+      "q": "22M + stab wound to left chest + JVD + muffled heart sounds + hypotension; Dx?",
+      "a": "cardiac tamponade à Beck triad always seen in USMLE Qs = JVD + muffled heart sounds + hypotension; also associated with pulsus paradoxus."
+    }
+  ],
+  "infective-endocarditis": [
+    {
+      "q": "bacterial thrombotic endocar ditis; NBTE)?",
+      "a": "endocarditis seen due to hypercoagulable state in the setting of malignancy, where the vegetations are small and verrucous, on both sides of the valve. This is in contrast to bacterial endocarditis, which causes large, floppy vegetations tha t lead to MR, not MS."
+    },
+    {
+      "q": "Patient with in fective endocarditis + now has limb weakness or sensory findings; Dx + Tx?",
+      "a": "septic embolus à answer = give immediate IV antibiotics."
+    },
+    {
+      "q": "If infective, most likely etiology of pericarditis? (answers are bacteria, parasitic, fungal, etc .); answer = viral?",
+      "a": "viruses can cause serous pericarditis."
+    },
+    {
+      "q": "32F + SLE + diastolic rumbling murmur; most likely characteristic of valvular lesion?",
+      "a": "answer = “verrucous vegetations on both sides of the mitral valve” for LS endocarditis."
+    },
+    {
+      "q": "28M IV drug user + 2/6 holosystolic murmur at left sternal border that increases with inspiration + fever; most likely characteristic of valvular lesion?",
+      "a": "“large, friable, floppy vegetation” à bacterial endocarditis (tricuspid regurg in this case bc IV drug user)."
+    },
+    {
+      "q": "onset murmur + fever; Dx?",
+      "a": "infective endocarditis (IE) until prov en otherwise . Unlike rheumatic fever , this is actual bacterial colonization of a heart valve + production of vegetation; RF is a mere antibody response."
+    },
+    {
+      "q": "What is acute endocarditis?",
+      "a": "no Hx of valve abnormality; caused almost always by S. aureus ; classicall y seen in IV drug users) ; classic new"
+    },
+    {
+      "q": "What is subacute endocarditis?",
+      "a": "Hx of valve abnormality, i.e., congenital defect, Hx of RF; classically occurs following dental procedures ; S. viridans (same thing as S. sanguinis or S. mutan s) is classic cause; USMLE wants you to know S. viridan’s production of limit dextrins (carbohydrates) enables binding to mitral + aortic valve."
+    },
+    {
+      "q": "Empiric Tx for endocarditis?",
+      "a": "Gentamicin (aminoglycoside) PLUS either vancomycin or ampicillin/sulbactam. Add rifampin if patient has prosthetic valve."
+    },
+    {
+      "q": "Who gets pulmonic regurg and what does it sound like?",
+      "a": "sounds like aortic regurg (holodiastolic) but increases with inspiration; rare , but can be seen in endocarditis in IV drug users."
+    },
+    {
+      "q": "Who gets tricuspid regurg and what does it sound like?",
+      "a": "same as mitral regurg (holosystolic m urmur) but gets louder with inspiration; h ighest yield cause on USMLE is pulmonary hypertension / cor pulmonale (these don't cause pulmonic regurg, so sounds a bit weird). Can also be seen in IV drug user endocarditis and carcinoid syndrome."
+    }
+  ],
+  "nonbacterial-thrombotic-endocarditis": [
+    {
+      "q": "bacterial thrombotic endocar ditis; NBTE)?",
+      "a": "endocarditis seen due to hypercoagulable state in the setting of malignancy, where the vegetations are small and verrucous, on both sides of the valve. This is in contrast to bacterial endocarditis, which causes large, floppy vegetations tha t lead to MR, not MS."
+    }
+  ],
+  "rheumatic-fever": [
+    {
+      "q": "Who gets MS?",
+      "a": "99% due to previous rheumatic fever as a kid."
+    },
+    {
+      "q": "What is mechanism for rheumatic fever?",
+      "a": "type II hypersensitivity against M"
+    },
+    {
+      "q": "How d oes rheumatic fever present?",
+      "a": "JONES (J © NES) à J oints (polyarthritis) + © (myocarditis / mitral valve disease) + N odules (subcutaneous nodules over bony prominences) + E rythema marginatum (appears annular [ring"
+    },
+    {
+      "q": "12F + red tongue + salmon body rash; Dx and Tx?",
+      "a": "scarlet fever caused by Group A Strep. Must give penicillin to prevent RF."
+    },
+    {
+      "q": "40M + Hx of rheumatic fever as a child + rumbling diastolic murmur + S4 heart sound; Dx?",
+      "a": "MS with a right"
+    },
+    {
+      "q": "40M + Hx of rheumatic fever as a child + rumbling diastolic murmur; which of the following is most likely part of his Hx as a child?",
+      "a": "mitral regurgitation. à this is exceedingly HY à RF causes MR acutely in the child but will cause MS later in life as the valve scars over."
+    },
+    {
+      "q": "12M + fever + sore throat + painful joints + annular skin rash + heart murmur; most likely murmur that he has?",
+      "a": "MR, not MS."
+    }
+  ],
+  "acute-pericarditis": [
+    {
+      "q": "MI can lead to acute tubular necrosis from cardiogenic shock?",
+      "a": "acute drop in renal perfusion. This is not pre"
+    },
+    {
+      "q": "elevations?",
+      "a": "Dx = pericarditis."
+    },
+    {
+      "q": "ECG is first step in Dx of pericarditis, but USMLE wants echocardiography as next best step in order to visualize a concomitant effusion that can occur sometimes. Vignette will give you stereotypical pericarditis + will ask for next best step in diagnosi s; ECG might not be listed and you’re like huh?",
+      "a": "Answer is echocardiography to look for potential effusion concomitant to the pericarditis."
+    },
+    {
+      "q": "Treatment for pericarditis is same as acute gout?",
+      "a": "NSAIDs, colchicine, steroids. Chronic constrictive pericardit is"
+    },
+    {
+      "q": "filling impairment?",
+      "a": "answer = chronic constr ictive pericarditis. 2) Kussmaul sign will be seen in the Q, where JVD occurs with inspiration rather than expiration."
+    },
+    {
+      "q": "Major danger is DVT can embolize to lungs causing PE?",
+      "a": "acute"
+    }
+  ],
+  "hereditary-hemorrhagic-telangiectasia": [
+    {
+      "q": "80%); Dx?",
+      "a": "answer on NBME = pulmonary arteriovenous malformation à presentation is hereditary hemorrhagic telangiectasia (Osler"
+    }
+  ],
+  "hypertension-treatment": [
+    {
+      "q": "VSD does not cause cyanosis at birth. Only years later after the higher blood flow to the lungs resul ts in pulmonary hypertension, followed by right ventricular hypertrophy and reversal R?",
+      "a": "L (Eisenmenger) can the patient become cyanotic."
+    },
+    {
+      "q": "For example, they’ll give a smoker who simply has a loud P2?",
+      "a": "this just means patient has pulmonary hypertension. Not complicated."
+    },
+    {
+      "q": "high creatinine and BUN and say there’s a friction rub?",
+      "a": "treatment = hemodialysis."
+    },
+    {
+      "q": "Treatment for pericarditis is same as acute gout?",
+      "a": "NSAIDs, colchicine, steroids. Chronic constrictive pericardit is"
+    },
+    {
+      "q": "Can you explain “splitting of S2”? What does that even mean?",
+      "a": "the aortic valve normally shuts (A2) just before the pulmonic valve (P2), so A2 will occur slightly before P2 à w hen we talk about changes in splitting of the S2 heart sound (i.e., wide splitting, paradoxical splitting, etc.), if pressure in a ventricle is greater, the sound will occur later / is protracted. So if RV pressure becomes greater for whatever reason à P2 occurs later à wider splitting. So pulmonary artery hypertension = wide"
+    },
+    {
+      "q": "Who gets tricuspid regurg and what does it sound like?",
+      "a": "same as mitral regurg (holosystolic m urmur) but gets louder with inspiration; h ighest yield cause on USMLE is pulmonary hypertension / cor pulmonale (these don't cause pulmonic regurg, so sounds a bit weird). Can also be seen in IV drug user endocarditis and carcinoid syndrome."
+    },
+    {
+      "q": "If USMLE asks you for the mechanism of cor pulmonale, what’s the answer?",
+      "a": "pulmonary hypertension à hypoxic vasoconstriction (e.g., in chronic bronchitis, CF) or obliteration of pulmonary parenchyma (emphysema) will cause a backup of blood and pulmonary HTN à increased afterload on RV à starts the process of cor pulmonale (mere pulmonary HTN is not cor pulmonale; there must be RH failure). Can also be due to fibrosis (e.g., CREST or radiation) + loss of lung parenchyma (emphysema)."
+    },
+    {
+      "q": "How will USMLE describe pulmonary HTN?",
+      "a": "Increased pulmonary vascular markings; loud P2; tricuspid regurg. Loud P2 means valve slams shut due to high pressure distal to it. Highest yield cause of tricuspid regurg on USMLE is pulmonary hypertension / cor pulmonale. ."
+    },
+    {
+      "q": "smoker + dyspnea + JV D + increased pulmonary vascular markings; Dx?",
+      "a": "primary pulmonary hypertension."
+    },
+    {
+      "q": "What causes arterial insufficiency?",
+      "a": "atherosclerosis (diabetes, followed by smoking, are the two most acceleratory risk factors; hypertension is the most common risk factor)"
+    }
+  ],
+  "nitrates": [
+    {
+      "q": "Nitrates (e.g., sublingual isosorbide dinitrate) used as Tx?",
+      "a": "nitrates “donate” nitric oxide (NO) that upregulates guanylyl cyclase within venous smooth muscle à increased cGMP à relaxation of venous smooth muscle à increased venous pooling of blood à decreased venous return à decreased myocardial oxygen demand à mitigation of chest pain."
+    },
+    {
+      "q": "Maneuvers that decrease blood in the heart?",
+      "a": "Valsalva; standing up from seated position; sitting u p from supine position; administration of nitrates à any of these will cause MVP + HOCM to get worse; all other murmurs will soften or not change."
+    }
+  ],
+  "calcium-channel-blockers": [
+    {
+      "q": "channel blockers, such as quinidine and ibutilide, respectively. They ask this directly on the NBME exam, where Q will say patient is given ibutilide + what is he now at increased risk of?",
+      "a": "answer = torsades."
+    }
+  ],
+  "nitroprusside": [
+    {
+      "q": "Tx for dissection?",
+      "a": "if ascending aortic arch, answer = labetalol + surgery; if descending arch, answer = labetalol only (HY, since everyone chooses surgery) à do not choose sodium nitroprusside here."
+    }
+  ],
+  "fenoldopam": [
+    {
+      "q": "What is fenoldopam?",
+      "a": "dopamine 1 (D1) receptor agonist à dilates both renal afferent and efferent arterioles à used to maintain renal perfusion in hypertensive emergency."
+    }
+  ],
+  "ranolazine": [
+    {
+      "q": "What is ranolazine?",
+      "a": "sodium channel blocker used rarely for angina."
+    }
+  ],
+  "sacubitril": [
+    {
+      "q": "What is sacubitril?",
+      "a": "neprolysin inhibitor (now you’re like, “wtf is neprolysin?”) à neprolysin is an enzyme that breaks down ANP and BNP à therefore sacubitril can be used as an antihypertensive to allow the kidney to excrete sodium and water à sacubitril usually used in combination with valsartan as sacubitril/valsartan in the Mx of he art failure (i.e., can be used in place of ACEi or ARB monotherapy during the initial Tx of HF)."
+    }
+  ],
+  "lipid-lowering-agents": [
+    {
+      "q": "Percutaneous coronary intervention used to open blocked coronary artery can cause reperfusion injury , where fast influx of oxygen to tissue results in high density of oxygen free radicals and peroxidation of lipid membranes?",
+      "a": "further myocardial necrosis. But this outcome is superior to non"
+    },
+    {
+      "q": "Antiphospholipid syndrome?",
+      "a": "DVTs despite paradoxical PTT (i.e., if PTT is high, you’d think you have bleeding diathesis, not thromboses); may or may not be due to SLE. Antibodies against phospholipids cause in vivo clumping of platelets + clot initiation, but disruption of in vitro PTT assay means PTT."
+    },
+    {
+      "q": "Tx for pulmonary HTN?",
+      "a": "most patients will respond to dihydropyr idine CCBs; if fail, can use agents like bosentan (endothelin"
+    },
+    {
+      "q": "lowering effect?",
+      "a": "USMLE wants you to know that statins increase HMG"
+    },
+    {
+      "q": "Evolocumab + alirocumab; MOA?",
+      "a": "PCSK9 inhibitors à Proprotein convertase subtilisin/kexin type 9 is an enzyme that breaks down LDL receptors à therefore these drugs prevent breakdown of LDL recept ors and decrease LDL cholesterol by enabling greater clearance à these are newer agents than"
+    },
+    {
+      "q": "arrhythmic and gets, e.g., delirium, and then they’ll ask you for the drug, which will be, e.g., mexiletine?",
+      "a": "these agents preferentially act on ischemic tissue à Ibs shorten the ac tion potential duration."
+    },
+    {
+      "q": "blockers?",
+      "a": "HY mnemonic for agents that antagonize beta"
+    }
+  ],
+  "digoxin": [
+    {
+      "q": "Digoxin; MOA?",
+      "a": "inhibits Na/K"
+    },
+    {
+      "q": "Yellow wavy vision + drug OD? Dx?",
+      "a": "digoxin toxicity."
+    },
+    {
+      "q": "Ho w to Tx digoxin toxicity?",
+      "a": "normalize potassium + give anti"
+    },
+    {
+      "q": "Electrolyte disturbance causing digoxin toxicity?",
+      "a": "hypokalemia (digoxin normally binds to extracellular K+ binding site on the cell, so low K+ means more digoxin binding)."
+    }
+  ],
+  "antiarrhythmics-sodium-channel-blockers-class-i": [
+    {
+      "q": "channel blockers, such as quinidine and ibutilide, respectively. They ask this directly on the NBME exam, where Q will say patient is given ibutilide + what is he now at increased risk of?",
+      "a": "answer = torsades."
+    },
+    {
+      "q": "Dihydropyridine calcium channel blocker (acts on arteriolar calcium channels?",
+      "a": "dilates arterioles à ¯ peripheral vascular resistance à ¯ BP)."
+    },
+    {
+      "q": "ENaC inhibitors?",
+      "a": "block apical sodium channel in cortical collecting duct à ¯ Na + reabsorption à ¯ water reabsorption."
+    }
+  ],
+  "adrenal-cortex-and-medulla": [
+    {
+      "q": "As I talk about in detail in my HY Arrows PDF, o nly the medullary collecting duct osmolality will change in response to ADH. The USMLE will ask you for the osmolality of the urine at different nephron locations in comparison to serum, and the combo is: PCT isotonic; juxtaglomerular apparatus (JGA) hypot onic; MCD hypertonic.?",
+      "a": "The PCT is always isotonic no matter what; the JGA (at top of thick ascending limb of loop of Henle) is always hypotonic no matter what; the MCD is clearly hypertonic in SIADH since we’re pulling free water out of the urine."
+    },
+    {
+      "q": "ACTH is in all three types. This is the mechanism USMLE wants for the hyperplasia. That is, cortisol production is impaired in all three, so ACTH goes to compensate?",
+      "a": "stimulates hyperplasia of adrenals."
+    },
+    {
+      "q": "Fatigued patient + hyperpigmentation + low BP?",
+      "a": "Addison disease (primary hypoadrenalism; low aldost erone + low cortisol)"
+    }
+  ],
+  "hypertrophic-pyloric-stenosis": [
+    {
+      "q": "bilious vom iting; Dx?",
+      "a": "hypertrophic pyloric stenosis."
+    },
+    {
+      "q": "Dx of pyloric stenosis?",
+      "a": "abdominal ultrasound to show olive"
+    },
+    {
+      "q": "Tx of pyloric stenosis?",
+      "a": "myomectomy"
+    },
+    {
+      "q": "Who gets pyloric stenosis?",
+      "a": "first"
+    }
+  ],
+  "digestive-tract-histology": [
+    {
+      "q": "What does cholecystokinin (CCK) do?",
+      "a": "increases contraction of gall bladder, relaxes sphincter of Oddi, and increases exocrine pancreas secretion of lipases, proteases, and amylase."
+    },
+    {
+      "q": "Types of stomach cancer (apart from MALT lymphoma)?",
+      "a": "intestinal vs diffuse type; USMLE doesn’t ask about intestinal (it’s characterized by irregular tubular histology); diffuse = linitis plastica, which is “leather bottle” appearance of the stomach à cells contain mucin and are called signet ring cells à often associated with Virchow node (pronounced ver"
+    }
+  ],
+  "abdominal-aorta-and-branches": [
+    {
+      "q": "In splenic vein thrombosis, the splenic venous p ressure causes formation of collaterals to circumvent the thrombosis. This means nearby veins will form small tributaries/branches from the splenic vein. The left gastric vein is one of them?",
+      "a": "esophageal venous pressure."
+    },
+    {
+      "q": "There is a new 2CK Q where they give ascites in patient with cirrhosis, but do not mention fever or abdominal pain. However, they say paracentesis shows 900 WBC s / μ L?",
+      "a": "answer = “antibiotic therapy.” It should be made clear though that ~ 6/7 SBP Qs will give abdo pain and fever."
+    }
+  ],
+  "gastrointestinal-blood-supply-and-innervation": [
+    {
+      "q": "Octreotide is a somatostatin analogue that can be used in addition to endoscopic banding for esophageal varices Tx?",
+      "a": "leads to ¯ portal blood flow/pressure. Ghrelin"
+    }
+  ],
+  "celiac-trunk": [
+    {
+      "q": "Level of celiac trunk and main branches + what’s it supply?",
+      "a": "T12; splenic artery, common hepatic artery, left gastric artery; supplies foregut (mouth to duodenum at ampulla of Vater)."
+    },
+    {
+      "q": "What is Tropical sprue?",
+      "a": "malabsorptive disease characterized by flattening of intestinal villi (similar to Celiac histo); etiology obscure/manifold but bacterial infection is accepted as one cause; Tx = Abx (e.g., doxycycline)."
+    },
+    {
+      "q": "Celiac disease important po ints?",
+      "a": "gluten intolerance; fluten found in wheat, oats, rye, and barley, so therefore will get Sx after eating, e.g., pasta (too easy for the vignette to mention though); causes flattening of intestinal villi on biopsy (image HY); patients often present w ith iron deficiency anemia (HY way to differentiate from lactose intolerance); Dx with Abs: anti"
+    }
+  ],
+  "pectinate-line": [
+    {
+      "q": "Sometimes rather than making you choose endoscopy straight up, they’ll tell you in the last line an endoscopy was performed and shows a stricture , then they’ll ask for next best step?",
+      "a": "answer = biopsy of the stricture. Squamous cell carcinoma"
+    },
+    {
+      "q": "Q might give you easy vignette of type II diabetes + ask what you'd see in the patient?",
+      "a": "answer = \"hyperinsulinemia,\" whereas \"ketonuria\" is wrong, for instance. HY stuff that's easy to get wrong ."
+    },
+    {
+      "q": "Prostaglandins are necessary for stimulation of gastric alkaline mucous production and maintenance o f the gastric lining. NSAIDs?",
+      "a": "¯ prostaglandin production à disruption of gastric lining. This can lead to both ulcers and irritation (gastritis)."
+    },
+    {
+      "q": "Prostaglan dins are necessary for stimulation of gastric alkaline mucous production by foveolar cells and maintenance of the gastric lining. NSAIDs?",
+      "a": "¯ prostaglandin production à disruption of gastric lining. This can lead to both gastritis (inflammation) and ulcers."
+    },
+    {
+      "q": "You should know that a 2CK NBME Q gives mother’s status as unknown when child is born?",
+      "a": "answer = “ Give HepB vaccine now + only give IVIG if mother is positive.” But new guidelines actually say to give HBIG to neonates within 12 hours of birth even if mom’s status is unknown. I’m just letting you know this discrepancy because this answer is on the new N BME but doesn’t follow current guidelines."
+    }
+  ],
+  "carbohydrate-absorption": [
+    {
+      "q": "S teatorrhea in alcoholic or patient with recurrent acute pancreatitis episodes?",
+      "a": "results in pancreatic burnout with ¯ production of pancreatic enzymes à ¯ proteases/lipases à malabsorption."
+    }
+  ],
+  "vitamin-and-mineral-absorption": [
+    {
+      "q": "S teatorrhea in alcoholic or patient with recurrent acute pancreatitis episodes?",
+      "a": "results in pancreatic burnout with ¯ production of pancreatic enzymes à ¯ proteases/lipases à malabsorption."
+    },
+    {
+      "q": "USMLE likes acute exacerbations of hyperammonemia caused by GI bleeds?",
+      "a": "ammonia absorption."
+    },
+    {
+      "q": "soluble vitamin malabsorption?",
+      "a": "NBME exams love vitamin E deficiency in CF in particular (presents as neuropathy)."
+    },
+    {
+      "q": "Impaired fat absorption in small bowel c an result in calcium oxalate urolithiasis . Malabsorption can cause higher fat content in small bowel lumen?",
+      "a": "chelation with calcium à less calcium available to bind oxalate à more oxalate is absorbed. USMLE will give sharp flank/groin pain in patient with Crohn, and th en the answer is just “increased intestinal absorption of oxalate.” Irritable bowel syndrome (IBS)"
+    }
+  ],
+  "peyer-patches": [
+    {
+      "q": "associated lymphoid tissue)?",
+      "a": "IgA. Peyer patches contain large number of IgA"
+    }
+  ],
+  "achalasia": [
+    {
+      "q": "42M + dysphagia to solids + liquids + no other Hx; Dx?",
+      "a": "achalasia à inability to swallow solids + liquids togethe r implies neurogenic etiology."
+    },
+    {
+      "q": "HY points about esophageal cance r?",
+      "a": "adenocarcinoma is distal 1/3 and is caused by GERD (obesity à low LES tone à GERD à Barrett à adenocarcinoma); SCC is upper 2/3 of esophagus and is caused by smoking + alcohol; can also be caused by webs, burns, chemicals, and achalasia (difficult, be cause achalasia is LES so your thought is, “how can that cause SCC of upper 2/3?” à probably the dysphagia causes increased esophageal irritation, which then becomes the risk factor for SCC)."
+    },
+    {
+      "q": "Mechanism for achalasia?",
+      "a": "loss of NO"
+    },
+    {
+      "q": "How do you Dx achalasia?",
+      "a": "US MLE wants barium (or gastrografin) swallow, then manometry, then confirmatory biopsy, in that order. There is a Q on an NBME for 2CK where both barium and manometry were listed, and the answer was barium swallow, not manometry."
+    },
+    {
+      "q": "So when is manometry the answer for achalasia?",
+      "a": "when they show you a pic of the bird’s beak from the barium swallow already per formed, so clearly the next best step is manometry. The USMLE will sometimes show a graph of a manometry that’s been performed, and you’ll simply see that the pressure is high at the LES à hence Dx = achalasia. The confirmatory / most accurate test is biop sy of LES showing loss of neurons."
+    },
+    {
+      "q": "Tx for achalasia?",
+      "a": "surgery first"
+    }
+  ],
+  "barrett-esophagus": [
+    {
+      "q": "HY pathogenesis is: GERD?",
+      "a": "Barrett esophagus à adenocarcinoma."
+    },
+    {
+      "q": "CMV esophagiti s?",
+      "a": "odynophagia + linear (confluent) ulcers in esophagus."
+    },
+    {
+      "q": "HY structures passing through diaphragm?",
+      "a": "“I Ate 10 Eggs At 12.” à IVC T8; T10 Esophagus + thoracic duct; Aortic hiat us (aorta, azygous vein, thoracic duct) at T12."
+    },
+    {
+      "q": "Barrett esophagus; what are the changes in mucosa (from what to what)?",
+      "a": "metaplasia of non"
+    },
+    {
+      "q": "What does Barrett look like on endoscopy?",
+      "a": "bright red mucosa (UWorld has a Q where they show the endoscopy)."
+    }
+  ],
+  "esophageal-cancer": [
+    {
+      "q": "In splenic vein thrombosis, the splenic venous p ressure causes formation of collaterals to circumvent the thrombosis. This means nearby veins will form small tributaries/branches from the splenic vein. The left gastric vein is one of them?",
+      "a": "esophageal venous pressure."
+    },
+    {
+      "q": "Octreotide is a somatostatin analogue that can be used in addition to endoscopic banding for esophageal varices Tx?",
+      "a": "leads to ¯ portal blood flow/pressure. Ghrelin"
+    }
+  ],
+  "gastric-cancer": [
+    {
+      "q": "In splenic vein thrombosis, the splenic venous p ressure causes formation of collaterals to circumvent the thrombosis. This means nearby veins will form small tributaries/branches from the splenic vein. The left gastric vein is one of them?",
+      "a": "esophageal venous pressure."
+    }
+  ],
+  "peptic-ulcer-disease": [
+    {
+      "q": "H. pylori is more common than gastrinoma. As mentioned above, >95% of duodenal ulcers are due to H. p ylori . There is an NBME Q where they give older male with a duodenal ulcer + no other information + they ask for most likely cause?",
+      "a": "answer = testing for H. pylori ; gastrinoma is wrong."
+    },
+    {
+      "q": "Prostaglandins are necessary for stimulation of gastric alkaline mucous production and maintenance o f the gastric lining. NSAIDs?",
+      "a": "¯ prostaglandin production à disruption of gastric lining. This can lead to both ulcers and irritation (gastritis)."
+    },
+    {
+      "q": "burns from evaporation?",
+      "a": "¯ blood flow to stomach à ischemic ulcers."
+    },
+    {
+      "q": "Prostaglan dins are necessary for stimulation of gastric alkaline mucous production by foveolar cells and maintenance of the gastric lining. NSAIDs?",
+      "a": "¯ prostaglandin production à disruption of gastric lining. This can lead to both gastritis (inflammation) and ulcers."
+    }
+  ],
+  "acute-gastrointestinal-bleeding": [
+    {
+      "q": "Gallstone pancreatitis is a type of choledocholithiasis in which the stone has descended distally enough in the common bile duct that it now obstructs the hepatopancreatic ampulla. This results in a backflow of pancreatic enzymes to the pancreas c ausing damage?",
+      "a": "acute pancreatitis."
+    },
+    {
+      "q": "S teatorrhea in alcoholic or patient with recurrent acute pancreatitis episodes?",
+      "a": "results in pancreatic burnout with ¯ production of pancreatic enzymes à ¯ proteases/lipases à malabsorption."
+    }
+  ],
+  "inflammatory-bowel-diseases": [
+    {
+      "q": "Step 1 NBME Q wil l give you pain from biliary colic after patient eats a fatty meal, and then they’ll ask for where the hormone responsible is secreted?",
+      "a": "answer = “neuroendocrine cells of small bowel.” Secretin"
+    },
+    {
+      "q": "filled glands with abundant lamina propria and inflammatory infiltrates?",
+      "a": "answer = juvenile polyposis."
+    },
+    {
+      "q": "Impaired fat absorption in small bowel c an result in calcium oxalate urolithiasis . Malabsorption can cause higher fat content in small bowel lumen?",
+      "a": "chelation with calcium à less calcium available to bind oxalate à more oxalate is absorbed. USMLE will give sharp flank/groin pain in patient with Crohn, and th en the answer is just “increased intestinal absorption of oxalate.” Irritable bowel syndrome (IBS)"
+    }
+  ],
+  "irritable-bowel-syndrome": [
+    {
+      "q": "Step 1 NBME Q wil l give you pain from biliary colic after patient eats a fatty meal, and then they’ll ask for where the hormone responsible is secreted?",
+      "a": "answer = “neuroendocrine cells of small bowel.” Secretin"
+    }
+  ],
+  "appendicitis": [
+    {
+      "q": "What USMLE will do is tell you a AAA repair is performed where a graft needs to be inserted between the aortic bifurcation and the renal art eries. Then they’ll ask blood supply to which structure will get compromised. So you need to say, “Well the bifurcation is at L4, and the renal arteries are at L2, so anything that’s IMA would get fucked up since IMA is L3.?",
+      "a": "answer = “descending colon.” Appendicitis"
+    }
+  ],
+  "diverticula-of-the-gi-tract": [
+    {
+      "q": "What does cholecystokinin (CCK) do?",
+      "a": "increases contraction of gall bladder, relaxes sphincter of Oddi, and increases exocrine pancreas secretion of lipases, proteases, and amylase."
+    }
+  ],
+  "zenker-diverticulum": [
+    {
+      "q": "42M + overweight + halitosis + gurgling sound when drinking fluids + occasionally regurgitates undigested food; next best step in Mx?",
+      "a": "barium (or gastrografin) swallow; Dx = Zenker."
+    },
+    {
+      "q": "Above 42M + Hx of GERD?",
+      "a": "go straight to endoscopy as the answer (cancer, not Zenker)."
+    },
+    {
+      "q": "Location + mechanism of Zenker?",
+      "a": "false diverticulum just superior to the cricopharyngeus on the posterior pharyngeal wall à USMLE answers are “increased oropharyngeal pressure” and “cricopharyngeal muscle spasm.” They want you to know it is n ot a congenital weakness. Dysphagia is a risk factor because this increases oropharyngeal pressure. I’ve noticed Zenker vignettes often mention the patient is overweight, although the association is non"
+    },
+    {
+      "q": "8M + bloody stool + p erfectly healthy otherwise; Dx?",
+      "a": "Meckel diverticulum; student says, “huh, I thought that was age 2.” I agree with you. But there’s an NBME Q where the kid was 8, and the answer was Meckel à bleeding due to “heterotopic gastric / pancreatic tissue.”"
+    }
+  ],
+  "meckel-diverticulum": [
+    {
+      "q": "Location + mechanism of Zenker?",
+      "a": "false diverticulum just superior to the cricopharyngeus on the posterior pharyngeal wall à USMLE answers are “increased oropharyngeal pressure” and “cricopharyngeal muscle spasm.” They want you to know it is n ot a congenital weakness. Dysphagia is a risk factor because this increases oropharyngeal pressure. I’ve noticed Zenker vignettes often mention the patient is overweight, although the association is non"
+    },
+    {
+      "q": "8M + bloody stool + p erfectly healthy otherwise; Dx?",
+      "a": "Meckel diverticulum; student says, “huh, I thought that was age 2.” I agree with you. But there’s an NBME Q where the kid was 8, and the answer was Meckel à bleeding due to “heterotopic gastric / pancreatic tissue.”"
+    },
+    {
+      "q": "How to Dx Meckel diverticulum?",
+      "a": "Meckel scan (Tc99 uptake scan that localizes to diverticulum)."
+    },
+    {
+      "q": "Tx for Meckel?",
+      "a": "if asymptomatic, can leave alone; if symptomatic, surgical removal."
+    }
+  ],
+  "hirschsprung-disease": [
+    {
+      "q": "old male + bilious vomiting; Dx?",
+      "a": "duodenal atresia, annular pancreas, congenital midgut volvulus, or Hirschsprung (correct, Hirschspru ng can present with bilious vomiting)."
+    },
+    {
+      "q": "old + Down syndrome + bilious vomiting + slow to pass meconium; Dx?",
+      "a": "Hirschsprung"
+    },
+    {
+      "q": "How do you Dx Hirschsprung?",
+      "a": "rectal manometry, followed by confirmatory rectal biopsy showing absence of ganglion cells."
+    }
+  ],
+  "intussusception": [
+    {
+      "q": "old + intermittent abdominal pain + crying + blood in stool; Dx?",
+      "a": "intussusception ."
+    },
+    {
+      "q": "old + intermittent squatting + crying + FOBT positiv e; Dx?",
+      "a": "intussusception ."
+    },
+    {
+      "q": "old + occasionally brings legs to chest + vomits + abdo mass ; Dx?",
+      "a": "intussusception ."
+    },
+    {
+      "q": "Presentation sounds like intussusception but no mass?",
+      "a": "answer = congenital midgut volvulus."
+    },
+    {
+      "q": "Cause of intussusception?",
+      "a": ">99% are in kids under age 2; caused by lymphoid hyperplasia due to viral infection (e.g., rotavirus) or recent vaccination; if in adult (usually elderly), it is caused by colorectal cancer."
+    },
+    {
+      "q": "Dx and Tx of intussusception?",
+      "a": "USMLE wants enema as the answer. Even though ultrasound can be done which shows a target sign, the USMLE always wants enema. And it can be any type. I’ve seen “air contrast enema”, “air enema,” “contrast enema” all as answers. I also had a student simply get “water"
+    }
+  ],
+  "lynch-syndrome": [
+    {
+      "q": "20M + FHx of CRC + has ten polyps seen on colonoscopy; Dx?",
+      "a": "HNPCC (Lynch syndrome), not FAP à FAP has hundreds or thousands of polyps on colonoscopy; HNPCC has “some polyps.”"
+    },
+    {
+      "q": "22F + has 30 polyps on colonoscopy + mom died of endometrial cancer; Dx?",
+      "a": "HNPCC à Lynch syndrome associated with gyn tumors such as ovarian + endometrial, as well as other organ system tumors such as pancreas, stomach, and small bowel. Testicular + prostate very r are, but gyn common."
+    }
+  ],
+  "colorectal-cancer": [
+    {
+      "q": "Virchow node (Troisier sign)?",
+      "a": "palpable supraclavicular lymph node that can reflect visceral malignancy, especially gastric cancer. Hyperbilirubinemia"
+    }
+  ],
+  "molecular-pathogenesis-of-colorectal-cancer": [
+    {
+      "q": "HY pathogenesis is: GERD?",
+      "a": "Barrett esophagus à adenocarcinoma."
+    }
+  ],
+  "cirrhosis-and-portal-hypertension": [
+    {
+      "q": "Octreotide is a somatostatin analogue that can be used in addition to endoscopic banding for esophageal varices Tx?",
+      "a": "leads to ¯ portal blood flow/pressure. Ghrelin"
+    },
+    {
+      "q": "Asked on 2CK Surg. What they’re going to do is give you a long, no nsense paragraph with ALP and direct bilirubin + they say “CT shows a cystic structure within the biliary tree.” Answer = “simple excision of the cyst.” Students are huh, what’s going on here?",
+      "a": "choledochal cyst. You have to just excise it. Bullshit/du mb diagnosis. Take it up with NBME not me. Primary biliary cirrhosis"
+    },
+    {
+      "q": "There is a new 2CK Q where they give ascites in patient with cirrhosis, but do not mention fever or abdominal pain. However, they say paracentesis shows 900 WBC s / μ L?",
+      "a": "answer = “antibiotic therapy.” It should be made clear though that ~ 6/7 SBP Qs will give abdo pain and fever."
+    }
+  ],
+  "budd-chiari-syndrome": [
+    {
+      "q": "28F + pregnant + severe, acute abdo pain + jaundice + hepatomegaly + ascites + encephalopathy; Dx?",
+      "a": "Budd"
+    }
+  ],
+  "spontaneous-bacterial-peritonitis": [
+    {
+      "q": "There is a 2CK Peds Q where they say kid with minimal change disease (nephrotic syndrome) has abdo pain + fever?",
+      "a": "answer = spontaneous bacterial peritonitis."
+    },
+    {
+      "q": "2CK Surg Q gives cancer at anal verge + asks for next best step in management?",
+      "a": "answer = colonoscopy; excision is wrong answer. Presumably the scoping is done to first investigate the extent of the disease, as that might alter management. HY GI bacterial infections Gram"
+    },
+    {
+      "q": "What is Tropical sprue?",
+      "a": "malabsorptive disease characterized by flattening of intestinal villi (similar to Celiac histo); etiology obscure/manifold but bacterial infection is accepted as one cause; Tx = Abx (e.g., doxycycline)."
+    },
+    {
+      "q": "Me chanism for C. diff infection?",
+      "a": "“Ingestion of spores” is correct over “bacterial overgrowth” on the USMLE à yes, disruption of normal flora leads to C. diff overgrowth, but ingestion of spores is correct answer on NBME exam."
+    },
+    {
+      "q": "45M + c irrhosis + fluid wave + fever + abdo pain ; Dx?",
+      "a": "spontaneous bacterial peritonitis (SBP)"
+    },
+    {
+      "q": "Brown pigment stones?",
+      "a": "bacterial infection à bacteria deconjugate bilirubin, making it less water soluble à stone precipitation."
+    }
+  ],
+  "alcohol-associated-liver-disease": [
+    {
+      "q": "Hemolysis or RBC turnover can cause direct bilirubin to go sometimes as well, but the shift will be more towa rd indirect being . I point this out because students often get confused by this, but if we have indirect bilirubin going into the liver, then this means direct bilirubin going out. A 2CK NBME Q gives 9 packs of RBCs given during surgery?",
+      "a": "days later, total bilirubin is 5.0 and direct bilirubin 2.3 à answer = “overproduction of bilirubin.”"
+    },
+    {
+      "q": "S teatorrhea in alcoholic or patient with recurrent acute pancreatitis episodes?",
+      "a": "results in pancreatic burnout with ¯ production of pancreatic enzymes à ¯ proteases/lipases à malabsorption."
+    },
+    {
+      "q": "D titers.” They ask reason why fetal HR is?",
+      "a": "answer = “Rh isoimmuniziation” à destruction of fetal RBCs à ¯ oxygen delivery within fetal circulation à HR to compensate. Hemolytic disease of the newborn (ABO type)"
+    },
+    {
+      "q": "alcoholic steatohepatitis.” Student says, “Wait, but the labs are completely normal though.?",
+      "a": "Exactly. There’s nothing wrong. But it’s assumed most overweight people have some degree of fatty liver."
+    }
+  ],
+  "steatotic-liver-disease": [
+    {
+      "q": "Hemolysis or RBC turnover can cause direct bilirubin to go sometimes as well, but the shift will be more towa rd indirect being . I point this out because students often get confused by this, but if we have indirect bilirubin going into the liver, then this means direct bilirubin going out. A 2CK NBME Q gives 9 packs of RBCs given during surgery?",
+      "a": "days later, total bilirubin is 5.0 and direct bilirubin 2.3 à answer = “overproduction of bilirubin.”"
+    },
+    {
+      "q": "D titers.” They ask reason why fetal HR is?",
+      "a": "answer = “Rh isoimmuniziation” à destruction of fetal RBCs à ¯ oxygen delivery within fetal circulation à HR to compensate. Hemolytic disease of the newborn (ABO type)"
+    }
+  ],
+  "hepatic-encephalopathy": [
+    {
+      "q": "Bile acid sequestrant. Causes reduced enterohepatic circulation of bile acids at terminal ileum?",
+      "a": "liver must now convert more cholesterol into bile acids in order to replenish them à liver pulls cholesterol out of the blood to accomplish this. Orlistat"
+    },
+    {
+      "q": "Level of celiac trunk and main branches + what’s it supply?",
+      "a": "T12; splenic artery, common hepatic artery, left gastric artery; supplies foregut (mouth to duodenum at ampulla of Vater)."
+    }
+  ],
+  "benign-neonatal-hyperbilirubinemia": [
+    {
+      "q": "Virchow node (Troisier sign)?",
+      "a": "palpable supraclavicular lymph node that can reflect visceral malignancy, especially gastric cancer. Hyperbilirubinemia"
+    }
+  ],
+  "biliary-atresia": [
+    {
+      "q": "Step 1 NBME Q wil l give you pain from biliary colic after patient eats a fatty meal, and then they’ll ask for where the hormone responsible is secreted?",
+      "a": "answer = “neuroendocrine cells of small bowel.” Secretin"
+    },
+    {
+      "q": "Asked on 2CK Surg. What they’re going to do is give you a long, no nsense paragraph with ALP and direct bilirubin + they say “CT shows a cystic structure within the biliary tree.” Answer = “simple excision of the cyst.” Students are huh, what’s going on here?",
+      "a": "choledochal cyst. You have to just excise it. Bullshit/du mb diagnosis. Take it up with NBME not me. Primary biliary cirrhosis"
+    }
+  ],
+  "hereditary-hyperbilirubinemias": [
+    {
+      "q": "44M + fasting glucose of 112 mg/dL + dark skin on forearms + arthritis; Dx?",
+      "a": "hereditary he mochromatosis à AR, chromosome 6, HFE gene, C282Y or H63D missense mutations account for 90% à “Bronze diabetes” à hyperpigmentation (from hemosiderin deposition) + diabetes due to iron deposition in tail of pancreas (normal fasting glucose is 72"
+    }
+  ],
+  "wilson-disease": [
+    {
+      "q": "Parkinsonism in young patient; Dx?",
+      "a": "Wilson disease (AR, chromosome 13)"
+    },
+    {
+      "q": "23F + unilateral resting tremor + increased LFTs + hemolytic anemia; Dx?",
+      "a": "Wilson disease"
+    },
+    {
+      "q": "Important serum/blood findings in Wilson?",
+      "a": "decreased ceruloplasmin; increased urinary copper."
+    },
+    {
+      "q": "Tx for Wilson disease?",
+      "a": "penicillamine (copper chelator)."
+    },
+    {
+      "q": "Opposite” of Wilson disease?",
+      "a": "Menkes d isease (can’t absorb intestinal copper)."
+    },
+    {
+      "q": "What part of the brain is damaged in Wilson?",
+      "a": "USMLE wants putamen (they will show you a transverse head CT and expect you to pick out the letter labeling the putamen)."
+    }
+  ],
+  "hemochromatosis": [
+    {
+      "q": "ray of hands shows DIP involvement; what’s the Dx for the type of arthritis?",
+      "a": "answer = pseudogout, not osteoarthritis. Student says wtf? The two most common etiologies for pseudogout are hemochromatosis and primary hyperp arathyroidism (pseudogout is calcium pyrophosphate deposition disease, and will present as either a monoarthritis of a large joint such as the knee, or as an osteoarthritis"
+    },
+    {
+      "q": "Tx of hereditary hemochromatosis?",
+      "a": "serial phlebotom y, not chelation therapy."
+    },
+    {
+      "q": "Why do men get hemochromatosis younger + with worse Sx than women?",
+      "a": "menstruation slows progression of disease."
+    },
+    {
+      "q": "Wha t is secondary hemochromatosis?",
+      "a": "aka transfusional siderosis (amazing to remember if you want to sound sophisticated) à due to chronic blood transfusions à each transfusion of RBCs"
+    },
+    {
+      "q": "Tx for secondary hemochromatosis (transfusional siderosis)?",
+      "a": "chelation therapy (e.g., deferoxamine), not serial phlebotomy."
+    },
+    {
+      "q": "Three main conditions causing hepatocellular carcinoma?",
+      "a": "HepB, HepC, hemochromatosis."
+    }
+  ],
+  "cholelithiasis-and-related-pathologies": [
+    {
+      "q": "Another NBME Q gives vignette of cholelithiasis, and then rather than asking for the diagnosis, they ask what the patient most likely has?",
+      "a": "a nswer = “lithogenic bile.” Slightly awkward, but means promoting the formation of stones."
+    },
+    {
+      "q": "52F + 2 kids + BMI 28 + recurrent colicky epigastric pain; next best step in Dx?",
+      "a": "ultrasound (cholelithiasis)."
+    },
+    {
+      "q": "Random vignette of sickle cell anemia; Q asks you which of the following is the patient at increased risk of + all answers seem obscure?",
+      "a": "answer = cholelithiasis à black pigm ent stones."
+    },
+    {
+      "q": "Ursode oxycholic acid (Ursodiol)?",
+      "a": "naturally occurring bile acid given to patients with cholesterol cholelithiasis as an alternative to cholecystectomy. On USMLE, Dx of cholelithiasis = abdominal ultrasound, followed by Tx = cholecystectomy. Ursodiol can be given to select patients but is not considered the universal next best step."
+    }
+  ],
+  "cholangiocarcinoma": [
+    {
+      "q": "High ALP + high direct bilirubin + normal amylase or l ipase in someone with remote cholecystectomy + CT is negative?",
+      "a": "cholangiocarcinoma ."
+    }
+  ],
+  "pancreatic-adenocarcinoma": [
+    {
+      "q": "HY pathogenesis is: GERD?",
+      "a": "Barrett esophagus à adenocarcinoma."
+    },
+    {
+      "q": "USMLE will show graph of a hormone that causes volume of pancreatic secretions bu t pH and enzyme concentrations don’t?",
+      "a": "answer = VIP. Motilin"
+    },
+    {
+      "q": "Gallstone pancreatitis is a type of choledocholithiasis in which the stone has descended distally enough in the common bile duct that it now obstructs the hepatopancreatic ampulla. This results in a backflow of pancreatic enzymes to the pancreas c ausing damage?",
+      "a": "acute pancreatitis."
+    }
+  ],
+  "bismuth-sucralfate": [
+    {
+      "q": "USMLE wil l give you, e.g., prostatitis treated with ciprofloxacin, + list all sorts of other meds the patient is on, as well as a calcium supplement, and then tell you the patient’s condition isn’t improving + ask why?",
+      "a": "answer = calcium carbonate. Bismuth"
+    }
+  ],
+  "octreotide": [
+    {
+      "q": "Octreotide is a somatostatin analogue that can be used in addition to endoscopic banding for esophageal varices Tx?",
+      "a": "leads to ¯ portal blood flow/pressure. Ghrelin"
+    },
+    {
+      "q": "Octreotide?",
+      "a": "somatostatin analogue à in general, think of somatostain as a hormone that shuts of secretion of other hormones (e.g., GH, VIP); it also decreases portal blood flow à used for Tx of esophageal varices AFTER banding (endoscopic ligation) is performed; in other words, on the USMLE, choose banding for varices befo re octreotide; propranolol is mere prophylaxis (also decreases portal blood flow)."
+    }
+  ],
+  "orlistat": [
+    {
+      "q": "Bile acid sequestrant. Causes reduced enterohepatic circulation of bile acids at terminal ileum?",
+      "a": "liver must now convert more cholesterol into bile acids in order to replenish them à liver pulls cholesterol out of the blood to accomplish this. Orlistat"
+    }
+  ],
+  "rotator-cuff-muscles": [
+    {
+      "q": "Are there other shoulder conditions sometimes confused with rotator cuff injury?",
+      "a": "Yes. USMLE likes subacromial bursitis and biceps tendonitis as well. Frequently confused shoulder conditions for USMLE Subacromial bursitis vs rotator cuff tendonitis"
+    },
+    {
+      "q": "31F + was painting fence + pain in anterior/lateral shoulder that is worse when lying on side in bed + weakness on external rotation of shoulder; Q asks diagnosis?",
+      "a": "answer = rotator cuff tendonitis ."
+    },
+    {
+      "q": "17F + injured index finger at softball game + can’t flex dist al interphalangeal joint of right index finger; Q wants to know which tendon is most likely damaged?",
+      "a": "answer = flexor digitorum profundus; USMLE wants you to know that flexor digitorum superficialis does not flex the DIPs, but flexor digitorum profundus do es. o “Wait, are you saying we need to know all about hand/forearm muscles and tendons, etc. then?” à No. USMLE really doesn’t give a fuck about hyper"
+    },
+    {
+      "q": "The answer on USMLE if they say old woman has difficulty fastening buttons + weakness of hand muscles + loss of sensation of little finger?",
+      "a": "answer = “C7"
+    },
+    {
+      "q": "79F + difficulty fastening buttons + weakness of hand muscles + numbness in 5 th finger; Q wants diagnosis?",
+      "a": "answer = “C7"
+    },
+    {
+      "q": "Does USMLE care about knowing all of the muscles and their insertions/origins, etc.?",
+      "a": "USMLE does have random Qs where they show MRI cross"
+    }
+  ],
+  "wrist-region": [
+    {
+      "q": "Proximal compression (i.e., medial forearm + wrist/hand) is aka cubital tunnel syndrome and is one of the most underrated diagnoses on USMLE, since its yieldness, especially on 2CK, is comparable to carpal tunnel syndrome , but students often hav en’t heard of it . Essentially, patient will get paresthesias of medial forearm + hand, where i t “sounds like carpal tunnel but on the ulnar side instead?",
+      "a": "answer = cubital tunnel syndrome."
+    },
+    {
+      "q": "32F + office worker + paresthesias of lateral three fingers; wrist pad when using computer and wrist splint have not worked; next best step?",
+      "a": "answer = triamcinolone injection into carpal tunnel; NSAIDs are w rong answer."
+    },
+    {
+      "q": "ray shows midshaft fracture of humerus?",
+      "a": "radial nerve injury resulting in pronated arm with wrist drop."
+    },
+    {
+      "q": "old boy + arm has been adducted, pronated, and wrist flexed since birth but has gradually been improving with physiotherapy ; Q asks location of injury?",
+      "a": "answer = upper brachial plexus (C5"
+    }
+  ],
+  "hand-muscles": [
+    {
+      "q": "off test = pat ient places dorsal aspect of hand on lower back, with palm facing posteriorly?",
+      "a": "examiner applies pressure into the patient’s palm against his/her lower back à patient is then asked to move hand away under the pressure à if elicits pain / difficult to do, a nswer = subscapularis injury."
+    }
+  ],
+  "ankle-sprains": [
+    {
+      "q": "41F + random leg sensory issues + ankle jerk is impaired; Q asks nerve root?",
+      "a": "answer = S1."
+    },
+    {
+      "q": "Do I need to know ankle sprain stuff for USMLE?",
+      "a": "For both Steps 1 and 2CK Family Medicine , ye s."
+    },
+    {
+      "q": "ray of the ankle + tell you the patient had forcible eversion of the ankle + they ask what’s injured?",
+      "a": "a nswer = deltoid ligament."
+    },
+    {
+      "q": "40M + playing basketball + rolls ankle + pain anterior to lateral malleolus + swelling of ankle + no pain posterior to lateral malleolus + patient can bear weight; Q wants next best step in manage ment?",
+      "a": "answer = rest, ice, compression, elevation (RICE); wrong answer is x"
+    },
+    {
+      "q": "26F + went running and rolled her ankle + pain in lateral ankle + tenderness posterior to malleolus + can bear weight; Q wants next best step?",
+      "a": "answer = x"
+    }
+  ],
+  "signs-of-lumbosacral-radiculopathy": [
+    {
+      "q": "leg test elicits pain; Q wants ne xt best step in management?",
+      "a": "answer = “no diagnostic studies indicated”; Dx is lumbosacral strain; negative radiculopathy makes disc herniation less likely; straight"
+    }
+  ],
+  "motor-neuron-action-potential-to-muscle-contraction": [
+    {
+      "q": "31M + in wilderness for 3 weeks without food; Q asks what allows him to maintain normal serum glucose levels during this time; answer = “skeletal muscle protein?",
+      "a": "you must know that skeletal muscle does not contain glucose"
+    },
+    {
+      "q": "Q on offline Step 1 NBME form asks why ATP does not fall appreciably during a series of muscle twitches?",
+      "a": "answer = “ATP is quickly regenerating from creatine phosphate.”"
+    },
+    {
+      "q": "I know upper limb nerves are HY . What do I need to know for USMLE without all of the bullshit.?",
+      "a": "You need to know the injuries associated with the nerves, and then just basic motor/sensory issues. Upper limb nerve HY Points for USMLE Axillary"
+    }
+  ],
+  "types-of-skeletal-muscle-fibers": [
+    {
+      "q": "31M + in wilderness for 3 weeks without food; Q asks what allows him to maintain normal serum glucose levels during this time; answer = “skeletal muscle protein?",
+      "a": "you must know that skeletal muscle does not contain glucose"
+    }
+  ],
+  "clavicle-fractures": [
+    {
+      "q": "What do I need to know about shoulder anatomy for USMLE?",
+      "a": "USMLE is known to occasionally give images of shoulder, clavicular, and humeral fractures. Spending a few moments to gain an idea of normal shoulder anatomy is not “nitpicky.”"
+    }
+  ],
+  "psoas-abscess": [
+    {
+      "q": "sided back pain radiating to flank + fever 102 F + pyelonephritis not listed as answer; Q wants d iagnosis?",
+      "a": "answer = psoas abscess; just be aware of it as a DDx ; most likely organism is Staph aureus ; Tx = surgical drainage + IV antibiotics. Other random joint/MSK disorders Lateral epicondylitis"
+    }
+  ],
+  "common-knee-conditions": [
+    {
+      "q": "Are there other shoulder conditions sometimes confused with rotator cuff injury?",
+      "a": "Yes. USMLE likes subacromial bursitis and biceps tendonitis as well. Frequently confused shoulder conditions for USMLE Subacromial bursitis vs rotator cuff tendonitis"
+    },
+    {
+      "q": "21F + paresthesias o f the hand and forearm + sometimes exacerbated by wearing backpack for long periods; Q wants diagnosis?",
+      "a": "answer = thoracic outlet syndrome; common cause is “first cervical rib.” USMLE just wants you to know there’s some strange anatomic variant of the cerv ical ribs where"
+    },
+    {
+      "q": "41F + pain radiating down distal anterior thigh, knee, medial leg, and medial foot; compression of nerve root in which intervertebral foramina is most likely the cause of her symptoms?",
+      "a": "answer = L3"
+    },
+    {
+      "q": "41F + random leg sensory issues + knee jerk is impaired; Q asks nerve root?",
+      "a": "answer = L4."
+    },
+    {
+      "q": "49F + l eft knee pain + BMI 40 + Q asks what would most likely have prevented this patient’s condition?",
+      "a": "answer = weight loss; diagnosis is osteoarthritis (OA). As easy as it gets, but this Q is rampant on USMLE."
+    }
+  ],
+  "common-pediatric-fractures": [
+    {
+      "q": "What do I need to know about shoulder anatomy for USMLE?",
+      "a": "USMLE is known to occasionally give images of shoulder, clavicular, and humeral fractures. Spending a few moments to gain an idea of normal shoulder anatomy is not “nitpicky.”"
+    }
+  ],
+  "achondroplasia": [
+    {
+      "q": "4M + short arms and legs; trunk and head are normal size ; parents are normal; Q wants mechanism for patient’s condition?",
+      "a": "answer = gonadal (germline) mosaicism; diagnosis is achondroplasia; disease is constitutive activation of FGFR3 gene; results in failed cartilage conversion into bone; presents as shortened limbs but normal head size and postural height (trunk size) ; condition is autosomal dominant, but both parents will usually be of normal height, which means the original mutation occurred in a gonadal cell (usually a spermatogoni um of the father), where th e child has 100% of cells affected as a result, despite the father being unaffected. I also talk about this stuff in more detail in my HY Biochem PDF."
+    }
+  ],
+  "osteoporosis": [
+    {
+      "q": "L ratio?",
+      "a": "bone resorption à osteoporosis."
+    },
+    {
+      "q": "What do I need to know about alkaline phosphatase (ALP) and bone?” o USMLE wants you t o know that increased osteoblast activity causes high ALP. This is why ALP levels go up when PTH is high, or why ALP is elevated in Paget disease of bone. o There is Q on one of the Step 1 NBMEs where they give weird craniofacial syndrome + low serum ALP; they ask what cell is defective?",
+      "a": "answer = osteoblast; students have freaked out to me over this Q (“w e need to know this crazy/weird syndrome??”) à No. The syndrome is irrelevant. The Q says low ALP, so they just want the osteoblast as the cell that’s fucked up. HY Bone density/architectu ral conditions Osteoporosis"
+    },
+    {
+      "q": "If Q gives old woman who has femoral fracture + no mention of osteoporosis in the question, answer = “activity level before fracture” as most important predictor of success in the rehabilitation of the patient?",
+      "a": "weight"
+    },
+    {
+      "q": "Compression fractures = osteoporosis on USMLE ; e.g., patient with RA on steroids who has compression fracture?",
+      "a": "easy Dx of osteoporosis."
+    },
+    {
+      "q": "62F + shows graph with lines of bone density for two different women without family history of osteoporosis; Q asks what is the reason why one woman has higher bone density than the other?",
+      "a": "answer = ethnicity; black race is protective against osteoporosis."
+    },
+    {
+      "q": "L ratio?",
+      "a": "bone resorption à osteoporosis."
+    },
+    {
+      "q": "22F + runs a lot + BMI 20 + no other issues; Q asks what patient is at increased risk for?",
+      "a": "answer = osteoporosis; makes no sense, as BMI isn’t low, but this is asked on 2CK NBME form."
+    }
+  ],
+  "osteopetrosis": [
+    {
+      "q": "CSF) causes the differentiation of osteoclast precursors into osteoclasts. This is asked on one of the Step 1 NBME forms, where they give osteopetrosis and ask something along the lines of, “The cell l ineage that’s fucked up in this condition requires which of the following?",
+      "a": "answer = GM"
+    }
+  ],
+  "avascular-necrosis-of-bone": [
+    {
+      "q": "What do I need to know about bones of hand / wrist?",
+      "a": "USMLE likes carpal bones. o The two rows of carpal bones (i.e., proximal and distal) , from lateral to medial, are: “She Looks Too Pretty. Try To Catch Her.” § First row: Scaphoid, Lunate, Triquetrum, Pisiform; § Second row: Trapezium, Trapezoid, Capitate, Hamate."
+    },
+    {
+      "q": "hematologic cell line antibodies. Antibodies can also target WBC and RBC?",
+      "a": "looks like aplastic anemia, but it’s not à answer = “increased peripheral destruction,” not “decreased bone marrow production.”"
+    },
+    {
+      "q": "31F + arthritis of hands + low platelets + low WBCs + low hemoglobin; Q asks mechanism for this patient’s hematologic findings?",
+      "a": "answer = “increased peripheral destruction”; wrong answer = “defective bone marrow production”; in SLE, patients can have antibodies against their hematologic cell lines; isolated thrombocytopenia is most common, but antibodies resulting in leukopenia and erythropenia also can occur; this looks like aplastic anemia (e.g., from Parvo), b ut it’s not."
+    }
+  ],
+  "gout": [
+    {
+      "q": "ray shows chondrocalcinosis?",
+      "a": "answer simply = pseudogout."
+    },
+    {
+      "q": "45M + sore knee + drinks alcohol + takes daily aspirin for ischemic heart disease; Q wants to know treatment for this patient’s condition?",
+      "a": "answer = indomethacin; steroids are wrong answer; diagnosis is acute gout; student says, “But why do we give NSAID as Tx if patient is taking daily aspirin, which is an NSAID?” à it’s what the NBME exam wants; daily low"
+    }
+  ],
+  "calcium-pyrophosphate-deposition-disease": [
+    {
+      "q": "39M + left knee pain + hyperpigmentation of forearms + increased serum glucose; Q asks what is most likely to be seen on joint aspirate?",
+      "a": "answer = calcium pyrophosphate; diagnosis is pseudogout; biggest risk factors are hereditary hemochromatosis and primary hyperparathyroidism; patient here has “bronze diabetes,” which is buzzy presentation for hemochromatosis; hyperpigmentation is hemosid erin deposition; high glucose is from iron deposition in tail of pancreas."
+    },
+    {
+      "q": "40M + sore shoulder + ESR not elevated; Q asks what’s most likely to be seen on joint aspiration?",
+      "a": "answer = basic calcium phosphate à BCP crystals cause “Milwaukee shoulder,” which is a cold (non"
+    },
+    {
+      "q": "4M + came to USA from Ireland with parents one year ago + has bowed tibias; Q asks serum calcium, phosphate, and PTH?",
+      "a": "answer = low calcium, low phosphate, high PTH; diagnosis is rickets with genu varum."
+    }
+  ],
+  "systemic-juvenile-idiopathic-arthritis": [
+    {
+      "q": "46M + diabetic + difficulty moving shoulder passively and actively in all directions; Q just simply wants the diagnosis?",
+      "a": "answer = adhesive capsulitis (aka arthrofibrosis, or “frozen shoulder”); idiopathic condition with decreased movement of shoulder in all directions +/"
+    },
+    {
+      "q": "65M + painful neck + no neurologic findings + elective MRI shows degenerative changes of cervical spine; Q asks most likely diagnosis?",
+      "a": "answer = cervical spondylosis; this is merely osteoarthritic degenerative changes to the cervical vertebrae; it is idiopathic, but often has familial association."
+    }
+  ],
+  "septic-arthritis": [
+    {
+      "q": "B27 constellation ( PAIR?",
+      "a": "P soriasis, A nkylosing spondylitis, I BD, R eactive arthritis)."
+    },
+    {
+      "q": "49F + l eft knee pain + BMI 40 + Q asks what would most likely have prevented this patient’s condition?",
+      "a": "answer = weight loss; diagnosis is osteoarthritis (OA). As easy as it gets, but this Q is rampant on USMLE."
+    },
+    {
+      "q": "29F + history of intermittent wrist and knee pain + presents today with fever 101 F and a hot, red, painful knee; Q wants next best step in diagnosis?",
+      "a": "answer = arthrocentesis; diagnosis is septic arthritis in patient with underlying RA."
+    },
+    {
+      "q": "49F + advanced rheumatoid arthritis + un dergoing cholecystectomy; Q asks what needs to be done prior to surgery?",
+      "a": "answer = “flexion and extension x"
+    },
+    {
+      "q": "51M + advanced rheumatoid arthritis + paresthesias of upper limbs; Q asks next step in diagnosis?",
+      "a": "answer = MRI of cervical spine; Q has nothing to do with surgery, but upper limb neurologic findings in RA patient suggest atlant oaxial subluxation."
+    },
+    {
+      "q": "42F + sore wrists and knee + diffuse pruritis + high serum cholesterol, direct bilirubin, and ALP; Q asks for treatment of jaundice?",
+      "a": "answer = ursodeoxycholic acid (ursodiol); patient has rheumatoid arthritis and primary biliary cirrhos is; remember that “autoimmune diseases go together”; USMLE also wants you to know MOA of ursodiol is “decreased secretion of cholesterol into bile)."
+    }
+  ],
+  "osteomyelitis": [
+    {
+      "q": "14F + sickle cell + painful, red, hot knee; Q asks most likely organism?",
+      "a": "answer = Staph aureus ; Salmonella , although a common cause of osteomyelitis in sickle cell, there is not increased risk of it causing septic arthritis."
+    },
+    {
+      "q": "8M + sickle cell disease + pain in foot for 3 weeks + fever 102 F + WBCs 14,000/ μ L; Q wants most likely organism?",
+      "a": "answer = Salmonella spp. ; if Q gives you sickle cell with osteomyelitis, the organism they want is Salmonella . You still need to use your head though. If they say “gram"
+    },
+    {
+      "q": "47M + immigrant to USA from Albania + history of tuberculosis + pain over T9/T10 vertebrae; Q wants diagnosis?",
+      "a": "answer = vertebral osteomyelitis (Pott disease)."
+    },
+    {
+      "q": "12M + fever 101 F + pain in left forearm + bone scan shows uptake in the diaphysis; Q asks diagnosis?",
+      "a": "answer = Ewing sarcoma; can present similarly to osteomyelitis, except bone scan is more likely to sh ow uptake in the diaphysis; in osteomyelitis, the uptake is in the metaphysis."
+    }
+  ],
+  "systemic-lupus-erythematosus": [
+    {
+      "q": "30F + arthritis of hands + low platelets + no other information; Q asks most likely diagnosis?",
+      "a": "answer = SLE; you need to know lupus can present with low platelets due to antibodies causing peripheral destruction; arthritis is most common presenting feature of lupus."
+    },
+    {
+      "q": "34M + sore hands and knee + malar rash + question asks what’s most likely to be deficient in this patient?",
+      "a": "answer = C1q; for whatever reason, complement protein C1q deficiency is a cause of lupus. Also remember that in acute flares, C3 decrea ses and dsDNA Abs increase."
+    },
+    {
+      "q": "Patient presents as having combined features/symptoms from three different disorders?",
+      "a": "LPS à Lupus, Polymyositis, Scleroderma."
+    },
+    {
+      "q": "7 days following injection of a drug = serum sickness = type III hypersensitivity (immune complexes). o USMLE will give you image of malar rash of lupus (type III hypersensitivity) and then ask which condit ion is most similar?",
+      "a": "answer = Arthus reaction, or serum sickness, or PSGN."
+    }
+  ],
+  "polymyalgia-rheumatica": [
+    {
+      "q": "month history of pain and stiffness of shoulders + elevated ESR ; Q wants diagnosis?",
+      "a": "answer = polymyalgia rheumatica (PMR); presents as pain and stiffness of proximal muscles, usually in patient over 50; Q will not mention anything about elevated CK or weakness on physical exam."
+    },
+    {
+      "q": "64F + bilateral temporal headache + slightly blurry vision on left + high ESR + bilateral hip pain; Q wants next best step?",
+      "a": "answer = “IV methylprednisolone”; temporal (giant cell) arteritis can show up bilaterally on NBME forms; do steroids first to prevent blindness, then do biopsy of temporal artery ; the patie nt’s hip pain is polymyalgia rheumatica, which is linked with temporal arteritis."
+    }
+  ],
+  "scleroderma": [
+    {
+      "q": "Patient presents as having combined features/symptoms from three different disorders?",
+      "a": "LPS à Lupus, Polymyositis, Scleroderma."
+    }
+  ],
+  "skin-layers": [
+    {
+      "q": "month history of low energy and fatigue + gradually lengthening periods + HR 60 + hepatic AST, total cholesterol, and serum creatine kinase are elevated; Q asks most likely d iagnosis?",
+      "a": "answer = hypothyroidism (Hashimoto); elevated CK is due to hypothyroid myopathy, which may or may not present with proximal muscle weakness in the vignette; transaminases can be elevated in thyroid dysfunction; USMLE likes menstrual irregularities, bradyc ardia, high cholesterol, dysthymia, doughy skin, and carpal tunnel syndrome in hypothyroidism. Details such as cold intolerance, weight gain, brittle hair, and constipation are often omitted because they’re too easy/buzzy."
+    }
+  ],
+  "epithelial-cell-junctions": [
+    {
+      "q": "hematologic cell line antibodies. Antibodies can also target WBC and RBC?",
+      "a": "looks like aplastic anemia, but it’s not à answer = “increased peripheral destruction,” not “decreased bone marrow production.”"
+    }
+  ],
+  "pigmented-skin-disorders": [
+    {
+      "q": "sided back pain radiating to flank + fever 102 F + pyelonephritis not listed as answer; Q wants d iagnosis?",
+      "a": "answer = psoas abscess; just be aware of it as a DDx ; most likely organism is Staph aureus ; Tx = surgical drainage + IV antibiotics. Other random joint/MSK disorders Lateral epicondylitis"
+    },
+    {
+      "q": "47M + alcoholic + found on bench in park + serum potassium elevated + urine shows brown pigmented casts; Q wants most likely diagnosis?",
+      "a": "answer = rhabdomyolysis; urine can be either false"
+    },
+    {
+      "q": "Patient presents as having combined features/symptoms from three different disorders?",
+      "a": "LPS à Lupus, Polymyositis, Scleroderma."
+    }
+  ],
+  "vascular-tumors-of-skin": [
+    {
+      "q": "63M + pain in buttocks and thighs when walking + no cardiovascular disease + peripheral pulses normal; Q wants to know diagnosis?",
+      "a": "answer = lumbar spinal stenosis; this presentation is “neurogenic claudication,” where the vignette sounds like intermittent claudication due to aortoiliac atherosclerosis, but the patient will have no cardiovascular disease history and they’ll say peripheral pulses are normal; this is due to osteoarthritic changes in the lumbar spine."
+    }
+  ],
+  "autoimmune-blistering-skin-disorders": [
+    {
+      "q": "34M + walks in bent over at the waist with chest pain + painful wrists and knee + hemoglobin of 10 g/dL; Q asks how to treat the patient’s hematologic findings?",
+      "a": "answer = “no specific therapy indicated”; patient has RA; autoimmune diseases can present with serous pericarditis (patient bends / leans forward to relieve chest pain) and anemia of chronic disease; even though we treat the underlying condition (i.e., th e RA in this case), I’ve seen NBME write “no specific therapy indicated” for anemia of chronic disease in this situation; do not give EPO for AoCD unless the etiology is renal failure. EPO is wrong answer otherwise."
+    }
+  ],
+  "estimation-of-body-surface-area": [
+    {
+      "q": "pink body rash + presents today with hot, red, painful knee with limited mobility; Q wants to know most likely diagnosis (JRA not listed)?",
+      "a": "answer = septic arthritis; as discussed earlier, JRA is a risk factor for septic arthritis, so although patient has JRA above, the acute diagnosis is SA; USMLE will often give this type of Q where they have “toxic synovitis” as a wrong answer choice (easy, since we discussed above toxic synovitis is hip pain after viral infection; toxic synovitis is never the knee); salmon"
+    }
+  ],
+  "nonsteroidal-anti-inflammatory-drugs": [
+    {
+      "q": "hematologic cell line antibodies. Antibodies can also target WBC and RBC?",
+      "a": "looks like aplastic anemia, but it’s not à answer = “increased peripheral destruction,” not “decreased bone marrow production.”"
+    }
+  ],
+  "neural-tube-defects": [
+    {
+      "q": "herpetic neuralgia (i.e., from shingles)?",
+      "a": "gabapentin"
+    },
+    {
+      "q": "40s with 11/10 lancinating pain behind the eye waking him up at night (he may pace around the room until it goes away); details such as lacrimation and rhinorrhea are too easy and will likely not show up on the shelf. In contrast, trigeminal neuralgia will be 11/10 lancinating pain behind the eye (or along the cheek / jaw if V2 or V3 branches affected; it’s when V1 is affected that this diagnoses are more readily confused)?",
+      "a": "TN is brought on by a minor stimulus such as brushing one’s hair or teeth, or a gust of wind."
+    }
+  ],
+  "grief": [
+    {
+      "q": "72M + wife passed away 7 months ago + still grieves; Dx?",
+      "a": "pathological grief (normal grief is <6 months)."
+    }
+  ],
+  "normal-infant-and-child-development": [
+    {
+      "q": "Example is a child being dropped off at summer camp + says he can’t move his finger?",
+      "a": "child is likely stressed by being separated from parents."
+    },
+    {
+      "q": "Vignette might say the woman leaves her baby in crib alone crying for long periods of time, or the child has soiled diapers (i.e., no t catered to)?",
+      "a": "answer = “immediate psychiatric referral.”"
+    }
+  ],
+  "child-abuse": [
+    {
+      "q": "Example is a child being dropped off at summer camp + says he can’t move his finger?",
+      "a": "child is likely stressed by being separated from parents."
+    }
+  ],
+  "delirium": [
+    {
+      "q": "Another 2CK Neuro CMS Q gives easy vignette of temporal arteritis and then asks next best step in diagnosis?",
+      "a": "answer = biopsy. Steroids aren’t part of the answer. Makes sense, since they’re asking for a diagnostic step. Delirium"
+    }
+  ],
+  "mood-disorder": [
+    {
+      "q": "74M + MMSE 22/30 + avoids eye contact + weight loss + low mood; DX and Tx?",
+      "a": "pseudodementia à Tx = sertraline (SSRI), not donepezil."
+    },
+    {
+      "q": "Main way to differ entiate pseudodementia from dementia?",
+      "a": "pseudodementia is depression that presents as cognitive decline; vignette may describe weight loss or gain , avoidance of eye contact, low mood, and/or tearing up during interview; vignette may also mention poor perfo rmance on the reverse serial 7s of the MMSE, or the patient is slow drawing a clockface but can rapidly complete it once prompted (apathy); pseudodementia presents as apathy on MMSE; in contrast, patients with true dementia try on the MMSE."
+    }
+  ],
+  "schizophrenia-spectrum-disorders": [
+    {
+      "q": "old killed a cat; what’s the most likely diagnosis?",
+      "a": "answer = conduct disorder (because what he did is a crime); oppositional defiant disorder is wrong an swer. In short: In conduct disorder, the kid breaks the law. In oppositional defiant, the kid doesn't break the law. Personality disorders Cluster A (odd, eccentric) Paranoid"
+    },
+    {
+      "q": "23M + vignette sounds like he has schizophrenia + no mention of mood disord er + answer is schizoaffective; why?",
+      "a": "this is snapshot of the patient in the psychosis"
+    },
+    {
+      "q": "Wha t are the important timeframes for schizophrenia vs schizophreniform vs brief psychotic disorder?",
+      "a": "brief psychotic disorder is < 1 month; schizophreniform is 1"
+    }
+  ],
+  "bipolar-disorder": [
+    {
+      "q": "What is bipolar I vs II?",
+      "a": "bipol ar I is worse than II; both will have cycling episodes of mania and depression, but bipolar I will often tell you there’s Hx of hospitalization, or losing one’s job, friends, or relationships (socio"
+    }
+  ],
+  "major-depressive-disorder": [
+    {
+      "q": "Major characteristic in psych vignettes that suggests psychotic disorder?",
+      "a": "auditory hallucinations; in contrast, visual hallucinations are non"
+    },
+    {
+      "q": "What is cyclothymia vs dysthymia?",
+      "a": "cyclothymia is >2 years of swinging low + elevated moods, but never meets the thresholds for bipolar + never has true depressive episode. Dysthymia is >2 years of low moods not ever meeting thresholds for MDD."
+    },
+    {
+      "q": "60M + recovering from a recent MI; he is at high risk of which of the following?",
+      "a": "MDD à common following major adverse events (e.g., trauma, serious Dx); give sertraline for post"
+    }
+  ],
+  "depression-with-atypical-features": [
+    {
+      "q": "depressant therapy.” This confuses students (“But she doesn’t have depression though.”)?",
+      "a": "Right. But SNRIs and TCAs are still anti"
+    }
+  ],
+  "electroconvulsive-therapy": [
+    {
+      "q": "depressant therapy.” This confuses students (“But she doesn’t have depression though.”)?",
+      "a": "Right. But SNRIs and TCAs are still anti"
+    }
+  ],
+  "risk-factors-for-suicide-death": [
+    {
+      "q": "The Q can ask what the patient is at risk for later in life?",
+      "a": "answer = osteoporosis (reduced adipose à reduced estrogen)."
+    },
+    {
+      "q": "One NBME Q asks what giving thiamine will help reduce risk of in alcoholic?",
+      "a": "answer = ante rograde amnesia (apparently by reducing risk of confusion due to Wernicke), where retrograde amnesia isn’t listed as answer. General Ataxia"
+    }
+  ],
+  "panic-disorder": [
+    {
+      "q": "systolic click (mitral valve prolaps e) + ask you the cause of the patient’s symptoms?",
+      "a": "answer = panic disorder, not mitral valve prolapse. Student is confused because they say, “But wait, the patient has a mid"
+    },
+    {
+      "q": "systolic click + episode of hyperventilation and chest pain and sense of impending doom; Dx?",
+      "a": "panic attack = acute episode; recurrent episodes = panic disorder. Psych shelf will often try to make vignette sound cardiac; sometimes “mitral valve prolapse” will be listed as a wrong answer; student will say, “but there’s a mid"
+    },
+    {
+      "q": "Tx of panic attack vs p anic disorder?",
+      "a": "benzo on USMLE. For panic disorder, Tx = SSRI."
+    },
+    {
+      "q": "Fainting in panic disorder; why?",
+      "a": "answer = “decreased cerebral perfusion,” or “cerebral hypoperfusion”; hyperventilation à decreased CO2 à causes decreased cerebral blood flow."
+    }
+  ],
+  "generalized-anxiety-disorder": [
+    {
+      "q": "month Hx of multiple worries (i.e., career, marriage, kids going to college, etc.) + no overt moo d or psychotic Sx; Dx?",
+      "a": "generalized anxiety disorder (GAD) à Dx is >6 months of general worries without lack of specific stressor."
+    },
+    {
+      "q": "57M + recently divorced + now sleeping with new women + cannot ejaculate during sex + achieves erection d uring sex with no problem; Dx?",
+      "a": "performance anxiety."
+    }
+  ],
+  "obsessive-compulsive-disorders": [
+    {
+      "q": "old killed a cat; what’s the most likely diagnosis?",
+      "a": "answer = conduct disorder (because what he did is a crime); oppositional defiant disorder is wrong an swer. In short: In conduct disorder, the kid breaks the law. In oppositional defiant, the kid doesn't break the law. Personality disorders Cluster A (odd, eccentric) Paranoid"
+    },
+    {
+      "q": "45M + has repeated thoughts of harming his son + finds the thoughts absolutely outrageous and disturbing + say s he would never do such a thing; Dx + Tx?",
+      "a": "obsessive"
+    },
+    {
+      "q": "compulsive disorder (OCD)?",
+      "a": "obsessions are the thoughts; compulsions are the actions; OCD can be just obsessions without actions; Tx is CBT and/or SSRI."
+    }
+  ],
+  "trauma-and-stress-related-disorders": [
+    {
+      "q": "old killed a cat; what’s the most likely diagnosis?",
+      "a": "answer = conduct disorder (because what he did is a crime); oppositional defiant disorder is wrong an swer. In short: In conduct disorder, the kid breaks the law. In oppositional defiant, the kid doesn't break the law. Personality disorders Cluster A (odd, eccentric) Paranoid"
+    },
+    {
+      "q": "Example is a child being dropped off at summer camp + says he can’t move his finger?",
+      "a": "child is likely stressed by being separated from parents."
+    },
+    {
+      "q": "There is a Q on NBME where they say patient has loss of taste following trauma + neurologic exam shows no abnormalities?",
+      "a": "answer = olfactory nerve (CN I) palsy, not CN VII, due to cribriform plate fracture (loss of smell means loss of most taste). If the Q wanted CN VII lesion, they would give a concurrent Bell’s palsy presumably, since loss of taste wouldn’t happen in isolation with CN VII palsy."
+    }
+  ],
+  "malingering": [
+    {
+      "q": "42M prisoner + can’t feel his foot + pulses and reflexes normal; Dx + Tx?",
+      "a": "malingering (secondary gain – i.e., money, drugs, time away from prison; not willing to undergo invasive procedures) à “no treatment ind icated.”"
+    }
+  ],
+  "factitious-disorders": [
+    {
+      "q": "old killed a cat; what’s the most likely diagnosis?",
+      "a": "answer = conduct disorder (because what he did is a crime); oppositional defiant disorder is wrong an swer. In short: In conduct disorder, the kid breaks the law. In oppositional defiant, the kid doesn't break the law. Personality disorders Cluster A (odd, eccentric) Paranoid"
+    }
+  ],
+  "sexual-dysfunction": [
+    {
+      "q": "65M + wet, wobbly, wacky + Parkinsonism; Dx?",
+      "a": "normal pressure hydrocephalus (NPH) à urinary incontinence, ataxia, cognitive dysfunction; key point to make here is the Parkinsonism. Wiki it yourse lf, you’ll see."
+    },
+    {
+      "q": "acute neurologic findings + MMSE is 25/30 + no suicidal ideation; next best step?",
+      "a": "check serum B12 à subacute combined degeneration (SCD) = pattern of neurologic dysfunction s een in B12 deficiency."
+    },
+    {
+      "q": "Adverse effects of lithium and valproic acid?",
+      "a": "lithium causes Ebstein anomaly in pregnancy (atrialization of right ventricle in fetus); also tremor and thyroid dysfunction; valproic acid notoriously causes neural tube defects."
+    }
+  ],
+  "sleep-terror-disorder": [
+    {
+      "q": "35F + family member Dx with breast cancer + says she can’t sleep; Q asks which med to give?",
+      "a": "answer on Psych NBME = clonazepam à benzo OK for acute Tx of ins omnia; never prescribe chronically."
+    }
+  ],
+  "elimination-disorders": [
+    {
+      "q": "old killed a cat; what’s the most likely diagnosis?",
+      "a": "answer = conduct disorder (because what he did is a crime); oppositional defiant disorder is wrong an swer. In short: In conduct disorder, the kid breaks the law. In oppositional defiant, the kid doesn't break the law. Personality disorders Cluster A (odd, eccentric) Paranoid"
+    }
+  ],
+  "narcolepsy": [
+    {
+      "q": "Mechanism of narcolepsy?",
+      "a": "answer = deficiency of orexin (hypocretin)."
+    },
+    {
+      "q": "Diagnosis of narcolepsy?",
+      "a": "answer = polysomnography."
+    },
+    {
+      "q": "What is cataplexy?",
+      "a": "loss of muscle tone usually in response to emotional stimulus (e.g., laughter) à seen in narcolepsy."
+    },
+    {
+      "q": "Polysomnography findings in narcolepsy?",
+      "a": "REM latency: ¯ ; sleep latency: ¯ ."
+    }
+  ],
+  "wernicke-korsakoff-syndrome": [
+    {
+      "q": "One NBME Q asks what giving thiamine will help reduce risk of in alcoholic?",
+      "a": "answer = ante rograde amnesia (apparently by reducing risk of confusion due to Wernicke), where retrograde amnesia isn’t listed as answer. General Ataxia"
+    }
+  ],
+  "antipsychotics": [
+    {
+      "q": "clearing; most appropriate pharmacologic therapy?",
+      "a": "Psych sh elf answer = risperidone; can Tx with antipsychotics, alpha"
+    },
+    {
+      "q": "82M + confusion + on various meds; Dx?",
+      "a": "various answers on NBME are: “discontinuation of anticholinergic medications” ; “discontinuation of diphenhydramine” (1 st gen H 1 blocker); “discontinuation of amitriptyline” ; “discontinuation of doxepin” ; “discontinuation of desipramine” (all TCAs) à TCAs, 1 st generation H1 blockers, and 2 nd generation antipsychotics (atypicals) all cause a triad of side"
+    }
+  ],
+  "lithium": [
+    {
+      "q": "Tx for bipolar?",
+      "a": "lithium or valproic acid to start."
+    },
+    {
+      "q": "Adverse effects of lithium and valproic acid?",
+      "a": "lithium causes Ebstein anomaly in pregnancy (atrialization of right ventricle in fetus); also tremor and thyroid dysfunction; valproic acid notoriously causes neural tube defects."
+    }
+  ],
+  "potter-sequence": [
+    {
+      "q": "Tx for prostatic adenocarcinoma?",
+      "a": "flutamide + leuprolide administered together (if the USMLE forces you to choose a sequence, pick flutamide then leuprolide, but in practice the y’re administered together) à flutamide blocks androgen receptors; leuprolide is a GnRH receptor agonist (given continuously it shuts off LH + FSH secretion)."
+    }
+  ],
+  "horseshoe-kidney": [
+    {
+      "q": "This is for 2 r eas ons: 1) The kidney cannot reabsorb bicarb in the PCT as well, so bicarb in the urine?",
+      "a": "¯ bicarb in serum à metabolic acidosis. 2) The kidney cannot secrete protons (H + ) in the cortical collecting duct as readily à retention of H + mops up HCO 3"
+    }
+  ],
+  "posterior-urethral-valves": [
+    {
+      "q": "ADH is produced by supraoptic nucleus of hypothalamus?",
+      "a": "stored in posterior pituitary."
+    },
+    {
+      "q": "Central diabetes insipidus?",
+      "a": "means not enough ADH secretion by hypothalamus, or the posterior pituitary is unable to release it properly."
+    },
+    {
+      "q": "Hx of many pregnancies + downward movement of vesicourethral junction?",
+      "a": "stress incontinence ."
+    }
+  ],
+  "early-embryonic-development": [
+    {
+      "q": "The USMLE can ask the 3 rd and 4 th pouches as part of DiGeorge syndrome Qs. But they also like to assess that you know what they become independently – i.e., there is a missing superior parathyroid?",
+      "a": "answer = 4 th pouch is fucked up. Or there is an adenoma of an inferior parathyroid à answer = 3 rd pouch. More * garbage * repro developmental stuff (Step 1 only) Müllerian duct s"
+    }
+  ],
+  "embryologic-derivatives": [
+    {
+      "q": "What do I need to know about which bodily structures/organs originating from certain germ layers, i.e., ectoderm, etc.?” o Most embryologic derivative memorization is nonsense, especially now that Step 1 is P/F. o A good rule of thumb is: if you literally have no idea on a USMLE question what the answer is, neural crest is usually correct. I’d say this is the case in at least 3/4 of questions. o “Failure of neural crest migration” is answer for heart defects due to DiGeorge syndrome and fetal alcohol syndrome. It’s also answer for Hirschsprung disease. o Additionally, you sh ould be aware that pheochromocytoma, melanoma, and neurofibromatosis I/II are neural crest. o Craniopharyngioma = derived from Rathke pouch, which is the “roof of the primitive pharynx”; considered ectoderm. o Thyroglossal duct cyst = derived from “endoderm of foramen cecum”; the latter is the base of the tongue; in other words, the thyroid gland starts off embryologically at base of tongue and descends. o CAP = Clefts, Arches, Pouches; clefts (aka grooves) become ectoderm; arches become mesoderm; pouches become endoderm. o Ectoderm?",
+      "a": "highest"
+    }
+  ],
+  "types-of-errors-in-morphogenesis": [
+    {
+      "q": "Gardasil HPV vaccine protects against which types?",
+      "a": "6, 11 , 16, 18 (6+11 warts; 16+18 SCC)."
+    }
+  ],
+  "fetal-alcohol-syndrome": [
+    {
+      "q": "Amniotic band sy ndrome?",
+      "a": "fibrous bands from the amniotic membrane classically entangle a fetal limb or fingers, leading to amputation. HY incontinences for USMLE Stress"
+    }
+  ],
+  "placenta": [
+    {
+      "q": "Without fertilization, there is no placenta, hence no hCG present to maintain the corpus luteum?",
+      "a": "corpus luteum degrades à ¯ progesterone à endometrial lining cannot be maintained à sloughs à menstruation."
+    }
+  ],
+  "amniotic-fluid": [
+    {
+      "q": "Amniotic band sy ndrome?",
+      "a": "fibrous bands from the amniotic membrane classically entangle a fetal limb or fingers, leading to amputation. HY incontinences for USMLE Stress"
+    }
+  ],
+  "twin-twin-transfusion-syndrome": [
+    {
+      "q": "twin transfusion syndrome is greatest. o Splitting after day 12?",
+      "a": "conjoined twins."
+    }
+  ],
+  "umbilical-cord": [
+    {
+      "q": "Velamentous cord insertion = portion of fetal vessels normally protected by Wharton jell y within umbilical cord are exposed within the fetal membranes before they insert onto the placenta?",
+      "a": "risk of shearing/trauma à risk of bleeding."
+    }
+  ],
+  "orofacial-clefts": [
+    {
+      "q": "What do I need to know about which bodily structures/organs originating from certain germ layers, i.e., ectoderm, etc.?” o Most embryologic derivative memorization is nonsense, especially now that Step 1 is P/F. o A good rule of thumb is: if you literally have no idea on a USMLE question what the answer is, neural crest is usually correct. I’d say this is the case in at least 3/4 of questions. o “Failure of neural crest migration” is answer for heart defects due to DiGeorge syndrome and fetal alcohol syndrome. It’s also answer for Hirschsprung disease. o Additionally, you sh ould be aware that pheochromocytoma, melanoma, and neurofibromatosis I/II are neural crest. o Craniopharyngioma = derived from Rathke pouch, which is the “roof of the primitive pharynx”; considered ectoderm. o Thyroglossal duct cyst = derived from “endoderm of foramen cecum”; the latter is the base of the tongue; in other words, the thyroid gland starts off embryologically at base of tongue and descends. o CAP = Clefts, Arches, Pouches; clefts (aka grooves) become ectoderm; arches become mesoderm; pouches become endoderm. o Ectoderm?",
+      "a": "highest"
+    }
+  ],
+  "genital-embryology": [
+    {
+      "q": "hCG needs to be done in any female commencing it . o Warfarin?",
+      "a": "bone anomalies or bleeding in fetus. o Fluoroquinolones (e.g., ciprofloxacin) à cartilage abnormalities. o ACE inhibitors à renal defects. o Aminoglycosides à congenital hearing loss. o Diethylstilbestrol (DES) à vaginal clear cell carcinoma. o Alcohol à fetal alcohol syndrome; most common cause of mental retardation; philtrum changes are highest yield (i.e., long, smooth philtrum); hypertelorism; heart/lung defects. o Cocaine and smoking à i ntrauterine growth restriction (IUGR) due to reduced blood flow."
+    }
+  ],
+  "congenital-penile-abnormalities": [
+    {
+      "q": "This is the answer on USMLE for period pain under the age of 20. The Q can say, girl who is 17 has menstrual pain so bad she has to miss class + physical exam shows no abnormalities?",
+      "a": "answer = primary dysmenorrhea."
+    },
+    {
+      "q": "hCG needs to be done in any female commencing it . o Warfarin?",
+      "a": "bone anomalies or bleeding in fetus. o Fluoroquinolones (e.g., ciprofloxacin) à cartilage abnormalities. o ACE inhibitors à renal defects. o Aminoglycosides à congenital hearing loss. o Diethylstilbestrol (DES) à vaginal clear cell carcinoma. o Alcohol à fetal alcohol syndrome; most common cause of mental retardation; philtrum changes are highest yield (i.e., long, smooth philtrum); hypertelorism; heart/lung defects. o Cocaine and smoking à i ntrauterine growth restriction (IUGR) due to reduced blood flow."
+    }
+  ],
+  "drainage-of-reproductive-organs": [
+    {
+      "q": "What do I need to know about which bodily structures/organs originating from certain germ layers, i.e., ectoderm, etc.?” o Most embryologic derivative memorization is nonsense, especially now that Step 1 is P/F. o A good rule of thumb is: if you literally have no idea on a USMLE question what the answer is, neural crest is usually correct. I’d say this is the case in at least 3/4 of questions. o “Failure of neural crest migration” is answer for heart defects due to DiGeorge syndrome and fetal alcohol syndrome. It’s also answer for Hirschsprung disease. o Additionally, you sh ould be aware that pheochromocytoma, melanoma, and neurofibromatosis I/II are neural crest. o Craniopharyngioma = derived from Rathke pouch, which is the “roof of the primitive pharynx”; considered ectoderm. o Thyroglossal duct cyst = derived from “endoderm of foramen cecum”; the latter is the base of the tongue; in other words, the thyroid gland starts off embryologically at base of tongue and descends. o CAP = Clefts, Arches, Pouches; clefts (aka grooves) become ectoderm; arches become mesoderm; pouches become endoderm. o Ectoderm?",
+      "a": "highest"
+    }
+  ],
+  "female-reproductive-anatomy": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    }
+  ],
+  "adnexal-torsion": [
+    {
+      "q": "NBME Q gives adult with mass in the groin + no testicle palpable in the right hemiscrotum + they ask for what the groin mass is?",
+      "a": "answer = testicular carcinoma (increased risk because of cryptorchidism). Not hard, but I’ve seen students miss this. Testicular torsion"
+    },
+    {
+      "q": "PID + fever does not improve after several days on Abx; next best step?",
+      "a": "adnexal USS to look for tubo"
+    },
+    {
+      "q": "24F + Hx of ovarian cyst + colicky pelvic pain past few weeks + pain has become constant past couple days + 6x8cm palpable adnexal mass; Dx?",
+      "a": "ovarian/adnexal torsion (cyst is a risk factor)."
+    },
+    {
+      "q": "24F + Hx of ovarian cyst + intermittent pelvic pain for four hours that has become constant past two hours + 8x10cm palpable ad nexal mass; Dx?",
+      "a": "ovarian/adnexal torsion (pain may be weeks or hours)."
+    }
+  ],
+  "pelvic-organ-prolapse": [
+    {
+      "q": "For example, 2CK Obgyn CMS Q gives massive nonsense paragraph stem with woman at 14 weeks’ gestation + they mention at bottom of stem “funneled lower uterine segme nt?",
+      "a": "answer instantly = cervical incompetence. Urethral prolapse"
+    },
+    {
+      "q": "What do I need to know about which bodily structures/organs originating from certain germ layers, i.e., ectoderm, etc.?” o Most embryologic derivative memorization is nonsense, especially now that Step 1 is P/F. o A good rule of thumb is: if you literally have no idea on a USMLE question what the answer is, neural crest is usually correct. I’d say this is the case in at least 3/4 of questions. o “Failure of neural crest migration” is answer for heart defects due to DiGeorge syndrome and fetal alcohol syndrome. It’s also answer for Hirschsprung disease. o Additionally, you sh ould be aware that pheochromocytoma, melanoma, and neurofibromatosis I/II are neural crest. o Craniopharyngioma = derived from Rathke pouch, which is the “roof of the primitive pharynx”; considered ectoderm. o Thyroglossal duct cyst = derived from “endoderm of foramen cecum”; the latter is the base of the tongue; in other words, the thyroid gland starts off embryologically at base of tongue and descends. o CAP = Clefts, Arches, Pouches; clefts (aka grooves) become ectoderm; arches become mesoderm; pouches become endoderm. o Ectoderm?",
+      "a": "highest"
+    },
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 80 o Pharyngeal arch #4?",
+      "a": "things innervated by superior laryngeal nerve branch of CN X (cricothyroi d). o Pharyngeal arch #6 à things innervated by recurrent laryngeal nerve branch of CN X (laryngeal muscles, but not cricothyroid). 5 th arch has no major contributions. o Back in the numerical Step 1 days, memorizing every structure had utility when our aim wa s to get a 280+. But now that the exam is Pass/Fail, the above is literally enough to get the vast majority of embryo. Remember, the point here is yieldness, not superfluousness. o HY endoderm stuff regarding foregut, midgut, hindgut, I discuss in the Gastro PDF, but this stuff is so HY that I will again quickly mention HY points here: § Foregut à supplied by Celiac trunk (T12); spans esophagus to 1 st part of duodenum. § Midgut à supplied by SMA (L1); spans from 2 nd part of duodenum to distal 2/3 of transverse co lon. § Hindgut à supplied by IMA (L3); spans from last third of transverse colon to the anal canal at the pectinate line. § L2 (between the SMA and IMA, clearly) à renal arteries and gonadal arteries (testicular arteries in males; ovarian arteries in females) come off here. § Weird factoid USMLE likes: “Which organ is supplied by an artery of the foregut but is not itself derived from the foregut” à answer = spleen; supplied by Celiac trunk but derived from midgut)."
+    }
+  ],
+  "female-reproductive-epithelial-histology": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    }
+  ],
+  "male-reproductive-anatomy": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    }
+  ],
+  "autonomic-innervation-of-male-sexual-response": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    }
+  ],
+  "spermatogenesis": [
+    {
+      "q": "Increased risk of infertility ( temperature within abdomen?",
+      "a": "¯ spermatogenesis)."
+    }
+  ],
+  "menstrual-cycle": [
+    {
+      "q": "30s who has bilateral, waxing/waning breast tenderness over the course of her menstrual cycle; 2 ) U nilateral tenderness or sharp pain in one breast (student s are often surprised that it’s not always bilateral ). 3 ) P ainless, unilateral breast cyst in woman in her 40s that drains brown/greenish fluid?",
+      "a": "answer = fibrocystic change straight"
+    }
+  ],
+  "abnormal-uterine-bleeding": [
+    {
+      "q": "Ferguson reflex?",
+      "a": "cervical distension by the fetus at parturition oxytocin production , causing uterine contractions."
+    },
+    {
+      "q": "For example, 2CK Obgyn CMS Q gives massive nonsense paragraph stem with woman at 14 weeks’ gestation + they mention at bottom of stem “funneled lower uterine segme nt?",
+      "a": "answer instantly = cervical incompetence. Urethral prolapse"
+    },
+    {
+      "q": "NBME Q gives female with ovarian neoplasm + thickness of endometrial stripe + vaginal bleeding?",
+      "a": "answer for ovarian lesion = granulosa cell tumor. Yolk sac tumor"
+    }
+  ],
+  "pregnancy": [
+    {
+      "q": "4 weeks of pregnancy, when the neural tube begins to form. If B9 is deficient?",
+      "a": "neural tube defects (e.g., spina bifida). Week 4"
+    }
+  ],
+  "physiologic-changes-in-pregnancy": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    },
+    {
+      "q": "4 weeks of pregnancy, when the neural tube begins to form. If B9 is deficient?",
+      "a": "neural tube defects (e.g., spina bifida). Week 4"
+    }
+  ],
+  "menopause": [
+    {
+      "q": "Amenorrhea in patient with anorexia; why?",
+      "a": "decreased GnRH pulsation (hypogonadotropic) à decreased LH + FSH; Q wants “ ¯ FHS, ¯ estrogen” as the answer; in contrast, premature ovarian failure, Turner syndrome, and menopause have “ FHS, ¯ estrogen” as the answer."
+    },
+    {
+      "q": "25F + currently breastfeeding + menstruation not yet resumed + dyspareunia + erythematous vagina with no discharge; next best step in Mx?",
+      "a": "answer = “recommendation for use of a lubricant” à high prolactin levels during breastfeeding à hy poestrogenic state à Sx similar to atrophic vaginitis in menopause."
+    }
+  ],
+  "androgens": [
+    {
+      "q": "Exogenous anabolic steroids, for instance, ¯ GnRH secretion?",
+      "a": "¯ LH + FSH à ¯ endogenous testicular production of androgens."
+    }
+  ],
+  "precocious-puberty": [
+    {
+      "q": "up what is most likely to occur immediately before puberty in female?",
+      "a": "answer = breast bud development. Sex disorders Turner syndrome"
+    }
+  ],
+  "delayed-puberty": [
+    {
+      "q": "up what is most likely to occur immediately before puberty in female?",
+      "a": "answer = breast bud development. Sex disorders Turner syndrome"
+    }
+  ],
+  "androgen-insensitivity-syndrome": [
+    {
+      "q": "Exogenous anabolic steroids, for instance, ¯ GnRH secretion?",
+      "a": "¯ LH + FSH à ¯ endogenous testicular production of androgens."
+    },
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    },
+    {
+      "q": "subunit with LH and FSH (and TSH), giving hCG is as though we are giving LH and FSH at the same time. So LH ef fect?",
+      "a": "androgen production; FSH effect à aromatase production à therefore androgens are converted to estrogens in the testis à mechanism via which we could get gynecomastia."
+    }
+  ],
+  "uterine-rupture": [
+    {
+      "q": "Ferguson reflex?",
+      "a": "cervical distension by the fetus at parturition oxytocin production , causing uterine contractions."
+    },
+    {
+      "q": "For example, 2CK Obgyn CMS Q gives massive nonsense paragraph stem with woman at 14 weeks’ gestation + they mention at bottom of stem “funneled lower uterine segme nt?",
+      "a": "answer instantly = cervical incompetence. Urethral prolapse"
+    }
+  ],
+  "postpartum-hemorrhage": [
+    {
+      "q": "smelling lochia?",
+      "a": "answer = postpartum endometritis; chorioamnionitis is wrong answer because she’s not pregnant anymore ."
+    },
+    {
+      "q": "What is most common cause of postpartum bleeding?” o Uterine atony?",
+      "a": "presents as boggy uterus postpartum; Tx with uterine massage, followed by intra"
+    },
+    {
+      "q": "24F + amenorrhea since D&C 13 months ago for postpartu m hemorrhage + progestin withdrawal test shows no withdrawal bleeding; Dx?",
+      "a": "answer = Asherman syndrome or “uterine synechiae” on Obgyn shelf."
+    },
+    {
+      "q": "tender + TSH high + T4 low; most likely explanation for these findings?",
+      "a": "answer = “thyroiditis” à Dx = postpartum thyroiditis (a type of silent thyroiditis ) à characterized by thyrotoxicosis followed by hypothyroidism (1/3 of women experience both phases; 1/3 experience ju st hyperthyroid phase; 1/3 only hypothyroid phase); affects 5"
+    },
+    {
+      "q": "section 12 hours ago + abdo pain + fever; Dx + Tx?",
+      "a": "postpartum endometritis; Tx = ampicillin + ge ntamicin + clindamycin."
+    },
+    {
+      "q": "25F + postpartum endometritis + low BP; Dx?",
+      "a": "answer = puerperal sepsis; gynecologic infection starting 1"
+    },
+    {
+      "q": "Most common cause of postpartum bleeding?",
+      "a": "uterine atony (hypocontractile uterus)."
+    },
+    {
+      "q": "33F + postpartum bleeding despite uterine massage and oxytocin; next best step?",
+      "a": "answer = ergonovine therapy (do not give in HTN)."
+    }
+  ],
+  "ectopic-pregnancy": [
+    {
+      "q": "4 weeks of pregnancy, when the neural tube begins to form. If B9 is deficient?",
+      "a": "neural tube defects (e.g., spina bifida). Week 4"
+    },
+    {
+      "q": "binding globulin (TBG) production by the liver. TBG is the protein carrier molecule for thyroid hormone in the blood. An NBME Q asks for which hormone causes the TBG in pregnancy?",
+      "a": "answer = estrogen, not progesterone."
+    },
+    {
+      "q": "Qs like to ask how to determine degree of maternal/fetal risk in subsequent pregnancies?",
+      "a": "answer = transthoracic echo (looking for EF). In other words, the next pregnancy is going to have an even lower EF than the current, so if the EF is already significantly low (NR 55"
+    },
+    {
+      "q": "Q will say 25F + 6 months of dysuria + pubic pressure + pregnancy test negative + labs all normal?",
+      "a": "Dx = interstitial cystitis straight"
+    },
+    {
+      "q": "NBME can give long vignette of drug use, followed by ask what is most likely to occur in the pregnancy?",
+      "a": "answer = “preterm delivery and birth.” Sounds non"
+    },
+    {
+      "q": "42F + recurrent miscarriage + SLE; Dx?",
+      "a": "antiphospholipid syndrome (lupus anticoagulant) à Obgyn shelf will ask for “uteroplacental insufficiency” as the answer à Tx with aspirin or heparin; warfarin is contraindicated in pregnancy (bone abnormalities + bleeding in fetus)."
+    },
+    {
+      "q": "Female at 1 6 weeks’ gestation + HTN + proteinuria + fundal height measured at the umbilicus; Dx?",
+      "a": "answer = hydatidiform mole, not preeclampsia; preeclampsia will occur after 20 weeks’ gestation ; molar pregnancy presents large for gestational age à fundal height at umbilicus is normally reflective of 20 weeks’ gestation ."
+    }
+  ],
+  "hydatidiform-mole": [
+    {
+      "q": "binding globulin (TBG) production by the liver. TBG is the protein carrier molecule for thyroid hormone in the blood. An NBME Q asks for which hormone causes the TBG in pregnancy?",
+      "a": "answer = estrogen, not progesterone."
+    },
+    {
+      "q": "Female at 1 6 weeks’ gestation + HTN + proteinuria + fundal height measured at the umbilicus; Dx?",
+      "a": "answer = hydatidiform mole, not preeclampsia; preeclampsia will occur after 20 weeks’ gestation ; molar pregnancy presents large for gestational age à fundal height at umbilicus is normally reflective of 20 weeks’ gestation ."
+    },
+    {
+      "q": "Complete vs partial mole?",
+      "a": "complete mole = karyotype of 46; empty egg fertilized by a sperm that duplicates; bunches of grapes / snowstorm appearance on USS; chance of progression to chori ocarcinoma higher than partial; partial mole = karyotype of 69; fetal parts visible on USS; lesser chance of progression to choriocarcinoma."
+    },
+    {
+      "q": "hCG in mole vs ectopic?",
+      "a": "super"
+    }
+  ],
+  "choriocarcinoma": [
+    {
+      "q": "like presentation?",
+      "a": "answer just = choriocarcinoma."
+    }
+  ],
+  "hypertension-in-pregnancy": [
+    {
+      "q": "4 weeks of pregnancy, when the neural tube begins to form. If B9 is deficient?",
+      "a": "neural tube defects (e.g., spina bifida). Week 4"
+    },
+    {
+      "q": "binding globulin (TBG) production by the liver. TBG is the protein carrier molecule for thyroid hormone in the blood. An NBME Q asks for which hormone causes the TBG in pregnancy?",
+      "a": "answer = estrogen, not progesterone."
+    }
+  ],
+  "gynecologic-tumor-epidemiology": [
+    {
+      "q": "Rarely can also produce estrogen. There is NBME Q where male has gynecomastia + they ask for which tumor the patient has?",
+      "a": "answer = Sertoli -"
+    },
+    {
+      "q": "NBME Q gives female with ovarian neoplasm + thickness of endometrial stripe + vaginal bleeding?",
+      "a": "answer for ovarian lesion = granulosa cell tumor. Yolk sac tumor"
+    },
+    {
+      "q": "Sertoli cell tumor (yes, in a female) = secretes androgens?",
+      "a": "virilization. o Granulosa cell tumor = secretes estrogens à can cause endometrial hyperplasi a. o Struma ovarii = ovarian germ cell tumor that secretes thyroid hormone. o Krukenberg tumors = bilateral gastric cancer metastases to ovaries; have signet ring cells on biopsy; these cells contain mucin. o Brenner tumor = ovarian tumor containing bladder (transitional) epithelium. o Endometrial adenocarcinoma = biggest risk factor is unopposed estrogen in setting of patient with prior anovulation (ovulation normally leads to corpus luteum that secretes progesterone, which limits overgrowth of endomet rium); Hx of high BMI or abnormal periods can imply endometrial hyperplasia and risk of endometrial cancer; can present as midcycle bleeding in perimenopausal woman, or any bleeding in postmenopausal woman; must do endometrial biopsy. o Uterine leiomyoma (ak a fibroid) = most common tumor in women; benign; stains positive for muscle markers; can be described as white/whorled appearance grossly; highest yield point on USMLE is that these are almost always just simply observed – i.e., don’t do myomectomy etc., e ven if the Q tells you many are present and she’s going to get pregnant; if they bleed, patient can be given OCPs and/or NSAIDs initially. o Leiomyosarcoma = malignant variant; only point you need to know is that this is not derived from leiomyoma; presumabl y this point is important because it justifies why we almost always just observe leiomyomas (i.e., they won’t become malignant). o Cervical cancer = squamous cell carcinoma; HY causes are HPV 16+18; Pap smear discussion, etc., is earlier in this document. o Cl ear cell vaginal carcinoma = history of maternal use of diethylstilbestrol (DES). o Sarcoma botryroides = rare rhabdomyosarcoma seen in pediatrics. o Gynecologic cancers in general demonstrate increased risk in BRCA1/2 and HNPCC patients."
+    },
+    {
+      "q": "25F + postpartum endometritis + low BP; Dx?",
+      "a": "answer = puerperal sepsis; gynecologic infection starting 1"
+    }
+  ],
+  "imperforate-hymen": [
+    {
+      "q": "Q will give what sounds like imperforate hymen + hematocolpos but you’ll notice the blood pressure is low?",
+      "a": "distention of the uterus can trigger a vagal response leading to low BP. HY Trisomy disorders Trisomy 21"
+    },
+    {
+      "q": "month Hx of intermitten t pelvic pain + BP of 90/50 + bluish bulge in upper vagina; Dx?",
+      "a": "hematometra à imperforate hymen with blood collection in the uterus à vagal response causes low BP à Tx = cruciate incision of the hymen."
+    },
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 115 collection in the vaginal canal, but not backed up to the uterus like hematometra?",
+      "a": "Tx = cruciate incision of the hymen."
+    }
+  ],
+  "polycystic-ovary-syndrome": [
+    {
+      "q": "ray). By far the highest yield point you need to know is that since the Fallopian tubes are normally open on both ends, spillage of dye into the peritoneal cavity is normal. Do not select answers such as “rupture of Fallopian tubes,” etc. When the ovum is released from the ovary, it will be drawn into the Fallopian tube, which is open at its lateral end. o If USMLE shows you a hysterosalpingogram where dye does not spill into/enter the peritoneal cavity, th is can be reflective of Hx of pelvic inflammatory disease, where there is scarring of the Fallopian tube. o If USMLE shows you image of a uterus with a septum running down the middle of it, this is called a bicornuate uterus?",
+      "a": "causes increased risk of premat ure delivery + miscarriage. The mechanism of this on NBME = “failure of paramesonephric ducts to fuse.” o An actual complete double uterus is called uterine didelphys."
+    }
+  ],
+  "primary-ovarian-insufficiency": [
+    {
+      "q": "NBME Q gives female with ovarian neoplasm + thickness of endometrial stripe + vaginal bleeding?",
+      "a": "answer for ovarian lesion = granulosa cell tumor. Yolk sac tumor"
+    }
+  ],
+  "functional-hypothalamic-amenorrhea": [
+    {
+      "q": "24F + amenorrhea since D&C 13 months ago for postpartu m hemorrhage + progestin withdrawal test shows no withdrawal bleeding; Dx?",
+      "a": "answer = Asherman syndrome or “uterine synechiae” on Obgyn shelf."
+    },
+    {
+      "q": "Amenorrhea in patient with anorexia; why?",
+      "a": "decreased GnRH pulsation (hypogonadotropic) à decreased LH + FSH; Q wants “ ¯ FHS, ¯ estrogen” as the answer; in contrast, premature ovarian failure, Turner syndrome, and menopause have “ FHS, ¯ estrogen” as the answer."
+    }
+  ],
+  "primary-dysmenorrhea": [
+    {
+      "q": "This is the answer on USMLE for period pain under the age of 20. The Q can say, girl who is 17 has menstrual pain so bad she has to miss class + physical exam shows no abnormalities?",
+      "a": "answer = primary dysmenorrhea."
+    },
+    {
+      "q": "23F + period pain so bad she has to miss work + normal physical exam?",
+      "a": "answer = prostaglandin secretion / primary dysmenorrhea."
+    },
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 95 o Emergence of secondary sex characteristics in fema les age 8 or younger, or males 9 or younger. o Childhood height will be increased; adult height will be decreased. o Question might ask how we know if the cause of the precocious puberty is due to the hypothalamus/pituitary axis or not?",
+      "a": "answer = if LH is high (if LH low, we know cause is primary testicular production of testosterone). o If DHEA"
+    }
+  ],
+  "ovarian-cysts": [
+    {
+      "q": "NBME Q gives female with ovarian neoplasm + thickness of endometrial stripe + vaginal bleeding?",
+      "a": "answer for ovarian lesion = granulosa cell tumor. Yolk sac tumor"
+    }
+  ],
+  "ovarian-tumors": [
+    {
+      "q": "NBME Q gives female with ovarian neoplasm + thickness of endometrial stripe + vaginal bleeding?",
+      "a": "answer for ovarian lesion = granulosa cell tumor. Yolk sac tumor"
+    },
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 80 o Pharyngeal arch #4?",
+      "a": "things innervated by superior laryngeal nerve branch of CN X (cricothyroi d). o Pharyngeal arch #6 à things innervated by recurrent laryngeal nerve branch of CN X (laryngeal muscles, but not cricothyroid). 5 th arch has no major contributions. o Back in the numerical Step 1 days, memorizing every structure had utility when our aim wa s to get a 280+. But now that the exam is Pass/Fail, the above is literally enough to get the vast majority of embryo. Remember, the point here is yieldness, not superfluousness. o HY endoderm stuff regarding foregut, midgut, hindgut, I discuss in the Gastro PDF, but this stuff is so HY that I will again quickly mention HY points here: § Foregut à supplied by Celiac trunk (T12); spans esophagus to 1 st part of duodenum. § Midgut à supplied by SMA (L1); spans from 2 nd part of duodenum to distal 2/3 of transverse co lon. § Hindgut à supplied by IMA (L3); spans from last third of transverse colon to the anal canal at the pectinate line. § L2 (between the SMA and IMA, clearly) à renal arteries and gonadal arteries (testicular arteries in males; ovarian arteries in females) come off here. § Weird factoid USMLE likes: “Which organ is supplied by an artery of the foregut but is not itself derived from the foregut” à answer = spleen; supplied by Celiac trunk but derived from midgut)."
+    }
+  ],
+  "benign-breast-diseases": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    }
+  ],
+  "breast-cancer": [
+    {
+      "q": "Physiologic gynecomastia can occur in adolescent males, and virginal breast hypertrophy in adolescent females, due to androgen production?",
+      "a": "aromatization à estrogens."
+    },
+    {
+      "q": "like structures. An obscure NBME Q for 2CK mentions a beefy red mass protruding from the cervix?",
+      "a": "answer = pedunculated submucosal leiomyoma; cervical cancer is wrong answer; “beefy red” tends to mean endometrial in origin; cervical SCC wil l usually be an ulcerated exophytic mass. Parasitic"
+    },
+    {
+      "q": "30s who has bilateral, waxing/waning breast tenderness over the course of her menstrual cycle; 2 ) U nilateral tenderness or sharp pain in one breast (student s are often surprised that it’s not always bilateral ). 3 ) P ainless, unilateral breast cyst in woman in her 40s that drains brown/greenish fluid?",
+      "a": "answer = fibrocystic change straight"
+    },
+    {
+      "q": "Orchiectomy will ¯ androgen production?",
+      "a": "leads to atrophy and shrinkage of prostatic cancer cells."
+    }
+  ],
+  "cryptorchidism": [
+    {
+      "q": "NBME Q gives adult with mass in the groin + no testicle palpable in the right hemiscrotum + they ask for what the groin mass is?",
+      "a": "answer = testicular carcinoma (increased risk because of cryptorchidism). Not hard, but I’ve seen students miss this. Testicular torsion"
+    }
+  ],
+  "testicular-torsion": [
+    {
+      "q": "Exogenous anabolic steroids, for instance, ¯ GnRH secretion?",
+      "a": "¯ LH + FSH à ¯ endogenous testicular production of androgens."
+    },
+    {
+      "q": "NBME Q gives adult with mass in the groin + no testicle palpable in the right hemiscrotum + they ask for what the groin mass is?",
+      "a": "answer = testicular carcinoma (increased risk because of cryptorchidism). Not hard, but I’ve seen students miss this. Testicular torsion"
+    }
+  ],
+  "testicular-tumors": [
+    {
+      "q": "Exogenous anabolic steroids, for instance, ¯ GnRH secretion?",
+      "a": "¯ LH + FSH à ¯ endogenous testicular production of androgens."
+    }
+  ],
+  "benign-prostatic-hyperplasia": [
+    {
+      "q": "Orchiectomy will ¯ androgen production?",
+      "a": "leads to atrophy and shrinkage of prostatic cancer cells."
+    }
+  ],
+  "control-of-reproductive-hormones": [
+    {
+      "q": "month intervals + endometrial biopsy shows proliferative endometrium; next best step?",
+      "a": "answer on shelf = “cyclic progest in therapy” à control irregular menses and prevent endometrial hyperplasia."
+    }
+  ],
+  "selective-estrogen-receptor-modulators": [
+    {
+      "q": "Testosterone?",
+      "a": "estradiol (potent estrogen)."
+    }
+  ],
+  "contraception": [
+    {
+      "q": "MEHLMANMEDICAL.COM MEHLMANMEDICAL.COM 98 o Anastrozole + exemestane are aromatase inhibitors. These can be used in breast canc er. o Trastuzumab (Herceptin) targets HER2/neu(+) breast cancer. It is cardiotoxic. o Clomiphene is partial agonist at the hypothalamus (the effect is as though it’s an antagonist). This stimulates GnRH secretion?",
+      "a": "promotes ovulation. It is used in women who h ave abnormal periods, where ovulation is difficult to predict. Or it can be used in IVF. o Mifepristone is a progesterone receptor antagonist used as an abortifacient. o Misoprostol is a prostaglandin E1 analogue used with mifepristone as an abortifacient. o Uli pristal is a progesterone receptor modulator used as emergency contraception. o Dinoprostone is a prostaglandin E2 analogue used to soften the cervix. o Ritodrine is a beta"
+    },
+    {
+      "q": "What is most effective form of emergency contraception?",
+      "a": "answer = copper IUD; second"
+    }
+  ],
+  "tocolytics": [
+    {
+      "q": "When are tocolytics used?",
+      "a": "<34 weeks’ gestation if delivery would result in premature birth (i.e., do not use after 34 weeks); only able to delay birth up to a few days; terbutaline (beta"
+    }
+  ],
+  "choanal-atresia": [
+    {
+      "q": "An NBME Q wants “endoderm” as the abnormal embryology for TEF (makes sense, since esophagus is epithelial lining of the gut?",
+      "a": "endoderm). Choanal atresia"
+    }
+  ],
+  "club-cells": [
+    {
+      "q": "American woman with dry cough + they say CXR shows no abnormalities?",
+      "a": "answer = “activation of mast cells” (i.e., asthma is the answer); wrong answer is “non"
+    }
+  ],
+  "alveolar-cell-types": [
+    {
+      "q": "Emphysema is destruction of alveolar surface area (i.e., mostly destruction of type I pneumocytes)?",
+      "a": "¯ surface area for gas exchange à chronic CO2 retention à chronic respiratory acidosis (high bicarb to compensate). Type II pneumocyte"
+    }
+  ],
+  "neonatal-respiratory-distress-syndrome": [
+    {
+      "q": "Emphysema is destruction of alveolar surface area (i.e., mostly destruction of type I pneumocytes)?",
+      "a": "¯ surface area for gas exchange à chronic CO2 retention à chronic respiratory acidosis (high bicarb to compensate). Type II pneumocyte"
+    },
+    {
+      "q": "They also ask the inverse of this on NBME – i.e., they say an anesthesiologist wants to a patient’s cerebral perfusion, and the answer is “decrease respiratory rate?",
+      "a": "causes CO2 à cerebral perfusion."
+    },
+    {
+      "q": "44 mmHg)?",
+      "a": "answer can = “ventilatory insufficiency.” This applies to both patients on and off ventilators. Don’t be confused if they give you respiratory rate. New Surg form gives RR of 40 with CO2 as an exampl e. Sometimes patients have shallow breathing despite RR. HY Pulmonary drug points Bosentan"
+    }
+  ]
+}
