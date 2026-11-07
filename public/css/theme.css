@@ -269,10 +269,6 @@ textarea::placeholder {
     font-size: 16px;
   }
 
-  #radbot-floating-trigger {
-    display: none !important;
-  }
-
   #dashboard-primary-actions {
     display: grid !important;
     width: 100%;
