@@ -73,6 +73,12 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(async (req, res, next) => {
+  // Keep the public login configuration available while the database is
+  // reconnecting; protected and mutating routes still wait for initialization.
+  if (req.path === '/api/auth/config') {
+    next();
+    return;
+  }
   try {
     await initializationReady;
     next();
