@@ -60,6 +60,8 @@
   const TOKEN_KEY  = 'synapse_token';
   const USER_KEY   = 'synapse_user';
   const ACCESS_KEY = 'synapse_access';
+  const LOCAL_DEV_BYPASS = window.location.hostname === 'localhost' &&
+    window.location.port === '5000';
 
   // Remove the legacy floating account pill so it cannot intercept header clicks.
   const legacyUserPill = document.getElementById('synapse-user-pill');
@@ -75,7 +77,7 @@
     localStorage.removeItem(ACCESS_KEY);
     sessionStorage.removeItem('synapse_login_redirect_pending');
     sessionStorage.removeItem('synapse_login_started_at');
-    window.location.href = '/login.html';
+    window.location.href = LOCAL_DEV_BYPASS ? '/' : '/login.html';
   }
 
   window.synapseLogout = logout;
@@ -105,6 +107,25 @@
   if (publicPages.includes(page)) return;
 
   async function verifyAndRender() {
+    if (LOCAL_DEV_BYPASS && page === '/') {
+      window.__SYNAPSE_USER__ = {
+        id: 'local-dev',
+        name: 'Local Developer',
+        email: 'developer@localhost',
+        role: 'user',
+        tier: 'trial',
+        status: 'active'
+      };
+      window.__SYNAPSE_ACCESS__ = {
+        active: true,
+        trial: true,
+        trialDaysRemaining: 999
+      };
+      window.__SYNAPSE_TOKEN__ = null;
+      document.body.hidden = false;
+      return;
+    }
+
     const token = getToken();
     const user  = getUser();
     const access = getAccess();

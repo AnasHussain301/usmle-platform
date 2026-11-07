@@ -164,6 +164,7 @@ function openFaRightPanel(topic, defaultTab) {
   const panel = document.getElementById('fa-right-panel');
   if (!panel) return;
   panel.classList.remove('hidden');
+  document.getElementById('modal-fa-book')?.classList.add('fa-panel-open');
 
   // Update heading title
   const titleEl = document.getElementById('fa-right-panel-heading-title');
@@ -211,6 +212,7 @@ window.openFaRightPanel = openFaRightPanel;
 function closeFaRightPanel() {
   const panel = document.getElementById('fa-right-panel');
   if (panel) panel.classList.add('hidden');
+  document.getElementById('modal-fa-book')?.classList.remove('fa-panel-open');
   state.currentFaPanelTopic = null;
   setTimeout(() => {
     if (typeof renderFaPageCallouts === 'function') renderFaPageCallouts();
