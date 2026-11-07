@@ -55,10 +55,10 @@ function getReaderPref(key) {
 function toggleReaderOptionsPanel() {
   const panel = document.getElementById('reader-options-panel');
   if (!panel) return;
-  if (panel.classList.contains('translate-x-[120%]')) {
-    openReaderOptionsPanel();
-  } else {
+  if (panel.classList.contains('is-open')) {
     closeReaderOptionsPanel();
+  } else {
+    openReaderOptionsPanel();
   }
 }
 
@@ -67,8 +67,11 @@ function openReaderOptionsPanel() {
   const overlay = document.getElementById('reader-options-overlay');
   if (!panel) return;
   _syncOptionsPanelUI();
-  panel.classList.remove('translate-x-[120%]');
-  panel.classList.add('translate-x-0');
+  panel.classList.add('is-open');
+  panel.setAttribute('aria-hidden', 'false');
+  document.querySelectorAll('[data-reader-options-toggle]').forEach(button => {
+    button.setAttribute('aria-expanded', 'true');
+  });
   if (overlay) overlay.classList.remove('hidden');
 }
 
@@ -76,11 +79,87 @@ function closeReaderOptionsPanel() {
   const panel = document.getElementById('reader-options-panel');
   const overlay = document.getElementById('reader-options-overlay');
   if (panel) {
-    panel.classList.remove('translate-x-0');
-    panel.classList.add('translate-x-[120%]');
+    panel.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
   }
+  document.querySelectorAll('[data-reader-options-toggle]').forEach(button => {
+    button.setAttribute('aria-expanded', 'false');
+  });
   if (overlay) overlay.classList.add('hidden');
 }
+
+document.addEventListener('click', event => {
+  if (!(event.target instanceof Element)) return;
+  const target = event.target;
+  if (target.closest('[data-reader-options-toggle]')) {
+    toggleReaderOptionsPanel();
+    return;
+  }
+  if (target.closest('[data-reader-options-close]')) {
+    closeReaderOptionsPanel();
+    return;
+  }
+
+  const button = target.closest('#reader-options-panel [data-reader-action]');
+  if (!button) return;
+  const value = button.dataset.value;
+
+  switch (button.dataset.readerAction) {
+    case 'page-mode':
+      setReaderPageMode(value);
+      break;
+    case 'dark-page':
+      setDarkPage(value);
+      break;
+    case 'toggle-auto-blanks':
+      toggleAutoBlanks();
+      break;
+    case 'toggle-blur-questions':
+      toggleBlurInQuestions();
+      break;
+    case 'test-this-page':
+      readerTestThisPage();
+      break;
+    case 'uworld-incorrects':
+      readerUWorldIncorrects();
+      break;
+    case 'mehlman-questions':
+      readerMehlmanQuestions();
+      break;
+    case 'toggle-mehlman-tags':
+      toggleMehlmanTags();
+      break;
+    case 'toggle-list-view':
+      toggleListView();
+      break;
+    case 'toggle-show-in-fa':
+      toggleShowInFA(value);
+      break;
+    case 'bar-colour':
+      setReaderBarColour(value);
+      break;
+    case 'theme':
+      setTheme(value);
+      break;
+    case 'font-family':
+      setFontFamily(value);
+      break;
+    case 'font-size':
+      adjustFontSize(Number(value));
+      break;
+    case 'font-fine-tuning':
+      showReaderToast('Font fine-tuning active.');
+      break;
+    case 'open-plans':
+      closeReaderOptionsPanel();
+      openPlansModal();
+      break;
+    case 'open-feedback':
+      closeReaderOptionsPanel();
+      openFeedbackModal();
+      break;
+  }
+});
 
 // ============================================================
 // SEARCH OVERLAY (Pill Popup matching media_1793979136791_b0c4c215.png)
@@ -260,9 +339,12 @@ function setReaderPageMode(mode) {
   if (container) {
     if (mode === 'swipe') {
       container.style.overflowY = 'hidden';
+      container.style.touchAction = 'pan-x';
       _initSwipeGestures();
     } else {
       container.style.overflowY = 'auto';
+      container.style.touchAction = 'pan-y';
+      container.style.webkitOverflowScrolling = 'touch';
     }
   }
   showReaderToast(mode === 'swipe' ? '↔ Swipe mode enabled' : '↕ Scroll mode enabled');
@@ -633,11 +715,16 @@ function applyAllReaderPrefs() {
   _applyShowInFA();
   _applyBarColour();
   if (_readerPrefs.listView) _applyListView();
-  if (_readerPrefs.pageMode === 'swipe') {
-    const container = document.getElementById('fa-reader-center-container');
-    if (container) {
+  const container = document.getElementById('fa-reader-center-container');
+  if (container) {
+    if (_readerPrefs.pageMode === 'swipe') {
       container.style.overflowY = 'hidden';
+      container.style.touchAction = 'pan-x';
       _initSwipeGestures();
+    } else {
+      container.style.overflowY = 'auto';
+      container.style.touchAction = 'pan-y';
+      container.style.webkitOverflowScrolling = 'touch';
     }
   }
 }

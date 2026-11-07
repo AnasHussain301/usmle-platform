@@ -590,6 +590,7 @@ function buildFaPageStack(sys, bounds) {
     pageWrapper.className = 'relative w-full';
     pageWrapper.id = `fa-page-${page}`;
     pageWrapper.dataset.page = String(page);
+    pageWrapper.style.aspectRatio = '1413 / 1769';
     const image = document.createElement('img');
     image.src = `/fa-page/${page}.webp`;
     image.loading = 'lazy';

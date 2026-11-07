@@ -41,6 +41,19 @@ textarea::placeholder {
   opacity: 0.8;
 }
 
+.reader-options-panel {
+  transform: translateX(calc(100% + 1rem));
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 200ms ease;
+}
+
+.reader-options-panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
 @media (max-width: 700px) {
   body {
     font-size: 16px;
