@@ -337,6 +337,20 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    @keyframes fa-page-enter-next {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fa-page-enter-prev {
+      from { opacity: 0; transform: translateY(-28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fa-page-enter-next {
+      animation: fa-page-enter-next 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fa-page-enter-prev {
+      animation: fa-page-enter-prev 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
   </style>
 
   <!-- Synapse Auth Guard - MUST be first script -->

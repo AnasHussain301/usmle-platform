@@ -474,6 +474,13 @@ function handleFaImageError(img) {
 function handleFaImageSuccess(img) {
   img.classList.remove('hidden');
   img.style.opacity = '1';
+  const direction = img.dataset.pageTransition;
+  if (direction) {
+    img.classList.remove('fa-page-enter-next', 'fa-page-enter-prev');
+    void img.offsetWidth;
+    img.classList.add(direction === 'prev' ? 'fa-page-enter-prev' : 'fa-page-enter-next');
+    delete img.dataset.pageTransition;
+  }
   const fallback = document.getElementById('fa-reader-page-fallback');
   if (fallback) fallback.classList.add('hidden');
   if (typeof renderFaGutterMarkers === 'function' && window.FA_HEADINGS_DATA && window.state) {
@@ -838,20 +845,27 @@ function initFaReaderGestures() {
 
   let wheelLocked = false;
   let touchStartY = null;
+  let touchStartScrollTop = 0;
 
   reader.addEventListener('wheel', (event) => {
     if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
     if (Math.abs(event.deltaY) < 8 || wheelLocked) return;
+    const atTop = reader.scrollTop <= 1;
+    const atBottom = reader.scrollTop + reader.clientHeight >= reader.scrollHeight - 1;
+    if ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop)) return;
     event.preventDefault();
     wheelLocked = true;
-    if (event.deltaY > 0) nextFaBookPage();
-    else prevFaBookPage();
+    if (event.deltaY > 0) nextFaBookPage('next');
+    else prevFaBookPage('prev');
     window.setTimeout(() => { wheelLocked = false; }, 280);
   }, { passive: false });
 
   reader.addEventListener('touchstart', (event) => {
     if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
-    if (event.touches.length === 1) touchStartY = event.touches[0].clientY;
+    if (event.touches.length === 1) {
+      touchStartY = event.touches[0].clientY;
+      touchStartScrollTop = reader.scrollTop;
+    }
   }, { passive: true });
 
   reader.addEventListener('touchend', (event) => {
@@ -860,20 +874,30 @@ function initFaReaderGestures() {
     const distance = touchStartY - event.changedTouches[0].clientY;
     touchStartY = null;
     if (Math.abs(distance) < 40) return;
-    if (distance > 0) nextFaBookPage();
-    else prevFaBookPage();
+    const atTop = touchStartScrollTop <= 1;
+    const atBottom = touchStartScrollTop + reader.clientHeight >= reader.scrollHeight - 1;
+    if (distance > 0 && atBottom) nextFaBookPage('next');
+    if (distance < 0 && atTop) prevFaBookPage('prev');
   }, { passive: true });
 }
 
-
-function nextFaBookPage() {
-  const next = (state.currentFaPage || 284) + 1;
-  if (next <= 844) openFaBookPage(next);
+function animateFaPageChange(targetPage, direction) {
+  if (targetPage < 1 || targetPage > 844 || targetPage === state.currentFaPage) return;
+  const pageImg = document.getElementById('fa-reader-page-img');
+  if (pageImg) pageImg.dataset.pageTransition = direction;
+  openFaBookPage(targetPage);
+  const reader = document.getElementById('fa-reader-center-container');
+  if (reader) reader.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function prevFaBookPage() {
+function nextFaBookPage(direction = 'next') {
+  const next = (state.currentFaPage || 284) + 1;
+  if (next <= 844) animateFaPageChange(next, direction);
+}
+
+function prevFaBookPage(direction = 'prev') {
   const prev = (state.currentFaPage || 284) - 1;
-  if (prev >= 1) openFaBookPage(prev);
+  if (prev >= 1) animateFaPageChange(prev, direction);
 }
 
 function filterUWorldIncorrects() {
