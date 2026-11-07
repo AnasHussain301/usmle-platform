@@ -635,12 +635,10 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   // On mobile screens (< 768px), start with TOC sidebar closed so book page is immediately visible
   const tocDrawer = document.getElementById('fa-reader-toc');
   if (tocDrawer) {
-    tocDrawer.dataset.closed = 'false';
-    tocDrawer.style.display = '';
-    if (window.innerWidth < 768) {
-      tocDrawer.classList.add('hidden');
-    } else {
-      tocDrawer.classList.remove('hidden');
+    if (!tocDrawer.dataset.initialized) {
+      tocDrawer.dataset.initialized = 'true';
+      tocDrawer.dataset.closed = window.innerWidth < 768 ? 'true' : 'false';
+      tocDrawer.style.display = window.innerWidth < 768 ? 'none' : '';
     }
   }
 
