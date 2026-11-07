@@ -30,12 +30,22 @@ const feedbackTransporter = process.env.SMTP_HOST && process.env.SMTP_USER && pr
   : null;
 
 // ============================================================
-// ADMIN EMAILS — MUST MATCH EXACTLY (lowercase)
+// ADMIN EMAILS — normalized to lowercase for matching
 // ============================================================
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
   .split(',')
   .map(email => email.trim().toLowerCase())
   .filter(Boolean);
+const PUBLIC_API_ROUTES = new Set([
+  'GET /api/auth/config',
+  'POST /api/auth/google',
+  'POST /api/auth/google/exchange',
+  'POST /api/contact'
+]);
+
+function isAdminEmail(email) {
+  return ADMIN_EMAILS.includes(String(email || '').trim().toLowerCase());
+}
 
 const runtimeJwtSecret = JWT_SECRET || require('crypto').randomBytes(48).toString('hex');
 const defaultFreeAccessPromoEnd = '2026-12-07T15:39:08.086Z';
@@ -158,27 +168,24 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) { req.user = null; return next(); }
   jwt.verify(token, runtimeJwtSecret, (err, decoded) => {
-    if (err) { req.user = null; }
-    else {
-      req.user = db.getUserById(decoded.id);
-      if (!req.user && decoded.email) {
-        req.user = db.getUserByEmail(decoded.email);
-      }
-      if (!req.user && decoded.email) {
-        const email = decoded.email.toLowerCase();
-        const isAdmin = ADMIN_EMAILS.includes(email);
-        req.user = {
-          id: decoded.id,
-          email,
-          name: decoded.name || email.split('@')[0],
-          role: isAdmin ? 'admin' : 'user',
-          tier: isAdmin ? 'admin' : (decoded.tier || 'trial'),
-          status: decoded.status || 'active',
-          trialEndsAt: decoded.trialEndsAt || null,
-          picture: decoded.picture || null,
-          authProvider: 'google'
-        };
-      }
+    if (err || !isAdminEmail(decoded && decoded.email)) {
+      req.user = null;
+      return next();
+    }
+
+    req.user = db.getUserByEmail(decoded.email) || null;
+    if (!req.user) {
+      req.user = {
+        id: decoded.id,
+        email: decoded.email.toLowerCase(),
+        name: decoded.name || decoded.email.split('@')[0],
+        role: 'admin',
+        tier: 'admin',
+        status: decoded.status || 'active',
+        trialEndsAt: null,
+        picture: decoded.picture || null,
+        authProvider: 'google'
+      };
     }
     next();
   });
@@ -186,18 +193,37 @@ function authenticateToken(req, res, next) {
 
 function requireAuth(req, res, next) {
   if (!req.user) return res.status(401).json({ error: 'Please log in to continue.' });
+  if (!isAdminEmail(req.user.email)) {
+    return res.status(403).json({ error: 'This app is restricted to configured administrator Google accounts.' });
+  }
   if (req.user.status === 'suspended') return res.status(403).json({ error: 'Your account has been suspended.' });
   next();
 }
 
 function requireAdmin(req, res, next) {
   if (!req.user) return res.status(401).json({ error: 'Authentication required.' });
-  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Admin access required.' });
+  if (!isAdminEmail(req.user.email) || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access required.' });
+  }
   next();
 }
 
 app.use(authenticateToken);
 app.use('/api/', apiLimiter);
+app.use('/api/', (req, res, next) => {
+  const route = `${req.method} ${req.originalUrl.split('?')[0]}`;
+  if (PUBLIC_API_ROUTES.has(route)) return next();
+  if (!req.user) {
+    return res.status(401).json({ error: 'Please sign in with a configured administrator Google account.' });
+  }
+  if (!isAdminEmail(req.user.email)) {
+    return res.status(403).json({ error: 'This app is restricted to configured administrator Google accounts.' });
+  }
+  if (req.user.status === 'suspended') {
+    return res.status(403).json({ error: 'Your account has been suspended.' });
+  }
+  next();
+});
 
 app.post('/api/billing/transactions', requireAuth, (req, res) => {
   res.status(410).json({
@@ -270,6 +296,9 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
   if (!JWT_SECRET) {
     return res.status(503).json({ error: 'Secure sign-in is not configured on the server. Deployment administrator must set JWT_SECRET.' });
   }
+  if (ADMIN_EMAILS.length === 0) {
+    return res.status(503).json({ error: 'Admin-only sign-in is not configured. Set ADMIN_EMAILS on the server.' });
+  }
   const { idToken, credential } = req.body;
   const token = idToken || credential;
   if (!token) return res.status(400).json({ error: 'Google credential required.' });
@@ -303,23 +332,22 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Google email not verified. Please verify your Google account first.' });
     }
 
-    const isAdmin = ADMIN_EMAILS.includes(googleUser.email);
+    if (!isAdminEmail(googleUser.email)) {
+      return res.status(403).json({ error: 'Access is restricted to configured administrator Google accounts.' });
+    }
 
     // Find or create user
     let user = db.getUserByEmail(googleUser.email);
 
     if (!user) {
-      // New user — create with 1-month free trial
-      const trialEndsAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-
       user = db.createUser({
         name: googleUser.name || googleUser.email.split('@')[0],
         email: googleUser.email,
         googleId: googleUser.sub,
         picture: googleUser.picture || null,
-        role: isAdmin ? 'admin' : 'user',
-        tier: isAdmin ? 'admin' : 'trial',
-        trialEndsAt: trialEndsAt.toISOString(),
+        role: 'admin',
+        tier: 'admin',
+        trialEndsAt: null,
         authProvider: 'google',
         passwordHash: null,
         lastIp: ip,
@@ -335,13 +363,9 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
         picture: googleUser.picture || user.picture,
         googleId: googleUser.sub
       };
-      if (isAdmin) {
-        updates.role = 'admin';
-        updates.tier = 'admin';
-      } else if (user.role === 'admin') {
-        updates.role = 'user';
-        updates.tier = user.tier === 'admin' ? 'trial' : user.tier;
-      }
+      updates.role = 'admin';
+      updates.tier = 'admin';
+      updates.trialEndsAt = null;
       user = db.updateUser(user.id, updates);
       db.logActivity(user.id, user.name, 'google_login', { email: googleUser.email, ip }, ip, userAgent);
     }
@@ -437,6 +461,7 @@ app.get('/api/auth/config', (req, res) => {
   res.json({
     googleClientId: isConfigured ? GOOGLE_CLIENT_ID : '',
     isConfigured,
+    adminAccountsConfigured: ADMIN_EMAILS.length > 0,
     oauthRedirectConfigured: Boolean(googleOAuthClient),
     oauthRedirectUri: googleOAuthClient ? GOOGLE_REDIRECT_URI : '',
     freeAccessPromotion: {
@@ -979,7 +1004,7 @@ if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log('====================================================');
     console.log(`🩺 Synapse USMLE Platform running on http://localhost:${PORT}`);
-    console.log(`👑 Admins: ${ADMIN_EMAILS.join(', ')}`);
+    console.log(`👑 Admin-only access: ${ADMIN_EMAILS.length > 0 ? 'configured' : 'not configured'}`);
     console.log(`🔐 Google OAuth: ${GOOGLE_CLIENT_ID ? 'ACTIVE' : 'DEV MODE (no client ID)'}`);
     console.log('====================================================');
   });

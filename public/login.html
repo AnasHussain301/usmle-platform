@@ -74,8 +74,8 @@
     <!-- Sign in Section -->
     <div class="space-y-3.5">
       <div class="text-center mb-1">
-        <h2 class="text-base font-semibold text-white">Sign in with your Google account</h2>
-        <p class="text-xs text-slate-400 mt-0.5">Secure, verified Google Sign-In</p>
+        <h2 class="text-base font-semibold text-white">Administrator sign-in only</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Use a Google account authorized by the administrator.</p>
       </div>
 
       <div id="error-msg" class="hidden error-box"></div>
@@ -90,7 +90,7 @@
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
             <path fill="none" d="M0 0h48v48H0z"/>
           </svg>
-          <span id="google-btn-text">Continue with Google</span>
+          <span id="google-btn-text">Continue with administrator Google account</span>
         </button>
       </div>
     </div>
@@ -149,6 +149,7 @@
 // ============================================================
 let activeGoogleClientId = '';
 let isGoogleConfigured = false;
+let isAdminAccessConfigured = false;
 let isRedirectConfigured = false;
 let googleRedirectUri = '';
 let redirectState = '';
@@ -162,8 +163,16 @@ async function initAuthConfig() {
       const data = await res.json();
       activeGoogleClientId = data.googleClientId || '';
       isGoogleConfigured = Boolean(data.isConfigured);
+      isAdminAccessConfigured = Boolean(data.adminAccountsConfigured);
       isRedirectConfigured = Boolean(data.oauthRedirectConfigured);
       googleRedirectUri = data.oauthRedirectUri || (window.location.origin + '/login.html');
+      if (!isAdminAccessConfigured) {
+        const button = document.getElementById('google-btn');
+        const buttonText = document.getElementById('google-btn-text');
+        if (button) button.disabled = true;
+        if (buttonText) buttonText.textContent = 'Administrator access is not configured';
+        showError('Admin-only sign-in is not configured. The administrator must set ADMIN_EMAILS on the server.');
+      }
       const promo = data.freeAccessPromotion;
       const promoTitle = document.getElementById('free-access-title');
       const promoDetails = document.getElementById('free-access-details');
@@ -289,7 +298,7 @@ async function loginWithGoogleToken(credential) {
   } catch (err) {
     showError(err.message);
     btn.disabled = false;
-    if (btnText) btnText.textContent = 'Continue with Google';
+    if (btnText) btnText.textContent = 'Continue with administrator Google account';
     lastGoogleCredential = '';
   } finally {
     loginRequestInFlight = false;
