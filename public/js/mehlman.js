@@ -362,6 +362,48 @@ function updateMehlmanScrubberUI() {
 
 let _isScrubbingMehlman = false;
 let _scrubberThrottleTimer = null;
+let _mehlmanPageObserver = null;
+let _mehlmanStackReady = false;
+
+function buildMehlmanPageStack() {
+  const wrapper = document.getElementById('mehlman-page-canvas-wrapper');
+  if (!wrapper || !_mehlmanPdfDoc) return;
+  wrapper.innerHTML = '';
+  wrapper.classList.remove('overflow-hidden');
+  wrapper.classList.add('overflow-visible');
+  _mehlmanStackReady = true;
+
+  for (let pageNum = 1; pageNum <= _mehlmanPdfDoc.numPages; pageNum += 1) {
+    const pageWrapper = document.createElement('div');
+    pageWrapper.className = 'mehlman-pdf-page relative w-full flex justify-center my-3 first:mt-0 last:mb-0';
+    pageWrapper.dataset.page = String(pageNum);
+    pageWrapper.id = `mehlman-pdf-page-${pageNum}`;
+    pageWrapper.style.width = 'min(880px, 100%)';
+    pageWrapper.style.aspectRatio = '0.77';
+    const canvas = document.createElement('canvas');
+    canvas.className = 'mehlman-pdf-canvas max-w-full w-full h-auto rounded-xl shadow-2xl bg-white';
+    canvas.dataset.page = String(pageNum);
+    pageWrapper.appendChild(canvas);
+    wrapper.appendChild(pageWrapper);
+  }
+
+  const scrollArea = document.getElementById('mehlman-scroll-area');
+  if (_mehlmanPageObserver) _mehlmanPageObserver.disconnect();
+  _mehlmanPageObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const pageNum = Number(entry.target.dataset.page);
+      if (pageNum && pageNum !== state.currentMehlmanPage) {
+        state.currentMehlmanPage = pageNum;
+        updateMehlmanHeaderIndicators();
+        updateMehlmanScrubberUI();
+      }
+      renderMehlmanPage(pageNum);
+    }
+  }, { root: scrollArea, rootMargin: '700px 0px', threshold: 0.1 });
+
+  wrapper.querySelectorAll('.mehlman-pdf-page').forEach(page => _mehlmanPageObserver.observe(page));
+}
 
 function initMehlmanScrubber() {
   const track = document.getElementById('mehlman-scrubber-track');
@@ -446,26 +488,6 @@ function initMehlmanScrubber() {
     }
   });
 
-  // Smooth mouse wheel boundary scroll to flip pages vertically
-  if (scrollArea && !scrollArea._hasWheelNav) {
-    scrollArea._hasWheelNav = true;
-    let wheelCooldown = false;
-    scrollArea.addEventListener('wheel', (e) => {
-      if (wheelCooldown) return;
-      const atBottom = scrollArea.scrollTop + scrollArea.clientHeight >= scrollArea.scrollHeight - 18;
-      const atTop = scrollArea.scrollTop <= 18;
-
-      if (e.deltaY > 25 && atBottom) {
-        wheelCooldown = true;
-        nextMehlmanPage();
-        setTimeout(() => { wheelCooldown = false; }, 380);
-      } else if (e.deltaY < -25 && atTop) {
-        wheelCooldown = true;
-        prevMehlmanPage();
-        setTimeout(() => { wheelCooldown = false; }, 380);
-      }
-    }, { passive: true });
-  }
 }
 
 async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
@@ -495,6 +517,7 @@ async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
 
   // If already loaded this document, jump straight to the page
   if (_mehlmanPdfDoc && _mehlmanPdfSysId === systemId) {
+    if (!_mehlmanStackReady) buildMehlmanPageStack();
     goToMehlmanPage(state.currentMehlmanPage);
     return;
   }
@@ -526,6 +549,7 @@ async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
     }
     updateMehlmanHeaderIndicators();
     renderMehlmanTOC(sys);
+    buildMehlmanPageStack();
     goToMehlmanPage(state.currentMehlmanPage);
   } catch (err) {
     console.error('PDF.js load error:', err);
@@ -558,7 +582,9 @@ async function renderMehlmanPage(num) {
 
   try {
     const page = await _mehlmanPdfDoc.getPage(num);
-    const canvas = document.getElementById('mehlman-pdf-canvas');
+    const canvas = _mehlmanStackReady
+      ? document.querySelector(`.mehlman-pdf-canvas[data-page="${num}"]`)
+      : document.getElementById('mehlman-pdf-canvas');
     if (!canvas) {
       _mehlmanIsRendering = false;
       return;
@@ -640,9 +666,11 @@ function goToMehlmanPage(pageNum, options = {}) {
     history.replaceState({ modal: 'mehlman', systemId: sys.id, page: target }, '', `#mehlman/${sys.id}/${target}`);
   }
 
-  // Scroll viewer to top on page flip
   const scrollArea = document.getElementById('mehlman-scroll-area');
-  if (scrollArea) scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
+  const targetPage = document.getElementById(`mehlman-pdf-page-${target}`);
+  if (scrollArea && targetPage) {
+    targetPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   updateMehlmanScrubberUI();
 }
 
