@@ -283,6 +283,7 @@ function navigate(viewName, { pushHistory = true } = {}) {
 
   if (viewName === 'admin') refreshAdminDashboard();
   if (viewName === 'qbank') renderQBankList();
+  if (viewName === 'review') renderDeckDashboard();
   if (viewName === 'home' || viewName === 'fa') renderContinueReading();
   if (viewName === 'mehlman' && typeof renderMehlmanGrid === 'function') renderMehlmanGrid();
 }
@@ -571,6 +572,7 @@ function filterFaTOC(query) {
 function openFirstAidSystem(sysId) {
   const sys = state.firstAidSystems.find(s => s.id === sysId);
   if (!sys) return;
+  if (state.currentView !== 'fa') navigate('fa');
   state.currentFaSystem = sys;
 
   const topics = sys.topics || [];
@@ -1507,6 +1509,50 @@ function seedSampleFlashcards() {
   document.getElementById('stat-mature').textContent = '12';
   document.getElementById('stat-streak').textContent = '1';
   alert('Loaded 20 high-yield FSRS board flashcards into your review queue!');
+  renderDeckDashboard();
+}
+
+function renderDeckDashboard() {
+  const container = document.getElementById('review-system-decks');
+  if (!container) return;
+  const systems = (state.firstAidSystems || []).slice(0, 4);
+  const counts = { due: 0, learning: 0, newCards: 0 };
+  systems.forEach(system => {
+    const topics = system.topics || [];
+    counts.newCards += topics.length;
+  });
+  const due = document.getElementById('deck-due-count');
+  const learning = document.getElementById('deck-learning-count');
+  const newCards = document.getElementById('deck-new-count');
+  const ring = document.getElementById('review-today-ring');
+  if (due) due.textContent = document.getElementById('stat-due-today')?.textContent || '0';
+  if (learning) learning.textContent = document.getElementById('stat-learning')?.textContent || '0';
+  if (newCards) newCards.textContent = document.getElementById('stat-new-cards')?.textContent || counts.newCards;
+  if (ring) ring.textContent = due?.textContent || '0';
+
+  container.innerHTML = systems.map(system => `
+    <button onclick="openFirstAidSystem('${escapeHtml(system.id)}')" class="flex items-center justify-between rounded-2xl border border-[#332146] bg-[#171021] px-3 py-2.5 text-left hover:border-pink-500/60 hover:bg-[#21132e] transition-colors">
+      <span class="flex min-w-0 items-center gap-2.5">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-500/20 text-xs font-black text-pink-300">${escapeHtml((system.name || 'FA').slice(0, 2).toUpperCase())}</span>
+        <span class="min-w-0">
+          <span class="block truncate text-xs font-bold text-white">${escapeHtml(system.name)}</span>
+          <span class="block text-[10px] text-slate-500">${(system.topics || []).length} topics · First Aid</span>
+        </span>
+      </span>
+      <span class="text-xs text-slate-400">Browse <span class="text-pink-400">&rsaquo;</span></span>
+    </button>
+  `).join('');
+}
+
+function startDeckReview() {
+  const firstSystem = state.firstAidSystems && state.firstAidSystems[0];
+  const firstTopic = firstSystem && firstSystem.topics && firstSystem.topics[0];
+  if (firstTopic && typeof openWhichQuestionsModal === 'function') {
+    state.currentFaSystem = firstSystem;
+    openWhichQuestionsModal(firstTopic);
+  } else {
+    showToast('Your deck is ready once cards are added from a First Aid topic.');
+  }
 }
 
 // ==========================================

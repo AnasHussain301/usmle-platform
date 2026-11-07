@@ -354,6 +354,26 @@ function renderCurrentHeadingCard() {
 
   const card = currentCardsList[currentCardIndex];
   currentCardAnswerRevealed = false;
+  const preview = document.getElementById('hcp-fa-preview');
+  const previewImg = document.getElementById('hcp-fa-preview-img');
+  const previewLink = document.getElementById('hcp-fa-preview-link');
+  const previewPage = currentCardTopic && Number(currentCardTopic.page);
+  const previewSystem = state.currentFaSystem;
+  if (preview && previewImg && previewPage && previewSystem) {
+    preview.classList.remove('hidden');
+    previewImg.src = `/fa-page/${previewPage}.webp`;
+    previewImg.alt = `First Aid ${previewSystem.name} page ${previewPage}`;
+    if (previewLink) {
+      previewLink.onclick = () => {
+        if (typeof navigate === 'function') navigate('fa');
+        state.currentFaSystem = previewSystem;
+        if (typeof openFaBookPage === 'function') openFaBookPage(previewPage, currentCardTopic);
+        closeHeadingCardPlayer();
+      };
+    }
+  } else if (preview) {
+    preview.classList.add('hidden');
+  }
 
   const countEl = document.getElementById('hcp-counter');
   if (countEl) countEl.textContent = `| ${currentCardIndex + 1} / ${currentCardsList.length}`;

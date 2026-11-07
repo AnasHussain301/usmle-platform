@@ -1153,16 +1153,41 @@
 
       <!-- Review Title & Sync User -->
       <div class="space-y-1">
-        <h1 class="text-3xl font-black text-white">Review</h1>
+        <h1 class="text-3xl font-black text-white">Decks</h1>
         <p id="review-user-sync" class="text-xs text-slate-400">Signed in as <span class="text-slate-200 font-medium">user@example.com</span> · deck synced across devices</p>
       </div>
 
-      <!-- Empty Deck Instruction Banner (Screenshot 4) -->
-      <div class="bg-[#1b1225] border border-[#2e1d40] rounded-2xl p-4 text-xs text-slate-300 leading-relaxed">
-        Your deck is empty. Open a sketch, tap a number, then tap <strong class="text-white">+ Deck</strong> next to ✓ X ★ ∅.
+      <div class="rounded-3xl border border-pink-300/30 bg-gradient-to-br from-[#351f2c] via-[#291a2b] to-[#171322] p-5 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+          <div class="relative h-28 w-28 shrink-0 rounded-full bg-[#1a1224] p-2" aria-label="Today's review progress">
+            <div class="h-full w-full rounded-full border-[10px] border-pink-500/25 border-t-pink-500 border-r-pink-400 flex items-center justify-center">
+              <span id="review-today-ring" class="text-2xl font-black text-white">0</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="rounded-full bg-pink-500/20 px-2.5 py-1 font-bold text-pink-200">Today</span>
+              <span class="text-slate-400">Your daily review target</span>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs font-bold">
+              <span class="rounded-full bg-emerald-500/15 px-3 py-1 text-emerald-300"><b id="deck-due-count">0</b> due</span>
+              <span class="rounded-full bg-amber-500/15 px-3 py-1 text-amber-300"><b id="deck-learning-count">0</b> learning</span>
+              <span class="rounded-full bg-blue-500/15 px-3 py-1 text-blue-300"><b id="deck-new-count">0</b> new</span>
+            </div>
+            <p class="mt-3 text-xs text-slate-400">Review your cards, then open the linked First Aid page when you need the full context.</p>
+          </div>
+          <button onclick="startDeckReview()" class="rounded-xl bg-pink-600 px-4 py-2.5 text-xs font-black text-white shadow-lg hover:bg-pink-500">Study 48 cards</button>
+        </div>
       </div>
 
-      <!-- 5 Stats Cards (Screenshot 4) -->
+      <div>
+        <div class="mb-2 flex items-center justify-between">
+          <h2 class="text-sm font-black text-white">By system</h2>
+          <span class="text-[11px] text-slate-500">Browse your decks</span>
+        </div>
+        <div id="review-system-decks" class="grid gap-2 sm:grid-cols-2"></div>
+      </div>
+
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div class="bg-[#1a1224] border border-[#2e1d40] rounded-2xl p-4 text-center">
           <h3 id="stat-due-today" class="text-3xl font-black text-white">0</h3>
@@ -1186,7 +1211,15 @@
         </div>
       </div>
 
-      <!-- FSRS Settings Box (Screenshot 4) -->
+      <div class="rounded-2xl border border-[#2e1d40] bg-[#1a1224] p-4">
+        <h2 class="text-sm font-black text-white">Stats</h2>
+        <p class="mt-1 text-xs text-slate-400">Reviews completed over the last 39 days</p>
+        <div class="mt-4 flex h-16 items-end gap-1">
+          <span class="h-5 flex-1 rounded-t bg-pink-500/50"></span><span class="h-8 flex-1 rounded-t bg-pink-500/60"></span><span class="h-4 flex-1 rounded-t bg-pink-500/40"></span><span class="h-11 flex-1 rounded-t bg-pink-500/70"></span><span class="h-7 flex-1 rounded-t bg-pink-500/50"></span><span class="h-14 flex-1 rounded-t bg-pink-500"></span><span class="h-9 flex-1 rounded-t bg-pink-500/60"></span><span class="h-12 flex-1 rounded-t bg-pink-500/80"></span>
+        </div>
+      </div>
+
+      <!-- FSRS Settings Box -->
       <div class="bg-[#1a1224] border border-[#2e1d40] rounded-2xl p-5 space-y-4">
         <h4 class="text-xs font-bold text-slate-300 flex items-center gap-1.5 cursor-pointer">
           <span>▼</span> Settings
@@ -2389,10 +2422,16 @@
         <span id="hcp-topic-tag" class="text-xs font-bold text-pink-300 truncate">Autoregulation</span>
       </div>
 
-      <div class="py-2 min-h-[70px]">
-        <p id="hcp-prompt-text" class="text-sm sm:text-base font-bold text-white leading-relaxed">
-          ____ is the maintenance of a constant blood flow to an organ in the face of changing arterial pressures
-        </p>
+      <div class="grid gap-4 py-2 sm:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
+        <div class="min-h-[70px] flex items-center">
+          <p id="hcp-prompt-text" class="text-sm sm:text-base font-bold text-white leading-relaxed">
+            ____ is the maintenance of a constant blood flow to an organ in the face of changing arterial pressures
+          </p>
+        </div>
+        <div id="hcp-fa-preview" class="hidden overflow-hidden rounded-2xl border border-[#3b2554] bg-black/30">
+          <img id="hcp-fa-preview-img" src="" alt="Linked First Aid page" class="max-h-52 w-full object-contain" style="filter: invert(1) hue-rotate(180deg);">
+          <button id="hcp-fa-preview-link" type="button" class="w-full border-t border-[#3b2554] px-3 py-2 text-left text-[11px] font-bold text-pink-300 hover:bg-pink-950/30">Open in First Aid &rarr;</button>
+        </div>
       </div>
 
       <div id="hcp-actions-bar" class="flex items-center justify-between border-t border-[#2d1b40] pt-3">
