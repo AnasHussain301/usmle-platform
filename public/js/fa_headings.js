@@ -257,7 +257,8 @@ function renderFaHeadingsTOC(sectionNameOrSysKey, currentPageNum, sortMode, filt
 // - Percentage coordinates scale with zoom and window resize
 // ============================================================
 function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
-  const container = document.getElementById('fa-page-markers-layer');
+  const container = document.querySelector(`[data-fa-markers-page="${pageNum}"]`)
+    || document.getElementById('fa-page-markers-layer');
   if (!container) return;
 
   container.innerHTML = '';

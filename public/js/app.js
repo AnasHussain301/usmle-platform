@@ -485,8 +485,63 @@ function handleFaImageSuccess(img) {
   if (fallback) fallback.classList.add('hidden');
   if (typeof renderFaGutterMarkers === 'function' && window.FA_HEADINGS_DATA && window.state) {
     const sys = state.currentFaSystem;
-    renderFaGutterMarkers(sys ? sys.name : '', state.currentFaPage, window._faPageTopics);
+    const page = Number(img.dataset.page) || state.currentFaPage;
+    renderFaGutterMarkers(sys ? sys.name : '', page, window._faPageTopics);
   }
+}
+
+let _faPageObserver = null;
+let _faPageStackKey = '';
+
+function buildFaPageStack(sys, bounds) {
+  const container = document.getElementById('fa-page-container');
+  const reader = document.getElementById('fa-reader-center-container');
+  if (!container || !reader) return;
+  const stackKey = `${sys ? sys.id : ''}:${bounds.min}-${bounds.max}`;
+  if (_faPageStackKey === stackKey) return;
+  _faPageStackKey = stackKey;
+  if (_faPageObserver) _faPageObserver.disconnect();
+  container.innerHTML = '';
+
+  for (let page = bounds.min; page <= bounds.max; page += 1) {
+    const pageWrapper = document.createElement('div');
+    pageWrapper.className = 'relative w-full';
+    pageWrapper.id = `fa-page-${page}`;
+    pageWrapper.dataset.page = String(page);
+    const image = document.createElement('img');
+    image.src = `/fa-page/${page}.webp`;
+    image.loading = 'lazy';
+    image.dataset.page = String(page);
+    image.alt = `First Aid page ${page}`;
+    image.className = 'w-full h-auto block rounded shadow-[0_15px_50px_rgba(0,0,0,0.85)]';
+    image.style.filter = 'invert(1) hue-rotate(180deg)';
+    image.onerror = () => handleFaImageError(image);
+    image.onload = () => handleFaImageSuccess(image);
+    const markers = document.createElement('div');
+    markers.className = 'absolute inset-0 pointer-events-none';
+    markers.dataset.faMarkersPage = String(page);
+    pageWrapper.append(image, markers);
+    container.appendChild(pageWrapper);
+  }
+
+  _faPageObserver = new IntersectionObserver(entries => {
+    const visible = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    const page = Number(visible.target.dataset.page);
+    if (!page || page === state.currentFaPage) return;
+    state.currentFaPage = page;
+    updateFaScrubberUI();
+    const topIndicator = document.getElementById('fa-top-page-indicator');
+    const bottomIndicator = document.getElementById('fa-bottom-page-indicator');
+    if (topIndicator) topIndicator.textContent = `p. ${page}`;
+    if (bottomIndicator) bottomIndicator.textContent = `< ${page} / ${bounds.max} >`;
+    const sysId = sys && sys.id ? sys.id : 'cvs';
+    history.replaceState({ modal: 'fa-book', systemId: sysId, page }, '', `#fa/${sysId}/${page}`);
+  }, { root: reader, rootMargin: '-35% 0px -35% 0px', threshold: [0.1, 0.5, 0.9] });
+
+  container.querySelectorAll('div[id^="fa-page-"]').forEach(page => _faPageObserver.observe(page));
 }
 
 let faZoomLevel = 100;
@@ -523,6 +578,7 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   const sys = state.currentFaSystem || state.firstAidSystems.find(s => s.id === 'cvs');
   const bounds = getFaPageBounds(sys);
   state.currentFaPage = Math.max(bounds.min, Math.min(bounds.max, pageNum || bounds.min));
+  buildFaPageStack(sys, bounds);
   if (!topic && sys) {
     topic = (sys.topics || []).find(t => t.page === state.currentFaPage) || sys.topics[0];
   }
@@ -542,10 +598,6 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
       history.replaceState({ modal: 'fa-book', systemId: sysId, page: state.currentFaPage }, '', targetHash);
     }
   }
-  initFaScrubber();
-  initFaReaderGestures();
-  updateFaScrubberUI();
-
   // Header breadcrumb update (System > Subject · Topic)
   const breadcrumb = document.getElementById('fa-reader-breadcrumb');
   const topIndicator = document.getElementById('fa-top-page-indicator');
@@ -566,12 +618,9 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   if (topIndicator) topIndicator.textContent = `p. ${state.currentFaPage}`;
   if (bottomIndicator) bottomIndicator.textContent = `< ${state.currentFaPage} / ${bounds.max} >`;
 
-  // Smooth page transition animation
-  const pageImg = document.getElementById('fa-reader-page-img');
-  if (pageImg) {
-    pageImg.style.opacity = '0.35';
-    pageImg.style.transition = 'opacity 0.18s ease-in-out';
-    pageImg.src = `/fa-page/${state.currentFaPage}.webp`;
+  const targetPage = document.getElementById(`fa-page-${state.currentFaPage}`);
+  if (targetPage && options.fromPopState !== true) {
+    targetPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // Fallback layout when raw image is offline
@@ -858,14 +907,8 @@ function initFaReaderGestures() {
   reader.addEventListener('wheel', (event) => {
     if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
     if (Math.abs(event.deltaY) < 8 || wheelLocked) return;
-    const atTop = reader.scrollTop <= 1;
-    const atBottom = reader.scrollTop + reader.clientHeight >= reader.scrollHeight - 1;
-    if ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop)) return;
-    event.preventDefault();
     wheelLocked = true;
-    if (event.deltaY > 0) nextFaBookPage('next');
-    else prevFaBookPage('prev');
-    window.setTimeout(() => { wheelLocked = false; }, 280);
+    window.setTimeout(() => { wheelLocked = false; }, 40);
   }, { passive: false });
 
   reader.addEventListener('touchstart', (event) => {
@@ -882,10 +925,7 @@ function initFaReaderGestures() {
     const distance = touchStartY - event.changedTouches[0].clientY;
     touchStartY = null;
     if (Math.abs(distance) < 40) return;
-    const atTop = touchStartScrollTop <= 1;
-    const atBottom = touchStartScrollTop + reader.clientHeight >= reader.scrollHeight - 1;
-    if (distance > 0 && atBottom) nextFaBookPage('next');
-    if (distance < 0 && atTop) prevFaBookPage('prev');
+    reader.scrollBy({ top: -distance, behavior: 'smooth' });
   }, { passive: true });
 }
 
@@ -895,8 +935,6 @@ function animateFaPageChange(targetPage, direction) {
   const pageImg = document.getElementById('fa-reader-page-img');
   if (pageImg) pageImg.dataset.pageTransition = direction;
   openFaBookPage(targetPage);
-  const reader = document.getElementById('fa-reader-center-container');
-  if (reader) reader.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function nextFaBookPage(direction = 'next') {

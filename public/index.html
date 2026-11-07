@@ -1491,18 +1491,7 @@
       <!-- Center: Scanned Book Canvas & Interactive Overlay -->
       <div id="fa-reader-center-container" class="flex-1 overflow-y-auto flex flex-col items-center py-6 px-4 bg-[#07030d] relative select-none">
         <!-- The Book Page Container (Natural zoom scaling, silky smooth scrolling) -->
-        <div id="fa-page-container" class="relative mx-auto inline-block transition-[width] duration-150" style="width: 840px; max-width: 96vw;">
-          <img id="fa-reader-page-img" src="" alt="First Aid Book Page"
-               class="w-full h-auto block rounded shadow-[0_15px_50px_rgba(0,0,0,0.85)]"
-               style="filter: invert(1) hue-rotate(180deg);"
-               onerror="handleFaImageError(this)"
-               onload="handleFaImageSuccess(this)">
-          
-          <!-- Marker overlay layer directly on top of the page image -->
-          <div id="fa-page-markers-layer" class="absolute inset-0 pointer-events-none"></div>
-          
-          <!-- Optional legacy callouts layer -->
-          <div id="fa-page-callouts-layer" class="absolute inset-0 pointer-events-none"></div>
+        <div id="fa-page-container" class="relative mx-auto flex flex-col gap-4 transition-[width] duration-150" style="width: 840px; max-width: 96vw;">
         </div>
 
         <!-- When Scanned Page Image is not present locally -->
@@ -2076,23 +2065,6 @@
           <button onclick="zoomMehlmanPage(10)" class="hover:text-white font-bold">&plus;</button>
         </div>
 
-        <!-- Vertical Page Slider / Scrubber Bar (Right Side) -->
-        <div id="mehlman-slider-wrapper" class="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 flex items-center select-none" style="touch-action: none;">
-          <!-- Floating Page Indicator Bubble -->
-          <div id="mehlman-scrubber-bubble" class="hidden absolute right-8 bg-[#1e0f30]/95 border border-pink-500/60 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-xl shadow-2xl whitespace-nowrap pointer-events-none items-center gap-1.5 backdrop-blur-md">
-            <span id="mehlman-scrubber-bubble-text">p. 1 / 74</span>
-          </div>
-
-          <!-- Vertical Scrubber Track -->
-          <div id="mehlman-scrubber-track" class="w-3 sm:w-3.5 h-64 sm:h-80 bg-[#160a22]/80 hover:bg-[#200e32] border border-purple-500/40 rounded-full relative cursor-pointer shadow-2xl backdrop-blur-md flex flex-col justify-start overflow-visible group">
-            <!-- Progress Fill Bar -->
-            <div id="mehlman-scrubber-fill" class="w-full bg-gradient-to-b from-pink-500 to-purple-600 rounded-full transition-all duration-75" style="height: 5%;"></div>
-            <!-- Scrubber Thumb -->
-            <div id="mehlman-scrubber-thumb" class="absolute -left-1 sm:-left-1.5 w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-white border-2 border-pink-500 shadow-[0_0_15px_rgba(244,63,94,0.7)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-transform flex items-center justify-center pointer-events-auto" style="top: 0px;">
-              <div class="w-1.5 h-1.5 rounded-full bg-pink-500"></div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
