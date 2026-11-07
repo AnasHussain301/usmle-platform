@@ -283,7 +283,10 @@ function navigate(viewName, { pushHistory = true } = {}) {
 
   if (viewName === 'admin') refreshAdminDashboard();
   if (viewName === 'qbank') renderQBankList();
-  if (viewName === 'review') renderDeckDashboard();
+  if (viewName === 'review') {
+    renderDeckDashboard();
+    loadReviewStats();
+  }
   if (viewName === 'home' || viewName === 'fa') renderContinueReading();
   if (viewName === 'mehlman' && typeof renderMehlmanGrid === 'function') renderMehlmanGrid();
 }
@@ -1502,46 +1505,61 @@ function filterDDxSearch() {
 // ==========================================
 // REVIEW / FSRS CARDS
 // ==========================================
-function seedSampleFlashcards() {
-  document.getElementById('stat-due-today').textContent = '15';
-  document.getElementById('stat-new-cards').textContent = '20';
-  document.getElementById('stat-learning').textContent = '5';
-  document.getElementById('stat-mature').textContent = '12';
-  document.getElementById('stat-streak').textContent = '1';
-  alert('Loaded 20 high-yield FSRS board flashcards into your review queue!');
-  renderDeckDashboard();
+let reviewStats = null;
+
+async function loadReviewStats() {
+  try {
+    const data = await apiFetch('/api/review/stats');
+    if (!data || data.error) throw new Error(data && data.error ? data.error : 'Unable to load deck statistics.');
+    reviewStats = data;
+    renderDeckDashboard();
+  } catch (err) {
+    console.error('Failed to load deck statistics:', err);
+  }
 }
 
 function renderDeckDashboard() {
   const container = document.getElementById('review-system-decks');
   if (!container) return;
-  const systems = (state.firstAidSystems || []).slice(0, 4);
-  const counts = { due: 0, learning: 0, newCards: 0 };
-  systems.forEach(system => {
-    const topics = system.topics || [];
-    counts.newCards += topics.length;
-  });
+  const systems = state.firstAidSystems || [];
+  const stats = reviewStats || { dueToday: 0, learning: 0, newCards: 0, mature: 0, dayStreak: 0, systemCounts: {} };
   const due = document.getElementById('deck-due-count');
   const learning = document.getElementById('deck-learning-count');
   const newCards = document.getElementById('deck-new-count');
   const ring = document.getElementById('review-today-ring');
-  if (due) due.textContent = document.getElementById('stat-due-today')?.textContent || '0';
-  if (learning) learning.textContent = document.getElementById('stat-learning')?.textContent || '0';
-  if (newCards) newCards.textContent = document.getElementById('stat-new-cards')?.textContent || counts.newCards;
+  const studyButton = document.getElementById('deck-study-btn');
+  const statDue = document.getElementById('stat-due-today');
+  const statNew = document.getElementById('stat-new-cards');
+  const statLearning = document.getElementById('stat-learning');
+  const statMature = document.getElementById('stat-mature');
+  const statStreak = document.getElementById('stat-streak');
+  if (statDue) statDue.textContent = stats.dueToday;
+  if (statNew) statNew.textContent = stats.newCards;
+  if (statLearning) statLearning.textContent = stats.learning;
+  if (statMature) statMature.textContent = stats.mature;
+  if (statStreak) statStreak.textContent = stats.dayStreak;
+  if (due) due.textContent = stats.dueToday;
+  if (learning) learning.textContent = stats.learning;
+  if (newCards) newCards.textContent = stats.newCards;
   if (ring) ring.textContent = due?.textContent || '0';
+  if (studyButton) studyButton.textContent = stats.dueToday > 0 ? `Study ${stats.dueToday} due cards` : 'Study due cards';
 
-  container.innerHTML = systems.map(system => `
+  container.innerHTML = systems.map(system => {
+    const summary = stats.systemCounts[system.id] || { total: 0, due: 0, learning: 0, newCards: 0, mature: 0 };
+    const progress = summary.total ? Math.round(((summary.total - summary.newCards) / summary.total) * 100) : 0;
+    return `
     <button onclick="openFirstAidSystem('${escapeHtml(system.id)}')" class="flex items-center justify-between rounded-2xl border border-[#332146] bg-[#171021] px-3 py-2.5 text-left hover:border-pink-500/60 hover:bg-[#21132e] transition-colors">
       <span class="flex min-w-0 items-center gap-2.5">
         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-500/20 text-xs font-black text-pink-300">${escapeHtml((system.name || 'FA').slice(0, 2).toUpperCase())}</span>
         <span class="min-w-0">
           <span class="block truncate text-xs font-bold text-white">${escapeHtml(system.name)}</span>
-          <span class="block text-[10px] text-slate-500">${(system.topics || []).length} topics · First Aid</span>
+          <span class="block text-[10px] text-slate-500">${summary.total} cards · ${progress}% reviewed</span>
         </span>
       </span>
-      <span class="text-xs text-slate-400">Browse <span class="text-pink-400">&rsaquo;</span></span>
+      <span class="text-right text-[10px] text-slate-400">${summary.due} due<br><span class="text-pink-400">Browse &rsaquo;</span></span>
     </button>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function startDeckReview() {

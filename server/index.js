@@ -595,13 +595,45 @@ app.get('/api/fa/markers', (req, res) => {
 app.get('/api/review/stats', requireAuth, (req, res) => {
   const userId = req.user.id;
   const cards = db.getFlashcards(userId);
+  const now = Date.now();
+  const systemCounts = {};
+  const reviewedDays = new Set();
+  cards.forEach(card => {
+    const systemId = card.systemId || card.system || card.deckId || 'unassigned';
+    if (!systemCounts[systemId]) {
+      systemCounts[systemId] = { total: 0, due: 0, learning: 0, mature: 0, newCards: 0 };
+    }
+    const summary = systemCounts[systemId];
+    summary.total++;
+    if (card.state === 'new') summary.newCards++;
+    if (card.state === 'learning') summary.learning++;
+    if (card.state === 'mature' || card.state === 'review') summary.mature++;
+    if (card.state !== 'new' && card.dueDate && new Date(card.dueDate).getTime() <= now) summary.due++;
+    const reviewDates = [
+      card.reviewedAt,
+      card.lastReviewedAt,
+      ...(Array.isArray(card.reviewHistory) ? card.reviewHistory : [])
+    ];
+    reviewDates.forEach(value => {
+      const date = new Date(typeof value === 'object' ? value.date || value.reviewedAt : value);
+      if (!Number.isNaN(date.getTime())) reviewedDays.add(date.toISOString().slice(0, 10));
+    });
+  });
+  let dayStreak = 0;
+  const cursor = new Date();
+  cursor.setHours(0, 0, 0, 0);
+  while (reviewedDays.has(cursor.toISOString().slice(0, 10))) {
+    dayStreak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
   res.json({
-    dueToday: 0,
+    dueToday: cards.filter(c => c.state !== 'new' && c.dueDate && new Date(c.dueDate).getTime() <= now).length,
     newCards: cards.filter(c => c.state === 'new').length,
     learning: cards.filter(c => c.state === 'learning').length,
-    mature: cards.filter(c => c.state === 'mature').length,
-    dayStreak: 0,
-    settings: { newCardsPerDay: 20, maxReviewsPerDay: 200, targetRetention: 0.90 }
+    mature: cards.filter(c => c.state === 'mature' || c.state === 'review').length,
+    dayStreak,
+    totalCards: cards.length,
+    systemCounts
   });
 });
 
