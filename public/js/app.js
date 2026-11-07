@@ -387,24 +387,44 @@ window.addEventListener('hashchange', () => handleRouteFromLocation(true));
 // LOAD DATA
 // ==========================================
 async function loadZetchyData() {
-  try {
-    const [faRes, sketchyRes, ddxRes, qRes, pathRes] = await Promise.all([
-      apiFetch('/api/fa/systems'),
-      apiFetch('/api/sketchy/decks'),
-      apiFetch('/api/ddx/categories'),
-      apiFetch('/api/questions'),
-      apiFetch('/api/sketchy/path')
-    ]);
+  const loaders = [
+    ['First Aid', '/api/fa/systems', (data) => {
+      if (Array.isArray(data.systems)) {
+        state.firstAidSystems = data.systems;
+        renderFirstAidGrid();
+      }
+    }],
+    ['Sketchy decks', '/api/sketchy/decks', (data) => {
+      if (Array.isArray(data.decks)) {
+        state.sketchyDecks = data.decks;
+        renderSketchyDecks();
+      }
+    }],
+    ['DDx', '/api/ddx/categories', (data) => {
+      if (Array.isArray(data.categories)) {
+        state.ddxCategories = data.categories;
+        renderDDxCategories();
+      }
+    }],
+    ['Question bank', '/api/questions', (data) => {
+      if (Array.isArray(data.questions)) state.questions = data.questions;
+    }],
+    ['Sketchy path', '/api/sketchy/path', (data) => {
+      if (data && (data.systems || data.pathData?.systems)) {
+        state.sketchyPathData = data.systems ? data : data.pathData;
+        renderSketchyPathBrowser();
+      }
+    }]
+  ];
 
-    if (faRes.systems) { state.firstAidSystems = faRes.systems; renderFirstAidGrid(); }
-    if (sketchyRes.decks) { state.sketchyDecks = sketchyRes.decks; renderSketchyDecks(); }
-    if (ddxRes.categories) { state.ddxCategories = ddxRes.categories; renderDDxCategories(); }
-    if (qRes.questions) { state.questions = qRes.questions; }
-    if (pathRes && (pathRes.systems || pathRes.pathData?.systems)) {
-      state.sketchyPathData = pathRes.systems ? pathRes : pathRes.pathData;
-      renderSketchyPathBrowser();
+  await Promise.all(loaders.map(async ([label, endpoint, apply]) => {
+    try {
+      const data = await apiFetch(endpoint);
+      apply(data || {});
+    } catch (err) {
+      console.error(`Failed to load ${label}`, err);
     }
-  } catch (err) { console.error('Failed to load Zetchy core data', err); }
+  }));
 }
 
 // ==========================================
