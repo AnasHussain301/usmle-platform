@@ -285,6 +285,7 @@ function completeLogin(data) {
   localStorage.setItem('synapse_user', JSON.stringify(data.user));
   localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
   sessionStorage.setItem('synapse_login_redirect_pending', '1');
+  sessionStorage.setItem('synapse_login_started_at', String(Date.now()));
 
   if (data.user.role === 'admin') {
     window.location.replace('/admin.html');

@@ -70,6 +70,7 @@
     localStorage.removeItem(USER_KEY);
     localStorage.removeItem(ACCESS_KEY);
     sessionStorage.removeItem('synapse_login_redirect_pending');
+    sessionStorage.removeItem('synapse_login_started_at');
     window.location.href = '/login.html';
   }
 
@@ -117,9 +118,13 @@
 
       if (!res.ok) {
         const freshLoginPending = sessionStorage.getItem('synapse_login_redirect_pending') === '1';
+        const loginStartedAt = Number(sessionStorage.getItem('synapse_login_started_at'));
+        const withinLoginGrace = Number.isFinite(loginStartedAt) &&
+          Date.now() - loginStartedAt <= 10000;
         sessionStorage.removeItem('synapse_login_redirect_pending');
+        sessionStorage.removeItem('synapse_login_started_at');
 
-        if (freshLoginPending) {
+        if (freshLoginPending && withinLoginGrace) {
           for (const delay of [300, 700, 1200]) {
             await new Promise(resolve => setTimeout(resolve, delay));
             const retry = await fetch('/api/auth/me', {
@@ -129,13 +134,27 @@
               const data = await retry.json();
               localStorage.setItem(USER_KEY, JSON.stringify(data.user));
               localStorage.setItem(ACCESS_KEY, JSON.stringify(data.accessStatus));
-              window.location.replace(window.location.href);
+              sessionStorage.removeItem('synapse_login_redirect_pending');
+              window.__SYNAPSE_USER__ = data.user;
+              window.__SYNAPSE_ACCESS__ = data.accessStatus;
+              window.__SYNAPSE_TOKEN__ = token;
+              document.body.hidden = false;
               return;
             }
+          }
+
+          if (res.status === 401 && user && access && access.active) {
+            window.__SYNAPSE_USER__ = user;
+            window.__SYNAPSE_ACCESS__ = access;
+            window.__SYNAPSE_TOKEN__ = token;
+            injectUserUI(user, access);
+            document.body.hidden = false;
+            return;
           }
         }
 
         if (res.status === 401 || res.status === 403) {
+          sessionStorage.removeItem('synapse_login_redirect_pending');
           logout();
         } else if (user && access && access.active) {
           window.__SYNAPSE_USER__ = user;
