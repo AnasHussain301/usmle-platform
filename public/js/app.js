@@ -520,10 +520,11 @@ function openFirstAidSystem(sysId) {
 }
 
 function openFaBookPage(pageNum, topic = null, options = {}) {
-  state.currentFaPage = pageNum || 284;
   const sys = state.currentFaSystem || state.firstAidSystems.find(s => s.id === 'cvs');
+  const bounds = getFaPageBounds(sys);
+  state.currentFaPage = Math.max(bounds.min, Math.min(bounds.max, pageNum || bounds.min));
   if (!topic && sys) {
-    topic = (sys.topics || []).find(t => t.page === pageNum) || sys.topics[0];
+    topic = (sys.topics || []).find(t => t.page === state.currentFaPage) || sys.topics[0];
   }
   state.currentFaTopic = topic;
 
@@ -563,7 +564,7 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   }
   if (tocSysTitle && sys) tocSysTitle.textContent = sys.name;
   if (topIndicator) topIndicator.textContent = `p. ${state.currentFaPage}`;
-  if (bottomIndicator) bottomIndicator.textContent = `< ${state.currentFaPage} / 844 >`;
+  if (bottomIndicator) bottomIndicator.textContent = `< ${state.currentFaPage} / ${bounds.max} >`;
 
   // Smooth page transition animation
   const pageImg = document.getElementById('fa-reader-page-img');
@@ -712,9 +713,9 @@ function closeFaBookReader(options = {}) {
 }
 
 function updateFaScrubberUI() {
-  const curr = state.currentFaPage || 284;
-  const max = 844;
-  const pct = Math.max(0, Math.min(1, (curr - 1) / (max - 1)));
+  const bounds = getFaPageBounds();
+  const curr = Math.max(bounds.min, Math.min(bounds.max, state.currentFaPage || bounds.min));
+  const pct = (curr - bounds.min) / Math.max(1, bounds.max - bounds.min);
 
   const track = document.getElementById('fa-scrubber-track');
   const fill = document.getElementById('fa-scrubber-fill');
@@ -726,7 +727,15 @@ function updateFaScrubberUI() {
     const travel = track.clientHeight - thumb.clientHeight;
     thumb.style.top = `${Math.round(pct * travel)}px`;
   }
-  if (bubbleText) bubbleText.textContent = `p. ${curr} / ${max}`;
+  if (bubbleText) bubbleText.textContent = `p. ${curr} / ${bounds.max}`;
+}
+
+function getFaPageBounds(sys = state.currentFaSystem) {
+  const range = sys && sys.pageRange;
+  const min = Number(range && range.min);
+  const max = Number(range && range.max);
+  if (Number.isFinite(min) && Number.isFinite(max) && min <= max) return { min, max };
+  return { min: 1, max: 844 };
 }
 
 let _isScrubbingFa = false;
@@ -743,15 +752,16 @@ function initFaScrubber() {
   track._hasInitFaScrubber = true;
 
   function handleFaScrub(clientY, isFinal = false) {
-    const max = 844;
+    const bounds = getFaPageBounds();
     const rect = track.getBoundingClientRect();
     const offsetY = Math.max(0, Math.min(rect.height, clientY - rect.top));
     const pct = offsetY / rect.height;
-    const targetPage = Math.max(1, Math.min(max, Math.round(1 + pct * (max - 1))));
+    const targetPage = Math.max(bounds.min, Math.min(bounds.max,
+      Math.round(bounds.min + pct * (bounds.max - bounds.min))));
     _faLastScrubbedPage = targetPage;
 
     if (bubble) bubble.classList.remove('hidden');
-    if (bubbleText) bubbleText.textContent = `p. ${targetPage} / ${max}`;
+    if (bubbleText) bubbleText.textContent = `p. ${targetPage} / ${bounds.max}`;
     if (thumb) {
       const travel = rect.height - thumb.clientHeight;
       thumb.style.top = `${Math.round(pct * travel)}px`;
@@ -760,7 +770,7 @@ function initFaScrubber() {
     if (fill) fill.style.height = `${Math.round(pct * 100)}%`;
 
     const bottomIndicator = document.getElementById('fa-bottom-page-indicator');
-    if (bottomIndicator) bottomIndicator.textContent = `< ${targetPage} / ${max} >`;
+    if (bottomIndicator) bottomIndicator.textContent = `< ${targetPage} / ${bounds.max} >`;
     const topIndicator = document.getElementById('fa-top-page-indicator');
     if (topIndicator) topIndicator.textContent = `p. ${targetPage}`;
 
@@ -880,7 +890,8 @@ function initFaReaderGestures() {
 }
 
 function animateFaPageChange(targetPage, direction) {
-  if (targetPage < 1 || targetPage > 844 || targetPage === state.currentFaPage) return;
+  const bounds = getFaPageBounds();
+  if (targetPage < bounds.min || targetPage > bounds.max || targetPage === state.currentFaPage) return;
   const pageImg = document.getElementById('fa-reader-page-img');
   if (pageImg) pageImg.dataset.pageTransition = direction;
   openFaBookPage(targetPage);
@@ -889,13 +900,15 @@ function animateFaPageChange(targetPage, direction) {
 }
 
 function nextFaBookPage(direction = 'next') {
+  const bounds = getFaPageBounds();
   const next = (state.currentFaPage || 284) + 1;
-  if (next <= 844) animateFaPageChange(next, direction);
+  if (next <= bounds.max) animateFaPageChange(next, direction);
 }
 
 function prevFaBookPage(direction = 'prev') {
+  const bounds = getFaPageBounds();
   const prev = (state.currentFaPage || 284) - 1;
-  if (prev >= 1) animateFaPageChange(prev, direction);
+  if (prev >= bounds.min) animateFaPageChange(prev, direction);
 }
 
 function filterUWorldIncorrects() {
