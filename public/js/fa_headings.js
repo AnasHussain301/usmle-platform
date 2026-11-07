@@ -739,7 +739,10 @@ function refreshFaHeadingsTOC() {
 // INITIALIZATION
 // ============================================================
 async function initFaHeadings() {
-  await Promise.all([loadFaHeadingsData(), loadFaMarkersData(), loadMehlmanCardsData()]);
+  await Promise.all([loadFaHeadingsData(), loadFaMarkersData()]);
+  loadMehlmanCardsData().catch(error => {
+    console.warn('[Mehlman Cards] Background load failed:', error.message);
+  });
   console.log('[FA Headings] Module ready with JSON markers & Mehlman cards!');
 }
 

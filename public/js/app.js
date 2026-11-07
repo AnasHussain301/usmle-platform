@@ -66,8 +66,7 @@ const TOUR_STEPS = [
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await checkSession();
-  await loadZetchyData();
+  await Promise.all([checkSession(), loadZetchyData()]);
 
   const hash = window.location.hash.replace('#', '');
   if (['fa', 'sketchy', 'review', 'ddx', 'qbank', 'admin', 'mehlman'].includes(hash)) {

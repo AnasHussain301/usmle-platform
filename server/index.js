@@ -1,6 +1,7 @@
 try { if (process.loadEnvFile) process.loadEnvFile(); } catch (e) {}
 const fs = require('fs');
 const express = require('express');
+const compression = require('compression');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -72,10 +73,16 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(compression({ threshold: 1024 }));
 app.use(async (req, res, next) => {
   // Keep the public login configuration available while the database is
   // reconnecting; protected and mutating routes still wait for initialization.
-  if (req.path === '/api/auth/config') {
+  if ([
+    '/api/auth/config',
+    '/api/fa/systems',
+    '/api/fa/headings',
+    '/api/fa/markers'
+  ].includes(req.path)) {
     next();
     return;
   }
@@ -490,6 +497,7 @@ app.get('/api/mehlman/:id', (req, res) => {
 });
 
 app.get('/api/fa/systems', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
   res.json({ systems: db.getFirstAidSystems() });
 });
 
@@ -507,6 +515,7 @@ app.get('/api/ddx/categories', requireAccess, (req, res) => {
 });
 
 app.get('/api/fa/headings', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
   const headingsFile = path.join(__dirname, '..', 'data', 'zetchy_headings_all.json');
   if (fs.existsSync(headingsFile)) {
     try {
@@ -520,6 +529,7 @@ app.get('/api/fa/headings', (req, res) => {
 });
 
 app.get('/api/fa/markers', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
   const markersFile = path.join(__dirname, '..', 'data', 'zetchy_reader_markers.json');
   if (fs.existsSync(markersFile)) {
     try {
