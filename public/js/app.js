@@ -535,6 +535,7 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
     }
   }
   initFaScrubber();
+  initFaReaderGestures();
   updateFaScrubberUI();
 
   // Header breadcrumb update (System > Subject · Topic)
@@ -627,6 +628,8 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   // On mobile screens (< 768px), start with TOC sidebar closed so book page is immediately visible
   const tocDrawer = document.getElementById('fa-reader-toc');
   if (tocDrawer) {
+    tocDrawer.dataset.closed = 'false';
+    tocDrawer.style.display = '';
     if (window.innerWidth < 768) {
       tocDrawer.classList.add('hidden');
     } else {
@@ -689,7 +692,10 @@ function filterFaTOC(query) {
 
 function toggleFaBookTableOfContents() {
   const toc = document.getElementById('fa-reader-toc');
-  if (toc) toc.classList.toggle('hidden');
+  if (!toc) return;
+  const isClosed = toc.dataset.closed === 'true';
+  toc.dataset.closed = isClosed ? 'false' : 'true';
+  toc.style.display = isClosed ? 'flex' : 'none';
 }
 
 function closeFaBookReader(options = {}) {
@@ -791,7 +797,9 @@ function initFaScrubber() {
   window.addEventListener('mouseup', () => {
     if (_isScrubbingFa) {
       _isScrubbingFa = false;
-      handleFaScrub(0, true);
+      if (_faLastScrubbedPage !== state.currentFaPage) {
+        openFaBookPage(_faLastScrubbedPage);
+      }
       setTimeout(() => {
         if (bubble && !_isScrubbingFa) bubble.classList.add('hidden');
       }, 500);
@@ -813,12 +821,48 @@ function initFaScrubber() {
   window.addEventListener('touchend', () => {
     if (_isScrubbingFa) {
       _isScrubbingFa = false;
-      handleFaScrub(0, true);
+      if (_faLastScrubbedPage !== state.currentFaPage) {
+        openFaBookPage(_faLastScrubbedPage);
+      }
       setTimeout(() => {
         if (bubble && !_isScrubbingFa) bubble.classList.add('hidden');
       }, 500);
     }
   });
+}
+
+function initFaReaderGestures() {
+  const reader = document.getElementById('fa-reader-center-container');
+  if (!reader || reader._hasInitFaReaderGestures) return;
+  reader._hasInitFaReaderGestures = true;
+
+  let wheelLocked = false;
+  let touchStartY = null;
+
+  reader.addEventListener('wheel', (event) => {
+    if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
+    if (Math.abs(event.deltaY) < 8 || wheelLocked) return;
+    event.preventDefault();
+    wheelLocked = true;
+    if (event.deltaY > 0) nextFaBookPage();
+    else prevFaBookPage();
+    window.setTimeout(() => { wheelLocked = false; }, 280);
+  }, { passive: false });
+
+  reader.addEventListener('touchstart', (event) => {
+    if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
+    if (event.touches.length === 1) touchStartY = event.touches[0].clientY;
+  }, { passive: true });
+
+  reader.addEventListener('touchend', (event) => {
+    if (event.target.closest && event.target.closest('#fa-scrubber-track')) return;
+    if (touchStartY === null || !event.changedTouches[0]) return;
+    const distance = touchStartY - event.changedTouches[0].clientY;
+    touchStartY = null;
+    if (Math.abs(distance) < 40) return;
+    if (distance > 0) nextFaBookPage();
+    else prevFaBookPage();
+  }, { passive: true });
 }
 
 
