@@ -27,6 +27,7 @@ let state = {
   tourStep: 0,
   sketchyTab: 'sketchy'
 };
+window.state = state;
 
 // 2-Minute Onboarding Tour Steps
 const TOUR_STEPS = [
@@ -445,7 +446,9 @@ window.addEventListener('hashchange', () => handleRouteFromLocation(true));
 async function loadZetchyData() {
   const loaders = [
     ['First Aid', '/api/fa/systems', 'fa-systems-grid', (data) => {
-      if (!Array.isArray(data.systems)) throw new Error('Invalid First Aid systems response.');
+      if (!Array.isArray(data.systems) || data.systems.length === 0) {
+        throw new Error('First Aid systems are unavailable.');
+      }
       state.firstAidSystems = data.systems;
       renderFirstAidGrid();
       renderContinueReading();
@@ -475,7 +478,7 @@ async function loadZetchyData() {
 
   await Promise.all(loaders.map(async ([label, endpoint, containerId, apply]) => {
     try {
-      const data = await apiFetch(endpoint);
+      const data = await apiFetch(endpoint, endpoint === '/api/fa/systems' ? { cache: 'no-store' } : {});
       if (!data || data.error) throw new Error(data && data.error ? data.error : 'Invalid server response.');
       delete state.dataLoadErrors[endpoint];
       apply(data);

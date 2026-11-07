@@ -109,7 +109,6 @@ app.use(async (req, res, next) => {
   const availableDuringDatabaseStartup = [
     '/api/auth/config',
     '/api/auth/me',
-    '/api/fa/systems',
     '/api/fa/headings',
     '/api/fa/markers'
   ];
@@ -594,7 +593,7 @@ app.get('/api/mehlman/:id', (req, res) => {
 });
 
 app.get('/api/fa/systems', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  res.set('Cache-Control', 'no-store');
   res.json({ systems: db.getFirstAidSystems() });
 });
 

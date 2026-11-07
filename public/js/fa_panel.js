@@ -19,7 +19,7 @@ window._activeUWorldIds = [];
 function findFaTopicForHeading(hSlug, headingTitle, pageNum) {
   const cleanSlug = (hSlug || '').toLowerCase().trim();
   const rawTitle = (headingTitle || '').replace(/^Open:\s*/i, '');
-  const cleanTitle = rawTitle.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+  const cleanTitle = rawTitle.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
   const systems = (window.state && window.state.firstAidSystems) || [];
   const currSys = (window.state && window.state.currentFaSystem);
 
@@ -29,11 +29,8 @@ function findFaTopicForHeading(hSlug, headingTitle, pageNum) {
     const tSlug = (t.slug || '').toLowerCase();
     if (cleanSlug && (tId === cleanSlug || tSlug === cleanSlug)) return true;
     if (cleanTitle) {
-      const tTitle = (t.title || '').toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+      const tTitle = (t.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
       if (tTitle === cleanTitle) return true;
-      if (cleanTitle.length > 5 && tTitle.length > 5) {
-        if (tTitle.includes(cleanTitle) || cleanTitle.includes(tTitle)) return true;
-      }
     }
     return false;
   }
@@ -95,10 +92,11 @@ async function ensureFaSystemsForImagePanel() {
   if (window.state && window.state.firstAidSystems && window.state.firstAidSystems.length > 0) {
     return;
   }
-  const response = await fetch('/api/fa/systems');
+  const response = await fetch('/api/fa/systems', { cache: 'no-store' });
   if (!response.ok) throw new Error(`First Aid systems request failed (${response.status})`);
   const data = await response.json();
   if (!Array.isArray(data.systems)) throw new Error('First Aid systems response is invalid');
+  if (data.systems.length === 0) throw new Error('First Aid systems data is empty');
   window.state.firstAidSystems = data.systems;
 }
 
@@ -170,6 +168,14 @@ function openFaRightPanel(topic, defaultTab) {
   const titleEl = document.getElementById('fa-right-panel-heading-title');
   if (titleEl) titleEl.textContent = topic.title || 'Topic';
 
+  const tables = getFaPanelTables(topic);
+  const tabTables = document.getElementById('fa-panel-tab-tables');
+  if (tabTables) {
+    tabTables.classList.toggle('hidden', tables.length === 0);
+    tabTables.setAttribute('aria-hidden', String(tables.length === 0));
+    tabTables.tabIndex = tables.length === 0 ? -1 : 0;
+  }
+
   // Keep the carousel scoped to the heading whose image icon was clicked.
   const images = [];
   const addImages = candidate => {
@@ -199,7 +205,7 @@ function openFaRightPanel(topic, defaultTab) {
   loadFaHeadingNote(topic.id || topic.title);
 
   // Render tables
-  renderFaPanelTables(topic);
+  renderFaPanelTables(tables);
 
   // Trigger gutter resize/re-alignment so markers stay perfectly placed
   setTimeout(() => {
@@ -228,6 +234,7 @@ function switchFaPanelTab(tab) {
   const tabImg = document.getElementById('fa-panel-tab-img');
   const tabNotes = document.getElementById('fa-panel-tab-notes');
   const tabTables = document.getElementById('fa-panel-tab-tables');
+  const hasTables = getFaPanelTables(state.currentFaPanelTopic).length > 0;
 
   // Hide all views
   [imgView, notesView, tablesView].forEach(v => { if (v) v.classList.add('hidden'); });
@@ -238,6 +245,7 @@ function switchFaPanelTab(tab) {
       t.className = 'p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold transition-all';
     }
   });
+  if (tabTables && !hasTables) tabTables.classList.add('hidden');
 
   // Activate selected tab
   if (tab === 'img') {
@@ -247,12 +255,24 @@ function switchFaPanelTab(tab) {
   } else if (tab === 'notes') {
     if (notesView) notesView.classList.remove('hidden');
     if (tabNotes) tabNotes.className = 'p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold transition-all';
-  } else if (tab === 'tables') {
+  } else if (tab === 'tables' && getFaPanelTables(state.currentFaPanelTopic).length > 0) {
     if (tablesView) tablesView.classList.remove('hidden');
     if (tabTables) tabTables.className = 'p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold transition-all';
+  } else if (tab === 'tables') {
+    switchFaPanelTab('img');
   }
 }
 window.switchFaPanelTab = switchFaPanelTab;
+
+document.addEventListener('click', event => {
+  if (!(event.target instanceof Element)) return;
+  const tabButton = event.target.closest('[data-fa-panel-tab]');
+  if (tabButton) {
+    switchFaPanelTab(tabButton.dataset.faPanelTab);
+    return;
+  }
+  if (event.target.closest('[data-fa-panel-close]')) closeFaRightPanel();
+});
 
 // Render the current image in the carousel
 function renderFaImageCarousel() {
@@ -312,13 +332,30 @@ function prevFaCarouselImg() {
 window.prevFaCarouselImg = prevFaCarouselImg;
 
 // Render UWorld tables in the right panel
-function renderFaPanelTables(topic) {
+function getFaPanelTables(topic) {
+  if (!topic) return [];
+  const tables = [];
+  const seen = new Set();
+  const addTables = candidate => {
+    for (const table of candidate || []) {
+      if (!Array.isArray(table)) continue;
+      const key = table[0] || `${table[1] || ''}:${tables.length}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      tables.push(table);
+    }
+  };
+  addTables(topic.tables);
+  (topic.subs || []).forEach(subtopic => addTables(subtopic.tables));
+  return tables;
+}
+
+function renderFaPanelTables(tables) {
   const container = document.getElementById('fa-panel-tables-list');
   if (!container) return;
 
-  const tables = (topic && topic.tables) || [];
   if (tables.length === 0) {
-    container.innerHTML = '<div class="text-xs text-slate-400 p-4 text-center italic">No UWorld tables for this heading.</div>';
+    container.replaceChildren();
     return;
   }
 

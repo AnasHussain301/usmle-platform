@@ -1686,15 +1686,15 @@
         <!-- Panel Top Toolbar -->
         <div class="h-12 bg-[#1b1026] border-b border-[#2b183d] px-4 flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <button id="fa-panel-tab-img" onclick="switchFaPanelTab('img')" class="p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold" title="Images">
+            <button id="fa-panel-tab-img" data-fa-panel-tab="img" class="p-1.5 rounded-lg text-pink-400 bg-pink-950/60 border border-pink-900/60 flex items-center gap-1.5 text-xs font-bold" title="Images">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               <span>Images</span>
             </button>
-            <button id="fa-panel-tab-notes" onclick="switchFaPanelTab('notes')" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Notes">
+            <button id="fa-panel-tab-notes" data-fa-panel-tab="notes" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Notes">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               <span>Notes</span>
             </button>
-            <button id="fa-panel-tab-tables" onclick="switchFaPanelTab('tables')" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Tables">
+            <button id="fa-panel-tab-tables" data-fa-panel-tab="tables" class="p-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 text-xs font-bold" title="Tables">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               <span>Tables</span>
             </button>
@@ -1702,7 +1702,7 @@
 
           <div class="flex items-center gap-2">
             <span id="fa-right-panel-heading-title" class="text-xs font-bold text-white truncate max-w-[150px]">Splitting of S2</span>
-            <button onclick="closeFaRightPanel()" class="text-slate-400 hover:text-white p-1 text-sm">&times;</button>
+            <button data-fa-panel-close class="text-slate-400 hover:text-white p-1 text-sm">&times;</button>
           </div>
         </div>
 
