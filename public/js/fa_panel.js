@@ -47,8 +47,8 @@ function findFaTopicForHeading(hSlug, headingTitle, pageNum) {
           return {
             ...s,
             parentTopic: t,
-            images: (s.images && s.images.length > 0) ? s.images : (t.images || []),
-            tables: (s.tables && s.tables.length > 0) ? s.tables : (t.tables || []),
+            images: s.images || [],
+            tables: s.tables || [],
             sketch: s.sketch || t.sketch
           };
         }
@@ -65,8 +65,8 @@ function findFaTopicForHeading(hSlug, headingTitle, pageNum) {
           return {
             ...s,
             parentTopic: t,
-            images: (s.images && s.images.length > 0) ? s.images : (t.images || []),
-            tables: (s.tables && s.tables.length > 0) ? s.tables : (t.tables || []),
+            images: s.images || [],
+            tables: s.tables || [],
             sketch: s.sketch || t.sketch
           };
         }
@@ -151,21 +151,21 @@ function openFaRightPanel(topic, defaultTab) {
   const titleEl = document.getElementById('fa-right-panel-heading-title');
   if (titleEl) titleEl.textContent = topic.title || 'Topic';
 
-  // Set up images list - prefer direct, or roll up from subtopics/parent
+  // Keep the carousel scoped to the heading whose image icon was clicked.
   const images = [];
   const addImages = candidate => {
     if (!candidate) return;
-    for (const image of (candidate.images || candidate.allImages || [])) {
+    for (const image of (candidate.images || [])) {
       const imageId = Array.isArray(image) ? image[0] : image && image.id;
       if (imageId && !images.some(existing => existing[0] === imageId)) {
         images.push(Array.isArray(image) ? image : [imageId, image.caption || image.title || '']);
       }
     }
-    for (const subtopic of (candidate.subs || [])) addImages(subtopic);
   };
   addImages(topic);
-  addImages(topic.parentTopic);
-  for (const pageTopic of (window._faPageTopics || [])) addImages(pageTopic);
+  if (images.length === 0 && topic.subs && topic.subs.length > 0) {
+    topic.subs.forEach(addImages);
+  }
   state.currentFaImagesList = images;
   state.currentFaImageIndex = 0;
 
@@ -257,8 +257,8 @@ function renderFaImageCarousel() {
   const safeIdx = Math.max(0, Math.min(idx, imgs.length - 1));
   state.currentFaImageIndex = safeIdx;
   const item = imgs[safeIdx];
-  const imgId = item[0];
-  const caption = item[1] || '';
+  const imgId = Array.isArray(item) ? item[0] : item && item.id;
+  const caption = Array.isArray(item) ? (item[1] || '') : ((item && (item.caption || item.title)) || '');
 
   if (countEl) countEl.textContent = (safeIdx + 1) + ' / ' + imgs.length;
   if (mainImg) {
