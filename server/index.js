@@ -162,6 +162,24 @@ function requireAdmin(req, res, next) {
 app.use(authenticateToken);
 app.use('/api/', apiLimiter);
 
+app.put('/api/auth/profile', requireAuth, (req, res) => {
+  const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
+  if (name.length < 2 || name.length > 80) {
+    return res.status(400).json({ error: 'Display name must be between 2 and 80 characters.' });
+  }
+  if (!/^[\p{L}\p{M}\p{N} .,'-]+$/u.test(name)) {
+    return res.status(400).json({ error: 'Display name contains unsupported characters.' });
+  }
+
+  const updated = db.updateUser(req.user.id, { name });
+  if (!updated) return res.status(404).json({ error: 'User profile not found.' });
+
+  const { ip, userAgent } = getClientMeta(req);
+  db.logActivity(updated.id, updated.name, 'profile_name_updated', { name }, ip, userAgent);
+  const { passwordHash: _, ...safeUser } = updated;
+  res.json({ user: safeUser });
+});
+
 // ============================================================
 // GOOGLE OAUTH — VERIFY ID TOKEN
 // ============================================================

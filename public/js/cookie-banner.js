@@ -37,7 +37,6 @@
   }
 
   function renderBanner() {
-    if (localStorage.getItem('synapse_token')) return;
     if (document.getElementById('synapse-cookie-banner')) return;
     if (getConsent()) {
       return;

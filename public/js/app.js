@@ -118,6 +118,15 @@ function renderAuthUI() {
     tier: 'premium',
     role: 'user'
   };
+  const displayName = user.name || user.email?.split('@')[0] || 'User';
+  const welcomeName = document.getElementById('welcome-user-name');
+  if (welcomeName) welcomeName.textContent = displayName;
+  const sidebarName = document.getElementById('sidebar-user-name');
+  if (sidebarName) sidebarName.textContent = displayName;
+  const topProfileName = document.getElementById('top-profile-name');
+  if (topProfileName) topProfileName.textContent = displayName;
+  const topProfileInitial = document.getElementById('top-profile-initial');
+  if (topProfileInitial) topProfileInitial.textContent = displayName.charAt(0).toUpperCase();
 
   const isPremium = user.tier === 'premium' || user.role === 'admin';
   const isAdmin = user.role === 'admin';
@@ -146,7 +155,7 @@ function renderAuthUI() {
         <div class="w-7 h-7 rounded-full ${isAdmin ? 'bg-rose-600' : 'bg-gradient-to-tr from-pink-600 to-purple-600'} text-white flex items-center justify-center font-bold text-xs shadow-inner">
           ${(user.name || 'K').charAt(0).toUpperCase()}
         </div>
-        <span class="text-xs font-semibold text-slate-200 hidden sm:inline max-w-[120px] truncate">${(user.name || 'kingdomhouse009').split('@')[0]}</span>
+        <span class="text-xs font-semibold text-slate-200 hidden sm:inline max-w-[120px] truncate">${escapeHtml(displayName)}</span>
         <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
     `;
@@ -2258,6 +2267,40 @@ function applyAppearanceSettingsUI() {
   const emailEl = document.getElementById('settings-user-email');
   if (emailEl) {
     emailEl.textContent = state.currentUser ? state.currentUser.email : '';
+  }
+  const nameInput = document.getElementById('settings-display-name');
+  if (nameInput) nameInput.value = state.currentUser ? state.currentUser.name || '' : '';
+}
+
+async function saveDisplayName() {
+  const input = document.getElementById('settings-display-name');
+  const status = document.getElementById('settings-display-name-status');
+  const name = input ? input.value.trim() : '';
+  if (!name || name.length < 2 || name.length > 80) {
+    if (status) {
+      status.textContent = 'Enter a name between 2 and 80 characters.';
+      status.className = 'text-[11px] text-rose-300';
+    }
+    return;
+  }
+  try {
+    const data = await apiFetch('/api/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify({ name })
+    });
+    if (!data.user) throw new Error(data.error || 'Unable to save name.');
+    state.currentUser = data.user;
+    localStorage.setItem('synapse_user', JSON.stringify(data.user));
+    renderAuthUI();
+    if (status) {
+      status.textContent = 'Display name saved.';
+      status.className = 'text-[11px] text-emerald-300';
+    }
+  } catch (err) {
+    if (status) {
+      status.textContent = err.message || 'Unable to save name.';
+      status.className = 'text-[11px] text-rose-300';
+    }
   }
 }
 

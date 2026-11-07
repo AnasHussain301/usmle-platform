@@ -405,9 +405,9 @@
       <div id="top-profile-container">
         <button onclick="toggleSettingsDrawer()" title="Account & Appearance Settings" class="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-[#1d112b] hover:bg-[#2c1941] border border-[#3b2354] text-slate-300 hover:border-pink-500/50 transition-all shadow-md group">
           <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-pink-600 to-purple-600 text-white flex items-center justify-center font-bold text-xs shadow-inner">
-            K
+            <span id="top-profile-initial">U</span>
           </div>
-          <span class="text-xs font-semibold text-slate-200 hidden sm:inline max-w-[120px] truncate">kingdomhouse009</span>
+          <span id="top-profile-name" class="text-xs font-semibold text-slate-200 hidden sm:inline max-w-[120px] truncate">User</span>
           <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </button>
       </div>
@@ -526,7 +526,7 @@
               K
             </div>
             <div class="overflow-hidden">
-              <div class="text-xs font-bold text-white truncate">kingdomhouse009</div>
+              <div id="sidebar-user-name" class="text-xs font-bold text-white truncate">User</div>
               <div class="text-[10px] text-emerald-400 flex items-center gap-1 font-mono">
                 <span>●</span> Synced 0:30
               </div>
@@ -558,7 +558,7 @@
               </div>
               <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
                 <span>Welcome back,</span>
-                <span class="ansi-shimmer-text">Dr. Kingdom</span>
+                <span id="welcome-user-name" class="ansi-shimmer-text">User</span>
               </h2>
               <p class="text-xs text-slate-400 max-w-xl">
                 Real-time active recall, high-yield compendiums, visual mnemonics &amp; ANSI 1.0 PRO diagnostic intelligence.
@@ -1771,6 +1771,19 @@
             <button onclick="logout()" id="settings-logout-btn" class="text-pink-400 hover:text-pink-300 underline font-medium">Log out</button>
           </div>
         </div>
+
+        <div class="space-y-2">
+          <label for="settings-display-name" class="text-xs text-slate-400 font-medium">Display name</label>
+          <div class="flex gap-2">
+            <input id="settings-display-name" type="text" maxlength="80" class="min-w-0 flex-1 rounded-lg bg-white/5 border border-purple-900/50 px-3 py-2 text-xs text-white outline-none focus:border-pink-500" placeholder="Your name">
+            <button onclick="saveDisplayName()" class="rounded-lg bg-pink-600/80 px-3 py-2 text-xs font-bold text-white hover:bg-pink-500">Save</button>
+          </div>
+          <p id="settings-display-name-status" class="hidden text-[11px]"></p>
+        </div>
+
+        <button onclick="window.openCookieSettings && window.openCookieSettings()" class="w-full rounded-lg border border-purple-900/50 bg-white/5 px-3 py-2 text-left text-xs font-semibold text-slate-200 hover:bg-white/10">
+          Cookie preferences
+        </button>
 
         <div class="h-px bg-purple-900/40 my-2"></div>
 
