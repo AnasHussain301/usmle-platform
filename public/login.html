@@ -179,29 +179,17 @@ async function initAuthConfig() {
 }
 
 function setupGoogleSignIn(clientId) {
-  if (isRedirectConfigured) {
-    return;
-  }
-  if (typeof google === 'undefined') {
-    setTimeout(() => setupGoogleSignIn(clientId), 200);
-    return;
-  }
-  try {
-    if (isRedirectConfigured) {
-      const stateBytes = new Uint8Array(24);
-      crypto.getRandomValues(stateBytes);
-      redirectState = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
-      sessionStorage.setItem('synapse_google_oauth_state', redirectState);
-      return;
+  if (typeof google !== 'undefined') {
+    try {
+      google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleGoogleCallback,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+    } catch (e) {
+      console.error('Google init failed:', e);
     }
-    google.accounts.id.initialize({
-      client_id: clientId,
-      callback: handleGoogleCallback,
-      auto_select: false,
-      cancel_on_tap_outside: true
-    });
-  } catch (e) {
-    console.error('Google init failed:', e);
   }
 }
 
@@ -212,34 +200,23 @@ function handleGoogleCallback(response) {
 }
 
 function handleGoogleSignIn() {
-  if (isGoogleConfigured && activeGoogleClientId && (isRedirectConfigured || typeof google !== 'undefined')) {
+  if (isGoogleConfigured && activeGoogleClientId) {
     try {
-      if (isRedirectConfigured) {
-        const stateBytes = new Uint8Array(24);
-        crypto.getRandomValues(stateBytes);
-        const state = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
-        sessionStorage.setItem('synapse_google_oauth_state', state);
-        const params = new URLSearchParams({
-          client_id: activeGoogleClientId,
-          redirect_uri: googleRedirectUri,
-          response_type: 'code',
-          scope: 'openid email profile',
-          state,
-          prompt: 'select_account'
-        });
-        window.location.assign('https://accounts.google.com/o/oauth2/v2/auth?' + params.toString());
-        return;
-      }
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          google.accounts.id.initialize({
-            client_id: activeGoogleClientId,
-            callback: handleGoogleCallback
-          });
-        }
+      const stateBytes = new Uint8Array(24);
+      crypto.getRandomValues(stateBytes);
+      const state = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
+      sessionStorage.setItem('synapse_google_oauth_state', state);
+      const params = new URLSearchParams({
+        client_id: activeGoogleClientId,
+        redirect_uri: googleRedirectUri || (window.location.origin + '/login.html'),
+        response_type: 'code',
+        scope: 'openid email profile',
+        state,
+        prompt: 'select_account'
       });
+      window.location.assign('https://accounts.google.com/o/oauth2/v2/auth?' + params.toString());
     } catch (err) {
-      showError('Google Sign-In prompt failed: ' + err.message);
+      showError('Google Sign-In could not start: ' + err.message);
     }
   } else {
     showError('Google sign-in is temporarily unavailable. The OAuth deployment settings are not configured yet.');
