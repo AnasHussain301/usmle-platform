@@ -38,6 +38,13 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
   .filter(Boolean);
 
 const runtimeJwtSecret = JWT_SECRET || require('crypto').randomBytes(48).toString('hex');
+const defaultFreeAccessPromoEnd = '2026-12-07T15:39:08.086Z';
+const FREE_ACCESS_PROMO_ENDS_AT = Date.parse(
+  process.env.FREE_ACCESS_PROMO_ENDS_AT || defaultFreeAccessPromoEnd
+);
+if (!Number.isFinite(FREE_ACCESS_PROMO_ENDS_AT)) {
+  throw new Error('FREE_ACCESS_PROMO_ENDS_AT must be a valid date.');
+}
 
 // Load MongoDB state before seeding so seed changes are persisted to the active store.
 const initializationReady = db.ready.then(() => seed()).then(() => db.flush());
@@ -193,37 +200,10 @@ function requireAdmin(req, res, next) {
 app.use(authenticateToken);
 app.use('/api/', apiLimiter);
 
-const PLAN_PRICES = { six_months: 29, one_year: 49 };
-const DISCOUNT_CODE = 'SYNAPSES';
-
 app.post('/api/billing/transactions', requireAuth, (req, res) => {
-  const plan = typeof req.body.plan === 'string' ? req.body.plan : '';
-  const reference = typeof req.body.reference === 'string' ? req.body.reference.trim() : '';
-  const code = typeof req.body.discountCode === 'string' ? req.body.discountCode.trim().toUpperCase() : '';
-  if (!Object.prototype.hasOwnProperty.call(PLAN_PRICES, plan)) {
-    return res.status(400).json({ error: 'Select a valid paid plan.' });
-  }
-  if (reference.length < 4 || reference.length > 120) {
-    return res.status(400).json({ error: 'Enter a valid payment reference.' });
-  }
-  const originalAmount = PLAN_PRICES[plan];
-  const discountPercent = code === DISCOUNT_CODE ? 50 : 0;
-  if (code && code !== DISCOUNT_CODE) {
-    return res.status(400).json({ error: 'This discount code is not valid.' });
-  }
-  const transaction = db.createTransaction({
-    userId: req.user.id,
-    email: req.user.email,
-    plan,
-    reference,
-    discountCode: code || null,
-    originalAmount,
-    discountPercent,
-    amountDue: originalAmount * (1 - discountPercent / 100),
-    currency: 'USD'
+  res.status(410).json({
+    error: 'Paid plans are disabled. All premium features are free during the current access promotion.'
   });
-  db.logActivity(req.user.id, req.user.name, 'billing_transaction_submitted', { transactionId: transaction.id, plan }, req.ip, req.get('user-agent'));
-  res.status(201).json({ transaction, message: 'Payment submitted for admin verification.' });
 });
 
 app.get('/api/admin/transactions', requireAdmin, (req, res) => {
@@ -403,21 +383,38 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
 // ACCESS STATUS HELPER
 // ============================================================
 function getAccessStatus(user) {
-  if (user.role === 'admin') return { type: 'admin', active: true, daysLeft: null };
-  if (user.tier === 'premium') return { type: 'premium', active: true, daysLeft: null };
+  const now = Date.now();
+  const promoEndsAt = new Date(FREE_ACCESS_PROMO_ENDS_AT).toISOString();
+  const promoDetails = { promoEndsAt };
+  if (now < FREE_ACCESS_PROMO_ENDS_AT) {
+    return {
+      type: 'promotion',
+      active: true,
+      daysLeft: Math.ceil((FREE_ACCESS_PROMO_ENDS_AT - now) / (1000 * 60 * 60 * 24)),
+      ...promoDetails
+    };
+  }
+  if (user.role === 'admin') return { type: 'admin', active: true, daysLeft: null, ...promoDetails };
+  if (user.tier === 'premium') return { type: 'premium', active: true, daysLeft: null, ...promoDetails };
 
   if (user.tier === 'trial' && user.trialEndsAt) {
-    const now = new Date();
+    const nowDate = new Date(now);
     const end = new Date(user.trialEndsAt);
-    const msLeft = end - now;
+    const msLeft = end - nowDate;
     if (msLeft > 0) {
-      return { type: 'trial', active: true, daysLeft: Math.ceil(msLeft / (1000 * 60 * 60 * 24)) };
+      return { type: 'trial', active: true, daysLeft: Math.ceil(msLeft / (1000 * 60 * 60 * 24)), ...promoDetails };
     } else {
-      return { type: 'expired', active: false, daysLeft: 0 };
+      return { type: 'expired', active: false, daysLeft: 0, ...promoDetails };
     }
   }
 
-  return { type: 'free', active: false, daysLeft: 0 };
+  return { type: 'free', active: false, daysLeft: 0, ...promoDetails };
+}
+
+function hasPremiumAccess(user) {
+  return Date.now() < FREE_ACCESS_PROMO_ENDS_AT ||
+    user.role === 'admin' ||
+    user.tier === 'premium';
 }
 
 // ============================================================
@@ -443,6 +440,10 @@ app.get('/api/auth/config', (req, res) => {
     isConfigured,
     oauthRedirectConfigured: Boolean(googleOAuthClient),
     oauthRedirectUri: googleOAuthClient ? GOOGLE_REDIRECT_URI : '',
+    freeAccessPromotion: {
+      active: Date.now() < FREE_ACCESS_PROMO_ENDS_AT,
+      endsAt: new Date(FREE_ACCESS_PROMO_ENDS_AT).toISOString()
+    },
     supportEmail: process.env.SUPPORT_EMAIL || '',
     whatsapp: '+92-3238057305',
     whatsappUrl: 'https://wa.me/923238057305?text=Hello%20Synapse%20Support',
@@ -691,8 +692,7 @@ app.get('/api/review/stats', requireAuth, (req, res) => {
 // ============================================================
 app.get('/api/questions', requireAccess, (req, res) => {
   const allQuestions = db.getQuestions();
-  const isAdmin = req.user.role === 'admin';
-  const isPremium = req.user.tier === 'premium' || isAdmin;
+  const isPremium = hasPremiumAccess(req.user);
   const questions = allQuestions.map(q => {
     if (q.isPremium && !isPremium) {
       return {
@@ -710,7 +710,7 @@ app.get('/api/questions', requireAccess, (req, res) => {
 app.get('/api/questions/:id', requireAccess, (req, res) => {
   const q = db.getQuestionById(req.params.id);
   if (!q) return res.status(404).json({ error: 'Question not found.' });
-  const isPremium = req.user.tier === 'premium' || req.user.role === 'admin';
+  const isPremium = hasPremiumAccess(req.user);
   if (q.isPremium && !isPremium) {
     return res.status(403).json({ error: 'Premium subscription required.', isPremium: true });
   }

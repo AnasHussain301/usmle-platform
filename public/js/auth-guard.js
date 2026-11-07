@@ -1,7 +1,7 @@
 /**
  * Synapse Auth Guard
  * Injected into every page. Redirects to login if no valid session.
- * Checks trial expiry and shows upgrade prompt.
+ * Checks account access and explains when access has expired.
  */
 (function () {
   'use strict';
@@ -171,14 +171,14 @@
     overlay.innerHTML = `
       <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px;max-width:420px;text-align:center;">
         <div style="font-size:48px;margin-bottom:16px;">⏰</div>
-        <h2 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;">Free Trial Ended</h2>
-        <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your 30-day free trial has ended. Subscribe to continue accessing Synapse.</p>
+        <h2 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;">Your access period has ended</h2>
+        <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your account does not currently have active access. Paid plans are disabled.</p>
         <div style="background:linear-gradient(135deg,rgba(220,38,127,0.1),rgba(124,58,237,0.1));border:1px solid rgba(220,38,127,0.2);border-radius:16px;padding:20px;margin-bottom:24px;">
-          <div style="color:#f43f8e;font-size:20px;font-weight:800;margin-bottom:4px;">Continue with a plan</div>
-          <div style="color:#94a3b8;font-size:13px;">Your trial has ended. View the available USD plans<br>to continue using locked study features.</div>
+          <div style="color:#f43f8e;font-size:20px;font-weight:800;margin-bottom:4px;">Free access promotion</div>
+          <div style="color:#94a3b8;font-size:13px;">The current free access promotion may have ended. Contact support if you need help with your account.</div>
         </div>
         <div style="display:flex;gap:10px;justify-content:center;">
-          <button onclick="this.closest('[data-synapse-upgrade-wall]').remove();document.body.style.overflow='';if(window.openPlansModal){window.openPlansModal();}" style="padding:12px 24px;border-radius:12px;background:linear-gradient(135deg,#db2777,#7c3aed);border:0;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">View plans</button>
+          <button onclick="window.location.href='/contact.html'" style="padding:12px 24px;border-radius:12px;background:linear-gradient(135deg,#059669,#0f766e);border:0;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">Contact support</button>
           <button onclick="window.synapseLogout()" style="padding:12px 24px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:14px;font-weight:600;cursor:pointer;">Sign Out</button>
         </div>
       </div>`;

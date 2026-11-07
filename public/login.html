@@ -93,18 +93,14 @@
       </div>
     </div>
 
-    <!-- 30-Day Free Trial Badge -->
-    <div class="mt-6 p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 to-pink-950/50 border border-purple-800/40">
+    <!-- Free access promotion -->
+    <div class="mt-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 to-teal-950/50 border border-emerald-800/40">
       <div class="flex items-start gap-3">
         <div class="text-xl mt-0.5">🎁</div>
         <div>
-          <div class="text-xs font-bold text-white flex items-center gap-2">
-            <span>30-Day All-Access Free Trial</span>
-            <span class="text-[10px] font-semibold text-pink-400 bg-pink-500/10 px-1.5 py-0.2 rounded border border-pink-500/20">NEW USERS</span>
-          </div>
-          <div class="text-[11px] text-slate-300 mt-1 leading-relaxed">
-            Full access to First Aid Atlas, Mehlman HY, Sketchy Studio, DDx Matrix, QBank, and AI RadBot. No credit card required.
-          </div>
+          <div id="free-access-title" class="text-xs font-bold text-white">All premium features are free for one month</div>
+          <div id="free-access-details" class="text-[11px] text-slate-300 mt-1 leading-relaxed">Everyone has full access to First Aid Atlas, Mehlman HY, Sketchy Studio, DDx Matrix, QBank, and AI RadBot. No payment required.</div>
+          <div id="free-access-end" class="text-[10px] text-emerald-300 mt-2"></div>
         </div>
       </div>
     </div>
@@ -166,6 +162,26 @@ async function initAuthConfig() {
       isGoogleConfigured = Boolean(data.isConfigured);
       isRedirectConfigured = Boolean(data.oauthRedirectConfigured);
       googleRedirectUri = data.oauthRedirectUri || (window.location.origin + '/login.html');
+      const promo = data.freeAccessPromotion;
+      const promoTitle = document.getElementById('free-access-title');
+      const promoDetails = document.getElementById('free-access-details');
+      const promoEnd = document.getElementById('free-access-end');
+      if (promo && promo.active) {
+        const endDate = promo.endsAt
+          ? new Date(promo.endsAt).toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })
+          : '';
+        if (promoTitle) promoTitle.textContent = 'All premium features are free for one month';
+        if (promoDetails) promoDetails.textContent = 'Everyone has full access to First Aid Atlas, Mehlman HY, Sketchy Studio, DDx Matrix, QBank, and AI RadBot. No payment required.';
+        if (promoEnd) promoEnd.textContent = endDate ? `Free access through ${endDate}.` : '';
+      } else {
+        if (promoTitle) promoTitle.textContent = '30-day free trial for new accounts';
+        if (promoDetails) promoDetails.textContent = 'New accounts get 30 days of access to First Aid Atlas, Mehlman HY, Sketchy Studio, DDx Matrix, QBank, and AI RadBot.';
+        if (promoEnd) promoEnd.textContent = '';
+      }
 
       if (isGoogleConfigured && activeGoogleClientId) {
         setupGoogleSignIn(activeGoogleClientId);

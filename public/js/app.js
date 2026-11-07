@@ -71,6 +71,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   await checkSession();
   if (!state.currentUser) return;
   handleRouteFromLocation();
+  if (state.accessStatus?.type === 'promotion' &&
+      sessionStorage.getItem('synapse_free_access_promo_seen') !== '1') {
+    sessionStorage.setItem('synapse_free_access_promo_seen', '1');
+    openPlansModal({ fromPopState: true });
+  }
   checkFirstTimeTour();
   await loadZetchyData();
 
@@ -141,15 +146,17 @@ function renderAuthUI() {
       : 0;
 
   if (tierPill) {
-    tierPill.innerHTML = isAdmin
+    tierPill.innerHTML = state.accessStatus?.type === 'promotion'
+      ? '<span>🎁</span><span class="hidden sm:inline">All premium features free</span><span class="sm:hidden">Free access</span>'
+      : isAdmin
       ? '<span>🛡️</span><span>Admin access</span>'
       : isPremium
       ? '<span>⭐</span><span class="hidden sm:inline">Premium VIP</span><span class="sm:hidden">VIP</span>'
       : `<span>Free trial · ${trialDays} ${trialDays === 1 ? 'day' : 'days'} left</span>`;
-    tierPill.className = isAdmin || isPremium
+    tierPill.className = isAdmin || isPremium || state.accessStatus?.type === 'promotion'
       ? 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition-colors whitespace-nowrap flex items-center gap-1.5 shadow-sm'
       : 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#241732] hover:bg-[#2e1d40] text-slate-300 border border-[#3b2752] transition-colors whitespace-nowrap flex items-center gap-1.5';
-    tierPill.disabled = isAdmin;
+    tierPill.disabled = false;
   }
 
   document.querySelectorAll('.admin-plan-cta').forEach((element) => {
@@ -382,7 +389,7 @@ function handleRouteFromLocation(fromPopState = false) {
   // 3. Plans Modal (#plans)
   const plansModal = document.getElementById('modal-plans');
   if (hash === '#plans') {
-    if (plansModal) plansModal.classList.remove('hidden');
+    openPlansModal({ fromPopState: true });
     return;
   } else if (plansModal && !plansModal.classList.contains('hidden')) {
     plansModal.classList.add('hidden');
@@ -1655,7 +1662,9 @@ function startDeckReview() {
 // 2-MINUTE ONBOARDING TOUR
 // ==========================================
 function checkFirstTimeTour() {
-  if (!localStorage.getItem('zetchy_tour_completed')) {
+  const promoModal = document.getElementById('modal-plans');
+  if (!localStorage.getItem('zetchy_tour_completed') &&
+      (!promoModal || promoModal.classList.contains('hidden'))) {
     setTimeout(() => start2MinTour(), 700);
   }
 }
@@ -1713,7 +1722,34 @@ function dismissOfflineBanner() { document.getElementById('banner-offline').clas
 // PLANS MODAL
 // ==========================================
 function openPlansModal(options = {}) {
-  if (state.currentUser?.role === 'admin') return;
+  const active = state.accessStatus?.type === 'promotion';
+  const title = document.getElementById('free-access-promo-title');
+  const details = document.getElementById('free-access-promo-details');
+  const endLabel = document.getElementById('free-access-promo-end');
+  const endDate = state.accessStatus?.promoEndsAt
+    ? new Date(state.accessStatus.promoEndsAt).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    : '';
+  if (title) {
+    title.textContent = active
+      ? 'All premium features are free for one month'
+      : 'The free access promotion has ended';
+  }
+  if (details) {
+    details.textContent = active
+      ? 'Everyone has full access. No payment or plan selection required.'
+      : 'Paid plans are currently disabled. Contact support if you need help with account access.';
+  }
+  if (endLabel) {
+    endLabel.textContent = active
+      ? `Free access through ${endDate}. No payment required.`
+      : endDate
+        ? `The promotion ended on ${endDate}.`
+        : '';
+  }
   const modal = document.getElementById('modal-plans');
   if (modal) modal.classList.remove('hidden');
   if (!options.fromPopState && window.location.hash !== '#plans') {
@@ -1727,39 +1763,7 @@ function closePlansModal(options = {}) {
   if (!options.fromPopState && window.location.hash === '#plans') {
     history.back();
   }
-
-  let selectedBillingPlan = null;
-  const billingPrices = { six_months: 29, one_year: 49 };
-
-  function selectBillingPlan(plan) {
-    if (!billingPrices[plan]) return;
-    selectedBillingPlan = plan;
-    const panel = document.getElementById('billing-request-panel');
-    const label = document.getElementById('billing-selected-plan');
-    const amount = document.getElementById('billing-amount');
-    if (panel) panel.classList.remove('hidden');
-    if (label) label.textContent = plan === 'one_year' ? '1 year · $49' : '6 months · $29';
-    if (amount) amount.textContent = 'Enter code SYNAPSES for 50% off. Final amount is calculated securely by the server.';
-    panel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  async function submitBillingRequest() {
-    const message = document.getElementById('billing-message');
-    const reference = document.getElementById('billing-reference')?.value.trim();
-    const discountCode = document.getElementById('billing-discount-code')?.value.trim();
-    if (!selectedBillingPlan || !reference) {
-      if (message) { message.textContent = 'Select a plan and enter the payment reference.'; message.className = 'text-xs text-rose-300'; }
-      return;
-    }
-    const result = await apiFetch('/api/billing/transactions', {
-      method: 'POST',
-      body: JSON.stringify({ plan: selectedBillingPlan, reference, discountCode })
-    });
-    if (message) {
-      message.textContent = result.error || result.message || 'Payment submitted.';
-      message.className = result.error ? 'text-xs text-rose-300' : 'text-xs text-emerald-300';
-    }
-  }
+  checkFirstTimeTour();
 }
 
 // ==========================================
