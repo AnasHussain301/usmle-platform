@@ -158,10 +158,23 @@ function renderMehlmanBadge(show, sectionSlug, page, title) {
   if (show) {
     const escTitle = _hesc(title).replace(/'/g, "&#39;");
     const hSlug = slugify(title);
-    return `<button onclick="event.stopPropagation(); openMehlmanSheet('${sectionSlug}', '${page || ''}', '${escTitle}', '${hSlug}')" class="fa-toc-m-badge inline-flex items-center justify-center w-5 h-5 rounded bg-pink-600 hover:bg-pink-500 text-white text-[9px] font-black shrink-0 select-none transition-all active:scale-95 cursor-pointer shadow-sm" title="Mehlman HY content for ${_hesc(title)}">M</button>`;
+    return `<button data-mehlman-card data-section="${_hesc(sectionSlug)}" data-page="${_hesc(page || '')}" data-title="${escTitle}" data-slug="${_hesc(hSlug)}" class="fa-toc-m-badge inline-flex items-center justify-center w-5 h-5 rounded bg-pink-600 hover:bg-pink-500 text-white text-[9px] font-black shrink-0 select-none transition-all active:scale-95 cursor-pointer shadow-sm" title="Mehlman HY content for ${_hesc(title)}">M</button>`;
   }
   return `<span class="fa-toc-m-placeholder inline-block w-5 h-5 shrink-0"></span>`;
 }
+
+document.addEventListener('click', event => {
+  if (!(event.target instanceof Element)) return;
+  const badge = event.target.closest('[data-mehlman-card]');
+  if (!badge) return;
+  event.stopPropagation();
+  openMehlmanSheet(
+    badge.dataset.section,
+    badge.dataset.page,
+    badge.dataset.title,
+    badge.dataset.slug
+  );
+});
 
 // Circle button with "-" (minus) symbol on EVERY row
 function renderMenuButton(rowIdx, pageNum, titleEsc, isLevel1, parentPageNum) {
@@ -490,6 +503,8 @@ function renderMehlmanSheetCard() {
   const cards = state.cards || [];
   const total = cards.length;
   const idx = state.currentIndex;
+  const contentEl = document.getElementById('mehlman-sheet-content');
+  if (contentEl) contentEl.scrollTop = 0;
 
   const counterEl = document.getElementById('mehlman-sheet-counter');
   const progressEl = document.getElementById('mehlman-sheet-progress');

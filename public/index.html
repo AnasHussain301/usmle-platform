@@ -2195,7 +2195,7 @@
   <!-- MEHLMAN BOTTOM SHEET MODAL (PART B)        -->
   <!-- ========================================== -->
   <div id="modal-mehlman-sheet" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-end justify-center transition-all select-none" onclick="handleMehlmanBackdropClick(event)">
-    <div id="mehlman-sheet-container" class="w-full max-w-3xl bg-[#140b1c] border-t-2 border-pink-500 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] text-white p-4 sm:p-6 flex flex-col space-y-4 max-h-[85vh] overflow-y-auto transform transition-transform" onclick="event.stopPropagation()">
+    <div id="mehlman-sheet-container" class="w-full max-w-3xl bg-[#140b1c] border-t-2 border-pink-500 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] text-white p-4 sm:p-6 flex flex-col space-y-4 max-h-[85vh] overflow-hidden transform transition-transform" onclick="event.stopPropagation()">
       <!-- Drag handle -->
       <div class="w-12 h-1.5 bg-slate-600/70 rounded-full mx-auto -mt-1 cursor-grab active:cursor-grabbing"></div>
 
@@ -2234,24 +2234,26 @@
         <span id="mehlman-sheet-topic" class="font-semibold truncate">Upper extremity nerves</span>
       </div>
 
-      <!-- Question display -->
-      <div id="mehlman-sheet-question" class="text-sm sm:text-base font-bold text-white leading-relaxed min-h-[48px]">
-        “I know upper limb nerves are HY . What do I need to know for USMLE without all of the bullshit.”
-      </div>
-
-      <!-- Answer Box (Dashed pink border or revealed answer) -->
-      <div id="mehlman-sheet-answer-box" onclick="revealMehlmanAnswer()" class="border-2 border-dashed border-pink-500/60 hover:border-pink-500 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center cursor-pointer transition-all bg-[#1a0f26]/60 hover:bg-[#201230] min-h-[120px]">
-        <div id="mehlman-sheet-tap-hint" class="text-pink-400 font-bold text-xs sm:text-sm flex items-center gap-2">
-          <span>Tap to show the answer</span>
+      <div id="mehlman-sheet-content" class="mehlman-sheet-content flex flex-col gap-4 min-h-0">
+        <!-- Question display -->
+        <div id="mehlman-sheet-question" class="text-sm sm:text-base font-bold text-white leading-relaxed min-h-[48px]">
+          “I know upper limb nerves are HY . What do I need to know for USMLE without all of the bullshit.”
         </div>
-        <div id="mehlman-sheet-revealed-text" class="hidden text-xs sm:text-sm text-slate-200 leading-relaxed text-left w-full"></div>
-      </div>
 
-      <!-- + Deck small outlined button -->
-      <div class="flex justify-start">
-        <button class="px-3 py-1 rounded-xl border border-[#48286b] text-slate-400 hover:text-white hover:border-pink-500 text-[11px] font-semibold flex items-center gap-1 transition-colors">
-          <span>+</span> Deck
-        </button>
+        <!-- Answer Box (Dashed pink border or revealed answer) -->
+        <div id="mehlman-sheet-answer-box" onclick="revealMehlmanAnswer()" class="border-2 border-dashed border-pink-500/60 hover:border-pink-500 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center cursor-pointer transition-all bg-[#1a0f26]/60 hover:bg-[#201230] min-h-[120px]">
+          <div id="mehlman-sheet-tap-hint" class="text-pink-400 font-bold text-xs sm:text-sm flex items-center gap-2">
+            <span>Tap to show the answer</span>
+          </div>
+          <div id="mehlman-sheet-revealed-text" class="hidden text-xs sm:text-sm text-slate-200 leading-relaxed text-left w-full"></div>
+        </div>
+
+        <!-- + Deck small outlined button -->
+        <div class="flex justify-start">
+          <button class="px-3 py-1 rounded-xl border border-[#48286b] text-slate-400 hover:text-white hover:border-pink-500 text-[11px] font-semibold flex items-center gap-1 transition-colors">
+            <span>+</span> Deck
+          </button>
+        </div>
       </div>
 
       <!-- Footer: Previous button, Action (Show answer or Easy/Forgot), Next button -->
