@@ -1650,18 +1650,6 @@ function closePlansModal(options = {}) {
   }
 }
 
-async function activateFreeInstantPremium() {
-  if (!state.currentUser) { closePlansModal(); openLoginModal(); return; }
-  const res = await apiFetch('/api/auth/upgrade', { method: 'POST' });
-  if (res.user) {
-    state.currentUser = res.user;
-    closePlansModal();
-    renderAuthUI();
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    alert('All-Access Premium Plan successfully activated!');
-  }
-}
-
 // ==========================================
 // QBANK & EXAM SIMULATOR
 // ==========================================

@@ -223,11 +223,15 @@
         <h2 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;">Free Trial Ended</h2>
         <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your 30-day free trial has ended. Subscribe to continue accessing Synapse.</p>
         <div style="background:linear-gradient(135deg,rgba(220,38,127,0.1),rgba(124,58,237,0.1));border:1px solid rgba(220,38,127,0.2);border-radius:16px;padding:20px;margin-bottom:24px;">
-          <div style="color:#f43f8e;font-size:20px;font-weight:800;margin-bottom:4px;">Contact Admin</div>
-          <div style="color:#94a3b8;font-size:13px;">Contact the Synapse support team<br>to activate your subscription</div>
+          <div style="color:#f43f8e;font-size:20px;font-weight:800;margin-bottom:4px;">Continue with a plan</div>
+          <div style="color:#94a3b8;font-size:13px;">Your trial has ended. View the available USD plans<br>to continue using locked study features.</div>
         </div>
-        <button onclick="window.synapseLogout()" style="padding:12px 32px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:14px;font-weight:600;cursor:pointer;">Sign Out</button>
+        <div style="display:flex;gap:10px;justify-content:center;">
+          <button onclick="this.closest('[data-synapse-upgrade-wall]').remove();document.body.style.overflow='';if(window.openPlansModal){window.openPlansModal();}" style="padding:12px 24px;border-radius:12px;background:linear-gradient(135deg,#db2777,#7c3aed);border:0;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">View plans</button>
+          <button onclick="window.synapseLogout()" style="padding:12px 24px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;font-size:14px;font-weight:600;cursor:pointer;">Sign Out</button>
+        </div>
       </div>`;
+    overlay.dataset.synapseUpgradeWall = 'true';
     document.body.appendChild(overlay);
   }
 

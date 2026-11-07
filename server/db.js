@@ -209,7 +209,6 @@ class Database {
       tier: 'free',
       role: 'user',
       hasCompletedTour: false,
-      trialDaysRemaining: 2,
       ...userData
     };
     this.data.users.push(newUser);
