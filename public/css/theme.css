@@ -727,14 +727,6 @@ textarea::placeholder {
     max-width: calc(100vw - 64px);
   }
 
-  #fa-page-container .fa-gutter-marker-m {
-    transform: translate(-50%, -50%) !important;
-  }
-
-  #fa-page-container .fa-gutter-marker-dots {
-    transform: translate(calc(-50% + 21px), -50%) !important;
-  }
-
   #modal-mehlman-sheet {
     align-items: flex-end;
     padding-top: env(safe-area-inset-top);
@@ -1004,6 +996,37 @@ textarea::placeholder {
   #mehlman-scroll-area > .fixed.bottom-20 button {
     min-height: 32px;
     min-width: 30px;
+  }
+}
+
+@media (max-width: 1023px) {
+  #fa-page-container .fa-gutter-marker {
+    width: clamp(8px, 2.9%, 24px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  #fa-page-container .fa-gutter-marker-dots > div:first-child {
+    width: 100%;
+    height: 100%;
+  }
+
+  #fa-page-container .fa-gutter-marker-m > button,
+  #fa-page-container .fa-gutter-marker-dots > div:first-child > button {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
+    min-height: 0;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: clamp(6px, 1vw, 10px) !important;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  }
+
+  #fa-page-container .fa-gutter-marker-dots > div:first-child > button > span {
+    font-size: inherit;
+    letter-spacing: -0.08em;
   }
 }
 
