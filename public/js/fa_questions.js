@@ -9,6 +9,31 @@ let currentFilterType = 'not_done'; // 'all' | 'again' | 'good' | 'not_done'
 let currentCardsList = [];
 let currentCardIndex = 0;
 let currentCardAnswerRevealed = false;
+let faQuestionsDataPromise = null;
+
+function loadFaQuestionsData() {
+  if (window.FA_QUESTIONS_DATA) return Promise.resolve(window.FA_QUESTIONS_DATA);
+  if (!faQuestionsDataPromise) {
+    faQuestionsDataPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = '/js/fa_questions_data.js';
+      script.onload = () => {
+        if (window.FA_QUESTIONS_DATA) {
+          resolve(window.FA_QUESTIONS_DATA);
+        } else {
+          faQuestionsDataPromise = null;
+          reject(new Error('First Aid question data was empty.'));
+        }
+      };
+      script.onerror = () => {
+        faQuestionsDataPromise = null;
+        reject(new Error('First Aid question data could not be downloaded.'));
+      };
+      document.head.appendChild(script);
+    });
+  }
+  return faQuestionsDataPromise;
+}
 
 // Format an authentic question item from FA_QUESTIONS_DATA into a Flashcard
 function parseAuthenticQuestion(item, headingTitle, source = 'mnemosyne') {
@@ -164,7 +189,7 @@ function saveCardStatus(topicId, cardId, status) {
 // MODAL 1: "Which questions?" Popup (Screenshot 1 & 2)
 // ==========================================
 
-function openWhichQuestionsModal(topicRef) {
+async function openWhichQuestionsModal(topicRef) {
   let topic = null;
   if (typeof topicRef === 'number') {
     topic = (window._faPageTopics && window._faPageTopics[topicRef]) || state.currentFaTopic;
@@ -209,19 +234,25 @@ function openWhichQuestionsModal(topicRef) {
 
   if (!topic) return;
 
+  const modal = document.getElementById('modal-which-questions');
+  if (!modal) return;
+  const titleEl = document.getElementById('wq-topic-title');
+  if (titleEl) titleEl.textContent = 'Loading practice questions…';
+  modal.classList.remove('hidden');
+
+  try {
+    await loadFaQuestionsData();
+  } catch (error) {
+    console.error('Failed to load First Aid questions:', error);
+    if (titleEl) titleEl.textContent = 'Questions unavailable. Close and reopen to retry.';
+    return;
+  }
+
   currentCardTopic = topic;
   currentDeckSource = 'anking';
   currentCardMode = 'test';
-
-  const modal = document.getElementById('modal-which-questions');
-  if (!modal) return;
-
-  // Set topic title
-  const titleEl = document.getElementById('wq-topic-title');
   if (titleEl) titleEl.textContent = topic.title || 'Practice Questions';
-
   renderWhichQuestionsCounts();
-  modal.classList.remove('hidden');
 }
 
 function closeWhichQuestionsModal() {

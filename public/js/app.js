@@ -70,10 +70,16 @@ const TOUR_STEPS = [
 document.addEventListener('DOMContentLoaded', async () => {
   await checkSession();
   if (!state.currentUser) return;
-  await loadZetchyData();
   handleRouteFromLocation();
-
   checkFirstTimeTour();
+  await loadZetchyData();
+
+  if (state.currentView === 'qbank') renderQBankList();
+  if (window.location.hash.startsWith('#fa/') ||
+      window.location.hash.startsWith('#mehlman/') ||
+      window.location.hash.startsWith('#sketchy/detail/')) {
+    handleRouteFromLocation();
+  }
 });
 
 // ==========================================
@@ -302,6 +308,14 @@ function navigate(viewName, { pushHistory = true } = {}) {
   }
   if (viewName === 'home' || viewName === 'fa') renderContinueReading();
   if (viewName === 'mehlman' && typeof renderMehlmanGrid === 'function') renderMehlmanGrid();
+  if (viewName === 'fa') {
+    if (typeof initFaHeadings === 'function') initFaHeadings();
+    if (typeof loadFaQuestionsData === 'function') {
+      loadFaQuestionsData().catch(error => {
+        console.error('Failed to preload First Aid questions:', error);
+      });
+    }
+  }
 }
 
 function handleRouteFromLocation(fromPopState = false) {
@@ -442,6 +456,7 @@ async function loadZetchyData() {
     ['Question bank', '/api/questions', 'qbank-list-container', (data) => {
       if (!Array.isArray(data.questions)) throw new Error('Invalid question bank response.');
       state.questions = data.questions;
+      if (state.currentView === 'qbank') renderQBankList();
     }],
     ['Sketchy path', '/api/sketchy/path', 'sketchy-path-systems-container', (data) => {
       const pathData = data.systems ? data : data.pathData;

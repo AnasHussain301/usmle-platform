@@ -84,15 +84,29 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(compression({ threshold: 1024 }));
+
+// Serve the app shell and static assets while database initialization runs.
+app.use(express.static(path.join(__dirname, '..', 'public'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    if (filePath.endsWith('.map')) {
+      res.status(404).end();
+    }
+  }
+}));
+
 app.use(async (req, res, next) => {
-  // Keep the public login configuration available while the database is
-  // reconnecting; protected and mutating routes still wait for initialization.
-  if ([
+  // These read-only endpoints can use the local snapshot while MongoDB connects.
+  const availableDuringDatabaseStartup = [
     '/api/auth/config',
+    '/api/auth/me',
     '/api/fa/systems',
     '/api/fa/headings',
     '/api/fa/markers'
-  ].includes(req.path)) {
+  ];
+  if (req.method === 'GET' && availableDuringDatabaseStartup.includes(req.path)) {
     next();
     return;
   }
@@ -119,21 +133,6 @@ const apiLimiter = rateLimit({
   max: 300,
   message: { error: 'Rate limit exceeded.' }
 });
-
-// ============================================================
-// SERVE STATIC FILES — with no-cache for HTML
-// ============================================================
-app.use(express.static(path.join(__dirname, '..', 'public'), {
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    }
-    // Disable source map downloads
-    if (filePath.endsWith('.map')) {
-      res.status(404).end();
-    }
-  }
-}));
 
 // ============================================================
 // HELPER: IP + User Agent

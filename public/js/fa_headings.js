@@ -739,16 +739,18 @@ function refreshFaHeadingsTOC() {
 // ============================================================
 // INITIALIZATION
 // ============================================================
-async function initFaHeadings() {
-  await Promise.all([loadFaHeadingsData(), loadFaMarkersData()]);
-  loadMehlmanCardsData().catch(error => {
-    console.warn('[Mehlman Cards] Background load failed:', error.message);
-  });
-  console.log('[FA Headings] Module ready with JSON markers & Mehlman cards!');
-}
+let faHeadingsInitPromise = null;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initFaHeadings);
-} else {
-  initFaHeadings();
+function initFaHeadings() {
+  if (!faHeadingsInitPromise) {
+    faHeadingsInitPromise = Promise.all([loadFaHeadingsData(), loadFaMarkersData()])
+      .then(() => {
+        console.log('[FA Headings] Module ready with JSON markers.');
+      })
+      .catch(error => {
+        faHeadingsInitPromise = null;
+        throw error;
+      });
+  }
+  return faHeadingsInitPromise;
 }
