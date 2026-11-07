@@ -92,7 +92,11 @@ async function ensureFaSystemsForImagePanel() {
   if (window.state && window.state.firstAidSystems && window.state.firstAidSystems.length > 0) {
     return;
   }
-  const response = await fetch('/api/fa/systems', { cache: 'no-store' });
+  const token = typeof window.synapseGetToken === 'function'
+    ? window.synapseGetToken()
+    : localStorage.getItem('synapse_token');
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const response = await fetch('/api/fa/systems', { cache: 'no-store', headers });
   if (!response.ok) throw new Error(`First Aid systems request failed (${response.status})`);
   const data = await response.json();
   if (!Array.isArray(data.systems)) throw new Error('First Aid systems response is invalid');

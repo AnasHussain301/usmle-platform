@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================
 async function apiFetch(endpoint, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
-  if (state.token) headers['Authorization'] = `Bearer ${state.token}`;
+  const token = state.token || localStorage.getItem('synapse_token');
+  if (token && !headers.Authorization) headers['Authorization'] = `Bearer ${token}`;
   const res = await fetch(endpoint, { ...options, headers });
   return res.json();
 }
