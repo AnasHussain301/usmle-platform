@@ -95,16 +95,42 @@ async function loadFaMarkersData() {
 async function loadMehlmanCardsData() {
   if (window.MEHLMAN_CARDS_DATA) return window.MEHLMAN_CARDS_DATA;
   try {
-    const res = await fetch('/api/mehlman/cards');
-    const json = await res.json();
+    const json = typeof apiFetch === 'function'
+      ? await apiFetch('/api/mehlman/cards')
+      : await fetch('/api/mehlman/cards', {
+        headers: { Authorization: 'Bearer ' + (localStorage.getItem('synapse_token') || '') }
+      }).then(res => res.json());
     if (json.success && json.cards) {
       window.MEHLMAN_CARDS_DATA = json.cards;
     }
   } catch (e) {
     console.warn('[Mehlman Cards] Failed to load cards:', e.message);
-    window.MEHLMAN_CARDS_DATA = {};
   }
   return window.MEHLMAN_CARDS_DATA;
+}
+
+function normalizeFaLookupKey(value) {
+  return String(value || '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
+function findMehlmanCards(data, sectionSlug, page, slug, subSlug, title) {
+  const candidates = [
+    `${sectionSlug}|${page}|${slug}`, `${sectionSlug}|${page}|${subSlug}`,
+    slug, subSlug, `${sectionSlug}|${page}|${title}`, title
+  ].filter(Boolean);
+  for (const key of candidates) {
+    if (Array.isArray(data[key])) return data[key];
+  }
+
+  const normalizedCandidates = candidates.map(normalizeFaLookupKey);
+  const matchingKey = Object.keys(data).find(key =>
+    normalizedCandidates.includes(normalizeFaLookupKey(key))
+  );
+  if (matchingKey && Array.isArray(data[matchingKey])) return data[matchingKey];
+  return [];
 }
 
 function getHeadingsForSection(sectionName) {
@@ -410,12 +436,7 @@ async function openMehlmanSheet(sectionSlug, page, title, hSlug, expectedCount) 
   // 3) exact slug alone
   // 4) sub-slug alone
   // 5) legacy title key
-  let cards = data[`${sectionSlug}|${page}|${slug}`] ||
-              data[`${sectionSlug}|${page}|${subSlug}`] ||
-              data[slug] ||
-              data[subSlug] ||
-              data[`${sectionSlug}|${page}|${title}`] ||
-              data[title] || [];
+  const cards = findMehlmanCards(data, sectionSlug, page, slug, subSlug, title);
 
   let displayTitle = (title || '').replace(/^Open:\s*/, '').trim();
   if (!displayTitle || /^\d+\s+Mehlman\s+question/i.test(displayTitle)) {

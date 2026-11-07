@@ -152,17 +152,20 @@ function openFaRightPanel(topic, defaultTab) {
   if (titleEl) titleEl.textContent = topic.title || 'Topic';
 
   // Set up images list - prefer direct, or roll up from subtopics/parent
-  let images = (topic.images && topic.images.length > 0) ? [...topic.images] : [];
-  if (images.length === 0 && topic.subs && topic.subs.length > 0) {
-    topic.subs.forEach(s => {
-      (s.images || []).forEach(img => {
-        if (!images.some(r => r[0] === img[0])) images.push(img);
-      });
-    });
-  }
-  if (images.length === 0 && topic.allImages && topic.allImages.length > 0) {
-    images = [...topic.allImages];
-  }
+  const images = [];
+  const addImages = candidate => {
+    if (!candidate) return;
+    for (const image of (candidate.images || candidate.allImages || [])) {
+      const imageId = Array.isArray(image) ? image[0] : image && image.id;
+      if (imageId && !images.some(existing => existing[0] === imageId)) {
+        images.push(Array.isArray(image) ? image : [imageId, image.caption || image.title || '']);
+      }
+    }
+    for (const subtopic of (candidate.subs || [])) addImages(subtopic);
+  };
+  addImages(topic);
+  addImages(topic.parentTopic);
+  for (const pageTopic of (window._faPageTopics || [])) addImages(pageTopic);
   state.currentFaImagesList = images;
   state.currentFaImageIndex = 0;
 
