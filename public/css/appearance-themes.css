@@ -216,6 +216,26 @@ html[class*="appearance-"] body [class*="bg-gradient"] {
   color: var(--appearance-on-accent) !important;
 }
 
+html[class*="appearance-"] body #view-home .rounded-2xl[class*="bg-gradient"],
+html[class*="appearance-"] body #view-home .cyber-card {
+  background-color: var(--appearance-card) !important;
+  background-image: none !important;
+  border-color: var(--appearance-border) !important;
+  color: var(--appearance-text) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[class*="appearance-"] body #view-home .rounded-2xl[class*="bg-gradient"] > .absolute {
+  display: none !important;
+}
+
+html[class*="appearance-"] body .ansi-shimmer-text {
+  background: none !important;
+  animation: none !important;
+  color: var(--appearance-accent) !important;
+  -webkit-text-fill-color: var(--appearance-accent) !important;
+}
+
 html[class*="appearance-"] body input,
 html[class*="appearance-"] body textarea,
 html[class*="appearance-"] body select {
@@ -231,7 +251,6 @@ html[class*="appearance-"] body textarea::placeholder {
 
 html[class*="appearance-"] body header,
 html[class*="appearance-"] body #app-sidebar,
-html[class*="appearance-"] body #mobile-bottom-nav,
 html[class*="appearance-"] body #settings-drawer,
 html[class*="appearance-"] body #radbot-drawer,
 html[class*="appearance-"] body #modal-fa-book,
@@ -241,6 +260,70 @@ html[class*="appearance-"] body #mehlman-sheet-container {
   background-color: var(--appearance-card) !important;
   border-color: var(--appearance-border) !important;
   color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #mobile-bottom-nav {
+  background: #000000 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: #FFFFFF !important;
+}
+
+html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item,
+html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item *,
+html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item svg {
+  background-color: transparent !important;
+  color: #FFFFFF !important;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item[style*="font-weight: 700"] {
+  box-shadow: inset 0 -2px 0 var(--appearance-accent);
+}
+
+html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item > div {
+  border-color: rgba(255, 255, 255, 0.55) !important;
+}
+
+html[class*="appearance-"] body #radbot-floating-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--appearance-accent);
+  border-radius: 9999px;
+  padding: 0.65rem 0.9rem;
+  background: var(--appearance-card) !important;
+  color: var(--appearance-text) !important;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+html[class*="appearance-"] body #radbot-floating-trigger:hover {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+  transform: translateY(-1px);
+}
+
+html[class*="appearance-"] body #radbot-floating-trigger .appearance-ai-trigger-content {
+  display: contents;
+}
+
+html[class*="appearance-"] body #radbot-floating-trigger .appearance-ai-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--appearance-accent);
+}
+
+html[class*="appearance-"] body #radbot-floating-trigger .appearance-ai-badge {
+  border: 1px solid var(--appearance-accent);
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.35rem;
+  background: color-mix(in srgb, var(--appearance-accent) 10%, transparent);
+  color: var(--appearance-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
 }
 
 html[class*="appearance-"] body main,

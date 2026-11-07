@@ -1893,14 +1893,11 @@
   </div>
 
   <!-- ANSI 1.0 PRO Futuristic Floating Trigger -->
-  <button id="radbot-floating-trigger" onclick="toggleRadBotDrawer()" class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 group p-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-600 shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(34,211,238,0.7)] hover:scale-105 active:scale-95 transition-all" aria-label="Open ANSI AI assistant">
-    <div class="px-4 py-2.5 rounded-full bg-[#0d0718] flex items-center gap-2.5 border border-white/20 backdrop-blur-md">
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></span>
-      </span>
-      <span class="text-xs font-mono font-black tracking-wider ansi-shimmer-text">ANSI 1.0 PRO</span>
-      <span class="text-[10px] bg-pink-500/20 text-pink-300 font-bold px-1.5 py-0.2 rounded font-mono border border-pink-400/30">AI</span>
+  <button id="radbot-floating-trigger" onclick="toggleRadBotDrawer()" class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 appearance-ai-trigger" aria-label="Open ANSI AI assistant">
+    <div class="appearance-ai-trigger-content">
+      <span class="appearance-ai-indicator" aria-hidden="true"></span>
+      <span class="text-xs font-semibold tracking-wide">ANSI 1.0 PRO</span>
+      <span class="appearance-ai-badge">AI</span>
     </div>
   </button>
 
@@ -2497,7 +2494,7 @@
 
 <!-- MOBILE BOTTOM NAVIGATION (ANDROID / iOS)   -->
   <!-- ========================================== -->
-  <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0e0719]/95 backdrop-blur-2xl border-t border-[#29173e] px-2 py-1.5 pb-safe flex items-center justify-around shadow-2xl">
+  <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-black border-t border-white/15 px-2 py-1.5 pb-safe flex items-center justify-around shadow-2xl">
     <!-- 1. Home -->
     <button onclick="navigate('home')" id="mobile-nav-home" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-pink-400 bg-pink-500/10 font-bold transition-all" title="Home">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -2524,7 +2521,7 @@
 
     <!-- 5. ANSI 1.0 PRO AI -->
     <button onclick="toggleRadBotDrawer()" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-cyan-400 hover:text-cyan-300 transition-all group" title="ANSI AI">
-      <span class="text-base mb-0.5 group-hover:scale-110 transition-transform">⚡</span>
+      <svg class="w-5 h-5 mb-0.5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13h6l-.8 9L19.5 11h-6z"/></svg>
       <span class="text-[10px] font-bold text-cyan-300">ANSI AI</span>
     </button>
 
