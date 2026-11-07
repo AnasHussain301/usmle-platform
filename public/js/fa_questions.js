@@ -169,8 +169,38 @@ function openWhichQuestionsModal(topicRef) {
   if (typeof topicRef === 'number') {
     topic = (window._faPageTopics && window._faPageTopics[topicRef]) || state.currentFaTopic;
   } else if (typeof topicRef === 'string') {
-    const sys = state.currentFaSystem || (state.firstAidSystems || []).find(s => (s.topics || []).some(t => t.id === topicRef));
-    topic = (sys && sys.topics && sys.topics.find(t => t.id === topicRef)) || { id: topicRef, title: topicRef };
+    const normalized = topicRef.toLowerCase().trim();
+    const matchesTopic = (candidate) => {
+      if (!candidate) return false;
+      const id = String(candidate.id || '').toLowerCase();
+      const slug = String(candidate.slug || '').toLowerCase();
+      const title = String(candidate.title || '').toLowerCase().trim();
+      return id === normalized || slug === normalized || title === normalized;
+    };
+    const systems = state.firstAidSystems || [];
+    const currentSystem = state.currentFaSystem;
+    const candidates = currentSystem ? [currentSystem, ...systems.filter(s => s !== currentSystem)] : systems;
+    for (const sys of candidates) {
+      topic = (sys.topics || []).find(matchesTopic);
+      if (topic) break;
+      for (const parent of (sys.topics || [])) {
+        topic = (parent.subs || []).find(matchesTopic);
+        if (topic) {
+          topic = {
+            ...topic,
+            parentTopic: parent,
+            images: topic.images?.length ? topic.images : (parent.images || []),
+            tables: topic.tables?.length ? topic.tables : (parent.tables || [])
+          };
+          break;
+        }
+      }
+      if (topic) break;
+    }
+    if (!topic && typeof findFaTopicForHeading === 'function') {
+      topic = findFaTopicForHeading(topicRef, topicRef);
+    }
+    if (!topic) topic = { id: topicRef, title: topicRef };
   } else if (typeof topicRef === 'object' && topicRef !== null) {
     topic = topicRef;
   } else {
