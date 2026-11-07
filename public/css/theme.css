@@ -727,6 +727,82 @@ textarea::placeholder {
     max-width: calc(100vw - 64px);
   }
 
+  #fa-page-container .fa-gutter-marker-m {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  #fa-page-container .fa-gutter-marker-dots {
+    transform: translate(calc(-50% + 21px), -50%) !important;
+  }
+
+  #modal-mehlman-sheet {
+    align-items: flex-end;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  #mehlman-sheet-container {
+    width: 100%;
+    min-width: 0;
+    max-height: min(88dvh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 12px));
+    padding: 14px 16px max(16px, env(safe-area-inset-bottom)) !important;
+    gap: 12px !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    overflow-wrap: anywhere;
+  }
+
+  #mehlman-sheet-container > * {
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  #mehlman-sheet-container > div:first-of-type {
+    gap: 8px;
+  }
+
+  #mehlman-sheet-container > div:first-of-type > div:first-child {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  #mehlman-sheet-container > div:first-of-type > div:last-child {
+    flex-shrink: 0;
+  }
+
+  #mehlman-sheet-question,
+  #mehlman-sheet-revealed-text {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0 !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    line-height: 1.55;
+  }
+
+  #mehlman-sheet-answer-box {
+    min-width: 0;
+    min-height: 96px;
+    height: auto;
+    flex-shrink: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #mehlman-sheet-action-area,
+  #mehlman-sheet-rating-btns {
+    min-width: 0;
+  }
+
+  #mehlman-sheet-action-area > button,
+  #mehlman-sheet-rating-btns > button {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
   #radbot-drawer {
     height: 100dvh;
     padding-bottom: env(safe-area-inset-bottom);

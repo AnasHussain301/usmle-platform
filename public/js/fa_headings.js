@@ -284,7 +284,7 @@ function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
     if (m.kind === 'M') {
       const qCount = m.mehlmanCount || null;
       html += `
-        <div class="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
+        <div class="fa-gutter-marker fa-gutter-marker-m absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
              style="left: ${leftPct}%; top: ${topPct}%;">
           <button onclick="event.stopPropagation(); openMehlmanSheet('${secSlug}', '${pageNum}', '${titleEsc}', '${hSlug}', ${qCount || 'null'})"
             data-h="${_hesc(hSlug)}"
@@ -294,7 +294,7 @@ function renderFaGutterMarkers(sectionName, pageNum, matchingTopics) {
     } else if (m.kind === 'dots') {
       const popoverId = `popover-dots-${idx}`;
       html += `
-        <div class="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
+        <div class="fa-gutter-marker fa-gutter-marker-dots absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
              style="left: ${leftPct}%; top: ${topPct}%;">
           <div class="relative flex items-center justify-center">
             <button onclick="event.stopPropagation(); toggleHeadingPopover('${popoverId}')"
