@@ -61,6 +61,10 @@
   const USER_KEY   = 'synapse_user';
   const ACCESS_KEY = 'synapse_access';
 
+  // Remove the legacy floating account pill so it cannot intercept header clicks.
+  const legacyUserPill = document.getElementById('synapse-user-pill');
+  if (legacyUserPill) legacyUserPill.remove();
+
   function getToken()  { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } }
   function getUser()   { try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch { return null; } }
   function getAccess() { try { return JSON.parse(localStorage.getItem(ACCESS_KEY) || 'null'); } catch { return null; } }
