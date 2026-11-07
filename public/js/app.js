@@ -283,6 +283,7 @@ function navigate(viewName, { pushHistory = true } = {}) {
 
   if (viewName === 'admin') refreshAdminDashboard();
   if (viewName === 'qbank') renderQBankList();
+  if (viewName === 'home' || viewName === 'fa') renderContinueReading();
   if (viewName === 'mehlman' && typeof renderMehlmanGrid === 'function') renderMehlmanGrid();
 }
 
@@ -391,6 +392,7 @@ async function loadZetchyData() {
       if (Array.isArray(data.systems)) {
         state.firstAidSystems = data.systems;
         renderFirstAidGrid();
+        renderContinueReading();
       }
     }],
     ['Sketchy decks', '/api/sketchy/decks', (data) => {
@@ -532,6 +534,8 @@ function buildFaPageStack(sys, bounds) {
     const page = Number(visible.target.dataset.page);
     if (!page || page === state.currentFaPage) return;
     state.currentFaPage = page;
+    localStorage.setItem(`fa-${sys.id}-last`, String(page));
+    renderContinueReading();
     updateFaScrubberUI();
     const topIndicator = document.getElementById('fa-top-page-indicator');
     const bottomIndicator = document.getElementById('fa-bottom-page-indicator');
@@ -578,6 +582,10 @@ function openFaBookPage(pageNum, topic = null, options = {}) {
   const sys = state.currentFaSystem || state.firstAidSystems.find(s => s.id === 'cvs');
   const bounds = getFaPageBounds(sys);
   state.currentFaPage = Math.max(bounds.min, Math.min(bounds.max, pageNum || bounds.min));
+  if (sys) {
+    localStorage.setItem(`fa-${sys.id}-last`, String(state.currentFaPage));
+    renderContinueReading();
+  }
   buildFaPageStack(sys, bounds);
   if (!topic && sys) {
     topic = (sys.topics || []).find(t => t.page === state.currentFaPage) || sys.topics[0];
@@ -1043,6 +1051,83 @@ function renderSketchyPathBrowser() {
       </div>
     `;
   }).join('');
+}
+
+function getSavedFaPage(system) {
+  const saved = Number(localStorage.getItem(`fa-${system.id}-last`));
+  const bounds = getFaPageBounds(system);
+  return Number.isFinite(saved) && saved >= bounds.min && saved <= bounds.max
+    ? saved
+    : bounds.min;
+}
+
+function openFaResume(systemId, page) {
+  const system = state.firstAidSystems.find(item => item.id === systemId);
+  if (!system) return;
+  state.currentFaSystem = system;
+  openFaBookPage(page, null);
+}
+
+function renderContinueReading() {
+  const containers = [
+    document.getElementById('continue-reading-home'),
+    document.getElementById('continue-reading-fa')
+  ].filter(Boolean);
+  if (!containers.length) return;
+
+  const faSystems = (state.firstAidSystems || []).filter(Boolean);
+  const faSystem = faSystems.find(system => localStorage.getItem(`fa-${system.id}-last`))
+    || faSystems[0];
+  const faPage = faSystem ? getSavedFaPage(faSystem) : null;
+  const faTopic = faSystem && (faSystem.topics || []).find(topic => topic.page === faPage);
+  const mehlmanSystems = (state.mehlmanSystems || DEFAULT_MEHLMAN_SYSTEMS || []).slice(0, 2);
+
+  const cards = [];
+  if (faSystem) {
+    cards.push(`
+      <article onclick="openFaResume('${escapeHtml(faSystem.id)}', ${faPage})"
+        class="cursor-pointer rounded-3xl overflow-hidden border border-white/10 bg-[#19232f] hover:-translate-y-1 hover:border-emerald-400/60 transition-all shadow-xl">
+        <div class="h-44 bg-[#9a4f15] flex flex-col items-center justify-center relative overflow-hidden">
+          <img src="/fa-page/${faPage}.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-35" loading="lazy"
+            onerror="this.style.display='none'">
+          <span class="relative text-4xl text-white">▱</span>
+          <span class="relative mt-5 text-sm font-black text-white">p. ${faPage}</span>
+        </div>
+        <div class="p-4">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">${escapeHtml(faSystem.name)}</div>
+          <h3 class="mt-2 text-base font-black text-white">${escapeHtml((faTopic && faTopic.title) || faSystem.name)}</h3>
+          <p class="mt-1 text-sm text-slate-400">${localStorage.getItem(`fa-${faSystem.id}-last`) ? `Continue reading at p. ${faPage}` : `Start reading at p. ${faPage}`}</p>
+        </div>
+      </article>
+    `);
+  }
+
+  mehlmanSystems.forEach(system => {
+    const savedPage = parseInt(localStorage.getItem(`mmb-${system.id}-last`) || '1', 10);
+    const page = Number.isFinite(savedPage) && savedPage > 0 ? savedPage : 1;
+    cards.push(`
+      <article onclick="openMehlmanBook('${escapeHtml(system.id)}', ${page})"
+        class="cursor-pointer rounded-3xl overflow-hidden border border-white/10 bg-[#19232f] hover:-translate-y-1 hover:border-purple-400/60 transition-all shadow-xl">
+        <div class="h-44 flex items-center justify-center text-6xl" style="background-color:${system.color || '#344054'}">
+          ${getMehlmanIcon(system.icon)}
+        </div>
+        <div class="p-4">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-purple-400">Mehlman ${escapeHtml(system.name)}</div>
+          <h3 class="mt-2 text-base font-black text-white">${escapeHtml(system.title || system.name)}</h3>
+          <p class="mt-1 text-sm text-slate-400">${page > 1 ? `Continue reading at p. ${page}` : 'Not started'}</p>
+        </div>
+      </article>
+    `);
+  });
+
+  const markup = `
+    <div class="flex items-center justify-between px-1">
+      <h2 class="text-lg font-black text-white">Continue where you left off</h2>
+      <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500">Resume study</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">${cards.join('')}</div>
+  `;
+  containers.forEach(container => { container.innerHTML = markup; });
 }
 
 function buildSketchCard(sk) {

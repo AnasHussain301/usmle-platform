@@ -575,6 +575,7 @@ async function renderMehlmanPage(num) {
   state.currentMehlmanPage = num;
   if (state.currentMehlmanSystem) {
     localStorage.setItem('mmb-' + state.currentMehlmanSystem.id + '-last', num);
+    if (typeof renderContinueReading === 'function') renderContinueReading();
   }
 
   const loadingEl = document.getElementById('mehlman-pdf-loading');
