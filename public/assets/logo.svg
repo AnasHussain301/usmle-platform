@@ -1,10 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="72 52 112 152" fill="none">
   <defs>
-    <linearGradient id="zGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#f43f5e;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
+    <linearGradient id="synapse-mark" x1="86" y1="64" x2="170" y2="193" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35D8EE"/>
+      <stop offset="1" stop-color="#2868F5"/>
     </linearGradient>
   </defs>
-  <!-- Stylized Z Icon -->
-  <path d="M 10 10 L 30 10 C 32 10 33 12 31.5 13.5 L 14.5 28 L 30 28 C 32 28 33 30 31.5 31.5 C 30 33 10 33 10 33 C 8 33 7 31 8.5 29.5 L 25.5 15 L 10 15 C 8 15 7 13 8.5 11.5 Z" fill="url(#zGrad)" />
+  <path d="M149 78C143 71 136 64 128 64C103 64 85 79 85 99C85 119 100 129 128 129C157 129 171 146 171 165C171 184 154 193 128 193C109 193 98 188 88 178" stroke="url(#synapse-mark)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="157" cy="96" r="8" fill="#35D8EE"/>
+  <circle cx="99" cy="160" r="8" fill="#FFFFFF"/>
 </svg>
