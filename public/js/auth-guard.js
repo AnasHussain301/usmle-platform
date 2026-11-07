@@ -147,7 +147,6 @@
             window.__SYNAPSE_USER__ = user;
             window.__SYNAPSE_ACCESS__ = access;
             window.__SYNAPSE_TOKEN__ = token;
-            injectUserUI(user, access);
             document.body.hidden = false;
             return;
           }
@@ -187,7 +186,6 @@
       }
 
       // Inject user info into header if element exists
-      injectUserUI(serverUser, serverAccess);
       document.body.hidden = false;
 
       // Expose globally for the app
@@ -204,38 +202,11 @@
         window.__SYNAPSE_USER__   = user;
         window.__SYNAPSE_ACCESS__ = access;
         window.__SYNAPSE_TOKEN__  = token;
-        injectUserUI(user, access);
         document.body.hidden = false;
       } else {
         logout();
       }
     }
-  }
-
-  function injectUserUI(user, access) {
-    // Try to find the topbar user area and update it
-    const existing = document.getElementById('synapse-user-pill');
-    if (existing) {
-      existing.innerHTML = buildUserPill(user, access);
-      return;
-    }
-    // Otherwise create a floating indicator
-    const pill = document.createElement('div');
-    pill.id = 'synapse-user-pill';
-    pill.style.cssText = 'position:fixed;top:10px;right:12px;z-index:9999;';
-    pill.innerHTML = buildUserPill(user, access);
-    document.body.appendChild(pill);
-  }
-
-  function buildUserPill(user, access) {
-    const tierColors = { admin: '#dc2680', premium: '#7c3aed', trial: '#d97706', expired: '#dc2626', free: '#374151' };
-    const color = tierColors[access.type] || '#374151';
-    const pic = user.picture ? `<img src="${user.picture}" style="width:22px;height:22px;border-radius:50%;margin-right:6px;">` : '';
-    const daysLeft = access.type === 'trial' ? ` · ${access.daysLeft}d left` : '';
-    return `<div style="display:flex;align-items:center;background:rgba(10,10,20,0.9);border:1px solid ${color}40;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:600;color:#e2e8f0;cursor:pointer;gap:4px;" title="${user.email}" onclick="window.synapseLogout()">
-      ${pic}
-      <span style="color:${color};text-transform:uppercase;">${access.type}${daysLeft}</span>
-    </div>`;
   }
 
   function showUpgradeWall(access) {
