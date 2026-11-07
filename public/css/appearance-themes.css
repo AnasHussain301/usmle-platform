@@ -262,19 +262,28 @@ html[class*="appearance-"] body #mehlman-sheet-container {
   color: var(--appearance-text) !important;
 }
 
-html[class*="appearance-"] body #mobile-bottom-nav {
+#mobile-bottom-nav {
   background: #000000 !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
   color: #FFFFFF !important;
 }
 
-html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item,
-html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item *,
-html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item svg {
+#mobile-bottom-nav .mobile-nav-item,
+#mobile-bottom-nav .mobile-nav-item *,
+#mobile-bottom-nav .mobile-nav-item svg {
   background-color: transparent !important;
   color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   fill: currentColor;
   stroke: currentColor;
+  opacity: 1 !important;
+}
+
+#mobile-bottom-nav .mobile-nav-item > span {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.45);
 }
 
 html[class*="appearance-"] body #mobile-bottom-nav .mobile-nav-item[style*="font-weight: 700"] {
