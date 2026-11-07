@@ -214,7 +214,50 @@ html[class*="appearance-"] body [class*="from-purple-"] {
 }
 
 html[class*="appearance-"] body [class*="bg-gradient"] {
+  --tw-gradient-from: var(--appearance-accent) var(--tw-gradient-from-position) !important;
+  --tw-gradient-via: color-mix(in srgb, var(--appearance-accent) 76%, var(--appearance-card)) var(--tw-gradient-via-position) !important;
+  --tw-gradient-to: color-mix(in srgb, var(--appearance-accent) 58%, var(--appearance-card)) var(--tw-gradient-to-position) !important;
   color: var(--appearance-on-accent) !important;
+}
+
+html[class*="appearance-"] body .glass-card,
+html[class*="appearance-"] body .sidebar,
+html[class*="appearance-"] body .card,
+html[class*="appearance-"] body .stat-card,
+html[class*="appearance-"] body .main > .sticky {
+  background-color: var(--appearance-card) !important;
+  background-image: none !important;
+  border-color: var(--appearance-border) !important;
+  color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body .nav-item.active,
+html[class*="appearance-"] body .tab.active {
+  background-color: color-mix(in srgb, var(--appearance-accent) 14%, var(--appearance-card)) !important;
+  border-color: var(--appearance-accent) !important;
+  color: var(--appearance-accent) !important;
+}
+
+html[class*="appearance-"] body .nav-item:not(.active),
+html[class*="appearance-"] body .tab:not(.active),
+html[class*="appearance-"] body thead th,
+html[class*="appearance-"] body .log-row {
+  color: var(--appearance-muted) !important;
+}
+
+html[class*="appearance-"] body .btn:not(.btn-primary):not(.btn-danger) {
+  background-color: color-mix(in srgb, var(--appearance-card) 74%, var(--appearance-background)) !important;
+  border-color: var(--appearance-border) !important;
+  color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body .btn-primary {
+  background: var(--appearance-accent) !important;
+  color: var(--appearance-on-accent) !important;
+}
+
+html[class*="appearance-"] body .bg-orb {
+  background: radial-gradient(circle, color-mix(in srgb, var(--appearance-accent) 16%, transparent) 0%, transparent 70%) !important;
 }
 
 html[class*="appearance-"] body #view-home .rounded-2xl[class*="bg-gradient"],
