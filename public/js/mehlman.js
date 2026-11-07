@@ -268,7 +268,7 @@ let _mehlmanPdfDoc = null;
 let _mehlmanPdfSysId = null;
 let _mehlmanRenderTask = null;
 let _mehlmanIsRendering = false;
-let _mehlmanPendingPage = null;
+const _mehlmanPendingPages = new Set();
 
 // Render the 15 Mehlman System Cards Grid
 function renderMehlmanGrid() {
@@ -522,6 +522,8 @@ async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
     return;
   }
 
+  _mehlmanPendingPages.clear();
+
   // Cancel any active render task
   if (_mehlmanRenderTask) {
     try { _mehlmanRenderTask.cancel(); } catch(e) {}
@@ -561,13 +563,9 @@ async function openMehlmanBook(systemId, pageNum = 1, options = {}) {
 async function renderMehlmanPage(num) {
   if (!_mehlmanPdfDoc) return;
 
-  // If a page is actively rendering, cancel it and queue this target
+  // Let the active page finish, then render every requested visible page.
   if (_mehlmanIsRendering) {
-    _mehlmanPendingPage = num;
-    if (_mehlmanRenderTask) {
-      try { _mehlmanRenderTask.cancel(); } catch(e) {}
-      _mehlmanRenderTask = null;
-    }
+    _mehlmanPendingPages.add(num);
     return;
   }
 
@@ -643,10 +641,9 @@ async function renderMehlmanPage(num) {
     if (loadingEl) loadingEl.classList.add('hidden');
     _mehlmanIsRendering = false;
 
-    // If another page was requested while rendering, process it now
-    if (_mehlmanPendingPage !== null) {
-      const nextNum = _mehlmanPendingPage;
-      _mehlmanPendingPage = null;
+    if (_mehlmanPendingPages.size > 0) {
+      const nextNum = _mehlmanPendingPages.values().next().value;
+      _mehlmanPendingPages.delete(nextNum);
       renderMehlmanPage(nextNum);
     }
   }
