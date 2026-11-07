@@ -12,6 +12,7 @@ if (!fs.existsSync(DATA_DIR)) {
 const defaultState = {
   users: [],
   activity_logs: [],
+  transactions: [],
   questions: [],
   tests: [],
   radbot_chats: [],
@@ -50,6 +51,7 @@ class Database {
       const database = this.mongoClient.db();
       this.mongoCollections = {
         users: database.collection('users'),
+        transactions: database.collection('transactions'),
         activity_logs: database.collection('activity_logs'),
         questions: database.collection('questions'),
         tests: database.collection('tests'),
@@ -129,7 +131,7 @@ class Database {
   async loadNormalizedMongoState() {
     const c = this.mongoCollections;
     const arrayKeys = ['users', 'activity_logs', 'questions', 'tests', 'radbot_chats',
-      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories'];
+      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories', 'transactions'];
     const loaded = {};
     for (const key of arrayKeys) {
       loaded[key] = (await c[key].find({}).sort({ _id: 1 }).toArray())
@@ -149,7 +151,7 @@ class Database {
     if (!this.mongoCollections) return;
     const c = this.mongoCollections;
     const arrayKeys = ['users', 'activity_logs', 'questions', 'tests', 'radbot_chats',
-      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories'];
+      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories', 'transactions'];
     for (const key of arrayKeys) {
       const items = (this.data[key] || []).map((item, index) => ({
         ...item,
@@ -222,6 +224,31 @@ class Database {
     this.data.users[idx] = { ...this.data.users[idx], ...updates, updatedAt: new Date().toISOString() };
     this.save();
     return this.data.users[idx];
+  }
+
+  createTransaction(transactionData) {
+    const transaction = {
+      id: 'txn_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+      createdAt: new Date().toISOString(),
+      status: 'pending',
+      ...transactionData
+    };
+    if (!this.data.transactions) this.data.transactions = [];
+    this.data.transactions.unshift(transaction);
+    this.save();
+    return transaction;
+  }
+
+  getTransactions(limit = 100) {
+    return (this.data.transactions || []).slice(0, limit);
+  }
+
+  updateTransaction(id, updates) {
+    const transaction = (this.data.transactions || []).find(item => item.id === id);
+    if (!transaction) return null;
+    Object.assign(transaction, updates, { updatedAt: new Date().toISOString() });
+    this.save();
+    return transaction;
   }
 
   deleteUser(id) {

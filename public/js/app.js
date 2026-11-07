@@ -1663,6 +1663,39 @@ function closePlansModal(options = {}) {
   if (!options.fromPopState && window.location.hash === '#plans') {
     history.back();
   }
+
+  let selectedBillingPlan = null;
+  const billingPrices = { six_months: 29, one_year: 49 };
+
+  function selectBillingPlan(plan) {
+    if (!billingPrices[plan]) return;
+    selectedBillingPlan = plan;
+    const panel = document.getElementById('billing-request-panel');
+    const label = document.getElementById('billing-selected-plan');
+    const amount = document.getElementById('billing-amount');
+    if (panel) panel.classList.remove('hidden');
+    if (label) label.textContent = plan === 'one_year' ? '1 year · $49' : '6 months · $29';
+    if (amount) amount.textContent = 'Enter code SYNAPSES for 50% off. Final amount is calculated securely by the server.';
+    panel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  async function submitBillingRequest() {
+    const message = document.getElementById('billing-message');
+    const reference = document.getElementById('billing-reference')?.value.trim();
+    const discountCode = document.getElementById('billing-discount-code')?.value.trim();
+    if (!selectedBillingPlan || !reference) {
+      if (message) { message.textContent = 'Select a plan and enter the payment reference.'; message.className = 'text-xs text-rose-300'; }
+      return;
+    }
+    const result = await apiFetch('/api/billing/transactions', {
+      method: 'POST',
+      body: JSON.stringify({ plan: selectedBillingPlan, reference, discountCode })
+    });
+    if (message) {
+      message.textContent = result.error || result.message || 'Payment submitted.';
+      message.className = result.error ? 'text-xs text-rose-300' : 'text-xs text-emerald-300';
+    }
+  }
 }
 
 // ==========================================

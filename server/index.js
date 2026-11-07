@@ -194,6 +194,57 @@ function requireAdmin(req, res, next) {
 app.use(authenticateToken);
 app.use('/api/', apiLimiter);
 
+const PLAN_PRICES = { six_months: 29, one_year: 49 };
+const DISCOUNT_CODE = 'SYNAPSES';
+
+app.post('/api/billing/transactions', requireAuth, (req, res) => {
+  const plan = typeof req.body.plan === 'string' ? req.body.plan : '';
+  const reference = typeof req.body.reference === 'string' ? req.body.reference.trim() : '';
+  const code = typeof req.body.discountCode === 'string' ? req.body.discountCode.trim().toUpperCase() : '';
+  if (!Object.prototype.hasOwnProperty.call(PLAN_PRICES, plan)) {
+    return res.status(400).json({ error: 'Select a valid paid plan.' });
+  }
+  if (reference.length < 4 || reference.length > 120) {
+    return res.status(400).json({ error: 'Enter a valid payment reference.' });
+  }
+  const originalAmount = PLAN_PRICES[plan];
+  const discountPercent = code === DISCOUNT_CODE ? 50 : 0;
+  if (code && code !== DISCOUNT_CODE) {
+    return res.status(400).json({ error: 'This discount code is not valid.' });
+  }
+  const transaction = db.createTransaction({
+    userId: req.user.id,
+    email: req.user.email,
+    plan,
+    reference,
+    discountCode: code || null,
+    originalAmount,
+    discountPercent,
+    amountDue: originalAmount * (1 - discountPercent / 100),
+    currency: 'USD'
+  });
+  db.logActivity(req.user.id, req.user.name, 'billing_transaction_submitted', { transactionId: transaction.id, plan }, req.ip, req.get('user-agent'));
+  res.status(201).json({ transaction, message: 'Payment submitted for admin verification.' });
+});
+
+app.get('/api/admin/transactions', requireAdmin, (req, res) => {
+  res.json({ transactions: db.getTransactions() });
+});
+
+app.put('/api/admin/transactions/:id', requireAdmin, (req, res) => {
+  const status = req.body.status;
+  if (!['approved', 'rejected'].includes(status)) {
+    return res.status(400).json({ error: 'Transaction status must be approved or rejected.' });
+  }
+  const transaction = db.updateTransaction(req.params.id, { status, reviewedBy: req.user.email });
+  if (!transaction) return res.status(404).json({ error: 'Transaction not found.' });
+  if (status === 'approved') {
+    const user = db.updateUser(transaction.userId, { tier: 'premium', trialEndsAt: null });
+    if (!user) return res.status(404).json({ error: 'Transaction user not found.' });
+  }
+  res.json({ transaction });
+});
+
 app.put('/api/auth/profile', requireAuth, (req, res) => {
   const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
   if (name.length < 2 || name.length > 80) {

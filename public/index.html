@@ -2105,39 +2105,43 @@
             <span class="text-base font-bold text-white">1 month</span>
             <span class="text-xl font-black text-pink-400">Free</span>
           </div>
-          <div class="h-px bg-white/10"></div>
-          <ul class="space-y-2 text-xs leading-5 text-slate-300">
-            <li>✓ Full access for every new account</li>
-            <li>✓ First Aid, Decks, Sketchy, QBank &amp; AI</li>
-          </ul>
+          <p class="text-xs leading-5 text-slate-300">Full access for every new account.</p>
         </div>
-        <div class="bg-[#241736] p-5 rounded-2xl border border-purple-500/50 space-y-4">
+        <button onclick="selectBillingPlan('six_months')" class="text-left bg-[#241736] p-5 rounded-2xl border border-purple-500/50 hover:border-pink-400/80 space-y-4 transition-colors">
           <span class="inline-flex rounded-full bg-purple-500/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-300">Focused prep</span>
           <div class="flex items-end justify-between gap-2">
             <span class="text-base font-bold text-white">6 months</span>
             <span class="text-xl font-black text-pink-400">$29</span>
           </div>
-          <div class="h-px bg-white/10"></div>
-          <ul class="space-y-2 text-xs leading-5 text-slate-300">
-            <li>✓ All features after the free month</li>
-            <li>✓ AI assistant and unlimited review</li>
-          </ul>
-        </div>
-        <div class="bg-[#241736] p-5 rounded-2xl border border-pink-500/50 space-y-4">
+          <p class="text-xs leading-5 text-slate-300">Access continues after the free month.</p>
+        </button>
+        <button onclick="selectBillingPlan('one_year')" class="text-left bg-[#241736] p-5 rounded-2xl border border-pink-500/50 hover:border-pink-400/80 space-y-4 transition-colors">
           <span class="inline-flex rounded-full bg-pink-500/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-300">Best value</span>
           <div class="flex items-end justify-between gap-2">
             <span class="text-base font-bold text-white">1 year</span>
             <span class="text-xl font-black text-pink-400">$49</span>
-          </div>
-          <div class="h-px bg-white/10"></div>
-          <ul class="space-y-2 text-xs leading-5 text-slate-300">
-            <li>✓ All features after the free month</li>
-            <li>✓ Best value for long-term prep</li>
-          </ul>
+          </button>
+          <p class="text-xs leading-5 text-slate-300">Best value for long-term preparation.</p>
         </div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center">
-        <p class="text-xs leading-5 text-slate-400"><span class="font-semibold text-slate-200">Every plan includes:</span> First Aid, Sketchy, Decks, QBank, DDx Finder, offline sync, and ANSI 1.0 PRO AI.</p>
+        <p class="text-sm leading-6 text-slate-300"><span class="font-semibold text-white">Included with every plan:</span> First Aid, Sketchy, Decks, QBank, DDx Finder, offline sync, and ANSI 1.0 PRO AI.</p>
+      </div>
+      <div id="billing-request-panel" class="hidden text-left rounded-2xl border border-pink-500/30 bg-[#241736] p-5 space-y-4">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="text-sm font-bold text-white">Submit payment for verification</p>
+            <p class="text-[11px] text-slate-400">Do not enter card numbers or CVV. Submit only the transfer reference.</p>
+          </div>
+          <span id="billing-selected-plan" class="text-xs font-bold text-pink-300"></span>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <input id="billing-discount-code" type="text" maxlength="32" placeholder="Discount code" class="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm text-white outline-none focus:border-pink-500">
+          <input id="billing-reference" type="text" maxlength="120" placeholder="Payment reference / transfer ID" class="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm text-white outline-none focus:border-pink-500">
+        </div>
+        <p id="billing-amount" class="text-xs text-slate-300"></p>
+        <button onclick="submitBillingRequest()" class="w-full rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 px-4 py-3 text-xs font-bold text-white hover:from-pink-500 hover:to-purple-500">Submit for admin approval</button>
+        <p id="billing-message" class="hidden text-xs"></p>
       </div>
       <div class="flex items-center justify-between gap-3 text-left">
         <p class="text-[11px] text-slate-500">No access is charged during your first month.</p>
