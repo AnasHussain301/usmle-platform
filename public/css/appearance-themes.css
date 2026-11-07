@@ -78,6 +78,7 @@ html.appearance-max-contrast {
   --accent-subtle: #003C8F22;
 }
 
+html[class*="appearance-"],
 html[class*="appearance-"] body {
   background-color: var(--appearance-background) !important;
   color: var(--appearance-text) !important;
@@ -389,7 +390,58 @@ html[class*="appearance-"] body main,
 html[class*="appearance-"] body #view-home,
 html[class*="appearance-"] body #mehlman-scroll-area {
   background-color: var(--appearance-background) !important;
+  background-image: none !important;
   color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div {
+  border: 1px solid var(--appearance-border) !important;
+  background-color: var(--appearance-card) !important;
+  color: var(--appearance-text) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div > div:first-child > div {
+  background-color: color-mix(in srgb, var(--appearance-accent) 12%, var(--appearance-background)) !important;
+  color: var(--appearance-accent) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div h3 {
+  color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div p,
+html[class*="appearance-"] body #sketchy-decks-container > div span {
+  color: var(--appearance-muted) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div > div.mt-4 > div:first-child {
+  background-color: var(--appearance-border) !important;
+}
+
+html[class*="appearance-"] body #sketchy-decks-container > div > div.mt-4 > div:first-child > div {
+  background-color: var(--appearance-accent) !important;
+}
+
+html[class*="appearance-"] body #fa-systems-grid > div {
+  border: 1px solid var(--appearance-border) !important;
+  background-color: var(--appearance-card) !important;
+  color: var(--appearance-text) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[class*="appearance-"] body #fa-systems-grid > div > div:first-child > div {
+  background-color: color-mix(in srgb, var(--appearance-accent) 12%, var(--appearance-background)) !important;
+  color: var(--appearance-accent) !important;
+}
+
+html[class*="appearance-"] body #fa-systems-grid > div h3 {
+  color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #fa-systems-grid > div p,
+html[class*="appearance-"] body #fa-systems-grid > div > div.pt-3 {
+  color: var(--appearance-muted) !important;
 }
 
 html[class*="appearance-"] body #mehlman-pdf-canvas,
