@@ -7,62 +7,11 @@
   'use strict';
 
   // =========================================================
-  // ANTI-DEVTOOLS / CONSOLE PROTECTION
-  // =========================================================
-  (function antiDevtools() {
-    // Disable right-click context menu
-    document.addEventListener('contextmenu', e => e.preventDefault(), true);
-
-    // Detect F12 / DevTools shortcuts
-    document.addEventListener('keydown', function (e) {
-      const key = e.key || e.keyCode;
-      // F12
-      if (key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
-      // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-      if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) { e.preventDefault(); return false; }
-      // Ctrl+U (view source)
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
-      // Ctrl+S
-      if (e.ctrlKey && (e.key === 's' || e.key === 'S') && !e.shiftKey) { e.preventDefault(); return false; }
-    }, true);
-
-    // Console detective — clears console and warns
-    const noop = () => {};
-    const warn = () => { console.clear(); console.log('%c⛔ Unauthorized Access Detected', 'color:red;font-size:24px;font-weight:bold;'); };
-    Object.defineProperty(window, 'console', {
-      configurable: false,
-      get: () => ({
-        log: warn, warn: warn, error: warn, info: warn, dir: warn, table: warn, debug: noop,
-        clear: Function.prototype.bind.call(console.clear, console),
-        group: noop, groupCollapsed: noop, groupEnd: noop, time: noop, timeEnd: noop
-      })
-    });
-
-    // Detect debugger / DevTools open via timing trick
-    let devtoolsOpen = false;
-    setInterval(() => {
-      const start = performance.now();
-      debugger; // eslint-disable-line no-debugger
-      if (performance.now() - start > 100 && !devtoolsOpen) {
-        devtoolsOpen = true;
-        document.body.style.display = 'none';
-        document.body.innerHTML = '';
-      }
-    }, 2000);
-
-    // Block selecting text to copy (optional — softer security)
-    // document.addEventListener('selectstart', e => e.preventDefault(), true);
-  })();
-
-  // =========================================================
   // SESSION MANAGEMENT
   // =========================================================
   const TOKEN_KEY  = 'synapse_token';
   const USER_KEY   = 'synapse_user';
   const ACCESS_KEY = 'synapse_access';
-  const LOCAL_DEV_BYPASS = window.location.hostname === 'localhost' &&
-    window.location.port === '5000';
-
   // Remove the legacy floating account pill so it cannot intercept header clicks.
   const legacyUserPill = document.getElementById('synapse-user-pill');
   if (legacyUserPill) legacyUserPill.remove();
@@ -77,7 +26,7 @@
     localStorage.removeItem(ACCESS_KEY);
     sessionStorage.removeItem('synapse_login_redirect_pending');
     sessionStorage.removeItem('synapse_login_started_at');
-    window.location.href = LOCAL_DEV_BYPASS ? '/' : '/login.html';
+    window.location.href = '/login.html';
   }
 
   window.synapseLogout = logout;
@@ -107,25 +56,6 @@
   if (publicPages.includes(page)) return;
 
   async function verifyAndRender() {
-    if (LOCAL_DEV_BYPASS && page === '/') {
-      window.__SYNAPSE_USER__ = {
-        id: 'local-dev',
-        name: 'Local Developer',
-        email: 'developer@localhost',
-        role: 'user',
-        tier: 'trial',
-        status: 'active'
-      };
-      window.__SYNAPSE_ACCESS__ = {
-        active: true,
-        trial: true,
-        trialDaysRemaining: 999
-      };
-      window.__SYNAPSE_TOKEN__ = null;
-      document.body.hidden = false;
-      return;
-    }
-
     const token = getToken();
     const user  = getUser();
     const access = getAccess();

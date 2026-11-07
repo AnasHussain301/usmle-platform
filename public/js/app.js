@@ -12,6 +12,7 @@ let state = {
   sketchyPathData: null,
   ddxCategories: [],
   questions: [],
+  dataLoadErrors: {},
   currentSketch: null,    // the currently open sketch object
   currentDeck: null,      // the currently open deck (for Micro/Pharm deck browser)
   currentExam: {
@@ -67,14 +68,10 @@ const TOUR_STEPS = [
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([checkSession(), loadZetchyData()]);
-
-  const hash = window.location.hash.replace('#', '');
-  if (['fa', 'sketchy', 'review', 'ddx', 'qbank', 'admin', 'mehlman'].includes(hash)) {
-    navigate(hash);
-  } else {
-    navigate('home');
-  }
+  await checkSession();
+  if (!state.currentUser) return;
+  await loadZetchyData();
+  handleRouteFromLocation();
 
   checkFirstTimeTour();
 });
@@ -278,7 +275,9 @@ function navigate(viewName, { pushHistory = true } = {}) {
     mehlman: '#mehlman'
   };
 
-  const newHash = hashMap[viewName] || '';
+  const newHash = viewName === 'sketch-detail' && state.currentSketch
+    ? `#sketchy/detail/${encodeURIComponent(state.currentSketch.id)}`
+    : (hashMap[viewName] || '');
   if (pushHistory && window.location.hash !== newHash) {
     if (newHash === '') {
       history.pushState({ view: 'home' }, '', window.location.pathname + window.location.search);
@@ -307,6 +306,24 @@ function navigate(viewName, { pushHistory = true } = {}) {
 
 function handleRouteFromLocation(fromPopState = false) {
   const hash = window.location.hash || '';
+
+  if (hash.startsWith('#sketchy/detail/')) {
+    let sketchId = '';
+    try {
+      sketchId = decodeURIComponent(hash.slice('#sketchy/detail/'.length));
+    } catch (err) {
+      console.error('Invalid sketch route:', err);
+    }
+    const sketch = sketchId ? findSketchById(sketchId) : null;
+    if (sketch) {
+      state.currentSketch = sketch;
+      renderSketchDetail(sketch);
+      navigate('sketch-detail', { pushHistory: false });
+    } else {
+      navigate('sketchy', { pushHistory: false });
+    }
+    return;
+  }
 
   // 1. Mehlman Reader Deep Route (#mehlman/:id/:page)
   if (hash.startsWith('#mehlman/')) {
@@ -406,44 +423,67 @@ window.addEventListener('hashchange', () => handleRouteFromLocation(true));
 // ==========================================
 async function loadZetchyData() {
   const loaders = [
-    ['First Aid', '/api/fa/systems', (data) => {
-      if (Array.isArray(data.systems)) {
-        state.firstAidSystems = data.systems;
-        renderFirstAidGrid();
-        renderContinueReading();
-      }
+    ['First Aid', '/api/fa/systems', 'fa-systems-grid', (data) => {
+      if (!Array.isArray(data.systems)) throw new Error('Invalid First Aid systems response.');
+      state.firstAidSystems = data.systems;
+      renderFirstAidGrid();
+      renderContinueReading();
     }],
-    ['Sketchy decks', '/api/sketchy/decks', (data) => {
-      if (Array.isArray(data.decks)) {
-        state.sketchyDecks = data.decks;
-        renderSketchyDecks();
-      }
+    ['Sketchy decks', '/api/sketchy/decks', 'sketchy-decks-container', (data) => {
+      if (!Array.isArray(data.decks)) throw new Error('Invalid Sketchy decks response.');
+      state.sketchyDecks = data.decks;
+      renderSketchyDecks();
     }],
-    ['DDx', '/api/ddx/categories', (data) => {
-      if (Array.isArray(data.categories)) {
-        state.ddxCategories = data.categories;
-        renderDDxCategories();
-      }
+    ['DDx', '/api/ddx/categories', 'ddx-categories-container', (data) => {
+      if (!Array.isArray(data.categories)) throw new Error('Invalid DDx response.');
+      state.ddxCategories = data.categories;
+      renderDDxCategories();
     }],
-    ['Question bank', '/api/questions', (data) => {
-      if (Array.isArray(data.questions)) state.questions = data.questions;
+    ['Question bank', '/api/questions', 'qbank-list-container', (data) => {
+      if (!Array.isArray(data.questions)) throw new Error('Invalid question bank response.');
+      state.questions = data.questions;
     }],
-    ['Sketchy path', '/api/sketchy/path', (data) => {
-      if (data && (data.systems || data.pathData?.systems)) {
-        state.sketchyPathData = data.systems ? data : data.pathData;
-        renderSketchyPathBrowser();
-      }
+    ['Sketchy path', '/api/sketchy/path', 'sketchy-path-systems-container', (data) => {
+      const pathData = data.systems ? data : data.pathData;
+      if (!pathData || !Array.isArray(pathData.systems)) throw new Error('Invalid Sketchy path response.');
+      state.sketchyPathData = pathData;
+      renderSketchyPathBrowser();
     }]
   ];
 
-  await Promise.all(loaders.map(async ([label, endpoint, apply]) => {
+  await Promise.all(loaders.map(async ([label, endpoint, containerId, apply]) => {
     try {
       const data = await apiFetch(endpoint);
-      apply(data || {});
+      if (!data || data.error) throw new Error(data && data.error ? data.error : 'Invalid server response.');
+      delete state.dataLoadErrors[endpoint];
+      apply(data);
     } catch (err) {
+      state.dataLoadErrors[endpoint] = err.message || 'Request failed.';
       console.error(`Failed to load ${label}`, err);
+      renderDataLoadError(containerId, label, err);
     }
   }));
+}
+
+function renderDataLoadError(containerId, label, error) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const message = document.createElement('p');
+  message.className = 'text-sm text-rose-300';
+  message.setAttribute('role', 'alert');
+  message.textContent = `${label} could not be loaded: ${error.message || 'Please try again.'}`;
+
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.className = 'mt-3 rounded-lg border border-rose-500/40 px-3 py-1.5 text-xs font-semibold text-rose-200 hover:bg-rose-950/40';
+  retry.textContent = 'Retry loading';
+  retry.addEventListener('click', loadZetchyData);
+
+  const status = document.createElement('div');
+  status.className = 'col-span-full rounded-xl border border-rose-900/50 bg-rose-950/20 p-4 text-center';
+  status.append(message, retry);
+  container.replaceChildren(status);
 }
 
 // ==========================================
@@ -1402,6 +1442,10 @@ function setSketchyTab(tab) {
 }
 
 function filterSketchySearch() {
+  if (state.dataLoadErrors['/api/sketchy/decks']) {
+    renderDataLoadError('sketchy-decks-container', 'Sketchy decks', new Error(state.dataLoadErrors['/api/sketchy/decks']));
+    return;
+  }
   const query = document.getElementById('sketchy-search').value.toLowerCase();
   if (!query) { renderSketchyDecks(); return; }
   const filtered = state.sketchyDecks.filter(d =>
@@ -1495,6 +1539,10 @@ function closeComplaintModal() {
 }
 
 function filterDDxSearch() {
+  if (state.dataLoadErrors['/api/ddx/categories']) {
+    renderDataLoadError('ddx-categories-container', 'DDx', new Error(state.dataLoadErrors['/api/ddx/categories']));
+    return;
+  }
   const query = document.getElementById('ddx-search').value.toLowerCase().trim();
   if (!query) { renderDDxCategories(); return; }
   const filtered = state.ddxCategories.map(cat => ({
@@ -1704,6 +1752,10 @@ function closePlansModal(options = {}) {
 function renderQBankList() {
   const container = document.getElementById('qbank-list-container');
   if (!container) return;
+  if (state.dataLoadErrors['/api/questions']) {
+    renderDataLoadError('qbank-list-container', 'Question bank', new Error(state.dataLoadErrors['/api/questions']));
+    return;
+  }
   if (state.questions.length === 0) {
     container.innerHTML = '<p class="text-slate-400 text-sm col-span-3 text-center py-8">No questions loaded yet.</p>';
     return;

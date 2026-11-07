@@ -408,20 +408,7 @@ function getUWorldIdsForHeading(headingTitle, hSlug, pageNum) {
     if (rawIds.length > 0) return [...new Set(rawIds)];
   }
 
-  // 4. Deterministic realistic USMLE Step 1 question IDs (never empty, consistent per heading)
-  let hash = 0;
-  for (let i = 0; i < slug.length; i++) {
-    hash = ((hash << 5) - hash) + slug.charCodeAt(i);
-    hash |= 0;
-  }
-  hash = Math.abs(hash);
-  const count = 2 + (hash % 3); // 2 to 4 questions
-  const ids = [];
-  for (let i = 0; i < count; i++) {
-    const qid = 1000 + ((hash * (i + 1) * 37) % 19000);
-    ids.push(String(qid));
-  }
-  return ids;
+  return [];
 }
 window.getUWorldIdsForHeading = getUWorldIdsForHeading;
 
@@ -436,8 +423,12 @@ function openUWorldIdsModal(headingTitle, hSlug, pageNum) {
   const idsTextEl = document.getElementById('uworld-modal-ids-text');
 
   if (headingEl) headingEl.textContent = rawTitle || 'UWorld Questions';
-  if (subEl) subEl.textContent = `${ids.length} question${ids.length === 1 ? '' : 's'} (Step 1)`;
-  if (idsTextEl) idsTextEl.textContent = ids.join(', ');
+  if (subEl) subEl.textContent = ids.length
+    ? `${ids.length} question${ids.length === 1 ? '' : 's'} (Step 1)`
+    : 'No verified question IDs are linked to this heading.';
+  if (idsTextEl) idsTextEl.textContent = ids.length ? ids.join(', ') : 'No verified IDs available.';
+  const copyButton = document.getElementById('uworld-modal-copy-btn');
+  if (copyButton) copyButton.disabled = ids.length === 0;
 
   window._activeUWorldIds = ids;
   modal.classList.remove('hidden');
@@ -452,6 +443,7 @@ window.closeUWorldIdsModal = closeUWorldIdsModal;
 
 function copyUWorldModalIds() {
   const ids = window._activeUWorldIds || [];
+  if (ids.length === 0) return;
   const text = ids.join(', ');
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
