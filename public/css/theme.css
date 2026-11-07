@@ -6,18 +6,8 @@
   --theme-on-accent: #FFFFFF;
 }
 
-html,
-html[class],
-body,
-body[class] {
-  background: var(--theme-background) !important;
-  color: var(--theme-text) !important;
-  font-family: Inter, Arial, sans-serif !important;
-}
-
 body {
   min-width: 0;
-  font-size: 16px;
   line-height: 1.5;
   overflow-x: hidden;
 }
@@ -39,15 +29,6 @@ button {
   cursor: pointer;
 }
 
-input,
-textarea,
-select {
-  min-height: 44px;
-  background: var(--theme-background) !important;
-  color: var(--theme-text) !important;
-  border: 2px solid var(--theme-text) !important;
-}
-
 input:focus,
 textarea:focus,
 select:focus {
@@ -56,28 +37,11 @@ select:focus {
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--theme-text) !important;
-  opacity: 0.7;
-}
-
-footer {
-  color: #334155;
-  background-color: #F8FAFC;
-  border-color: #CBD5E1 !important;
-}
-
-footer a,
-footer .text-slate-300,
-footer .text-slate-400,
-footer .text-slate-500 {
-  color: #475569 !important;
-}
-
-footer button.text-pink-300 {
-  color: var(--theme-accent) !important;
+  opacity: 0.8;
 }
 
 @media (max-width: 700px) {
-  body { font-size: 16px; }
-  main { padding-left: 16px !important; padding-right: 16px !important; }
+  body {
+    font-size: 16px;
+  }
 }
