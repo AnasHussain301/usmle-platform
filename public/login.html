@@ -148,6 +148,10 @@
 // ============================================================
 let activeGoogleClientId = '';
 let isGoogleConfigured = false;
+let isRedirectConfigured = false;
+let googleRedirectUri = '';
+let redirectClient = null;
+let redirectState = '';
 let loginRequestInFlight = false;
 let lastGoogleCredential = '';
 
@@ -158,6 +162,8 @@ async function initAuthConfig() {
       const data = await res.json();
       activeGoogleClientId = data.googleClientId || '';
       isGoogleConfigured = Boolean(data.isConfigured);
+      isRedirectConfigured = Boolean(data.oauthRedirectConfigured);
+      googleRedirectUri = data.oauthRedirectUri || (window.location.origin + '/login.html');
 
       if (isGoogleConfigured && activeGoogleClientId) {
         setupGoogleSignIn(activeGoogleClientId);
@@ -174,6 +180,22 @@ function setupGoogleSignIn(clientId) {
     return;
   }
   try {
+    if (isRedirectConfigured && google.accounts.oauth2) {
+      const stateBytes = new Uint8Array(24);
+      crypto.getRandomValues(stateBytes);
+      redirectState = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
+      sessionStorage.setItem('synapse_google_oauth_state', redirectState);
+      redirectClient = google.accounts.oauth2.initCodeClient({
+        client_id: clientId,
+        scope: 'openid email profile',
+        ux_mode: 'redirect',
+        redirect_uri: googleRedirectUri,
+        state: redirectState,
+        select_account: true,
+        callback: () => {}
+      });
+      return;
+    }
     google.accounts.id.initialize({
       client_id: clientId,
       callback: handleGoogleCallback,
@@ -194,6 +216,10 @@ function handleGoogleCallback(response) {
 function handleGoogleSignIn() {
   if (isGoogleConfigured && activeGoogleClientId && typeof google !== 'undefined') {
     try {
+      if (redirectClient) {
+        redirectClient.requestCode();
+        return;
+      }
       google.accounts.id.prompt((notification) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
           google.accounts.id.initialize({
@@ -208,6 +234,33 @@ function handleGoogleSignIn() {
   } else {
     showError('Google sign-in is temporarily unavailable. The OAuth deployment settings are not configured yet.');
   }
+}
+
+async function completeRedirectSignIn() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const returnedState = params.get('state');
+  const expectedState = sessionStorage.getItem('synapse_google_oauth_state');
+  if (!code) return false;
+  window.history.replaceState({}, document.title, '/login.html');
+  sessionStorage.removeItem('synapse_google_oauth_state');
+  if (!returnedState || !expectedState || returnedState !== expectedState) {
+    showError('Google sign-in could not be verified. Please start again.');
+    return true;
+  }
+  try {
+    const res = await fetch('/api/auth/google/exchange', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, state: returnedState })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Google authorization failed.');
+    await loginWithGoogleToken(data.credential);
+  } catch (err) {
+    showError(err.message);
+  }
+  return true;
 }
 
 async function loginWithGoogleToken(credential) {
@@ -263,6 +316,7 @@ function showError(msg) {
 
 // Auto-redirect if already logged in with valid token
 (async () => {
+  if (await completeRedirectSignIn()) return;
   const token = localStorage.getItem('synapse_token');
   if (!token) {
     initAuthConfig();

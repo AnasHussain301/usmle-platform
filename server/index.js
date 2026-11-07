@@ -15,6 +15,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 let GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
+const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || '';
 
 // ============================================================
 // ADMIN EMAILS — MUST MATCH EXACTLY (lowercase)
@@ -164,6 +166,26 @@ app.use('/api/', apiLimiter);
 // GOOGLE OAUTH — VERIFY ID TOKEN
 // ============================================================
 let googleClient = (GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.includes('__')) ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
+let googleOAuthClient = (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && GOOGLE_REDIRECT_URI)
+  ? new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI)
+  : null;
+
+app.post('/api/auth/google/exchange', authLimiter, async (req, res) => {
+  if (!JWT_SECRET || !googleOAuthClient) {
+    return res.status(503).json({ error: 'Google redirect sign-in is not configured on the server.' });
+  }
+  const { code } = req.body;
+  if (!code) return res.status(400).json({ error: 'Google authorization code required.' });
+
+  try {
+    const { tokens } = await googleOAuthClient.getToken(code);
+    if (!tokens.id_token) return res.status(401).json({ error: 'Google did not return a verified identity token.' });
+    res.json({ credential: tokens.id_token });
+  } catch (err) {
+    console.error('[Google OAuth Exchange Error]', err.message);
+    res.status(401).json({ error: 'Google authorization could not be completed. Please try again.' });
+  }
+});
 
 app.post('/api/auth/google', authLimiter, async (req, res) => {
   if (!JWT_SECRET) {
@@ -320,6 +342,8 @@ app.get('/api/auth/config', (req, res) => {
   res.json({
     googleClientId: isConfigured ? GOOGLE_CLIENT_ID : '',
     isConfigured,
+    oauthRedirectConfigured: Boolean(googleOAuthClient),
+    oauthRedirectUri: googleOAuthClient ? GOOGLE_REDIRECT_URI : '',
     supportEmail: process.env.SUPPORT_EMAIL || '',
     whatsapp: '+92-3238057305',
     whatsappUrl: 'https://wa.me/923238057305?text=Hello%20Synapse%20Support',
