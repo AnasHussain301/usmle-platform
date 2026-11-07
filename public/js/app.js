@@ -4,6 +4,7 @@
 
 let state = {
   currentUser: null,
+  accessStatus: null,
   token: localStorage.getItem('synapse_token') || null,
   currentView: 'home',
   firstAidSystems: [],
@@ -97,6 +98,7 @@ async function checkSession() {
     const data = await apiFetch('/api/auth/me');
     if (data.user) {
       state.currentUser = data.user;
+      state.accessStatus = data.accessStatus || null;
     } else {
       state.token = null;
       localStorage.removeItem('synapse_token');
@@ -129,15 +131,27 @@ function renderAuthUI() {
 
   const isPremium = user.tier === 'premium' || user.role === 'admin';
   const isAdmin = user.role === 'admin';
+  const trialDays = Number.isFinite(Number(state.accessStatus?.daysLeft))
+    ? Math.max(0, Math.ceil(Number(state.accessStatus.daysLeft)))
+    : user.trialEndsAt
+      ? Math.max(0, Math.ceil((new Date(user.trialEndsAt).getTime() - Date.now()) / 86400000))
+      : 0;
 
   if (tierPill) {
-    tierPill.innerHTML = isPremium
+    tierPill.innerHTML = isAdmin
+      ? '<span>🛡️</span><span>Admin access</span>'
+      : isPremium
       ? '<span>⭐</span><span class="hidden sm:inline">Premium VIP</span><span class="sm:hidden">VIP</span>'
-      : '<span>Free trial · 2 days left</span>';
-    tierPill.className = isPremium
+      : `<span>Free trial · ${trialDays} ${trialDays === 1 ? 'day' : 'days'} left</span>`;
+    tierPill.className = isAdmin || isPremium
       ? 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition-colors whitespace-nowrap flex items-center gap-1.5 shadow-sm'
       : 'px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#241732] hover:bg-[#2e1d40] text-slate-300 border border-[#3b2752] transition-colors whitespace-nowrap flex items-center gap-1.5';
+    tierPill.disabled = isAdmin;
   }
+
+  document.querySelectorAll('.admin-plan-cta').forEach((element) => {
+    element.classList.toggle('hidden', isAdmin);
+  });
 
   if (adminBtn) {
     if (isAdmin) adminBtn.classList.remove('hidden');
@@ -1635,6 +1649,7 @@ function dismissOfflineBanner() { document.getElementById('banner-offline').clas
 // PLANS MODAL
 // ==========================================
 function openPlansModal(options = {}) {
+  if (state.currentUser?.role === 'admin') return;
   const modal = document.getElementById('modal-plans');
   if (modal) modal.classList.remove('hidden');
   if (!options.fromPopState && window.location.hash !== '#plans') {

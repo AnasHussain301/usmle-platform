@@ -281,8 +281,7 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
 
     if (!user) {
       // New user — create with 1-month free trial
-      const trialEndsAt = new Date();
-      trialEndsAt.setMonth(trialEndsAt.getMonth() + 1);
+      const trialEndsAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
       user = db.createUser({
         name: googleUser.name || googleUser.email.split('@')[0],
