@@ -17,6 +17,18 @@
     }
   }
 
+  function isAuthenticatedPageReady() {
+    if (window.location.pathname === '/login.html' || document.body.hidden) return false;
+    try {
+      return Boolean(
+        localStorage.getItem('synapse_token') &&
+        JSON.parse(localStorage.getItem('synapse_user') || 'null')
+      );
+    } catch {
+      return false;
+    }
+  }
+
   function setConsent(choice) {
     try {
       localStorage.setItem(CONSENT_KEY, choice);
@@ -37,6 +49,7 @@
   }
 
   function renderBanner() {
+    if (!isAuthenticatedPageReady()) return;
     if (document.getElementById('synapse-cookie-banner')) return;
     if (getConsent()) {
       return;
@@ -228,10 +241,21 @@
   window.openCookieSettings = openCookieSettings;
   window.synapseSetConsent = setConsent;
 
-  // Initialize on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderBanner);
-  } else {
+  function initializeBanner() {
     renderBanner();
+    if (isAuthenticatedPageReady()) return;
+
+    const observer = new MutationObserver(() => {
+      if (!isAuthenticatedPageReady()) return;
+      observer.disconnect();
+      renderBanner();
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['hidden'] });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeBanner, { once: true });
+  } else {
+    initializeBanner();
   }
 })();
