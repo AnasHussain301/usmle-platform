@@ -155,7 +155,6 @@ let activeGoogleClientId = '';
 let isGoogleConfigured = false;
 let isRedirectConfigured = false;
 let googleRedirectUri = '';
-let redirectClient = null;
 let redirectState = '';
 let loginRequestInFlight = false;
 let lastGoogleCredential = '';
@@ -180,25 +179,19 @@ async function initAuthConfig() {
 }
 
 function setupGoogleSignIn(clientId) {
+  if (isRedirectConfigured) {
+    return;
+  }
   if (typeof google === 'undefined') {
     setTimeout(() => setupGoogleSignIn(clientId), 200);
     return;
   }
   try {
-    if (isRedirectConfigured && google.accounts.oauth2) {
+    if (isRedirectConfigured) {
       const stateBytes = new Uint8Array(24);
       crypto.getRandomValues(stateBytes);
       redirectState = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
       sessionStorage.setItem('synapse_google_oauth_state', redirectState);
-      redirectClient = google.accounts.oauth2.initCodeClient({
-        client_id: clientId,
-        scope: 'openid email profile',
-        ux_mode: 'redirect',
-        redirect_uri: googleRedirectUri,
-        state: redirectState,
-        select_account: true,
-        callback: () => {}
-      });
       return;
     }
     google.accounts.id.initialize({
@@ -219,10 +212,22 @@ function handleGoogleCallback(response) {
 }
 
 function handleGoogleSignIn() {
-  if (isGoogleConfigured && activeGoogleClientId && typeof google !== 'undefined') {
+  if (isGoogleConfigured && activeGoogleClientId && (isRedirectConfigured || typeof google !== 'undefined')) {
     try {
-      if (redirectClient) {
-        redirectClient.requestCode();
+      if (isRedirectConfigured) {
+        const stateBytes = new Uint8Array(24);
+        crypto.getRandomValues(stateBytes);
+        const state = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
+        sessionStorage.setItem('synapse_google_oauth_state', state);
+        const params = new URLSearchParams({
+          client_id: activeGoogleClientId,
+          redirect_uri: googleRedirectUri,
+          response_type: 'code',
+          scope: 'openid email profile',
+          state,
+          prompt: 'select_account'
+        });
+        window.location.assign('https://accounts.google.com/o/oauth2/v2/auth?' + params.toString());
         return;
       }
       google.accounts.id.prompt((notification) => {
