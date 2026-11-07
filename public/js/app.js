@@ -4,7 +4,7 @@
 
 let state = {
   currentUser: null,
-  token: localStorage.getItem('radmed_token') || null,
+  token: localStorage.getItem('synapse_token') || null,
   currentView: 'home',
   firstAidSystems: [],
   sketchyDecks: [],
@@ -86,10 +86,6 @@ async function apiFetch(endpoint, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
   if (state.token) headers['Authorization'] = `Bearer ${state.token}`;
   const res = await fetch(endpoint, { ...options, headers });
-  if (res.status === 401 && endpoint !== '/api/auth/login' && endpoint !== '/api/auth/register') {
-    logout();
-    return { error: 'Session expired' };
-  }
   return res.json();
 }
 
@@ -104,7 +100,7 @@ async function checkSession() {
       state.currentUser = data.user;
     } else {
       state.token = null;
-      localStorage.removeItem('radmed_token');
+      localStorage.removeItem('synapse_token');
     }
   } catch (err) { console.error('Session error', err); }
   renderAuthUI();
@@ -160,7 +156,7 @@ function renderAuthUI() {
 function logout() {
   state.currentUser = null;
   state.token = null;
-  localStorage.removeItem('radmed_token');
+  localStorage.removeItem('synapse_token');
   renderAuthUI();
   openLoginModal();
 }
