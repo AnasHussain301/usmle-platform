@@ -69,6 +69,7 @@
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
     localStorage.removeItem(ACCESS_KEY);
+    sessionStorage.removeItem('synapse_login_redirect_pending');
     window.location.href = '/login.html';
   }
 
@@ -142,6 +143,7 @@
       // Check access
       if (!serverAccess.active && serverUser.role !== 'admin') {
         document.body.hidden = false;
+        sessionStorage.removeItem('synapse_login_redirect_pending');
         showUpgradeWall(serverAccess);
         return;
       }

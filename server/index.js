@@ -120,7 +120,27 @@ function authenticateToken(req, res, next) {
   if (!token) { req.user = null; return next(); }
   jwt.verify(token, runtimeJwtSecret, (err, decoded) => {
     if (err) { req.user = null; }
-    else { req.user = db.getUserById(decoded.id); }
+    else {
+      req.user = db.getUserById(decoded.id);
+      if (!req.user && decoded.email) {
+        req.user = db.getUserByEmail(decoded.email);
+      }
+      if (!req.user && decoded.email) {
+        const email = decoded.email.toLowerCase();
+        const isAdmin = ADMIN_EMAILS.includes(email);
+        req.user = {
+          id: decoded.id,
+          email,
+          name: decoded.name || email.split('@')[0],
+          role: isAdmin ? 'admin' : 'user',
+          tier: isAdmin ? 'admin' : (decoded.tier || 'trial'),
+          status: decoded.status || 'active',
+          trialEndsAt: decoded.trialEndsAt || null,
+          picture: decoded.picture || null,
+          authProvider: 'google'
+        };
+      }
+    }
     next();
   });
 }
@@ -233,7 +253,16 @@ app.post('/api/auth/google', authLimiter, async (req, res) => {
     // Check trial status for non-admin users
     const accessStatus = getAccessStatus(user);
 
-    const jwtPayload = { id: user.id, email: user.email, role: user.role };
+    const jwtPayload = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      name: user.name,
+      picture: user.picture || null,
+      tier: user.tier,
+      status: user.status || 'active',
+      trialEndsAt: user.trialEndsAt || null
+    };
     const authToken = jwt.sign(jwtPayload, runtimeJwtSecret, { expiresIn: '7d' });
 
     const { passwordHash: _, ...safeUser } = user;

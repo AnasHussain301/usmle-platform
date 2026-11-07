@@ -148,6 +148,8 @@
 // ============================================================
 let activeGoogleClientId = '';
 let isGoogleConfigured = false;
+let loginRequestInFlight = false;
+let lastGoogleCredential = '';
 
 async function initAuthConfig() {
   try {
@@ -211,6 +213,9 @@ function handleGoogleSignIn() {
 async function loginWithGoogleToken(credential) {
   const btn = document.getElementById('google-btn');
   const btnText = document.getElementById('google-btn-text');
+  if (loginRequestInFlight || lastGoogleCredential === credential) return;
+  loginRequestInFlight = true;
+  lastGoogleCredential = credential;
   btn.disabled = true;
   if (btnText) btnText.textContent = 'Signing you in…';
 
@@ -229,6 +234,9 @@ async function loginWithGoogleToken(credential) {
     showError(err.message);
     btn.disabled = false;
     if (btnText) btnText.textContent = 'Continue with Google';
+    lastGoogleCredential = '';
+  } finally {
+    loginRequestInFlight = false;
   }
 }
 
@@ -236,11 +244,12 @@ function completeLogin(data) {
   localStorage.setItem('synapse_token', data.token);
   localStorage.setItem('synapse_user', JSON.stringify(data.user));
   localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
+  sessionStorage.setItem('synapse_login_redirect_pending', '1');
 
   if (data.user.role === 'admin') {
-    window.location.href = '/admin.html';
+    window.location.replace('/admin.html');
   } else {
-    window.location.href = '/';
+    window.location.replace('/');
   }
 }
 
@@ -265,11 +274,12 @@ function showError(msg) {
       const data = await res.json();
       localStorage.setItem('synapse_user', JSON.stringify(data.user));
       localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
-      if (data.user.role === 'admin') window.location.href = '/admin.html';
-      else window.location.href = '/';
+      if (data.user.role === 'admin') window.location.replace('/admin.html');
+      else window.location.replace('/');
     } else {
       localStorage.removeItem('synapse_token');
       localStorage.removeItem('synapse_user');
+      localStorage.removeItem('synapse_access');
       initAuthConfig();
     }
   } catch {
