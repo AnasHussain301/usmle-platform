@@ -636,7 +636,7 @@ app.get('/api/ddx/categories', requireAccess, (req, res) => {
 });
 
 app.get('/api/fa/headings', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+  res.set('Cache-Control', 'private, max-age=3600, stale-while-revalidate=86400');
   const headingsFile = path.join(__dirname, '..', 'data', 'zetchy_headings_all.json');
   if (fs.existsSync(headingsFile)) {
     try {
@@ -650,7 +650,7 @@ app.get('/api/fa/headings', (req, res) => {
 });
 
 app.get('/api/fa/markers', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+  res.set('Cache-Control', 'private, max-age=3600, stale-while-revalidate=86400');
   const markersFile = path.join(__dirname, '..', 'data', 'zetchy_reader_markers.json');
   if (fs.existsSync(markersFile)) {
     try {

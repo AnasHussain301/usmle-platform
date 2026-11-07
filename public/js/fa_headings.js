@@ -62,10 +62,18 @@ function slugify(title) {
 // ============================================================
 // DATA LOADERS
 // ============================================================
+function getFaAuthHeaders() {
+  const token = typeof window.synapseGetToken === 'function'
+    ? window.synapseGetToken()
+    : localStorage.getItem('synapse_token');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 async function loadFaHeadingsData() {
   if (window.FA_HEADINGS_DATA) return window.FA_HEADINGS_DATA;
   try {
-    const res = await fetch('/api/fa/headings');
+    const res = await fetch('/api/fa/headings', { headers: getFaAuthHeaders() });
+    if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
     const json = await res.json();
     if (json.success && json.headings) {
       window.FA_HEADINGS_DATA = json.headings;
@@ -80,7 +88,8 @@ async function loadFaHeadingsData() {
 async function loadFaMarkersData() {
   if (window.FA_MARKERS_DATA) return window.FA_MARKERS_DATA;
   try {
-    const res = await fetch('/api/fa/markers');
+    const res = await fetch('/api/fa/markers', { headers: getFaAuthHeaders() });
+    if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
     const json = await res.json();
     if (json.success && Array.isArray(json.markers)) {
       window.FA_MARKERS_DATA = json.markers;
@@ -760,6 +769,13 @@ function initFaHeadings() {
   if (!faHeadingsInitPromise) {
     faHeadingsInitPromise = Promise.all([loadFaHeadingsData(), loadFaMarkersData()])
       .then(() => {
+        refreshFaHeadingsTOC();
+        const state = window.state;
+        if (state && state.currentFaSystem && typeof renderFaGutterMarkers === 'function') {
+          const topics = window._faPageTopics ||
+            (state.currentFaSystem.topics || []).filter(topic => topic.page === state.currentFaPage);
+          renderFaGutterMarkers(state.currentFaSystem.name || '', state.currentFaPage, topics);
+        }
         console.log('[FA Headings] Module ready with JSON markers.');
       })
       .catch(error => {
