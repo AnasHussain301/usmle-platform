@@ -91,11 +91,29 @@ function findFaTopicForHeading(hSlug, headingTitle, pageNum) {
 }
 window.findFaTopicForHeading = findFaTopicForHeading;
 
+async function ensureFaSystemsForImagePanel() {
+  if (window.state && window.state.firstAidSystems && window.state.firstAidSystems.length > 0) {
+    return;
+  }
+  const response = await fetch('/api/fa/systems');
+  if (!response.ok) throw new Error(`First Aid systems request failed (${response.status})`);
+  const data = await response.json();
+  if (!Array.isArray(data.systems)) throw new Error('First Aid systems response is invalid');
+  window.state.firstAidSystems = data.systems;
+}
+
 // ==========================================
 // OPEN RIGHT PANEL FOR A SPECIFIC HEADING
 // ==========================================
-function openFaRightPanelForHeading(headingTitle, hSlug, pageNum, tab) {
+async function openFaRightPanelForHeading(headingTitle, hSlug, pageNum, tab) {
   const rawTitle = (headingTitle || '').replace(/^Open:\s*/i, '');
+  if (!findFaTopicForHeading(hSlug, rawTitle, pageNum)) {
+    try {
+      await ensureFaSystemsForImagePanel();
+    } catch (error) {
+      console.error('[First Aid Images] Failed to load topic data:', error);
+    }
+  }
   let topic = findFaTopicForHeading(hSlug, rawTitle, pageNum);
 
   if (!topic) {
