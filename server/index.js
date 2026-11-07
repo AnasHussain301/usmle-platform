@@ -28,8 +28,8 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
 
 const runtimeJwtSecret = JWT_SECRET || require('crypto').randomBytes(48).toString('hex');
 
-// Run DB seed on startup if fresh
-seed();
+// Load MongoDB state before seeding so seed changes are persisted to the active store.
+const initializationReady = db.ready.then(() => seed()).then(() => db.flush());
 
 // ============================================================
 // SECURITY HEADERS
@@ -72,6 +72,15 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(async (req, res, next) => {
+  try {
+    await initializationReady;
+    next();
+  } catch (err) {
+    console.error('[Database] Startup initialization failed:', err.message);
+    res.status(503).json({ error: 'Database is temporarily unavailable.' });
+  }
+});
 
 // ============================================================
 // RATE LIMITING

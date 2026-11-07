@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { MongoClient } = require('mongodb');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
@@ -32,6 +33,57 @@ const defaultState = {
 class Database {
   constructor() {
     this.data = this.load();
+    this.mongoClient = null;
+    this.mongoCollections = null;
+    this.mongoWriteQueue = Promise.resolve();
+    this.mongoWriteTimer = null;
+    this.ready = this.initializeMongo();
+  }
+
+  async initializeMongo() {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) return;
+
+    try {
+      this.mongoClient = new MongoClient(uri, { serverSelectionTimeoutMS: 10000 });
+      await this.mongoClient.connect();
+      const database = this.mongoClient.db();
+      this.mongoCollections = {
+        users: database.collection('users'),
+        activity_logs: database.collection('activity_logs'),
+        questions: database.collection('questions'),
+        tests: database.collection('tests'),
+        radbot_chats: database.collection('radbot_chats'),
+        radbot_sessions: database.collection('radbot_sessions'),
+        flashcards: database.collection('flashcards'),
+        firstAidSystems: database.collection('first_aid_systems'),
+        sketchyDecks: database.collection('sketchy_decks'),
+        ddxCategories: database.collection('ddx_categories'),
+        study_progress: database.collection('study_progress'),
+        content: database.collection('platform_content'),
+        settings: database.collection('platform_settings')
+      };
+
+      const schema = await this.mongoCollections.content.findOne({ _id: 'schema' });
+      if (schema) {
+        await this.loadNormalizedMongoState();
+      } else {
+        const legacy = await database.collection('application_state').findOne({ _id: 'singleton' });
+        if (legacy) {
+          const { _id, ...state } = legacy;
+          this.data = { ...defaultState, ...state };
+          this.saveLocal();
+        }
+        await this.persistMongoState();
+      }
+
+      console.log('[Database] MongoDB persistence enabled with normalized collections.');
+    } catch (err) {
+      this.mongoClient = null;
+      this.mongoCollections = null;
+      console.error('[Database] MongoDB connection failed:', err.message);
+      throw err;
+    }
   }
 
   load() {
@@ -48,8 +100,88 @@ class Database {
   }
 
   save(data = this.data) {
+    this.data = data;
+    this.saveLocal();
+    this.scheduleMongoSave();
+  }
+
+  scheduleMongoSave() {
+    if (!this.mongoCollections || this.mongoWriteTimer) return;
+    this.mongoWriteTimer = setTimeout(() => {
+      this.mongoWriteTimer = null;
+      this.mongoWriteQueue = this.mongoWriteQueue
+        .then(() => this.persistMongoState())
+        .catch(err => console.error('[Database] MongoDB save failed:', err.message));
+    }, 50);
+  }
+
+  async flush() {
+    if (this.mongoWriteTimer) {
+      clearTimeout(this.mongoWriteTimer);
+      this.mongoWriteTimer = null;
+      this.mongoWriteQueue = this.mongoWriteQueue
+        .then(() => this.persistMongoState())
+        .catch(err => console.error('[Database] MongoDB save failed:', err.message));
+    }
+    await this.mongoWriteQueue;
+  }
+
+  async loadNormalizedMongoState() {
+    const c = this.mongoCollections;
+    const arrayKeys = ['users', 'activity_logs', 'questions', 'tests', 'radbot_chats',
+      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories'];
+    const loaded = {};
+    for (const key of arrayKeys) {
+      loaded[key] = (await c[key].find({}).sort({ _id: 1 }).toArray())
+        .map(({ _id, ...item }) => item);
+    }
+    const progress = await c.study_progress.find({}).toArray();
+    loaded.study_progress = Object.fromEntries(progress.map(({ _id, userId, ...item }) => [userId || _id, item]));
+    const content = await c.content.find({ _id: { $ne: 'schema' } }).toArray();
+    for (const { _id, value } of content) loaded[_id] = value;
+    const settings = await c.settings.findOne({ _id: 'singleton' });
+    loaded.settings = settings ? settings.value : defaultState.settings;
+    this.data = { ...defaultState, ...loaded };
+    this.saveLocal();
+  }
+
+  async persistMongoState() {
+    if (!this.mongoCollections) return;
+    const c = this.mongoCollections;
+    const arrayKeys = ['users', 'activity_logs', 'questions', 'tests', 'radbot_chats',
+      'radbot_sessions', 'flashcards', 'firstAidSystems', 'sketchyDecks', 'ddxCategories'];
+    for (const key of arrayKeys) {
+      const items = (this.data[key] || []).map((item, index) => ({
+        ...item,
+        _id: String(item.id || `${key}_${index}`)
+      }));
+      await c[key].deleteMany({});
+      if (items.length) await c[key].insertMany(items, { ordered: false });
+    }
+    const progressItems = Object.entries(this.data.study_progress || {}).map(([userId, value]) => ({
+      _id: userId,
+      userId,
+      ...value
+    }));
+    await c.study_progress.deleteMany({});
+    if (progressItems.length) await c.study_progress.insertMany(progressItems, { ordered: false });
+    const content = ['firstAidFull', 'sketchyPathData', 'mehlmanSystems'].map(key => ({
+      _id: key,
+      value: this.data[key] || null
+    }));
+    await c.content.deleteMany({ _id: { $ne: 'schema' } });
+    await c.content.replaceOne({ _id: 'schema' }, { _id: 'schema', version: 2 }, { upsert: true });
+    if (content.length) await c.content.insertMany(content);
+    await c.settings.replaceOne(
+      { _id: 'singleton' },
+      { _id: 'singleton', value: this.data.settings || defaultState.settings },
+      { upsert: true }
+    );
+  }
+
+  saveLocal() {
     try {
-      fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
+      fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
     } catch (err) {
       console.error('Error saving db.json:', err.message);
     }
