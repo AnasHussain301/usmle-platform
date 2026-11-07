@@ -299,7 +299,7 @@ function setDarkPage(mode) {
 }
 
 function _applyDarkPage() {
-  const img = document.getElementById('fa-reader-page-img');
+  const pageImages = document.querySelectorAll('#fa-reader-page-img, #fa-page-container img');
   const mehlmanCanvas = document.getElementById('mehlman-pdf-canvas');
   const mode = _readerPrefs.darkPage;
 
@@ -309,12 +309,11 @@ function _applyDarkPage() {
   } else if (mode === 'off') {
     filterValue = 'none';
   } else {
-    // auto: dark by default, or check prefers-color-scheme
-    filterValue = 'invert(1) hue-rotate(180deg)';
+    filterValue = 'var(--appearance-reader-filter, invert(1) hue-rotate(180deg))';
   }
 
-  if (img) img.style.filter = filterValue;
-  if (mehlmanCanvas) mehlmanCanvas.style.filter = filterValue;
+  pageImages.forEach(img => img.style.setProperty('filter', filterValue, 'important'));
+  if (mehlmanCanvas) mehlmanCanvas.style.setProperty('filter', filterValue, 'important');
 }
 
 // ============================================================
@@ -550,14 +549,15 @@ function _syncOptionsPanelUI() {
   });
 
   // Sync theme in options panel
-  const currentTheme = localStorage.getItem('synapse_theme') || 'dark';
-  ['light', 'dark', 'black', 'auto'].forEach(t => {
-    const btn = document.getElementById('opt-theme-' + t);
+  const savedTheme = localStorage.getItem('synapse_theme') || 'clean-focus';
+  const legacyThemes = { light: 'clean-focus', auto: 'clean-focus', dark: 'night-study', black: 'max-contrast' };
+  const currentTheme = legacyThemes[savedTheme] || savedTheme;
+  ['clean-focus', 'warm-paper', 'night-study', 'calm-mint', 'max-contrast'].forEach(theme => {
+    const btn = document.getElementById('opt-theme-' + theme);
     if (!btn) return;
-    const isAct = (currentTheme === t);
-    btn.className = isAct
-      ? 'flex-1 py-1.5 rounded-xl text-xs font-bold bg-white text-purple-700 shadow-sm transition-all'
-      : 'flex-1 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all';
+    const isActive = currentTheme === theme;
+    btn.classList.toggle('is-active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
   });
 
   // Sync font scale in options panel

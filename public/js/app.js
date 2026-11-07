@@ -573,8 +573,7 @@ function buildFaPageStack(sys, bounds) {
     image.loading = 'lazy';
     image.dataset.page = String(page);
     image.alt = `First Aid page ${page}`;
-    image.className = 'w-full h-auto block rounded shadow-[0_15px_50px_rgba(0,0,0,0.85)]';
-    image.style.filter = 'invert(1) hue-rotate(180deg)';
+    image.className = 'fa-reader-page-image w-full h-auto block rounded shadow-[0_15px_50px_rgba(0,0,0,0.85)]';
     image.onerror = () => handleFaImageError(image);
     image.onload = () => handleFaImageSuccess(image);
     const markers = document.createElement('div');
@@ -583,6 +582,8 @@ function buildFaPageStack(sys, bounds) {
     pageWrapper.append(image, markers);
     container.appendChild(pageWrapper);
   }
+
+  if (typeof _applyDarkPage === 'function') _applyDarkPage();
 
   _faPageObserver = new IntersectionObserver(entries => {
     const visible = entries
@@ -2431,9 +2432,19 @@ function escapeHtml(str) {
 // APPEARANCE & SETTINGS CONTROLS (SCREENSHOT MATCH)
 // ==========================================
 
+const APPEARANCE_THEMES = {
+  'clean-focus': { background: '#FFFFFF', card: '#EEF3FB', text: '#0F1B33', accent: '#1D4ED8', onAccent: '#FFFFFF', muted: '#52627A', border: '#D8E1EF', readerFilter: 'none' },
+  'warm-paper': { background: '#FBF6EC', card: '#F0E6D2', text: '#2B2118', accent: '#9A3412', onAccent: '#FFFFFF', muted: '#6B5A49', border: '#D8C8AE', readerFilter: 'sepia(0.16)' },
+  'night-study': { background: '#0F172A', card: '#1E293B', text: '#F1F5F9', accent: '#FBBF24', onAccent: '#0F172A', muted: '#A8B5C8', border: '#334155', readerFilter: 'invert(1) hue-rotate(180deg)' },
+  'calm-mint': { background: '#F0FAF6', card: '#D9F2E7', text: '#10302A', accent: '#0F766E', onAccent: '#FFFFFF', muted: '#46665D', border: '#B7DCCD', readerFilter: 'sepia(0.12) hue-rotate(80deg)' },
+  'max-contrast': { background: '#FFFFFF', card: '#FFF3A6', text: '#000000', accent: '#003C8F', onAccent: '#FFFFFF', muted: '#333333', border: '#D0C98A', readerFilter: 'contrast(1.15)' }
+};
+const APPEARANCE_NAMES = Object.keys(APPEARANCE_THEMES);
+const LEGACY_APPEARANCES = { light: 'clean-focus', auto: 'clean-focus', dark: 'night-study', black: 'max-contrast' };
+const savedAppearance = localStorage.getItem('synapse_theme') || 'clean-focus';
 let currentFontScale = parseInt(localStorage.getItem('synapse_font_scale') || '100', 10);
-let currentTheme = localStorage.getItem('synapse_theme') || 'auto';
-let currentAccent = localStorage.getItem('synapse_accent') || '#f43f5e';
+let currentTheme = LEGACY_APPEARANCES[savedAppearance] || (APPEARANCE_THEMES[savedAppearance] ? savedAppearance : 'clean-focus');
+let currentAccent = APPEARANCE_THEMES[currentTheme].accent;
 let currentFont = localStorage.getItem('synapse_font') || 'Synapse';
 
 const FONT_MAP = {
@@ -2461,118 +2472,35 @@ function toggleSettingsDrawer(options = {}) {
   }
 }
 
-const ACCENT_SWATCHES = [
-  '#f43f5e', // 0: Rose
-  '#3b82f6', // 1: Blue
-  '#16a34a', // 2: Green
-  '#9333ea', // 3: Purple
-  '#d97706', // 4: Amber
-  '#475569'  // 5: Slate
-];
-
 function setTheme(theme) {
+  if (!APPEARANCE_THEMES[theme]) {
+    theme = LEGACY_APPEARANCES[theme] || 'clean-focus';
+  }
+
   currentTheme = theme;
   localStorage.setItem('synapse_theme', theme);
+  const palette = APPEARANCE_THEMES[theme];
+  const root = document.documentElement;
+  root.classList.remove(...APPEARANCE_NAMES.map(name => `appearance-${name}`));
+  root.classList.add(`appearance-${theme}`);
 
-  document.documentElement.classList.remove('theme-light', 'theme-dark', 'theme-black', 'theme-auto');
-
-  if (theme === 'light') {
-    document.documentElement.classList.add('theme-light');
-  } else if (theme === 'black') {
-    document.documentElement.classList.add('theme-black');
-  } else if (theme === 'dark') {
-    document.documentElement.classList.add('theme-dark');
-  } else {
-    // auto
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.classList.add(prefersDark ? 'theme-dark' : 'theme-light');
-  }
-
-  // Update theme buttons: active button takes currentAccent with high contrast white text
-  ['light', 'dark', 'black', 'auto'].forEach(t => {
-    // Main settings drawer buttons
-    const btn = document.getElementById('theme-btn-' + t);
-    if (btn) {
-      if (t === theme) {
-        btn.classList.add('theme-btn-active');
-        btn.style.setProperty('background-color', currentAccent, 'important');
-        btn.style.setProperty('color', '#ffffff', 'important');
-        btn.style.fontWeight = 'bold';
-        btn.style.boxShadow = `0 0 14px ${currentAccent}80`;
-      } else {
-        btn.classList.remove('theme-btn-active');
-        btn.style.removeProperty('background-color');
-        btn.style.removeProperty('color');
-        btn.style.fontWeight = '600';
-        btn.style.boxShadow = 'none';
-      }
-    }
-    // Reader options panel buttons (opt-theme-*)
-    const optBtn = document.getElementById('opt-theme-' + t);
-    if (optBtn) {
-      if (t === theme) {
-        optBtn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold bg-white text-purple-700 shadow-sm transition-all';
-      } else {
-        optBtn.className = 'flex-1 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all';
-      }
-    }
-  });
-}
-
-function setAccentColor(hex, swatchIdx) {
-  if (swatchIdx === undefined || swatchIdx < 0) {
-    swatchIdx = ACCENT_SWATCHES.indexOf(hex);
-    if (swatchIdx === -1) swatchIdx = 0;
-  }
-  currentAccent = hex || ACCENT_SWATCHES[swatchIdx] || '#f43f5e';
+  currentAccent = palette.accent;
   localStorage.setItem('synapse_accent', currentAccent);
-  localStorage.setItem('synapse_swatch_idx', swatchIdx);
-
-  document.documentElement.style.setProperty('--accent-color', currentAccent);
-  document.documentElement.style.setProperty('--accent-glow', `${currentAccent}66`);
-  document.documentElement.style.setProperty('--accent-subtle', `${currentAccent}22`);
-
-  // Update ring on swatches
-  const swatches = document.querySelectorAll('.color-swatch');
-  swatches.forEach((s, idx) => {
-    if (idx === swatchIdx) {
-      s.classList.add('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#160d20]');
-    } else {
-      s.classList.remove('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#160d20]');
-    }
-  });
-
-  // Re-style active theme button with new accent color
-  setTheme(currentTheme);
-
-  // Re-style active font pill with new accent color
+  root.style.setProperty('--accent-color', palette.accent);
+  root.style.setProperty('--accent-hover', palette.accent);
+  root.style.setProperty('--accent-glow', `${palette.accent}66`);
+  root.style.setProperty('--accent-subtle', `${palette.accent}22`);
   setFontFamily(currentFont);
 
-  // Re-style settings drawer action buttons to match accent
-  const seePlansBtn = document.getElementById('settings-see-plans-btn');
-  if (seePlansBtn) {
-    seePlansBtn.style.backgroundColor = `${currentAccent}1f`;
-    seePlansBtn.style.borderColor = `${currentAccent}55`;
-    const texts = seePlansBtn.querySelectorAll('span');
-    texts.forEach(t => t.style.color = currentAccent);
-  }
-
-  const installIcon = document.getElementById('settings-install-icon');
-  if (installIcon) installIcon.style.color = currentAccent;
-
-  const feedbackBtn = document.getElementById('settings-feedback-btn');
-  if (feedbackBtn) {
-    feedbackBtn.style.backgroundColor = `${currentAccent}15`;
-    feedbackBtn.style.borderColor = `${currentAccent}44`;
-    feedbackBtn.style.color = currentAccent;
-    const arrow = feedbackBtn.querySelector('span:last-child');
-    if (arrow) arrow.style.color = currentAccent;
-  }
-
-  const logoutBtn = document.getElementById('settings-logout-btn');
-  if (logoutBtn) logoutBtn.style.color = currentAccent;
-
-  // Re-style active navigation items
+  APPEARANCE_NAMES.forEach(name => {
+    const active = name === theme;
+    ['theme-btn-', 'opt-theme-'].forEach(prefix => {
+      const button = document.getElementById(prefix + name);
+      if (!button) return;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  });
   updateSidebarActiveAccent();
 }
 
@@ -2629,10 +2557,7 @@ function adjustFontSize(delta) {
 }
 
 function applyAppearanceSettingsUI() {
-  const savedSwatchIdx = parseInt(localStorage.getItem('synapse_swatch_idx') || '0', 10);
-  setAccentColor(currentAccent, savedSwatchIdx);
   setTheme(currentTheme);
-  setFontFamily(currentFont);
 
   const label = document.getElementById('font-scale-label');
   if (label) label.textContent = currentFontScale + '%';
