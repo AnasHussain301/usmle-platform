@@ -395,7 +395,7 @@
     <!-- Right Controls -->
     <div class="flex items-center space-x-2 sm:space-x-3">
       <!-- Trial / Tier Badge -->
-      <button onclick="openPlansModal()" id="top-tier-pill" class="px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition-colors whitespace-nowrap flex items-center gap-1.5 shadow-sm">
+      <button onclick="openPlansModal()" id="top-tier-pill" aria-label="View subscription plans" class="px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition-colors whitespace-nowrap flex items-center gap-1.5 shadow-sm">
         <span>⭐</span>
         <span class="hidden sm:inline">Premium VIP</span>
         <span class="sm:hidden">VIP</span>
@@ -578,7 +578,7 @@
               </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
+            <div id="dashboard-primary-actions" class="flex flex-wrap items-center gap-2">
               <button onclick="start2MinTour()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#26153b] hover:bg-[#341d52] border border-[#45246d] text-slate-200 transition-all shadow-sm flex items-center gap-1.5">
                 <span>▶</span>
                 <span>2-Min Tour</span>
@@ -1883,7 +1883,7 @@
   </div>
 
   <!-- ANSI 1.0 PRO Futuristic Floating Trigger -->
-  <button onclick="toggleRadBotDrawer()" class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 group p-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-600 shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(34,211,238,0.7)] hover:scale-105 active:scale-95 transition-all">
+  <button id="radbot-floating-trigger" onclick="toggleRadBotDrawer()" class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 group p-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-600 shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(34,211,238,0.7)] hover:scale-105 active:scale-95 transition-all" aria-label="Open ANSI AI assistant">
     <div class="px-4 py-2.5 rounded-full bg-[#0d0718] flex items-center gap-2.5 border border-white/20 backdrop-blur-md">
       <span class="relative flex h-2.5 w-2.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>

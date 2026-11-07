@@ -167,9 +167,58 @@ textarea::placeholder {
 @media (max-width: 640px) {
   header {
     min-height: 56px;
+    gap: 6px;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  header > div:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 8px !important;
+  }
+
+  header > div:first-child > div:nth-child(2) {
+    min-width: 0;
+  }
+
+  header > div:first-child > div:nth-child(2) > div:last-child > span:first-child {
+    font-size: 15px !important;
+  }
+
+  header > div:first-child > div:nth-child(2) > div:last-child > span:first-child > span {
+    display: none;
+  }
+
+  header > div:first-child > div:nth-child(2) > div:last-child > span:nth-child(2),
+  header > div:first-child > div:nth-child(2) > div:last-child + span {
+    display: none;
+  }
+
+  header > div:first-child > div:nth-child(2) > div:first-child {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+  }
+
+  header > div:last-child {
+    flex: 0 0 auto;
+    gap: 4px !important;
+  }
+
+  header > div:last-child > button:not(#top-tier-pill):not(#top-admin-btn) {
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    height: 40px;
+    padding: 8px !important;
   }
 
   header #sidebar-toggle-btn {
+    width: 38px;
+    min-width: 38px;
+    min-height: 40px;
+    height: 40px;
     padding: 8px !important;
   }
 
@@ -179,16 +228,125 @@ textarea::placeholder {
   }
 
   header #top-tier-pill {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    width: 38px;
+    min-width: 38px;
+    min-height: 40px;
+    height: 40px;
+    justify-content: center;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  header #top-tier-pill span:not(:first-child) {
+    display: none !important;
   }
 
   header #top-profile-container button {
-    padding-right: 6px !important;
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    height: 40px;
+    justify-content: center;
+    padding: 4px !important;
   }
 
   header #top-profile-container button > svg {
     display: none;
+  }
+
+  header #top-admin-btn:not(.hidden) {
+    width: 38px;
+    min-width: 38px;
+    min-height: 40px;
+    height: 40px;
+    overflow: hidden;
+    padding: 0 !important;
+    font-size: 0 !important;
+  }
+
+  header #top-admin-btn:not(.hidden)::before {
+    content: "♛";
+    font-size: 16px;
+  }
+
+  #radbot-floating-trigger {
+    display: none !important;
+  }
+
+  #dashboard-primary-actions {
+    display: grid !important;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px !important;
+  }
+
+  #dashboard-primary-actions button {
+    min-width: 0;
+    min-height: 44px;
+    justify-content: center;
+    padding: 10px 8px !important;
+    white-space: normal;
+  }
+
+  #dashboard-primary-actions button:last-child {
+    grid-column: 1 / -1;
+  }
+
+  #view-home {
+    overflow-x: clip;
+  }
+
+  #view-home > .relative:first-child {
+    min-width: 0;
+    padding: 14px !important;
+  }
+
+  #view-home > .relative:first-child .relative.flex.flex-col > div:first-child {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #view-home > .relative:first-child .relative.flex.flex-col > div:first-child > div:first-child {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  #view-home > .relative:first-child .relative.flex.flex-col > div:first-child > div:first-child > span:last-child {
+    font-size: 10px !important;
+  }
+
+  #view-home > .relative:first-child h2 {
+    flex-wrap: wrap;
+    font-size: clamp(18px, 5.2vw, 22px) !important;
+  }
+
+  #view-home > .relative:first-child h2 > span {
+    min-width: 0;
+  }
+
+  #view-home > .relative:first-child > .absolute {
+    pointer-events: none;
+  }
+
+  #view-home .grid.grid-cols-2 > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #view-home .grid.grid-cols-2 > * > :last-child {
+    font-size: clamp(12px, 3.8vw, 15px) !important;
+  }
+
+  #view-home [class*="text-[9px]"] {
+    font-size: 10px !important;
+  }
+
+  #view-home [class*="text-[10px]"] {
+    font-size: 11px !important;
+  }
+
+  #view-home [class*="text-[11px]"] {
+    font-size: 12px !important;
   }
 
   #view-home,
@@ -205,6 +363,19 @@ textarea::placeholder {
   #view-admin {
     padding-left: 10px !important;
     padding-right: 10px !important;
+  }
+
+  @media (max-width: 380px) {
+    header > div:first-child > div:nth-child(2) > div:last-child > span:first-child {
+      font-size: 14px !important;
+    }
+
+    header #sidebar-toggle-btn,
+    header #top-tier-pill,
+    header #top-profile-container button {
+      width: 36px;
+      min-width: 36px;
+    }
   }
 
   #view-home .grid.grid-cols-1,
