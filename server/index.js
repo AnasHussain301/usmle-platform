@@ -8,6 +8,7 @@ const path = require('path');
 const { OAuth2Client } = require('google-auth-library');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const nodemailer = require('nodemailer');
 const db = require('./db');
 const radBot = require('./radbot');
 const seed = require('./seed');
@@ -18,6 +19,15 @@ const JWT_SECRET = process.env.JWT_SECRET;
 let GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
 const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || '';
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'kingdomhouse009@gmail.com';
+const feedbackTransporter = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
+  ? nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true',
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+    })
+  : null;
 
 // ============================================================
 // ADMIN EMAILS — MUST MATCH EXACTLY (lowercase)
@@ -411,6 +421,43 @@ app.post('/api/contact', apiLimiter, (req, res) => {
   res.json({
     success: true,
     message: 'Thank you! Your message has been received by the Synapse medical team. We will respond to ' + email + ' within 24 hours.'
+  });
+
+  app.post('/api/feedback', apiLimiter, async (req, res) => {
+    const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
+    const email = typeof req.body.email === 'string' ? req.body.email.trim().toLowerCase() : '';
+    const message = typeof req.body.message === 'string' ? req.body.message.trim() : '';
+    if (name.length < 2 || name.length > 80 || !/^[\p{L}\p{M}\p{N} .,'-]+$/u.test(name)) {
+      return res.status(400).json({ error: 'Please enter a valid name.' });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+      return res.status(400).json({ error: 'Please enter a valid email address.' });
+    }
+    if (message.length < 10 || message.length > 5000) {
+      return res.status(400).json({ error: 'Feedback must be between 10 and 5000 characters.' });
+    }
+    if (!feedbackTransporter) {
+      console.error('[Feedback] SMTP is not configured; feedback delivery is unavailable.');
+      return res.status(503).json({ error: 'Feedback delivery is temporarily unavailable. Please email support directly.' });
+    }
+
+    const { ip, userAgent } = getClientMeta(req);
+    db.logActivity(req.user ? req.user.id : 'anonymous', name, 'feedback_submitted', {
+      email, message: message.slice(0, 500)
+    }, ip, userAgent);
+    try {
+      await feedbackTransporter.sendMail({
+        from: process.env.SMTP_FROM || process.env.SMTP_USER,
+        to: SUPPORT_EMAIL,
+        replyTo: email,
+        subject: `Synapse feedback from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\n${message}`
+      });
+      res.json({ success: true, message: 'Thank you. Your feedback was sent successfully.' });
+    } catch (err) {
+      console.error('[Feedback] Delivery failed:', err.message);
+      res.status(502).json({ error: 'We could not send your feedback right now. Please try again later.' });
+    }
   });
 });
 

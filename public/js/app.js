@@ -2537,9 +2537,48 @@ function installAppPrompt() {
 }
 
 function openFeedbackModal() {
-  const feedback = prompt('Please share your thoughts, bug reports, or feature requests for Synapse & ANSI 1.0 PRO:');
-  if (feedback && feedback.trim()) {
-    alert('Thank you! Your feedback has been received by the Synapse team.');
+  const modal = document.getElementById('modal-feedback');
+  const email = document.getElementById('feedback-email');
+  const name = document.getElementById('feedback-name');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  if (state.currentUser) {
+    if (name && !name.value) name.value = state.currentUser.name || '';
+    if (email && !email.value) email.value = state.currentUser.email || '';
+  }
+  setTimeout(() => (name || email)?.focus(), 0);
+}
+
+function closeFeedbackModal() {
+  const modal = document.getElementById('modal-feedback');
+  if (modal) modal.classList.add('hidden');
+}
+
+async function submitFeedback(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const submit = document.getElementById('feedback-submit');
+  const status = document.getElementById('feedback-status');
+  if (!submit || !status) return;
+  submit.disabled = true;
+  submit.textContent = 'Sending...';
+  status.className = 'hidden text-xs';
+  try {
+    const data = await apiFetch('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    });
+    if (!data.success) throw new Error(data.error || 'Unable to send feedback.');
+    status.textContent = data.message;
+    status.className = 'text-xs text-emerald-300';
+    form.reset();
+    window.setTimeout(closeFeedbackModal, 1400);
+  } catch (err) {
+    status.textContent = err.message || 'Unable to send feedback.';
+    status.className = 'text-xs text-rose-300';
+  } finally {
+    submit.disabled = false;
+    submit.textContent = 'Send feedback';
   }
 }
 
@@ -2550,6 +2589,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 // Auto-initialize appearance & routing on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
+  const feedbackForm = document.getElementById('feedback-form');
+  if (feedbackForm) feedbackForm.addEventListener('submit', submitFeedback);
   updateRadBotHistoryBadge();
   applyAppearanceSettingsUI();
   handleRouteFromLocation(false);

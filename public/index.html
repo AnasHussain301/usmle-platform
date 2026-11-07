@@ -355,8 +355,6 @@
 
   <!-- Synapse Auth Guard - MUST be first script -->
   <script src="/js/auth-guard.js"></script>
-  <!-- Synapse Cookie Banner & Preferences -->
-  <script src="/js/cookie-banner.js" defer></script>
 </head>
 <body hidden class="h-full flex flex-col font-sans bg-[#0c0614] text-slate-100 antialiased selection:bg-rose-500 selection:text-white">
 
@@ -1400,11 +1398,64 @@
       </div>
     </div>
 
+    <footer class="max-w-6xl mx-auto mt-10 px-4 sm:px-6 py-8 border-t border-[#2e1d40] text-sm">
+      <div class="grid gap-8 sm:grid-cols-3">
+        <div>
+          <div class="font-black text-white">Synapse<span class="text-pink-500">.</span></div>
+          <p class="mt-2 text-xs leading-5 text-slate-400">Focused tools for efficient, evidence-informed board preparation.</p>
+        </div>
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Support</h2>
+          <div class="mt-3 space-y-2 text-xs">
+            <button onclick="openFeedbackModal()" class="block text-left text-pink-300 hover:text-pink-200">Send feedback</button>
+            <a href="/contact.html" class="block text-slate-300 hover:text-white">Contact support</a>
+            <a href="mailto:kingdomhouse009@gmail.com" class="block text-slate-300 hover:text-white">kingdomhouse009@gmail.com</a>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Information</h2>
+          <div class="mt-3 space-y-2 text-xs">
+            <a href="/terms.html" class="block text-slate-300 hover:text-white">Terms of Service</a>
+            <a href="/privacy.html" class="block text-slate-300 hover:text-white">Privacy Policy</a>
+            <a href="/editorial.html" class="block text-slate-300 hover:text-white">Editorial &amp; Review Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-[#2e1d40] pt-4 text-[11px] text-slate-500">&copy; 2026 Synapse. All rights reserved.</div>
+    </footer>
   </main>
 
   <!-- ========================================== -->
   <!-- 2-MINUTE ONBOARDING TOUR MODAL             -->
   <!-- ========================================== -->
+  <div id="modal-feedback" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-3xl border border-[#3b2454] bg-[#1d1429] p-6 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-black text-white">Send feedback</h2>
+          <p class="mt-1 text-xs text-slate-400">Your message will be sent to the Synapse support team.</p>
+        </div>
+        <button onclick="closeFeedbackModal()" class="rounded-lg p-2 text-slate-400 hover:bg-white/10 hover:text-white" aria-label="Close feedback form">&times;</button>
+      </div>
+      <form id="feedback-form" class="mt-5 space-y-3">
+        <label class="block text-xs font-semibold text-slate-300">Your name
+          <input id="feedback-name" name="name" required maxlength="80" class="mt-1 w-full rounded-xl border border-purple-900/60 bg-[#120a1a] px-3 py-2.5 text-sm text-white outline-none focus:border-pink-500" autocomplete="name">
+        </label>
+        <label class="block text-xs font-semibold text-slate-300">Your email
+          <input id="feedback-email" name="email" type="email" required maxlength="254" class="mt-1 w-full rounded-xl border border-purple-900/60 bg-[#120a1a] px-3 py-2.5 text-sm text-white outline-none focus:border-pink-500" autocomplete="email">
+        </label>
+        <label class="block text-xs font-semibold text-slate-300">Feedback
+          <textarea id="feedback-message" name="message" required maxlength="5000" rows="5" class="mt-1 w-full resize-y rounded-xl border border-purple-900/60 bg-[#120a1a] px-3 py-2.5 text-sm text-white outline-none focus:border-pink-500"></textarea>
+        </label>
+        <p id="feedback-status" class="hidden text-xs"></p>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeFeedbackModal()" class="rounded-xl border border-purple-900/60 px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-white/5">Cancel</button>
+          <button id="feedback-submit" type="submit" class="rounded-xl bg-pink-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-pink-500">Send feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="modal-tour" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-[#1d1429] border border-[#3b2454] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-center space-y-5 animate-in zoom-in-95">
       
@@ -1789,10 +1840,6 @@
           <p id="settings-display-name-status" class="hidden text-[11px]"></p>
         </div>
 
-        <button onclick="window.openCookieSettings && window.openCookieSettings()" class="w-full rounded-lg border border-purple-900/50 bg-white/5 px-3 py-2 text-left text-xs font-semibold text-slate-200 hover:bg-white/10">
-          Cookie preferences
-        </button>
-
         <div class="h-px bg-purple-900/40 my-2"></div>
 
         <div class="flex items-center justify-between text-xs">
@@ -1936,10 +1983,6 @@
             <span>Privacy Policy</span>
             <span class="text-slate-600">&rsaquo;</span>
           </a>
-          <a href="/cookies.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
-            <span>Cookie Policy</span>
-            <span class="text-slate-600">&rsaquo;</span>
-          </a>
           <a href="/editorial.html" class="flex items-center justify-between py-1.5 text-slate-400 hover:text-white transition-colors">
             <span>Editorial &amp; Review Policy</span>
             <span class="text-slate-600">&rsaquo;</span>
@@ -1948,10 +1991,6 @@
             <span>Contact Us &amp; Errata</span>
             <span class="text-slate-600">&rsaquo;</span>
           </a>
-          <button onclick="window.openCookieSettings && window.openCookieSettings()" class="w-full text-left flex items-center justify-between py-1.5 text-purple-400 hover:text-purple-300 transition-colors">
-            <span>Cookie Preferences</span>
-            <span class="text-slate-600">&rsaquo;</span>
-          </button>
         </div>
       </div>
 
