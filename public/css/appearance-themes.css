@@ -335,6 +335,56 @@ html[class*="appearance-"] body #radbot-floating-trigger .appearance-ai-badge {
   font-weight: 700;
 }
 
+html[class*="appearance-"] body #radbot-drawer > div:first-child {
+  background-color: var(--appearance-card) !important;
+  background-image: none !important;
+  border-color: var(--appearance-border) !important;
+  color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer > div:first-child h3,
+html[class*="appearance-"] body #radbot-drawer > div:first-child h3 .ansi-shimmer-text,
+html[class*="appearance-"] body #radbot-drawer > div:first-child p,
+html[class*="appearance-"] body #radbot-drawer > div:first-child button:not(#radbot-history-toggle-btn):not([title^="Start a fresh conversation"]) {
+  color: var(--appearance-text) !important;
+  -webkit-text-fill-color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer > div:first-child h3 .ansi-shimmer-text {
+  background: none !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer > div:first-child p {
+  opacity: 0.82;
+}
+
+html[class*="appearance-"] body #radbot-drawer #radbot-history-toggle-btn {
+  border-color: var(--appearance-accent) !important;
+  background: transparent !important;
+  color: var(--appearance-text) !important;
+  -webkit-text-fill-color: var(--appearance-text) !important;
+  transition: none !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer > div:first-child #radbot-history-toggle-btn.text-purple-200 {
+  color: var(--appearance-text) !important;
+  -webkit-text-fill-color: var(--appearance-text) !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer #radbot-history-count-badge {
+  background: var(--appearance-accent) !important;
+  color: var(--appearance-on-accent) !important;
+  -webkit-text-fill-color: var(--appearance-on-accent) !important;
+}
+
+html[class*="appearance-"] body #radbot-drawer > div:first-child button[title^="Start a fresh conversation"][class*="bg-gradient"] {
+  background-color: var(--appearance-accent) !important;
+  background-image: none !important;
+  color: var(--appearance-on-accent) !important;
+  -webkit-text-fill-color: var(--appearance-on-accent) !important;
+  transition: none !important;
+}
+
 html[class*="appearance-"] body main,
 html[class*="appearance-"] body #view-home,
 html[class*="appearance-"] body #mehlman-scroll-area {
