@@ -116,6 +116,25 @@
       });
 
       if (!res.ok) {
+        const freshLoginPending = sessionStorage.getItem('synapse_login_redirect_pending') === '1';
+        sessionStorage.removeItem('synapse_login_redirect_pending');
+
+        if (freshLoginPending) {
+          for (const delay of [300, 700, 1200]) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            const retry = await fetch('/api/auth/me', {
+              headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (retry.ok) {
+              const data = await retry.json();
+              localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+              localStorage.setItem(ACCESS_KEY, JSON.stringify(data.accessStatus));
+              window.location.replace(window.location.href);
+              return;
+            }
+          }
+        }
+
         if (res.status === 401 || res.status === 403) {
           logout();
         } else if (user && access && access.active) {

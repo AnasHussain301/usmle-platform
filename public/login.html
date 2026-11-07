@@ -269,17 +269,25 @@ function showError(msg) {
     return;
   }
   try {
-    const res = await fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + token } });
+    let res;
+    for (const delay of [0, 300, 700]) {
+      if (delay) await new Promise(resolve => setTimeout(resolve, delay));
+      res = await fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + token } });
+      if (res.ok || res.status === 401 || res.status === 403) break;
+    }
     if (res.ok) {
       const data = await res.json();
       localStorage.setItem('synapse_user', JSON.stringify(data.user));
       localStorage.setItem('synapse_access', JSON.stringify(data.accessStatus));
       if (data.user.role === 'admin') window.location.replace('/admin.html');
       else window.location.replace('/');
-    } else {
+    } else if (res.status === 401 || res.status === 403) {
       localStorage.removeItem('synapse_token');
       localStorage.removeItem('synapse_user');
       localStorage.removeItem('synapse_access');
+      initAuthConfig();
+    } else {
+      showError('We could not verify your session yet. Please try again.');
       initAuthConfig();
     }
   } catch {
